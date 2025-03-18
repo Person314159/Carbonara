@@ -1,6 +1,7 @@
 import type {Metadata} from "next";
 import "./globals.css";
 import React from "react";
+import {mantineHtmlProps, MantineProvider} from "@mantine/core";
 
 export const metadata: Metadata = {
     title: "Carbonara",
@@ -13,9 +14,11 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
+        <html lang="en" {...mantineHtmlProps}>
         <body className="vsc-initialized">
-        {children}
+        <MantineProvider>
+            {children}
+        </MantineProvider>
         </body>
         </html>
     );

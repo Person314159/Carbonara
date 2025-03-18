@@ -2,22 +2,15 @@
 
 import React, {useState} from 'react';
 import networkData from "@/app/lib/networkData";
-import dynamic from "next/dynamic";
 import {Leg, LineType, Neighbour} from "@/app/lib/interfaces";
 import {PriorityQueue} from "@datastructures-js/priority-queue";
 import leg from "@/app/components/leg";
 import {formatTime} from "@/app/lib/util";
-
-const Select = dynamic(() => import("react-select/creatable"), {ssr: false});
+import {NativeSelect} from '@mantine/core';
 
 interface Node {
     destination: string;
     line_id: string;
-}
-
-interface Option {
-    value: string;
-    label: string;
 }
 
 export default function Home() {
@@ -41,9 +34,7 @@ export default function Home() {
         graph.set(station.name, neighbours);
     });
 
-    const options: Option[] = data.stations.map((station) => {
-        return {value: station.name, label: station.name};
-    });
+    const options = data.stations.map((station) => station.name);
 
     // Dijkstra's algorithm implementation
     function dijkstra(startStation: string) {
@@ -190,27 +181,19 @@ export default function Home() {
                 <p>Select your starting point and destination to find the best route.</p>
                 <p>Total journey time does not take into account transfer times.</p>
 
-                <div className="form-container">
-                    <div className="input-group">
-                        <label>Start Station:
-                            <Select
-                                options={options}
-                                defaultValue={options[0]}
-                                name="start-station"
-                                onChange={(option) => setStartStation(option.value)}
-                            />
-                        </label>
-                    </div>
-                    <div className="input-group">
-                        <label htmlFor="end-station">Destination Station:
-                            <Select
-                                options={options}
-                                defaultValue={options[0]}
-                                name="end-station"
-                                onChange={(option) => setEndStation(option.value)}
-                            />
-                        </label>
-                    </div>
+                <div className="flex mb-[20px] min-w-1/2 w-full gap-[10px]">
+                    <NativeSelect
+                        label="Start Station:"
+                        data={options}
+                        defaultValue={options[0]}
+                        onChange={(event) => setStartStation(event.currentTarget.value)}
+                    />
+                    <NativeSelect
+                        label="End Station:"
+                        data={options}
+                        defaultValue={options[0]}
+                        onChange={(event) => setEndStation(event.currentTarget.value)}
+                    />
                     <button onClick={() => setRoute(findRoute())}>Find Route</button>
                 </div>
 
