@@ -93,6 +93,12 @@ const networkData = {
             type: LineType.LSR
         },
         {
+            id: "lsr17",
+            name: "Grey Line",
+            colour: "#9f9f9f",
+            type: LineType.LSR
+        },
+        {
             id: "lsr30",
             name: "Big Bridge Zugdidi Branch",
             colour: "#b80b4b",
@@ -319,6 +325,18 @@ const networkData = {
         {
             name: "Karlsruhe"
         },
+        {
+            name: "Timișoara"
+        },
+        {
+            name: "Turku"
+        },
+        {
+            name: "Sweden"
+        },
+        {
+            name: "Zakynthos"
+        },
     ],
     connections: [
         {
@@ -427,11 +445,23 @@ const networkData = {
             from: "Kaunas",
             to: "Riga",
             line_id: "lsr6",
-            time: null
+            time: 30
         },
         {
             from: "Riga",
             to: "Tallinn",
+            line_id: "lsr6",
+            time: 30
+        },
+        {
+            from: "Tallinn",
+            to: "Turku",
+            line_id: "lsr6",
+            time: null
+        },
+        {
+            from: "Turku",
+            to: "Sweden",
             line_id: "lsr6",
             time: null
         },
@@ -539,9 +569,15 @@ const networkData = {
         },
         {
             from: "Brest (BY)",
+            to: "Kaunas",
+            line_id: "lsr11",
+            time: 55
+        },
+        {
+            from: "Kaunas",
             to: "Riga",
             line_id: "lsr11",
-            time: 85
+            time: 30
         },
         {
             from: "Riga",
@@ -592,6 +628,12 @@ const networkData = {
             time: null
         },
         {
+            from: "Carpathia",
+            to: "Romanian Slime Farm",
+            line_id: "lsr13",
+            time: null
+        },
+        {
             from: "Warsaw Central",
             to: "Brest (BY)",
             line_id: "lsr14",
@@ -610,6 +652,12 @@ const networkData = {
             time: 50
         },
         {
+            from: "Carpathia",
+            to: "Thessaloniki",
+            line_id: "lsr15",
+            time: null
+        },
+        {
             from: "Thessaloniki",
             to: "Tirana",
             line_id: "lsr15",
@@ -626,6 +674,12 @@ const networkData = {
             to: "Catania",
             line_id: "lsr16",
             time: 80
+        },
+        {
+            from: "Catania",
+            to: "Zakynthos",
+            line_id: "lsr17",
+            time: 90
         },
         {
             from: "Rasht",
@@ -710,6 +764,12 @@ const networkData = {
             to: "Gesalibar",
             line_id: "lsr999",
             time: 110
+        },
+        {
+            from: "Timișoara",
+            to: "Carpathia",
+            line_id: "lsr999",
+            time: null
         },
         {
             from: "Charleville-Mézières",
