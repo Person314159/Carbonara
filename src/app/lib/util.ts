@@ -8,8 +8,8 @@ export function formatTime(seconds: number) {
     const sec = seconds % 60;
 
     if (sec === 0) {
-        return `${min} minute${min !== 1 ? 's' : ''}`;
+        return `${min} minute${min !== 1 ? "s" : ""}`;
     }
 
-    return `${min} minute${min !== 1 ? 's' : ''} ${sec} second${sec !== 1 ? 's' : ''}`;
+    return `${min} minute${min !== 1 ? "s" : ""} ${sec} second${sec !== 1 ? "s" : ""}`;
 }

@@ -1,153 +1,201 @@
-import {LineType, NetworkData} from "@/app/lib/interfaces";
+import { LineType, NetworkData } from "@/app/lib/interfaces";
 
 const networkData = {
     lines: [
         {
-            id: "lsr1",
-            name: "Brighton Red Line",
-            colour: "#ed1c2a",
+            id: "A01",
+            name: "Big Bridge Line Georgian Branch",
+            colour: "#b80b4b",
             type: LineType.LSR
         },
         {
-            id: "lsr3",
-            name: "Big Bridge",
+            id: "A02",
+            name: "Cypriot Line",
+            colour: "#cec92a",
+            type: LineType.LSR
+        },
+        {
+            id: "C01",
+            name: "Big Bridge Line",
             colour: "#f59fb3",
             type: LineType.LSR
         },
         {
-            id: "lsr4",
-            name: "Vistula Express Line",
-            colour: "#080e5c",
+            id: "C02",
+            name: "Big Bridge Line Istanbul Branch",
+            colour: "#c5a3cd",
             type: LineType.LSR
         },
         {
-            id: "lsr5",
-            name: "Tatra Line",
-            colour: "#f78f4b",
-            type: LineType.LSR
-        },
-        {
-            id: "lsr6",
-            name: "Baltic Line",
-            colour: "#ed1c2a",
-            type: LineType.LSR
-        },
-        {
-            id: "lsr7",
-            name: "Birmingham Yellow Line",
-            colour: "#ffcd02",
-            type: LineType.LSR
-        },
-        {
-            id: "lsr8",
-            name: "Newcastle Green Line",
-            colour: "#77c696",
-            type: LineType.LSR
-        },
-        {
-            id: "lsr9",
+            id: "C03",
             name: "Atlantic Line",
             colour: "#87d3df",
             type: LineType.LSR
         },
         {
-            id: "lsr10",
-            name: "LSR 10",
-            colour: "#662c91",
+            id: "E01",
+            name: "Brighton Red Line",
+            colour: "#ed1c2a",
             type: LineType.LSR
         },
         {
-            id: "lsr11",
+            id: "E02",
+            name: "Birmingham Yellow Line",
+            colour: "#ffcd02",
+            type: LineType.LSR
+        },
+        {
+            id: "E03",
+            name: "Newcastle Green Line",
+            colour: "#77c696",
+            type: LineType.LSR
+        },
+        {
+            id: "E04",
+            name: "Vistula Express Line",
+            colour: "#080e5c",
+            type: LineType.LSR
+        },
+        {
+            id: "E05",
+            name: "Tatra Line",
+            colour: "#f78f4b",
+            type: LineType.LSR
+        },
+        {
+            id: "E06",
+            name: "Baltic Line",
+            colour: "#ed1c2a",
+            type: LineType.LSR
+        },
+        {
+            id: "E07",
             name: "Dźwina Line",
             colour: "#4c90cd",
             type: LineType.LSR
         },
         {
-            id: "lsr12",
+            id: "E08",
             name: "Vistula Line",
             colour: "#008c5a",
             type: LineType.LSR
         },
         {
-            id: "lsr13",
+            id: "E09",
             name: "Carpathia Line",
             colour: "#e0b03b",
             type: LineType.LSR
         },
         {
-            id: "lsr14",
+            id: "E10",
             name: "Dnieper Line",
             colour: "#ffcd02",
             type: LineType.LSR
         },
         {
-            id: "lsr15",
-            name: "LSR 15",
-            colour: "#b80b4b",
-            type: LineType.LSR
-        },
-        {
-            id: "lsr16",
-            name: "LSR 16",
-            colour: "#c5a3cd",
-            type: LineType.LSR
-        },
-        {
-            id: "lsr17",
-            name: "Grey Line",
-            colour: "#9f9f9f",
-            type: LineType.LSR
-        },
-        {
-            id: "lsr30",
-            name: "Big Bridge Zugdidi Branch",
-            colour: "#b80b4b",
-            type: LineType.LSR
-        },
-        {
-            id: "lsr31",
-            name: "Big Bridge Thessaloniki Branch",
-            colour: "#bb4a9b",
-            type: LineType.LSR
-        },
-        {
-            id: "lsr32",
-            name: "Big Bridge Istanbul Branch",
-            colour: "#c5a3cd",
-            type: LineType.LSR
-        },
-        {
-            id: "lsr33",
-            name: "Big Bridge Mequinenza Branch",
-            colour: "#b80b4b",
-            type: LineType.LSR
-        },
-        {
-            id: "lsr50",
-            name: "LSR 50",
+            id: "E11",
+            name: "E11",
             colour: "#ed1c2a",
             type: LineType.LSR
         },
         {
-            id: "lsr51",
-            name: "LSR 51",
+            id: "E12",
+            name: "E12",
             colour: "#080e5c",
             type: LineType.LSR
         },
         {
-            id: "lsr999",
-            name: "Miscellaneous Connections",
-            colour: "#79edba",
+            id: "E13",
+            name: "E13",
+            colour: "#662c91",
             type: LineType.LSR
         },
         {
-            id: "hsr1",
+            id: "E14",
+            name: "Grey Line",
+            colour: "#cccccc",
+            type: LineType.LSR
+        },
+        {
+            id: "E15",
+            name: "Adriatic Line",
+            colour: "#b80b4b",
+            type: LineType.LSR
+        },
+        {
+            id: "E16",
+            name: "Big Bridge Tirana Branch",
+            colour: "#c5a3cd",
+            type: LineType.LSR
+        },
+        {
+            id: "E17",
+            name: "Finnish Regional Line",
+            colour: "#006db8",
+            type: LineType.LSR
+        },
+        {
+            id: "E18",
+            name: "E18",
+            colour: "#662c91",
+            type: LineType.LSR
+        },
+        {
+            id: "E19",
+            name: "Danish Line",
+            colour: "#00b397",
+            type: LineType.LSR
+        },
+        {
+            id: "E20",
+            name: "E20",
+            colour: "#ffcd02",
+            type: LineType.LSR
+        },
+        {
+            id: "E21",
+            name: "E21",
+            colour: "#cccccc",
+            type: LineType.LSR
+        },
+        {
+            id: "E30",
+            name: "Big Bridge Line Thessaloniki Branch",
+            colour: "#bb4a9b",
+            type: LineType.LSR
+        },
+        {
+            id: "E31",
+            name: "Big Bridge Line Mequinenza Branch",
+            colour: "#b80b4b",
+            type: LineType.LSR
+        },
+        {
+            id: "F01",
+            name: "Lampedusa Line",
+            colour: "#ffcd02",
+            type: LineType.LSR
+        },
+        {
+            id: "F02",
+            name: "North Africa Line",
+            colour: "#f78f4b",
+            type: LineType.LSR
+        },
+        {
+            id: "F03",
+            name: "Sahara Line",
+            colour: "#a8842d",
+            type: LineType.LSR
+        },
+        {
+            id: "HBL",
             name: "Blue HSR",
             colour: "#4c90cd",
             type: LineType.HSR
         },
         {
-            id: "hsr2",
+            id: "HGR",
             name: "Green HSR",
             colour: "#30a442",
             type: LineType.HSR
@@ -155,662 +203,851 @@ const networkData = {
     ],
     stations: [
         {
-            name: "Queen's Cross"
+            name: "Accra"
         },
         {
-            name: "Brighton"
+            name: "Alexandria"
         },
         {
-            name: "Southampton"
-        },
-        {
-            name: "Plymouth"
-        },
-        {
-            name: "Charleville-Mézières"
-        },
-        {
-            name: "West Mediterranean"
-        },
-        {
-            name: "Catania"
-        },
-        {
-            name: "Antalya"
-        },
-        {
-            name: "Rasht"
-        },
-        {
-            name: "Baikonur End Portal"
-        },
-        {
-            name: "Gdańsk"
-        },
-        {
-            name: "Warsaw Central"
-        },
-        {
-            name: "Katowice"
-        },
-        {
-            name: "Košice"
-        },
-        {
-            name: "Belgrade"
-        },
-        {
-            name: "Thessaloniki"
-        },
-        {
-            name: "Kiel"
-        },
-        {
-            name: "Szczecin"
-        },
-        {
-            name: "Królewiec"
-        },
-        {
-            name: "Kaunas"
-        },
-        {
-            name: "Riga"
-        },
-        {
-            name: "Tallinn"
-        },
-        {
-            name: "Birmingham"
-        },
-        {
-            name: "Liverpool"
-        },
-        {
-            name: "Isle of Man"
-        },
-        {
-            name: "Newcastle"
-        },
-        {
-            name: "Rennes"
-        },
-        {
-            name: "La Rochelle"
-        },
-        {
-            name: "Bordeaux"
-        },
-        {
-            name: "Pyrenees"
-        },
-        {
-            name: "Mequinenza"
-        },
-        {
-            name: "Gesalibar"
-        },
-        {
-            name: "Brest (FR)"
-        },
-        {
-            name: "Étampes"
-        },
-        {
-            name: "Reims"
-        },
-        {
-            name: "Düsseldorf"
-        },
-        {
-            name: "Brest (BY)"
-        },
-        {
-            name: "Helsinki"
-        },
-        {
-            name: "Bydgoszcz"
-        },
-        {
-            name: "Płock"
-        },
-        {
-            name: "Lublin"
-        },
-        {
-            name: "Carpathia"
-        },
-        {
-            name: "Kyiv"
-        },
-        {
-            name: "Odessa"
-        },
-        {
-            name: "Romanian Slime Farm"
-        },
-        {
-            name: "Istanbul"
-        },
-        {
-            name: "Tirana"
-        },
-        {
-            name: "Bari"
-        },
-        {
-            name: "Zugdidi"
-        },
-        {
-            name: "Zagreb"
-        },
-        {
-            name: "Ljubljana"
-        },
-        {
-            name: "Venice"
-        },
-        {
-            name: "Sarajevo"
-        },
-        {
-            name: "Podgorica"
-        },
-        {
-            name: "Pristina"
+            name: "Algiers"
         },
         {
             name: "Amsterdam Centraal"
         },
         {
+            name: "Antalya"
+        },
+        {
+            name: "Baikonur"
+        },
+        {
+            name: "Bari"
+        },
+        {
+            name: "Belgrade"
+        },
+        {
+            name: "Benghazi"
+        },
+        {
+            name: "Birmingham"
+        },
+        {
+            name: "Bornholm"
+        },
+        {
+            name: "Brest (BY)"
+        },
+        {
+            name: "Brest (FR)"
+        },
+        {
+            name: "Brighton"
+        },
+        {
+            name: "Bydgoszcz"
+        },
+        {
+            name: "Carpathia"
+        },
+        {
+            name: "Casablanca"
+        },
+        {
+            name: "Catania"
+        },
+        {
+            name: "Central Mediterranean"
+        },
+        {
+            name: "Charleville-Mézières"
+        },
+        {
+            name: "Copenhagen"
+        },
+        {
+            name: "Düsseldorf"
+        },
+        {
+            name: "Gdańsk"
+        },
+        {
+            name: "Gesalibar"
+        },
+        {
+            name: "Helsinki"
+        },
+        {
+            name: "Isle of Man"
+        },
+        {
+            name: "Istanbul"
+        },
+        {
+            name: "Kaliningrad"
+        },
+        {
             name: "Karlsruhe"
         },
         {
-            name: "Timișoara"
+            name: "Kaunas"
         },
         {
-            name: "Turku"
+            name: "Kiel"
+        },
+        {
+            name: "Kotka"
+        },
+        {
+            name: "Košice"
+        },
+        {
+            name: "Kraków"
+        },
+        {
+            name: "Kyiv"
+        },
+        {
+            name: "La Rochelle"
+        },
+        {
+            name: "Lampedusa"
+        },
+        {
+            name: "Lappeenranta"
+        },
+        {
+            name: "Ljubljana"
+        },
+        {
+            name: "Lublin"
+        },
+        {
+            name: "Marrakesh"
+        },
+        {
+            name: "Mequinenza"
+        },
+        {
+            name: "Newcastle"
+        },
+        {
+            name: "Nicosia"
+        },
+        {
+            name: "Odessa"
+        },
+        {
+            name: "Oran"
+        },
+        {
+            name: "Plymouth"
+        },
+        {
+            name: "Podgorica"
+        },
+        {
+            name: "Poronaysk"
+        },
+        {
+            name: "Porvoo"
+        },
+        {
+            name: "Pristina"
+        },
+        {
+            name: "Pyrenees"
+        },
+        {
+            name: "Płock"
+        },
+        {
+            name: "Queen's Cross"
+        },
+        {
+            name: "Rasht"
+        },
+        {
+            name: "Reims"
+        },
+        {
+            name: "Rennes"
+        },
+        {
+            name: "Riga"
+        },
+        {
+            name: "Romanian Slime Farm"
+        },
+        {
+            name: "Sarajevo"
+        },
+        {
+            name: "Sfax"
+        },
+        {
+            name: "Southampton"
+        },
+        {
+            name: "Sparta"
         },
         {
             name: "Sweden"
         },
         {
+            name: "Szczecin"
+        },
+        {
+            name: "Tallinn"
+        },
+        {
+            name: "Tamanrasset"
+        },
+        {
+            name: "Tel Aviv"
+        },
+        {
+            name: "Thessaloniki"
+        },
+        {
+            name: "Timbuktu"
+        },
+        {
+            name: "Timișoara"
+        },
+        {
+            name: "Tirana"
+        },
+        {
+            name: "Tunis"
+        },
+        {
+            name: "Turku"
+        },
+        {
+            name: "Valencia"
+        },
+        {
+            name: "Venice"
+        },
+        {
+            name: "Warsaw Central"
+        },
+        {
+            name: "West Mediterranean"
+        },
+        {
+            name: "Zagreb"
+        },
+        {
             name: "Zakynthos"
         },
+        {
+            name: "Zugdidi"
+        },
+        {
+            name: "Étampes"
+        }
     ],
     connections: [
         {
-            from: "Queen's Cross",
-            to: "Brighton",
-            line_id: "lsr1",
-            time: 40
+            from: "Rasht",
+            to: "Zugdidi",
+            line_id: "A01",
+            time: 185
         },
         {
-            from: "Brighton",
-            to: "Southampton",
-            line_id: "lsr1",
-            time: 20
+            from: "Antalya",
+            to: "Nicosia",
+            line_id: "A02",
+            time: 60
         },
         {
-            from: "Southampton",
-            to: "Plymouth",
-            line_id: "lsr1",
-            time: 70
+            from: "Nicosia",
+            to: "Tel Aviv",
+            line_id: "A02",
+            time: 60
         },
         {
             from: "Charleville-Mézières",
             to: "West Mediterranean",
-            line_id: "lsr3",
+            line_id: "C01",
             time: 115
         },
         {
             from: "West Mediterranean",
+            to: "Central Mediterranean",
+            line_id: "C01",
+            time: 155
+        },
+        {
+            from: "Central Mediterranean",
             to: "Catania",
-            line_id: "lsr3",
-            time: 185
+            line_id: "C01",
+            time: 30
         },
         {
             from: "Catania",
+            to: "Sparta",
+            line_id: "C01",
+            time: 100
+        },
+        {
+            from: "Sparta",
             to: "Antalya",
-            line_id: "lsr3",
-            time: 205
+            line_id: "C01",
+            time: 105
         },
         {
             from: "Antalya",
             to: "Rasht",
-            line_id: "lsr3",
+            line_id: "C01",
             time: 245
         },
         {
             from: "Rasht",
-            to: "Baikonur End Portal",
-            line_id: "lsr3",
+            to: "Baikonur",
+            line_id: "C01",
             time: 300
         },
         {
-            from: "Gdańsk",
-            to: "Warsaw Central",
-            line_id: "lsr4",
-            time: 65
+            from: "Baikonur",
+            to: "Poronaysk",
+            line_id: "C01",
+            time: null
         },
         {
-            from: "Warsaw Central",
-            to: "Katowice",
-            line_id: "lsr5",
-            time: 30
-        },
-        {
-            from: "Katowice",
-            to: "Košice",
-            line_id: "lsr5",
-            time: 40
-        },
-        {
-            from: "Košice",
-            to: "Belgrade",
-            line_id: "lsr5",
-            time: 55
-        },
-        {
-            from: "Belgrade",
-            to: "Thessaloniki",
-            line_id: "lsr5",
-            time: 85
-        },
-        {
-            from: "Kiel",
-            to: "Szczecin",
-            line_id: "lsr6",
+            from: "Antalya",
+            to: "Istanbul",
+            line_id: "C02",
             time: 70
         },
         {
-            from: "Szczecin",
-            to: "Gdańsk",
-            line_id: "lsr6",
-            time: 65
+            from: "Istanbul",
+            to: "Romanian Slime Farm",
+            line_id: "C02",
+            time: 95
         },
         {
-            from: "Gdańsk",
-            to: "Królewiec",
-            line_id: "lsr6",
-            time: null
-        },
-        {
-            from: "Królewiec",
-            to: "Kaunas",
-            line_id: "lsr6",
-            time: null
-        },
-        {
-            from: "Kaunas",
-            to: "Riga",
-            line_id: "lsr6",
-            time: 30
-        },
-        {
-            from: "Riga",
-            to: "Tallinn",
-            line_id: "lsr6",
-            time: 30
-        },
-        {
-            from: "Tallinn",
-            to: "Turku",
-            line_id: "lsr6",
-            time: null
-        },
-        {
-            from: "Turku",
-            to: "Sweden",
-            line_id: "lsr6",
-            time: null
-        },
-        {
-            from: "Queen's Cross",
-            to: "Birmingham",
-            line_id: "lsr7",
-            time: 45
-        },
-        {
-            from: "Birmingham",
-            to: "Liverpool",
-            line_id: "lsr7",
-            time: 30
-        },
-        {
-            from: "Liverpool",
-            to: "Isle of Man",
-            line_id: "lsr7",
-            time: 40
-        },
-        {
-            from: "Southampton",
-            to: "Birmingham",
-            line_id: "lsr8",
-            time: 20
-        },
-        {
-            from: "Birmingham",
-            to: "Newcastle",
-            line_id: "lsr8",
-            time: 30
+            from: "Romanian Slime Farm",
+            to: "Odessa",
+            line_id: "C02",
+            time: 35
         },
         {
             from: "Southampton",
             to: "Rennes",
-            line_id: "lsr9",
+            line_id: "C03",
             time: 45
         },
         {
             from: "Rennes",
             to: "La Rochelle",
-            line_id: "lsr9",
+            line_id: "C03",
             time: null
         },
         {
             from: "La Rochelle",
-            to: "Bordeaux",
-            line_id: "lsr9",
-            time: null
-        },
-        {
-            from: "Bordeaux",
             to: "Pyrenees",
-            line_id: "lsr9",
+            line_id: "C03",
             time: null
         },
         {
             from: "Pyrenees",
             to: "Mequinenza",
-            line_id: "lsr9",
+            line_id: "C03",
             time: null
         },
         {
-            from: "Brest (FR)",
-            to: "Rennes",
-            line_id: "lsr10",
+            from: "Mequinenza",
+            to: "Valencia",
+            line_id: "C03",
             time: null
         },
         {
-            from: "Rennes",
-            to: "Étampes",
-            line_id: "lsr10",
+            from: "Valencia",
+            to: "Oran",
+            line_id: "C03",
             time: null
         },
         {
-            from: "Étampes",
-            to: "Reims",
-            line_id: "lsr10",
+            from: "Oran",
+            to: "Accra",
+            line_id: "C03",
             time: null
         },
         {
-            from: "Reims",
-            to: "Charleville-Mézières",
-            line_id: "lsr10",
-            time: null
-        },
-        {
-            from: "Charleville-Mézières",
-            to: "Düsseldorf",
-            line_id: "lsr10",
-            time: null
-        },
-        {
-            from: "Düsseldorf",
-            to: "Kiel",
-            line_id: "lsr10",
-            time: null
-        },
-        {
-            from: "Warsaw Central",
-            to: "Brest (BY)",
-            line_id: "lsr11",
+            from: "Queen's Cross",
+            to: "Brighton",
+            line_id: "E01",
             time: 40
         },
         {
-            from: "Brest (BY)",
+            from: "Brighton",
+            to: "Southampton",
+            line_id: "E01",
+            time: 20
+        },
+        {
+            from: "Southampton",
+            to: "Plymouth",
+            line_id: "E01",
+            time: 70
+        },
+        {
+            from: "Queen's Cross",
+            to: "Birmingham",
+            line_id: "E02",
+            time: 45
+        },
+        {
+            from: "Birmingham",
+            to: "Isle of Man",
+            line_id: "E02",
+            time: 70
+        },
+        {
+            from: "Southampton",
+            to: "Birmingham",
+            line_id: "E03",
+            time: 20
+        },
+        {
+            from: "Birmingham",
+            to: "Newcastle",
+            line_id: "E03",
+            time: 30
+        },
+        {
+            from: "Gdańsk",
+            to: "Warsaw Central",
+            line_id: "E04",
+            time: 65
+        },
+        {
+            from: "Warsaw Central",
+            to: "Kraków",
+            line_id: "E05",
+            time: 30
+        },
+        {
+            from: "Kraków",
+            to: "Košice",
+            line_id: "E05",
+            time: 40
+        },
+        {
+            from: "Košice",
+            to: "Timișoara",
+            line_id: "E05",
+            time: 40
+        },
+        {
+            from: "Timișoara",
+            to: "Belgrade",
+            line_id: "E05",
+            time: 15
+        },
+        {
+            from: "Belgrade",
+            to: "Thessaloniki",
+            line_id: "E05",
+            time: 85
+        },
+        {
+            from: "Kiel",
+            to: "Szczecin",
+            line_id: "E06",
+            time: 70
+        },
+        {
+            from: "Szczecin",
+            to: "Gdańsk",
+            line_id: "E06",
+            time: 65
+        },
+        {
+            from: "Gdańsk",
+            to: "Kaliningrad",
+            line_id: "E06",
+            time: 35
+        },
+        {
+            from: "Kaliningrad",
             to: "Kaunas",
-            line_id: "lsr11",
+            line_id: "E06",
             time: 55
         },
         {
             from: "Kaunas",
             to: "Riga",
-            line_id: "lsr11",
+            line_id: "E06",
             time: 30
         },
         {
             from: "Riga",
             to: "Tallinn",
-            line_id: "lsr11",
+            line_id: "E06",
             time: 30
         },
         {
             from: "Tallinn",
-            to: "Helsinki",
-            line_id: "lsr11",
-            time: 20
-        },
-        {
-            from: "Gdańsk",
-            to: "Bydgoszcz",
-            line_id: "lsr12",
+            to: "Turku",
+            line_id: "E06",
             time: null
         },
         {
-            from: "Bydgoszcz",
-            to: "Płock",
-            line_id: "lsr12",
-            time: null
-        },
-        {
-            from: "Płock",
-            to: "Warsaw Central",
-            line_id: "lsr12",
-            time: null
-        },
-        {
-            from: "Warsaw Central",
-            to: "Lublin",
-            line_id: "lsr12",
-            time: null
-        },
-        {
-            from: "Lublin",
-            to: "Katowice",
-            line_id: "lsr12",
-            time: null
-        },
-        {
-            from: "Warsaw Central",
-            to: "Carpathia",
-            line_id: "lsr13",
-            time: null
-        },
-        {
-            from: "Carpathia",
-            to: "Romanian Slime Farm",
-            line_id: "lsr13",
+            from: "Turku",
+            to: "Sweden",
+            line_id: "E06",
             time: null
         },
         {
             from: "Warsaw Central",
             to: "Brest (BY)",
-            line_id: "lsr14",
+            line_id: "E07",
+            time: 40
+        },
+        {
+            from: "Brest (BY)",
+            to: "Kaunas",
+            line_id: "E07",
+            time: 55
+        },
+        {
+            from: "Kaunas",
+            to: "Riga",
+            line_id: "E07",
+            time: 30
+        },
+        {
+            from: "Riga",
+            to: "Tallinn",
+            line_id: "E07",
+            time: 30
+        },
+        {
+            from: "Tallinn",
+            to: "Helsinki",
+            line_id: "E07",
+            time: 20
+        },
+        {
+            from: "Gdańsk",
+            to: "Bydgoszcz",
+            line_id: "E08",
+            time: null
+        },
+        {
+            from: "Bydgoszcz",
+            to: "Płock",
+            line_id: "E08",
+            time: null
+        },
+        {
+            from: "Płock",
+            to: "Warsaw Central",
+            line_id: "E08",
+            time: null
+        },
+        {
+            from: "Warsaw Central",
+            to: "Lublin",
+            line_id: "E08",
+            time: null
+        },
+        {
+            from: "Lublin",
+            to: "Kraków",
+            line_id: "E08",
+            time: null
+        },
+        {
+            from: "Warsaw Central",
+            to: "Carpathia",
+            line_id: "E09",
+            time: null
+        },
+        {
+            from: "Carpathia",
+            to: "Romanian Slime Farm",
+            line_id: "E09",
+            time: null
+        },
+        {
+            from: "Warsaw Central",
+            to: "Brest (BY)",
+            line_id: "E10",
             time: 40
         },
         {
             from: "Brest (BY)",
             to: "Kyiv",
-            line_id: "lsr14",
+            line_id: "E10",
             time: 105
         },
         {
             from: "Kyiv",
             to: "Odessa",
-            line_id: "lsr14",
+            line_id: "E10",
             time: 50
-        },
-        {
-            from: "Carpathia",
-            to: "Thessaloniki",
-            line_id: "lsr15",
-            time: null
-        },
-        {
-            from: "Thessaloniki",
-            to: "Tirana",
-            line_id: "lsr15",
-            time: 45
-        },
-        {
-            from: "Tirana",
-            to: "Bari",
-            line_id: "lsr16",
-            time: 50
-        },
-        {
-            from: "Bari",
-            to: "Catania",
-            line_id: "lsr16",
-            time: 80
-        },
-        {
-            from: "Catania",
-            to: "Zakynthos",
-            line_id: "lsr17",
-            time: 90
-        },
-        {
-            from: "Rasht",
-            to: "Zugdidi",
-            line_id: "lsr30",
-            time: 185
-        },
-        {
-            from: "Antalya",
-            to: "Istanbul",
-            line_id: "lsr32",
-            time: 70
-        },
-        {
-            from: "West Mediterranean",
-            to: "Mequinenza",
-            line_id: "lsr33",
-            time: 65
         },
         {
             from: "Belgrade",
             to: "Zagreb",
-            line_id: "lsr50",
+            line_id: "E11",
             time: 145
         },
         {
             from: "Zagreb",
             to: "Ljubljana",
-            line_id: "lsr50",
+            line_id: "E11",
             time: 45
         },
         {
             from: "Ljubljana",
             to: "Venice",
-            line_id: "lsr50",
+            line_id: "E11",
             time: 65
         },
         {
             from: "Belgrade",
             to: "Sarajevo",
-            line_id: "lsr51",
+            line_id: "E12",
             time: 100
         },
         {
             from: "Sarajevo",
             to: "Podgorica",
-            line_id: "lsr51",
+            line_id: "E12",
             time: 65
         },
         {
             from: "Podgorica",
             to: "Pristina",
-            line_id: "lsr51",
+            line_id: "E12",
             time: 30
         },
         {
             from: "Pristina",
             to: "Tirana",
-            line_id: "lsr51",
+            line_id: "E12",
             time: 65
         },
         {
-            from: "Odessa",
-            to: "Romanian Slime Farm",
-            line_id: "lsr32",
-            time: 35
+            from: "Timișoara",
+            to: "Carpathia",
+            line_id: "E13",
+            time: 95
         },
         {
-            from: "Romanian Slime Farm",
-            to: "Istanbul",
-            line_id: "lsr32",
-            time: 95
+            from: "Catania",
+            to: "Zakynthos",
+            line_id: "E14",
+            time: 90
+        },
+        {
+            from: "Thessaloniki",
+            to: "Tirana",
+            line_id: "E15",
+            time: 45
+        },
+        {
+            from: "Tirana",
+            to: "Bari",
+            line_id: "E16",
+            time: 50
+        },
+        {
+            from: "Bari",
+            to: "Catania",
+            line_id: "E16",
+            time: 80
+        },
+        {
+            from: "Helsinki",
+            to: "Porvoo",
+            line_id: "E17",
+            time: 10
+        },
+        {
+            from: "Porvoo",
+            to: "Kotka",
+            line_id: "E17",
+            time: null
+        },
+        {
+            from: "Kotka",
+            to: "Lappeenranta",
+            line_id: "E17",
+            time: null
+        },
+        {
+            from: "Brest (FR)",
+            to: "Rennes",
+            line_id: "E18",
+            time: null
+        },
+        {
+            from: "Rennes",
+            to: "Étampes",
+            line_id: "E18",
+            time: null
+        },
+        {
+            from: "Étampes",
+            to: "Reims",
+            line_id: "E18",
+            time: null
+        },
+        {
+            from: "Reims",
+            to: "Charleville-Mézières",
+            line_id: "E18",
+            time: null
+        },
+        {
+            from: "Charleville-Mézières",
+            to: "Düsseldorf",
+            line_id: "E18",
+            time: null
+        },
+        {
+            from: "Düsseldorf",
+            to: "Kiel",
+            line_id: "E18",
+            time: null
+        },
+        {
+            from: "Copenhagen",
+            to: "Bornholm",
+            line_id: "E19",
+            time: 80
         },
         {
             from: "Charleville-Mézières",
             to: "Karlsruhe",
-            line_id: "lsr999",
+            line_id: "E20",
             time: 110
         },
         {
             from: "Mequinenza",
             to: "Gesalibar",
-            line_id: "lsr999",
+            line_id: "E21",
             time: 110
         },
         {
-            from: "Timișoara",
-            to: "Carpathia",
-            line_id: "lsr999",
+            from: "West Mediterranean",
+            to: "Mequinenza",
+            line_id: "E31",
+            time: 65
+        },
+        {
+            from: "Central Mediterranean",
+            to: "Lampedusa",
+            line_id: "F01",
+            time: 30
+        },
+        {
+            from: "Lampedusa",
+            to: "Sfax",
+            line_id: "F01",
+            time: 40
+        },
+        {
+            from: "Marrakesh",
+            to: "Casablanca",
+            line_id: "F02",
+            time: null
+        },
+        {
+            from: "Casablanca",
+            to: "Oran",
+            line_id: "F02",
+            time: null
+        },
+        {
+            from: "Oran",
+            to: "Algiers",
+            line_id: "F02",
+            time: null
+        },
+        {
+            from: "Algiers",
+            to: "Tunis",
+            line_id: "F02",
+            time: null
+        },
+        {
+            from: "Tunis",
+            to: "Sfax",
+            line_id: "F02",
+            time: null
+        },
+        {
+            from: "Sfax",
+            to: "Benghazi",
+            line_id: "F02",
+            time: null
+        },
+        {
+            from: "Benghazi",
+            to: "Alexandria",
+            line_id: "F02",
+            time: null
+        },
+        {
+            from: "Algiers",
+            to: "Tamanrasset",
+            line_id: "F03",
+            time: null
+        },
+        {
+            from: "Tamanrasset",
+            to: "Timbuktu",
+            line_id: "F03",
             time: null
         },
         {
             from: "Charleville-Mézières",
             to: "Amsterdam Centraal",
-            line_id: "hsr1",
+            line_id: "HBL",
             time: 40
         },
         {
             from: "Charleville-Mézières",
             to: "Rennes",
-            line_id: "hsr1",
+            line_id: "HBL",
             time: 85
         },
         {
             from: "Charleville-Mézières",
             to: "Queen's Cross",
-            line_id: "hsr1",
+            line_id: "HBL",
             time: 65
         },
         {
             from: "Amsterdam Centraal",
             to: "Rennes",
-            line_id: "hsr1",
+            line_id: "HBL",
             time: 85
         },
         {
             from: "Amsterdam Centraal",
             to: "Queen's Cross",
-            line_id: "hsr1",
+            line_id: "HBL",
             time: 65
         },
         {
             from: "Rennes",
             to: "Queen's Cross",
-            line_id: "hsr1",
+            line_id: "HBL",
             time: 60
         },
         {
             from: "Amsterdam Centraal",
             to: "Warsaw Central",
-            line_id: "hsr2",
+            line_id: "HGR",
             time: 165
         }
     ]

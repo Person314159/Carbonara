@@ -11,7 +11,7 @@ export interface Line {
 }
 
 export interface Station {
-    name: string
+    name: string;
 }
 
 export interface Connection {
