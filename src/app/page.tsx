@@ -175,10 +175,12 @@ export default function Home() {
 
     return (
         <>
-            <div className="max-w-7xl max-h-[90vh] mt-0 mb-0 ml-auto mr-auto bg-white p-5 rounded-lg shadow-[0_2px_10px_rgba(0, 0, 0, 0.1)]">
+            <div className="max-w-7xl mt-0 mb-0 ml-auto mr-auto bg-white p-5 rounded-lg shadow-[0_2px_10px_rgba(0, 0, 0, 0.1)]">
                 <h1 className="text-center text-[#588157]">CARBONARA</h1>
                 <h5 className="text-center">Comprehensive And Rapid Browser for Organized Navigation And Route Assistance</h5>
-                <h2 className="text-center text-[#60a558] border-b-solid border-b-[1px] border-b-[#ddd] pb-2">A PESTO Train Router</h2>
+                <h2 className="text-center text-[#60a558]">A PESTO Train Router</h2>
+
+                <div className="mt-5 mb-5 border-b-solid border-b-[1px] border-b-[#ddd]"></div>
 
                 <p className="text-center">Select your starting point and destination to find the best route.</p>
                 <p className="text-center font-bold">Note: Total journey time does not take into account transfer times.</p>
@@ -199,13 +201,17 @@ export default function Home() {
                     <button className="px-4 py-2.5 bg-[#588157] text-white border-none rounded-sm cursor-pointer font-bold transition ease-in-out" onClick={() => setRoute(findRoute())}>Find Route</button>
                 </div>
 
-                <div id="result" className={route === null || route.length === 0 ? "" : "mt-5 pt-5 border-t-[1px] border-[#ddd]"}>
+                {!(route === null || route.length === 0) && <div className="mt-5 mb-5 border-b-solid border-b-[1px] border-b-[#ddd]"></div>}
+
+                <div id="result">
                     {sameStartAndEnd ? <p className="text-[#f00]">Start and destination stations are the same.</p> : null}
 
                     {route !== null ? (route.length > 0 ? route.map(l => leg(l)) : <p>No route found between these stations.</p>) : null}
 
                     {route !== null ? (route.length > 0 ? <div className="total-time">Total journey time: {formatTime(route.map(l => l.time).reduce((a, b) => a + b, 0))}</div> : null) : null}
                 </div>
+
+                <div className="mt-5 mb-5 border-b-solid border-b-[1px] border-b-[#ddd]"></div>
 
                 <ParentSize debounceTime={0} initialSize={{ width: 1280, height: 800 }}>{({ width, height }) => <NetworkMap width={width} height={height} />}</ParentSize>
             </div>
