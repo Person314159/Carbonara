@@ -15,19 +15,19 @@ const networkData = {
             type: LineType.LSR
         },
         {
-            id: "C01",
+            id: "T01",
             name: "Big Bridge Line",
             colour: "#f59fb3",
             type: LineType.LSR
         },
         {
-            id: "C02",
+            id: "T02",
             name: "Big Bridge Line Istanbul Branch",
             colour: "#c5a3cd",
             type: LineType.LSR
         },
         {
-            id: "C03",
+            id: "T03",
             name: "Atlantic Line",
             colour: "#87d3df",
             type: LineType.LSR
@@ -124,7 +124,7 @@ const networkData = {
         },
         {
             id: "E16",
-            name: "Big Bridge Tirana Branch",
+            name: "Transadriatic Line",
             colour: "#c5a3cd",
             type: LineType.LSR
         },
@@ -156,6 +156,12 @@ const networkData = {
             id: "E21",
             name: "E21",
             colour: "#cccccc",
+            type: LineType.LSR
+        },
+        {
+            id: "E22",
+            name: "Silesia Line",
+            colour: "#00665c",
             type: LineType.LSR
         },
         {
@@ -302,7 +308,7 @@ const networkData = {
             name: "Košice"
         },
         {
-            name: "Kraków"
+            name: "Katowice"
         },
         {
             name: "Kyiv"
@@ -341,6 +347,9 @@ const networkData = {
             name: "Oran"
         },
         {
+            name: "Pardubice"
+        },
+        {
             name: "Plymouth"
         },
         {
@@ -351,6 +360,9 @@ const networkData = {
         },
         {
             name: "Porvoo"
+        },
+        {
+            name: "Prague"
         },
         {
             name: "Pristina"
@@ -469,114 +481,6 @@ const networkData = {
             time: 60
         },
         {
-            from: "Charleville-Mézières",
-            to: "West Mediterranean",
-            line_id: "C01",
-            time: 115
-        },
-        {
-            from: "West Mediterranean",
-            to: "Central Mediterranean",
-            line_id: "C01",
-            time: 155
-        },
-        {
-            from: "Central Mediterranean",
-            to: "Catania",
-            line_id: "C01",
-            time: 30
-        },
-        {
-            from: "Catania",
-            to: "Sparta",
-            line_id: "C01",
-            time: 100
-        },
-        {
-            from: "Sparta",
-            to: "Antalya",
-            line_id: "C01",
-            time: 105
-        },
-        {
-            from: "Antalya",
-            to: "Rasht",
-            line_id: "C01",
-            time: 245
-        },
-        {
-            from: "Rasht",
-            to: "Baikonur",
-            line_id: "C01",
-            time: 300
-        },
-        {
-            from: "Baikonur",
-            to: "Poronaysk",
-            line_id: "C01",
-            time: null
-        },
-        {
-            from: "Antalya",
-            to: "Istanbul",
-            line_id: "C02",
-            time: 70
-        },
-        {
-            from: "Istanbul",
-            to: "Romanian Slime Farm",
-            line_id: "C02",
-            time: 95
-        },
-        {
-            from: "Romanian Slime Farm",
-            to: "Odessa",
-            line_id: "C02",
-            time: 35
-        },
-        {
-            from: "Southampton",
-            to: "Rennes",
-            line_id: "C03",
-            time: 45
-        },
-        {
-            from: "Rennes",
-            to: "La Rochelle",
-            line_id: "C03",
-            time: null
-        },
-        {
-            from: "La Rochelle",
-            to: "Pyrenees",
-            line_id: "C03",
-            time: null
-        },
-        {
-            from: "Pyrenees",
-            to: "Mequinenza",
-            line_id: "C03",
-            time: null
-        },
-        {
-            from: "Mequinenza",
-            to: "Valencia",
-            line_id: "C03",
-            time: null
-        },
-        {
-            from: "Valencia",
-            to: "Oran",
-            line_id: "C03",
-            time: null
-        },
-        {
-            from: "Oran",
-            to: "Accra",
-            line_id: "C03",
-            time: null
-        },
-        {
             from: "Queen's Cross",
             to: "Brighton",
             line_id: "E01",
@@ -626,12 +530,12 @@ const networkData = {
         },
         {
             from: "Warsaw Central",
-            to: "Kraków",
+            to: "Katowice",
             line_id: "E05",
             time: 30
         },
         {
-            from: "Kraków",
+            from: "Katowice",
             to: "Košice",
             line_id: "E05",
             time: 40
@@ -758,7 +662,7 @@ const networkData = {
         },
         {
             from: "Lublin",
-            to: "Kraków",
+            to: "Katowice",
             line_id: "E08",
             time: null
         },
@@ -937,6 +841,18 @@ const networkData = {
             time: 110
         },
         {
+            from: "Katowice",
+            to: "Pardubice",
+            line_id: "E22",
+            time: 60
+        },
+        {
+            from: "Pardubice",
+            to: "Prague",
+            line_id: "E22",
+            time: 25
+        },
+        {
             from: "West Mediterranean",
             to: "Mequinenza",
             line_id: "E31",
@@ -976,13 +892,13 @@ const networkData = {
             from: "Algiers",
             to: "Tunis",
             line_id: "F02",
-            time: null
+            time: 125
         },
         {
             from: "Tunis",
             to: "Sfax",
             line_id: "F02",
-            time: null
+            time: 50
         },
         {
             from: "Sfax",
@@ -1006,6 +922,114 @@ const networkData = {
             from: "Tamanrasset",
             to: "Timbuktu",
             line_id: "F03",
+            time: null
+        },
+        {
+            from: "Charleville-Mézières",
+            to: "West Mediterranean",
+            line_id: "T01",
+            time: 115
+        },
+        {
+            from: "West Mediterranean",
+            to: "Central Mediterranean",
+            line_id: "T01",
+            time: 155
+        },
+        {
+            from: "Central Mediterranean",
+            to: "Catania",
+            line_id: "T01",
+            time: 30
+        },
+        {
+            from: "Catania",
+            to: "Sparta",
+            line_id: "T01",
+            time: 100
+        },
+        {
+            from: "Sparta",
+            to: "Antalya",
+            line_id: "T01",
+            time: 105
+        },
+        {
+            from: "Antalya",
+            to: "Rasht",
+            line_id: "T01",
+            time: 245
+        },
+        {
+            from: "Rasht",
+            to: "Baikonur",
+            line_id: "T01",
+            time: 300
+        },
+        {
+            from: "Baikonur",
+            to: "Poronaysk",
+            line_id: "T01",
+            time: null
+        },
+        {
+            from: "Antalya",
+            to: "Istanbul",
+            line_id: "T02",
+            time: 70
+        },
+        {
+            from: "Istanbul",
+            to: "Romanian Slime Farm",
+            line_id: "T02",
+            time: 95
+        },
+        {
+            from: "Romanian Slime Farm",
+            to: "Odessa",
+            line_id: "T02",
+            time: 35
+        },
+        {
+            from: "Southampton",
+            to: "Rennes",
+            line_id: "T03",
+            time: 45
+        },
+        {
+            from: "Rennes",
+            to: "La Rochelle",
+            line_id: "T03",
+            time: null
+        },
+        {
+            from: "La Rochelle",
+            to: "Pyrenees",
+            line_id: "T03",
+            time: null
+        },
+        {
+            from: "Pyrenees",
+            to: "Mequinenza",
+            line_id: "T03",
+            time: null
+        },
+        {
+            from: "Mequinenza",
+            to: "Valencia",
+            line_id: "T03",
+            time: null
+        },
+        {
+            from: "Valencia",
+            to: "Oran",
+            line_id: "T03",
+            time: null
+        },
+        {
+            from: "Oran",
+            to: "Accra",
+            line_id: "T03",
             time: null
         },
         {

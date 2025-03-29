@@ -34,7 +34,7 @@ const defaultSingleColorAttributes: SingleColorAttributes = {
 
 const singleColor: LineStyle<SingleColorAttributes> = {
     component: SingleColor,
-    defaultAttrs: defaultSingleColorAttributes,
+    defaultAttrs: defaultSingleColorAttributes
 };
 
 export default singleColor;

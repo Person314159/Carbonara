@@ -95,7 +95,7 @@ export default function Home() {
             const { line_id, destination: to } = path[i + 1];
             const line = data.lines.find((l) => l.id === line_id)!;
 
-            if (r.length > 0 && r[r.length - 1].lineName === line.name) {
+            if (r.length > 0 && r[r.length - 1].line.name === line.name) {
                 const lastSegment = r[r.length - 1];
                 lastSegment.to = to;
                 lastSegment.stops.push(to);
@@ -109,9 +109,7 @@ export default function Home() {
                     r.push({
                         from,
                         to,
-                        lineName: line.name,
-                        lineColour: line.colour,
-                        type: LineType.LSR,
+                        line,
                         stops: [from, to],
                         time,
                         segments: [{ from, to, line_id, time }]
@@ -120,9 +118,7 @@ export default function Home() {
                     r.push({
                         from,
                         to,
-                        lineName: line.name,
-                        lineColour: line.colour,
-                        type: LineType.HSR,
+                        line,
                         stops: [from, to],
                         time,
                         segments: []

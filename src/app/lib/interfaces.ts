@@ -36,9 +36,7 @@ export interface NetworkData {
 export interface Leg {
     from: string,
     to: string,
-    lineName: string,
-    lineColour: string,
-    type: LineType,
+    line: Line
     stops: string[],
     segments: Connection[],
     time: number
