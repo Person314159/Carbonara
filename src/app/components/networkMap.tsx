@@ -24,8 +24,8 @@ export default function NetworkMap({ width, height }: ZoomIProps) {
             initialTransformMatrix={{
                 scaleX: 0.5,
                 scaleY: 0.5,
-                translateX: (-10821 + width) / 2,
-                translateY: (-2342 + h) / 2,
+                translateX: (-821 + width) / 2,
+                translateY: (2658 + h) / 2,
                 skewX: 0,
                 skewY: 0
             }}
@@ -76,8 +76,8 @@ export default function NetworkMap({ width, height }: ZoomIProps) {
                         <button type="button" className="btn btn-lg" onClick={() => zoom.setTransformMatrix({
                             scaleX: 0.5,
                             scaleY: 0.5,
-                            translateX: (-10821 + width) / 2,
-                            translateY: (-2342 + h) / 2,
+                            translateX: (-821 + width) / 2,
+                            translateY: (2658 + h) / 2,
                             skewX: 0,
                             skewY: 0
                         })}>

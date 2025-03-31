@@ -15,24 +15,6 @@ const networkData = {
             type: LineType.LSR
         },
         {
-            id: "T01",
-            name: "Big Bridge Line",
-            colour: "#f59fb3",
-            type: LineType.LSR
-        },
-        {
-            id: "T02",
-            name: "Big Bridge Line Istanbul Branch",
-            colour: "#c5a3cd",
-            type: LineType.LSR
-        },
-        {
-            id: "T03",
-            name: "Atlantic Line",
-            colour: "#87d3df",
-            type: LineType.LSR
-        },
-        {
             id: "E01",
             name: "Brighton Red Line",
             colour: "#ed1c2a",
@@ -106,19 +88,19 @@ const networkData = {
         },
         {
             id: "E13",
-            name: "E13",
+            name: "Transylvania Line",
             colour: "#662c91",
             type: LineType.LSR
         },
         {
             id: "E14",
-            name: "Grey Line",
+            name: "Zakynthos Line",
             colour: "#cccccc",
             type: LineType.LSR
         },
         {
             id: "E15",
-            name: "Adriatic Line",
+            name: "Prespa Line",
             colour: "#b80b4b",
             type: LineType.LSR
         },
@@ -165,6 +147,12 @@ const networkData = {
             type: LineType.LSR
         },
         {
+            id: "E23",
+            name: "Moravia Line",
+            colour: "#77c696",
+            type: LineType.LSR
+        },
+        {
             id: "E30",
             name: "Big Bridge Line Thessaloniki Branch",
             colour: "#bb4a9b",
@@ -205,6 +193,24 @@ const networkData = {
             name: "Green HSR",
             colour: "#30a442",
             type: LineType.HSR
+        },
+        {
+            id: "T01",
+            name: "Big Bridge Line",
+            colour: "#f59fb3",
+            type: LineType.LSR
+        },
+        {
+            id: "T02",
+            name: "Big Bridge Line Istanbul Branch",
+            colour: "#c5a3cd",
+            type: LineType.LSR
+        },
+        {
+            id: "T03",
+            name: "Atlantic Line",
+            colour: "#87d3df",
+            type: LineType.LSR
         }
     ],
     stations: [
@@ -230,6 +236,9 @@ const networkData = {
             name: "Bari"
         },
         {
+            name: "Bayreuth"
+        },
+        {
             name: "Belgrade"
         },
         {
@@ -251,6 +260,9 @@ const networkData = {
             name: "Brighton"
         },
         {
+            name: "Brno"
+        },
+        {
             name: "Bydgoszcz"
         },
         {
@@ -269,16 +281,25 @@ const networkData = {
             name: "Charleville-Mézières"
         },
         {
+            name: "Compiègne"
+        },
+        {
             name: "Copenhagen"
         },
         {
             name: "Düsseldorf"
         },
         {
+            name: "Frankfurt"
+        },
+        {
             name: "Gdańsk"
         },
         {
             name: "Gesalibar"
+        },
+        {
+            name: "Graz"
         },
         {
             name: "Helsinki"
@@ -347,6 +368,9 @@ const networkData = {
             name: "Oran"
         },
         {
+            name: "Orléans"
+        },
+        {
             name: "Pardubice"
         },
         {
@@ -378,9 +402,6 @@ const networkData = {
         },
         {
             name: "Rasht"
-        },
-        {
-            name: "Reims"
         },
         {
             name: "Rennes"
@@ -443,6 +464,9 @@ const networkData = {
             name: "Venice"
         },
         {
+            name: "Vienna"
+        },
+        {
             name: "Warsaw Central"
         },
         {
@@ -456,9 +480,6 @@ const networkData = {
         },
         {
             name: "Zugdidi"
-        },
-        {
-            name: "Étampes"
         }
     ],
     connections: [
@@ -794,18 +815,18 @@ const networkData = {
         },
         {
             from: "Rennes",
-            to: "Étampes",
+            to: "Orléans",
             line_id: "E18",
             time: null
         },
         {
-            from: "Étampes",
-            to: "Reims",
+            from: "Orléans",
+            to: "Compiègne",
             line_id: "E18",
             time: null
         },
         {
-            from: "Reims",
+            from: "Compiègne",
             to: "Charleville-Mézières",
             line_id: "E18",
             time: null
@@ -850,6 +871,36 @@ const networkData = {
             from: "Pardubice",
             to: "Prague",
             line_id: "E22",
+            time: 25
+        },
+        {
+            from: "Prague",
+            to: "Bayreuth",
+            line_id: "E22",
+            time: 40
+        },
+        {
+            from: "Bayreuth",
+            to: "Frankfurt",
+            line_id: "E22",
+            time: 40
+        },
+        {
+            from: "Pardubice",
+            to: "Brno",
+            line_id: "E23",
+            time: 25
+        },
+        {
+            from: "Brno",
+            to: "Vienna",
+            line_id: "E23",
+            time: 10
+        },
+        {
+            from: "Vienna",
+            to: "Graz",
+            line_id: "E23",
             time: 25
         },
         {
@@ -970,7 +1021,7 @@ const networkData = {
             from: "Baikonur",
             to: "Poronaysk",
             line_id: "T01",
-            time: null
+            time: 1075
         },
         {
             from: "Antalya",
