@@ -24,8 +24,8 @@ export default function NetworkMap({ width, height }: ZoomIProps) {
             initialTransformMatrix={{
                 scaleX: 0.5,
                 scaleY: 0.5,
-                translateX: (-821 + width) / 2,
-                translateY: (2658 + h) / 2,
+                translateX: -821 * 0.5 + width / 2,
+                translateY: 2658 * 0.5 + h / 2,
                 skewX: 0,
                 skewY: 0
             }}
@@ -76,12 +76,22 @@ export default function NetworkMap({ width, height }: ZoomIProps) {
                         <button type="button" className="btn btn-lg" onClick={() => zoom.setTransformMatrix({
                             scaleX: 0.5,
                             scaleY: 0.5,
-                            translateX: (-821 + width) / 2,
-                            translateY: (2658 + h) / 2,
+                            translateX: -821 * 0.5 + width / 2,
+                            translateY: 2658 * 0.5 + h / 2,
                             skewX: 0,
                             skewY: 0
                         })}>
                             Europe
+                        </button>
+                        <button type="button" className="btn btn-lg" onClick={() => zoom.setTransformMatrix({
+                            scaleX: 0.375,
+                            scaleY: 0.375,
+                            translateX: 5185 * 0.375 + width / 2,
+                            translateY: 2600 * 0.375 + h / 2,
+                            skewX: 0,
+                            skewY: 0
+                        })}>
+                            North America
                         </button>
                     </div>
                 </div>

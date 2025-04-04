@@ -195,6 +195,72 @@ const networkData = {
             type: LineType.HSR
         },
         {
+            id: "N01",
+            name: "N01",
+            colour: "#00b397",
+            type: LineType.LSR
+        },
+        {
+            id: "N02",
+            name: "N02",
+            colour: "#cec92a",
+            type: LineType.LSR
+        },
+        {
+            id: "N03",
+            name: "N03",
+            colour: "#662c91",
+            type: LineType.LSR
+        },
+        {
+            id: "N04",
+            name: "N04",
+            colour: "#ffcd02",
+            type: LineType.LSR
+        },
+        {
+            id: "N10",
+            name: "Horizon Line",
+            colour: "#8d6539",
+            type: LineType.LSR
+        },
+        {
+            id: "N11",
+            name: "N11",
+            colour: "#f59fb3",
+            type: LineType.LSR
+        },
+        {
+            id: "N12",
+            name: "N12",
+            colour: "#bb4a9b",
+            type: LineType.LSR
+        },
+        {
+            id: "N13",
+            name: "Nova Scotia Express",
+            colour: "#cccccc",
+            type: LineType.LSR
+        },
+        {
+            id: "N14",
+            name: "N14",
+            colour: "#ed1c2a",
+            type: LineType.LSR
+        },
+        {
+            id: "N15",
+            name: "N15",
+            colour: "#006db8",
+            type: LineType.LSR
+        },
+        {
+            id: "N16",
+            name: "Maple Liberty Line",
+            colour: "#008c5a",
+            type: LineType.LSR
+        },
+        {
             id: "T01",
             name: "Big Bridge Line",
             colour: "#f59fb3",
@@ -230,7 +296,7 @@ const networkData = {
             name: "Antalya"
         },
         {
-            name: "Baikonur"
+            name: "Baikonur End Portal"
         },
         {
             name: "Bari"
@@ -249,6 +315,9 @@ const networkData = {
         },
         {
             name: "Bornholm"
+        },
+        {
+            name: "Boston"
         },
         {
             name: "Brest (BY)"
@@ -287,6 +356,9 @@ const networkData = {
             name: "Copenhagen"
         },
         {
+            name: "Del Norte End Portal"
+        },
+        {
             name: "Düsseldorf"
         },
         {
@@ -302,7 +374,13 @@ const networkData = {
             name: "Graz"
         },
         {
+            name: "Halifax"
+        },
+        {
             name: "Helsinki"
+        },
+        {
+            name: "Iqaluit"
         },
         {
             name: "Isle of Man"
@@ -356,10 +434,22 @@ const networkData = {
             name: "Mequinenza"
         },
         {
+            name: "Montréal Central"
+        },
+        {
             name: "Newcastle"
         },
         {
+            name: "New Orleans"
+        },
+        {
+            name: "New York Central"
+        },
+        {
             name: "Nicosia"
+        },
+        {
+            name: "Norfolk"
         },
         {
             name: "Odessa"
@@ -369,6 +459,9 @@ const networkData = {
         },
         {
             name: "Orléans"
+        },
+        {
+            name: "Ottawa"
         },
         {
             name: "Pardubice"
@@ -398,6 +491,9 @@ const networkData = {
             name: "Płock"
         },
         {
+            name: "Québec"
+        },
+        {
             name: "Queen's Cross"
         },
         {
@@ -413,6 +509,12 @@ const networkData = {
             name: "Romanian Slime Farm"
         },
         {
+            name: "San Francisco"
+        },
+        {
+            name: "San Jose"
+        },
+        {
             name: "Sarajevo"
         },
         {
@@ -423,6 +525,9 @@ const networkData = {
         },
         {
             name: "Sparta"
+        },
+        {
+            name: "Sudbury"
         },
         {
             name: "Sweden"
@@ -452,6 +557,12 @@ const networkData = {
             name: "Tirana"
         },
         {
+            name: "Toronto Union"
+        },
+        {
+            name: "Tracy Industrial Area"
+        },
+        {
             name: "Tunis"
         },
         {
@@ -468,6 +579,9 @@ const networkData = {
         },
         {
             name: "Warsaw Central"
+        },
+        {
+            name: "Washington D.C."
         },
         {
             name: "West Mediterranean"
@@ -763,7 +877,7 @@ const networkData = {
             from: "Timișoara",
             to: "Carpathia",
             line_id: "E13",
-            time: 95
+            time: 60
         },
         {
             from: "Catania",
@@ -886,6 +1000,12 @@ const networkData = {
             time: 40
         },
         {
+            from: "Frankfurt",
+            to: "Charleville-Mézières",
+            line_id: "E22",
+            time: 55
+        },
+        {
             from: "Pardubice",
             to: "Brno",
             line_id: "E23",
@@ -902,6 +1022,12 @@ const networkData = {
             to: "Graz",
             line_id: "E23",
             time: 25
+        },
+        {
+            from: "Graz",
+            to: "Zagreb",
+            line_id: "E23",
+            time: 20
         },
         {
             from: "West Mediterranean",
@@ -967,12 +1093,108 @@ const networkData = {
             from: "Algiers",
             to: "Tamanrasset",
             line_id: "F03",
-            time: null
+            time: 300
         },
         {
             from: "Tamanrasset",
             to: "Timbuktu",
             line_id: "F03",
+            time: null
+        },
+        {
+            from: "San Francisco",
+            to: "San Jose",
+            line_id: "N01",
+            time: 20
+        },
+        {
+            from: "San Francisco",
+            to: "Tracy Industrial Area",
+            line_id: "N02",
+            time: 25
+        },
+        {
+            from: "Tracy Industrial Area",
+            to: "Del Norte End Portal",
+            line_id: "N03",
+            time: null
+        },
+        {
+            from: "San Jose",
+            to: "San Diego",
+            line_id: "N04",
+            time: null
+        },
+        {
+            from: "Montréal Central",
+            to: "Ottawa",
+            line_id: "N10",
+            time: 70
+        },
+        {
+            from: "Ottawa",
+            to: "Toronto Union",
+            line_id: "N10",
+            time: null
+        },
+        {
+            from: "Toronto Union",
+            to: "Sudbury",
+            line_id: "N11",
+            time: null
+        },
+        {
+            from: "Montréal Central",
+            to: "Iqaluit",
+            line_id: "N12",
+            time: null
+        },
+        {
+            from: "Montréal Central",
+            to: "Québec",
+            line_id: "N13",
+            time: null
+        },
+        {
+            from: "Québec",
+            to: "Halifax",
+            line_id: "N13",
+            time: null
+        },
+        {
+            from: "Montréal Central",
+            to: "Boston",
+            line_id: "N14",
+            time: null
+        },
+        {
+            from: "Boston",
+            to: "New York Central",
+            line_id: "N14",
+            time: null
+        },
+        {
+            from: "New York Central",
+            to: "Norfolk",
+            line_id: "N15",
+            time: null
+        },
+        {
+            from: "Norfolk",
+            to: "New Orleans",
+            line_id: "N15",
+            time: null
+        },
+        {
+            from: "Montréal Central",
+            to: "New York Central",
+            line_id: "N16",
+            time: 120
+        },
+        {
+            from: "New York Central",
+            to: "Washington D.C.",
+            line_id: "N16",
             time: null
         },
         {
@@ -1013,12 +1235,12 @@ const networkData = {
         },
         {
             from: "Rasht",
-            to: "Baikonur",
+            to: "Baikonur End Portal",
             line_id: "T01",
             time: 300
         },
         {
-            from: "Baikonur",
+            from: "Baikonur End Portal",
             to: "Poronaysk",
             line_id: "T01",
             time: 1075
