@@ -509,6 +509,9 @@ const networkData = {
             name: "Romanian Slime Farm"
         },
         {
+            name: "San Diego"
+        },
+        {
             name: "San Francisco"
         },
         {
