@@ -1,7 +1,4 @@
-export enum LineType {
-    LSR,
-    HSR
-}
+export type LineType = "LSR" | "HSR";
 
 export interface Line {
     id: string,
@@ -17,12 +14,12 @@ export interface Station {
 export interface Connection {
     from: string,
     to: string,
-    line_id: string,
+    lineID: string,
     time: number
 }
 
 export interface Neighbour {
-    line_id: string,
+    lineID: string,
     destination: string,
     time: number
 }
@@ -33,7 +30,7 @@ export interface NetworkData {
     connections: Connection[]
 }
 
-export interface Leg {
+export interface LegProp {
     from: string,
     to: string,
     line: Line

@@ -1,125 +1,99 @@
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
 
+@font-face {
+    font-family: "MontaguSlab";
+    src: url(./fonts/MontaguSlab.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "M PLUS 2";
+    src: url(./fonts/Mplus2-Medium.otf) format("opentype");
+}
+
 .mantine-NativeSelect-root {
-    flex-grow: 1;
+    @apply grow;
 }
 
 .mantine-NativeSelect-label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
+    @apply block mb-[5px] font-bold;
 }
 
 .mantine-NativeSelect-input {
-    width: 100%;
-    padding: 8px;
-    border: 2px solid #588157;
-    border-radius: 4px;
-    background-color: #f9f9f9;
+    @apply w-full p-2 bg-[#f9f9f9] dark:bg-[#777] dark:text-white border-2 border-solid border-[#588157] rounded-sm;
 }
 
 .mantine-NativeSelect-section {
-    display: none;
+    @apply hidden;
+}
+
+.rmp-name__tokyo_en {
+    font-family: MontaguSlab, Arial, sans-serif;
+}
+
+.rmp-name__jreast_ja {
+    font-family: "M PLUS 2", sans-serif;
+}
+
+.rmp-name-outline {
+    paint-order: stroke;
+    stroke: white;
+    /* Do not forget to define stroke-width when using this class! */
+    stroke-linejoin: round;
 }
 
 .btn {
-    margin: 0;
-    text-align: center;
-    border: none;
-    background: #2f2f2f;
-    color: #888;
-    padding: 0 4px;
-    border-top: 1px solid #0a0a0a;
+    @apply m-0 text-center border-none bg-[#2f2f2f] text-[#888];
 }
 
 .btn-lg {
-    font-size: 12px;
-    line-height: 1;
-    padding: 4px;
+    @apply text-xs/3 p-1;
 }
 
 .btn-zoom {
-    width: 26px;
-    font-size: 22px;
+    @apply w-[26px] text-[22px];
 }
 
 .btn-bottom {
-    margin-bottom: 1rem;
+    @apply mb-4;
 }
 
 .description {
-    font-size: 12px;
-    margin-right: 0.25rem;
+    @apply text-xs mr-1;
 }
 
 .controls {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
-
-.mini-map {
-    position: absolute;
-    bottom: 25px;
-    right: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+    @apply absolute top-[15px] right-[15px] flex flex-col items-end;
 }
 
 .route-step {
-    margin-bottom: 10px;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border-radius: 4px;
-    border-left: 4px solid #60a558;
-}
-
-.hsr-step {
-    border-left: 4px solid #60a558;
+    @apply mb-2.5 p-2.5 bg-[#f9f9f9] dark:bg-[#555] rounded-sm border-l-4 border-l-[#60a558];
 }
 
 .line-badge {
-    display: inline-block;
-    padding: 3px 8px;
-    border-radius: 4px;
-    color: white;
-    font-weight: bold;
+    @apply inline-block px-2 py-[3px] rounded-sm text-white font-bold;
+}
+
+.line-border {
+    @apply my-5 border-b-1 border-b-[#ddd];
 }
 
 .hsr-badge {
-    position: relative;
+    @apply relative;
 }
 
 .hsr-badge::after {
-    content: "★";
-    font-size: 10px;
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background-color: gold;
-    color: black;
-    padding: 1px 3px;
-    border-radius: 3px;
+    @apply content-["★"] text-[10px] absolute top-[-5px] right-[-5px] bg-[gold] text-black px-[3px] py-[1px] rounded-[3px];
 }
 
 .transfer-station {
-    font-weight: bold;
-    color: #60a558;
+    @apply font-bold text-[#60a558];
 }
 
 .station-count {
-    color: #666;
-    font-size: 0.9em;
-    margin-top: 5px;
+    @apply text-[#666] dark:text-[#eee] text-[0.9em] mt-[5px];
 }
 
 .total-time {
-    font-weight: bold;
-    margin-top: 10px;
-    font-size: 1.1em;
+    @apply font-bold mt-2.5 text-[1.1em];
 }
