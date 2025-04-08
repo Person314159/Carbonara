@@ -30,7 +30,7 @@ export default function RoutingResult({ route }: RoutingResultProps) {
             <div id="result">
                 {route.length > 0 ?
                     <>
-                        {route.map(l => Leg(l))}
+                        {route.map(l => <Leg key={l.line.name} {...l} />)}
                         <div className="total-time">Total journey time: {formatTime(route.map(l => l.time).reduce((a, b) => a + b, 0))}</div>
                     </> : <p>No route found between these stations.</p>}
             </div>
