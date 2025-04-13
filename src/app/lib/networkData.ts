@@ -15,6 +15,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "A03",
+            name: "Warzone Express Line",
+            colour: "#662c91",
+            type: "LSR"
+        },
+        {
             id: "E01",
             name: "Brighton Red Line",
             colour: "#ed1c2a",
@@ -614,6 +620,12 @@ const networkData = {
             to: "Tel Aviv",
             lineID: "A02",
             time: 60
+        },
+        {
+            from: "Rasht",
+            to: "Tel Aviv",
+            lineID: "A03",
+            time: 255
         },
         {
             from: "Queen's Cross",
