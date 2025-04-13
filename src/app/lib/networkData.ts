@@ -527,10 +527,10 @@ const networkData = {
             name: "Sparta"
         },
         {
-            name: "Sudbury"
+            name: "Stockholm"
         },
         {
-            name: "Sweden"
+            name: "Sudbury"
         },
         {
             name: "Szczecin"
@@ -737,9 +737,21 @@ const networkData = {
         },
         {
             from: "Turku",
-            to: "Sweden",
+            to: "Stockholm",
             lineID: "E06",
             time: null
+        },
+        {
+            from: "Stockholm",
+            to: "Copenhagen",
+            lineID: "E06",
+            time: null
+        },
+        {
+            from: "Copenhagen",
+            to: "Kiel",
+            lineID: "E06",
+            time: 50
         },
         {
             from: "Warsaw Central",
