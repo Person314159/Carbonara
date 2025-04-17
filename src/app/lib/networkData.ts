@@ -159,6 +159,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "E27",
+            name: "Rhine Line",
+            colour: "#800000",
+            type: "LSR"
+        },
+        {
             id: "E30",
             name: "Big Bridge Line Thessaloniki Branch",
             colour: "#bb4a9b",
@@ -362,6 +368,9 @@ const networkData = {
             name: "Copenhagen"
         },
         {
+            name: "Cratère-sur-Mer"
+        },
+        {
             name: "Del Norte End Portal"
         },
         {
@@ -396,9 +405,6 @@ const networkData = {
         },
         {
             name: "Karlsruhe"
-        },
-        {
-            name: "Kaunas"
         },
         {
             name: "Kiel"
@@ -468,6 +474,9 @@ const networkData = {
         },
         {
             name: "Pardubice"
+        },
+        {
+            name: "Paterborn"
         },
         {
             name: "Plymouth"
@@ -552,6 +561,9 @@ const networkData = {
         },
         {
             name: "Thessaloniki"
+        },
+        {
+            name: "Thun"
         },
         {
             name: "Timbuktu"
@@ -725,15 +737,9 @@ const networkData = {
         },
         {
             from: "Kaliningrad",
-            to: "Kaunas",
-            lineID: "E06",
-            time: 55
-        },
-        {
-            from: "Kaunas",
             to: "Riga",
             lineID: "E06",
-            time: 30
+            time: 90
         },
         {
             from: "Riga",
@@ -773,15 +779,9 @@ const networkData = {
         },
         {
             from: "Brest (BY)",
-            to: "Kaunas",
-            lineID: "E07",
-            time: 55
-        },
-        {
-            from: "Kaunas",
             to: "Riga",
             lineID: "E07",
-            time: 30
+            time: 85
         },
         {
             from: "Riga",
@@ -946,6 +946,12 @@ const networkData = {
             time: null
         },
         {
+            from: "Cratère-sur-Mer",
+            to: "Brest (FR)",
+            lineID: "E18",
+            time: null
+        },
+        {
             from: "Brest (FR)",
             to: "Rennes",
             lineID: "E18",
@@ -1034,6 +1040,24 @@ const networkData = {
             to: "Zagreb",
             lineID: "E23",
             time: 20
+        },
+        {
+            from: "Kiel",
+            to: "Paterborn",
+            lineID: "E27",
+            time: 50
+        },
+        {
+            from: "Paterborn",
+            to: "Frankfurt",
+            lineID: "E27",
+            time: 25
+        },
+        {
+            from: "Frankfurt",
+            to: "Thun",
+            lineID: "E27",
+            time: 60
         },
         {
             from: "West Mediterranean",
