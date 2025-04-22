@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import networkData from "@/app/lib/networkData";
 import { LegProp } from "@/app/lib/interfaces";
 import NetworkMap from "@/app/components/networkMap";
@@ -10,29 +10,114 @@ import { findRoute } from "@/app/util/routing";
 import { StationSelect } from "@/app/components/stationSelect";
 
 export default function Home() {
-    const [startStation, setStartStation] = useState(networkData.stations[0].name);
-    const [endStation, setEndStation] = useState(networkData.stations[0].name);
+    const [startStation, setStartStation] = useState("");
+    const [endStation, setEndStation] = useState("");
     const [route, setRoute] = useState<LegProp[] | null | undefined>(undefined);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | undefined>();
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+        // Set initial values after hydration
+        setStartStation(networkData.stations[0].name);
+        setEndStation(networkData.stations[0].name);
+        setIsClient(true);
+    }, []);
+
+    const handleRouteFind = async () => {
+        setIsLoading(true);
+        setError(undefined);
+
+        try {
+            if (startStation === endStation) {
+                throw new Error("Start and end stations must be different");
+            }
+
+            const result = findRoute(startStation, endStation);
+
+            if (result !== null && result !== undefined && result.length === 0) {
+                throw new Error("No route found between selected stations");
+            }
+
+            setRoute(result);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : "An error occurred finding the route");
+            setRoute(null);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    if (!isClient) {
+        return (
+            <main className="container mt-0 mb-0 rounded-lg shadow-lg fade-in" role="main">
+                <div className="grid-layout">
+                    <div className="col-span-full">
+                        <h2 className="text-center mb-5" style={{ color: "var(--color-primary-light)" }}>Loading...</h2>
+                    </div>
+                </div>
+            </main>
+        );
+    }
 
     return (
         <>
-            <div className="max-w-7xl mt-0 mb-0 ml-auto mr-auto bg-white dark:bg-[#444] p-5 rounded-lg shadow-[0_2px_10px_rgba(0, 0, 0, 0.1)]">
-                <h1 className="text-center text-[#588157] mt-2 mb-2">CARBONARA</h1>
-                <h2 className="text-center text-[#60a558] mt-2 mb-5">A PESTO Train Router</h2>
-                <h5 className="text-center mt-5 mb-5">Comprehensive And Rapid Browser for Organized Navigation And Route Assistance</h5>
+            <a href="#main-content" className="skip-to-main">Skip to main content</a>
 
-                <div className="line-border" />
+            <main id="main-content" className="container mt-0 mb-0 rounded-lg shadow-lg fade-in" role="main">
+                <div className="grid-layout">
+                    <div className="col-span-full">
+                        <h1 className="text-center" style={{ color: "var(--color-primary)" }}>CARBONARA</h1>
+                        <h2 className="text-center mb-5" style={{ color: "var(--color-primary-light)" }}>A P.E.S.T.O. Train Router</h2>
+                        <p className="text-body text-center mb-5">Comprehensive And Rapid Browser for Organized Navigation And Route Assistance</p>
 
-                <p className="text-center">Select your starting point and destination to find the best route.<br /><b>Note: Total journey time does not take into account transfer times.</b></p>
+                        <div className="line-border" role="separator" />
 
-                <StationSelect selectStart={(event) => setStartStation(event.currentTarget.value)} selectEnd={(event) => setEndStation(event.currentTarget.value)} findRoute={() => setRoute(findRoute(startStation, endStation))} />
+                        <div className="text-body text-center transition-all">
+                            <p>Select your starting point and destination to find the best route.</p>
+                            <p className="text-small mt-2">
+                                <span className="sr-only">Important note: </span>
+                                <b>Note: Total journey time does not take into account transfer times.</b>
+                            </p>
+                        </div>
 
-                {RoutingResult({ route })}
+                        <div
+                            role="region"
+                            aria-label="Route Planning Section"
+                        >
+                            <StationSelect
+                                selectStart={(event) => setStartStation(event.currentTarget.value)}
+                                selectEnd={(event) => setEndStation(event.currentTarget.value)}
+                                startStation={startStation}
+                                endStation={endStation}
+                                onRouteFind={handleRouteFind}
+                                isLoading={isLoading}
+                                error={error}
+                            />
 
-                <div className="line-border" />
+                            <div
+                                className={`route-result ${isLoading ? "loading-skeleton" : ""}`}
+                                role="region"
+                                aria-label="Route Results"
+                                aria-live="polite"
+                                aria-busy={isLoading}
+                            >
+                                {RoutingResult({ route })}
+                            </div>
+                        </div>
 
-                <ParentSize debounceTime={0} initialSize={{ width: 1280, height: 800 }}>{({ width, height }) => <NetworkMap width={width} height={height} />}</ParentSize>
-            </div>
+                        <div className="line-border" role="separator" />
+                    </div>
+
+                    <div className="col-span-full transition-all">
+                        <div role="region" aria-label="Network Map">
+                            <ParentSize debounceTime={0} initialSize={{ width: 1280, height: 800 }}>
+                                {({ width, height }) => <NetworkMap width={width} height={height} />}
+                            </ParentSize>
+                        </div>
+                    </div>
+                </div>
+            </main>
         </>
     );
 }

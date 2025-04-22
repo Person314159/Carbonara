@@ -21,6 +21,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "A06",
+            name: "Ararat Line",
+            colour: "#ff9e1b",
+            type: "LSR"
+        },
+        {
             id: "E01",
             name: "Brighton Red Line",
             colour: "#ed1c2a",
@@ -124,7 +130,7 @@ const networkData = {
         },
         {
             id: "E18",
-            name: "E18",
+            name: "French Line",
             colour: "#662c91",
             type: "LSR"
         },
@@ -162,6 +168,12 @@ const networkData = {
             id: "E27",
             name: "Rhine Line",
             colour: "#800000",
+            type: "LSR"
+        },
+        {
+            id: "E29",
+            name: "Gotthard Line",
+            colour: "#cccccc",
             type: "LSR"
         },
         {
@@ -302,13 +314,13 @@ const networkData = {
             name: "Algiers"
         },
         {
-            name: "Amsterdam Centraal"
+            name: "Amsterdam Central"
         },
         {
             name: "Antalya"
         },
         {
-            name: "Baikonur End Portal"
+            name: "Baikonur"
         },
         {
             name: "Bari"
@@ -371,10 +383,13 @@ const networkData = {
             name: "Cratère-sur-Mer"
         },
         {
-            name: "Del Norte End Portal"
+            name: "Del Norte"
         },
         {
             name: "Frankfurt"
+        },
+        {
+            name: "Gay"
         },
         {
             name: "Gdańsk"
@@ -441,6 +456,12 @@ const networkData = {
         },
         {
             name: "Mequinenza"
+        },
+        {
+            name: "Merlischachen"
+        },
+        {
+            name: "Milan"
         },
         {
             name: "Montréal Central"
@@ -638,6 +659,12 @@ const networkData = {
             to: "Tel Aviv",
             lineID: "A03",
             time: 255
+        },
+        {
+            from: "Rasht",
+            to: "Gay",
+            lineID: "A06",
+            time: 125
         },
         {
             from: "Queen's Cross",
@@ -1060,6 +1087,18 @@ const networkData = {
             time: 60
         },
         {
+            from: "Thun",
+            to: "Merlischachen",
+            lineID: "E29",
+            time: 15
+        },
+        {
+            from: "Merlischachen",
+            to: "Milan",
+            lineID: "E29",
+            time: 40
+        },
+        {
             from: "West Mediterranean",
             to: "Mequinenza",
             lineID: "E31",
@@ -1145,7 +1184,7 @@ const networkData = {
         },
         {
             from: "Tracy Industrial Area",
-            to: "Del Norte End Portal",
+            to: "Del Norte",
             lineID: "N03",
             time: null
         },
@@ -1265,12 +1304,12 @@ const networkData = {
         },
         {
             from: "Rasht",
-            to: "Baikonur End Portal",
+            to: "Baikonur",
             lineID: "T01",
             time: 300
         },
         {
-            from: "Baikonur End Portal",
+            from: "Baikonur",
             to: "Poronaysk",
             lineID: "T01",
             time: 1075
@@ -1337,7 +1376,7 @@ const networkData = {
         },
         {
             from: "Charleville-Mézières",
-            to: "Amsterdam Centraal",
+            to: "Amsterdam Central",
             lineID: "HBL",
             time: 40
         },
@@ -1354,13 +1393,13 @@ const networkData = {
             time: 65
         },
         {
-            from: "Amsterdam Centraal",
+            from: "Amsterdam Central",
             to: "Rennes",
             lineID: "HBL",
             time: 85
         },
         {
-            from: "Amsterdam Centraal",
+            from: "Amsterdam Central",
             to: "Queen's Cross",
             lineID: "HBL",
             time: 65
@@ -1372,7 +1411,7 @@ const networkData = {
             time: 60
         },
         {
-            from: "Amsterdam Centraal",
+            from: "Amsterdam Central",
             to: "Warsaw Central",
             lineID: "HGR",
             time: 165

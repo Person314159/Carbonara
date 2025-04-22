@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Zoom } from "@visx/zoom";
 import { localPoint } from "@visx/event";
 import { RectClipPath } from "@visx/clip-path";
@@ -46,7 +46,9 @@ const NetworkMap = React.memo(function({ width, height }: ZoomIProps) {
                         <svg style={{ cursor: zoom.isDragging ? "grabbing" : "grab", touchAction: "none" }} ref={zoom.containerRef} width={width} height={h}>
                             <RectClipPath id="zoom-clip" width={width} height={h} />
                             <g transform={zoom.toString()}>
-                                <SvgWrapper />
+                                <Suspense fallback={<text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle">Loading map...</text>}>
+                                    <SvgWrapper />
+                                </Suspense>
                             </g>
                             <rect
                                 width={width}

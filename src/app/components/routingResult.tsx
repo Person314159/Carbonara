@@ -11,17 +11,7 @@ interface RoutingResultProps {
 
 
 export default function RoutingResult({ route }: RoutingResultProps) {
-    if (route === undefined) return;
-
-    if (route === null) return (
-        <>
-            <div className="line-border" />
-
-            <div id="result">
-                <p className="text-[#f00]">Start and destination stations are the same.</p>
-            </div>
-        </>
-    );
+    if (route === undefined || route === null) return;
 
     return (
         <>
