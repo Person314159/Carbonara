@@ -62,9 +62,7 @@ export default function Home() {
 
     return (
         <>
-            <a href="#main-content" className="skip-to-main">Skip to main content</a>
-
-            <main id="main-content" className="container mt-0 mb-0 rounded-lg shadow-lg fade-in" role="main">
+            <main className="container mt-0 mb-0 rounded-lg shadow-lg fade-in" role="main">
                 <div className="grid-layout">
                     <div className="col-span-full">
                         <h1 className="text-center" style={{ color: "var(--color-primary)" }}>CARBONARA</h1>

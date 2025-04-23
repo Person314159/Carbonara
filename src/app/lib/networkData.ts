@@ -285,6 +285,36 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "O03",
+            name: "Okaihau Express",
+            colour: "#cd4600",
+            type: "LSR"
+        },
+        {
+            id: "O04",
+            name: "Southerner",
+            colour: "#1925ff",
+            type: "LSR"
+        },
+        {
+            id: "O05",
+            name: "Transalpine",
+            colour: "#a1d2cf",
+            type: "LSR"
+        },
+        {
+            id: "O06",
+            name: "Coastal Pacific",
+            colour: "#01a3b7",
+            type: "LSR"
+        },
+        {
+            id: "O07",
+            name: "Northern Explorer",
+            colour: "#40a85f",
+            type: "LSR"
+        },
+        {
             id: "T01",
             name: "Big Bridge Line",
             colour: "#f59fb3",
@@ -318,6 +348,12 @@ const networkData = {
         },
         {
             name: "Antalya"
+        },
+        {
+            name: "Arthur's Pass"
+        },
+        {
+            name: "Auckland"
         },
         {
             name: "Baikonur"
@@ -374,6 +410,9 @@ const networkData = {
             name: "Charleville-Mézières"
         },
         {
+            name: "Christchurch"
+        },
+        {
             name: "Compiègne"
         },
         {
@@ -384,6 +423,9 @@ const networkData = {
         },
         {
             name: "Del Norte"
+        },
+        {
+            name: "Dunedin"
         },
         {
             name: "Frankfurt"
@@ -401,10 +443,19 @@ const networkData = {
             name: "Graz"
         },
         {
+            name: "Greymouth"
+        },
+        {
             name: "Halifax"
         },
         {
+            name: "Hamilton"
+        },
+        {
             name: "Helsinki"
+        },
+        {
+            name: "Jane Peak"
         },
         {
             name: "Iqaluit"
@@ -414,6 +465,9 @@ const networkData = {
         },
         {
             name: "Istanbul"
+        },
+        {
+            name: "Kaikōura"
         },
         {
             name: "Kaliningrad"
@@ -467,6 +521,9 @@ const networkData = {
             name: "Montréal Central"
         },
         {
+            name: "National Park"
+        },
+        {
             name: "Newcastle"
         },
         {
@@ -485,10 +542,16 @@ const networkData = {
             name: "Odessa"
         },
         {
+            name: "Ōkaihau"
+        },
+        {
             name: "Oran"
         },
         {
             name: "Orléans"
+        },
+        {
+            name: "Otiria"
         },
         {
             name: "Ottawa"
@@ -587,6 +650,9 @@ const networkData = {
             name: "Thun"
         },
         {
+            name: "Timaru"
+        },
+        {
             name: "Timbuktu"
         },
         {
@@ -623,7 +689,13 @@ const networkData = {
             name: "Washington D.C."
         },
         {
+            name: "Wellington"
+        },
+        {
             name: "West Mediterranean"
+        },
+        {
+            name: "Whanganui"
         },
         {
             name: "Zagreb"
@@ -1265,6 +1337,78 @@ const networkData = {
             to: "Washington D.C.",
             lineID: "N16",
             time: null
+        },
+        {
+            from: "Ōkaihau",
+            to: "Otiria",
+            lineID: "O03",
+            time: 10
+        },
+        {
+            from: "Christchurch",
+            to: "Timaru",
+            lineID: "O04",
+            time: 35
+        },
+        {
+            from: "Timaru",
+            to: "Dunedin",
+            lineID: "O04",
+            time: 30
+        },
+        {
+            from: "Dunedin",
+            to: "Jane Peak",
+            lineID: "O04",
+            time: 40
+        },
+        {
+            from: "Christchurch",
+            to: "Arthur's Pass",
+            lineID: "O05",
+            time: 30
+        },
+        {
+            from: "Arthur's Pass",
+            to: "Greymouth",
+            lineID: "O05",
+            time: 15
+        },
+        {
+            from: "Wellington",
+            to: "Kaikōura",
+            lineID: "O06",
+            time: 35
+        },
+        {
+            from: "Kaikōura",
+            to: "Christchurch",
+            lineID: "O06",
+            time: 40
+        },
+        {
+            from: "Auckland",
+            to: "Hamilton",
+            lineID: "O07",
+            time: 20
+        },
+        {
+            from: "Hamilton",
+            to: "National Park",
+            lineID: "O07",
+            time: 25
+        },
+        {
+            from: "National Park",
+            to: "Whanganui",
+            lineID: "O07",
+            time: 25
+        },
+        {
+            from: "Whanganui",
+            to: "Wellington",
+            lineID: "O07",
+            time: 25
         },
         {
             from: "Charleville-Mézières",
