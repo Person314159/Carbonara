@@ -8,46 +8,42 @@ interface StationSelectProps {
     startStation: string;
     endStation: string;
     onRouteFind: () => void;
-    isLoading?: boolean;
     error?: string;
 }
 
-export function StationSelect({ selectStart, selectEnd, startStation, endStation, onRouteFind, isLoading, error }: StationSelectProps) {
+export function StationSelect({ selectStart, selectEnd, startStation, endStation, onRouteFind, error }: StationSelectProps) {
     return (
-        <div className="form-group mb-5">
-            {error && (
-                <div className="status-message status-message--error">
-                    {error}
-                </div>
-            )}
-            <div className="form-row">
-                <div className="form-col">
+        <div className="mb-5">
+            <div className="flex gap-4 items-end">
+                <div className="flex-1">
                     <NativeSelect
                         label="Start Station:"
                         data={options}
                         value={startStation}
                         onChange={selectStart}
-                        disabled={isLoading}
                     />
                 </div>
-                <div className="form-col">
+                <div className="flex-1">
                     <NativeSelect
                         label="End Station:"
                         data={options}
                         value={endStation}
                         onChange={selectEnd}
-                        disabled={isLoading}
                     />
                 </div>
                 <button
-                    className={`find-route-btn ${isLoading ? "loading" : ""}`}
+                    className="find-route-btn"
                     aria-label="Find route between selected stations"
                     onClick={onRouteFind}
-                    disabled={isLoading}
                 >
                     Find Route
                 </button>
             </div>
+            {error && (
+                <div className="status-message status-message--error">
+                    {error}
+                </div>
+            )}
         </div>
     );
 }

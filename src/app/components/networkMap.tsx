@@ -16,7 +16,7 @@ interface ZoomToButtonProps {
 }
 
 function ZoomToButton({ onClick, name }: ZoomToButtonProps) {
-    return <button type="button" className="btn btn-lg" onClick={onClick}>
+    return <button type="button" className="btn text-xs/3 p-1" onClick={onClick}>
         {name}
     </button>;
 }
@@ -70,9 +70,9 @@ const NetworkMap = React.memo(function({ width, height }: ZoomIProps) {
                                 }}
                             />
                         </svg>
-                        <div className="controls">
-                            <button type="button" className="btn btn-zoom" onClick={() => zoom.scale({ scaleX: 1.2, scaleY: 1.2 })}>+</button>
-                            <button type="button" className="btn btn-zoom btn-bottom" onClick={() => zoom.scale({ scaleX: 0.8, scaleY: 0.8 })}>-</button>
+                        <div className="absolute top-[15px] right-[15px] flex flex-col items-end">
+                            <button type="button" className="btn w-[26px] text-[22px]" onClick={() => zoom.scale({ scaleX: 1.2, scaleY: 1.2 })}>+</button>
+                            <button type="button" className="btn w-[26px] text-[22px] !mb-4" onClick={() => zoom.scale({ scaleX: 0.8, scaleY: 0.8 })}>-</button>
                             <ZoomToButton onClick={() => zoom.setTransformMatrix({
                                 scaleX: 0.5,
                                 scaleY: 0.5,

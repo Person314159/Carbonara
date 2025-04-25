@@ -285,6 +285,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "O02",
+            name: "Victorian Line",
+            colour: "#b80b4b",
+            type: "LSR"
+        },
+        {
             id: "O03",
             name: "Okaihau Express",
             colour: "#cd4600",
@@ -312,6 +318,12 @@ const networkData = {
             id: "O07",
             name: "Northern Explorer",
             colour: "#40a85f",
+            type: "LSR"
+        },
+        {
+            id: "O08",
+            name: "Queensland Line",
+            colour: "#ffcd02",
             type: "LSR"
         },
         {
@@ -389,6 +401,9 @@ const networkData = {
             name: "Brighton"
         },
         {
+            name: "Brisbane"
+        },
+        {
             name: "Brno"
         },
         {
@@ -411,9 +426,6 @@ const networkData = {
         },
         {
             name: "Christchurch"
-        },
-        {
-            name: "Compiègne"
         },
         {
             name: "Copenhagen"
@@ -491,9 +503,6 @@ const networkData = {
             name: "Kyiv"
         },
         {
-            name: "La Rochelle"
-        },
-        {
             name: "Lampedusa"
         },
         {
@@ -507,6 +516,9 @@ const networkData = {
         },
         {
             name: "Marrakesh"
+        },
+        {
+            name: "Melbourne"
         },
         {
             name: "Mequinenza"
@@ -630,6 +642,9 @@ const networkData = {
         },
         {
             name: "Sudbury"
+        },
+        {
+            name: "Sydney"
         },
         {
             name: "Szczecin"
@@ -1339,6 +1354,12 @@ const networkData = {
             time: null
         },
         {
+            from: "Melbourne",
+            to: "Sydney",
+            lineID: "O02",
+            time: 130
+        },
+        {
             from: "Ōkaihau",
             to: "Otiria",
             lineID: "O03",
@@ -1411,6 +1432,12 @@ const networkData = {
             time: 25
         },
         {
+            from: "Sydney",
+            to: "Brisbane",
+            lineID: "O08",
+            time: 115
+        },
+        {
             from: "Charleville-Mézières",
             to: "West Mediterranean",
             lineID: "T01",
@@ -1477,6 +1504,12 @@ const networkData = {
             time: 35
         },
         {
+            from: "Isle of Man",
+            to: "Southampton",
+            lineID: "T03",
+            time: 85
+        },
+        {
             from: "Southampton",
             to: "Rennes",
             lineID: "T03",
@@ -1484,21 +1517,15 @@ const networkData = {
         },
         {
             from: "Rennes",
-            to: "La Rochelle",
-            lineID: "T03",
-            time: 40
-        },
-        {
-            from: "La Rochelle",
             to: "Pyrenees",
             lineID: "T03",
-            time: 35
+            time: 75
         },
         {
             from: "Pyrenees",
             to: "Mequinenza",
             lineID: "T03",
-            time: null
+            time: 50
         },
         {
             from: "Mequinenza",

@@ -1,8 +1,8 @@
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
 
-/* Color System */
 :root {
+    /* Color System */
     /* Primary Colors */
     --color-primary: #588157;
     --color-primary-light: #60a558;
@@ -35,19 +35,8 @@
     /* Focus outline colors */
     --focus-ring: rgba(88, 129, 87, 0.5);
     --focus-ring-offset: #ffffff;
-}
 
-/* Dark mode color adjustments */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --color-background: #444444;
-        --color-text: #ffffff;
-        --color-border: #666666;
-    }
-}
-
-/* Typography System */
-:root {
+    /* Typography System */
     --font-primary: "M PLUS 2", system-ui, -apple-system, sans-serif;
     --font-map: MontaguSlab, Arial, sans-serif;
     --font-size-xs: 0.75rem;
@@ -60,73 +49,51 @@
     --line-height-tight: 1.2;
     --line-height-normal: 1.5;
     --line-height-relaxed: 1.75;
+
+    /* Animation System */
+    /* Transition Speeds */
+    --transition-fast: 150ms;
+    --transition-normal: 250ms;
+    --transition-slow: 350ms;
+
+    /* Transition Curves */
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-in: cubic-bezier(0.4, 0, 1, 1);
 }
 
-/* Enhanced Typography Classes */
-h1 {
-    @apply text-[2rem] font-bold;
-    font-family: var(--font-primary);
-    line-height: var(--line-height-tight);
-    letter-spacing: 0.05em;
-}
-
-h2 {
-    @apply text-[1.5rem] font-bold;
-    font-family: var(--font-primary);
-    line-height: var(--line-height-tight);
-    letter-spacing: 0.03em;
-}
-
-p {
-    @apply text-base;
-    line-height: var(--line-height-normal);
-}
-
-.text-body {
-    font-size: var(--font-size-base);
-    line-height: var(--line-height-relaxed);
-}
-
-.text-small {
-    font-size: var(--font-size-sm);
-    line-height: var(--line-height-normal);
-}
-
-/* Base responsive container styles */
-.container {
-    @apply w-full mx-auto px-4;
-    max-width: 100%;
+/* Dark mode color adjustments */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-background: #444444;
+        --color-text: #ffffff;
+        --color-border: #666666;
+    }
 }
 
 /* Responsive breakpoints */
 @media (min-width: 640px) {
     .container {
-        max-width: 640px;
+        @apply max-w-[640px];
     }
 }
 
 @media (min-width: 768px) {
     .container {
-        max-width: 768px;
+        @apply max-w-3xl;
     }
 }
 
 @media (min-width: 1024px) {
     .container {
-        max-width: 1024px;
+        @apply max-w-5xl;
     }
 }
 
 @media (min-width: 1280px) {
     .container {
-        max-width: 1280px;
+        @apply max-w-7xl;
     }
-}
-
-/* Grid layout system */
-.grid-layout {
-    @apply grid gap-4;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
 /* Responsive padding/margin adjustments */
@@ -150,100 +117,42 @@ p {
     src: url(./fonts/Mplus2-Medium.otf) format("opentype");
 }
 
-/* Form Elements */
-.form-group {
-    @apply flex flex-col gap-2;
-}
-
 /* Select Input Styling */
 .mantine-NativeSelect-root {
     @apply grow;
 }
 
 .mantine-NativeSelect-label {
-    @apply block mb-2 font-bold;
-    color: var(--color-text);
-    font-size: var(--font-size-sm);
-    transition: color var(--transition-fast) var(--ease-out);
+    @apply block mb-2 font-bold text-(--color-text) text-(length:--font-size-sm) transition-[color] duration-(--transition-fast) ease-(--ease-out);
 }
 
 .mantine-NativeSelect-input {
-    @apply w-full p-2.5 border-2 border-solid rounded-sm;
-    background-color: var(--color-background-alt);
-    border-color: var(--color-border);
-    color: var(--color-text);
-    font-size: var(--font-size-base);
-    line-height: var(--line-height-normal);
-    transition: all var(--transition-fast) var(--ease-out);
-}
-
-/* Hover state */
-.mantine-NativeSelect-input:hover:not(:disabled) {
-    border-color: var(--color-primary);
-    background-color: var(--color-background);
-}
-
-/* Focus state */
-.mantine-NativeSelect-input:focus {
-    border-color: var(--color-primary);
-    background-color: var(--color-background);
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(88, 129, 87, 0.1);
-}
-
-/* Error state */
-.mantine-NativeSelect-error {
-    @apply mt-1;
-    color: #e53935;
-    font-size: var(--font-size-sm);
-}
-
-.mantine-NativeSelect-input.error {
-    border-color: #e53935;
-}
-
-.mantine-NativeSelect-input.error:focus {
-    box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.1);
-}
-
-/* Disabled state */
-.mantine-NativeSelect-input:disabled {
-    @apply cursor-not-allowed opacity-60;
-    background-color: var(--color-background-alt);
+    @apply w-full p-3 text-(--color-text) text-(length:--font-size-base)/(--line-height-normal) bg-(--color-background-alt) border-2 border-solid border-(--color-border) rounded-lg appearance-none transition-all duration-(--transition-fast) ease-(--ease-out) focus:border-(--color-primary) focus:bg-(--color-background) focus:outline-none focus:transform-[translateY(-1px)] focus:shadow-md hover:border-(--color-primary) hover:bg-(--color-background) hover:transform-[translateY(-1px)];
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1em;
+    padding-right: 2.5rem;
 }
 
 /* Dark mode adjustments */
 @media (prefers-color-scheme: dark) {
     .mantine-NativeSelect-label {
-        color: var(--color-text-dark);
+        @apply text-(--color-text-dark);
     }
 
     .mantine-NativeSelect-input {
-        background-color: var(--color-background-alt-dark);
-        border-color: var(--color-border);
-        color: var(--color-text-dark);
+        @apply bg-(--color-background-alt-dark) border-(--color-border) text-(--color-text-dark);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
     }
 
     .mantine-NativeSelect-input:hover:not(:disabled) {
-        background-color: var(--color-background-dark);
+        @apply bg-(--color-background-dark);
     }
 
     .mantine-NativeSelect-input:focus {
-        background-color: var(--color-background-dark);
+        @apply bg-(--color-background-dark) shadow-md;
     }
-
-    .mantine-NativeSelect-input:disabled {
-        background-color: var(--color-background-alt-dark);
-    }
-}
-
-/* Form Layout */
-.form-row {
-    @apply flex gap-4 items-end;
-}
-
-.form-col {
-    @apply flex-1;
 }
 
 .mantine-NativeSelect-section {
@@ -266,58 +175,16 @@ p {
 }
 
 .btn {
-    @apply m-0 text-center border-none;
-    background-color: var(--color-button);
-    color: var(--color-button-text);
-    transition: all var(--transition-fast) var(--ease-out);
-}
-
-.btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 2px 4px var(--color-shadow);
-}
-
-.btn:active {
-    transform: translateY(0);
-}
-
-.btn-lg {
-    @apply text-xs/3 p-1;
-}
-
-.btn-zoom {
-    @apply w-[26px] text-[22px];
-}
-
-.btn-bottom {
-    @apply mb-4;
-}
-
-.description {
-    font-size: var(--font-size-xs);
-    line-height: var(--line-height-normal);
-    @apply mr-1;
-}
-
-.controls {
-    @apply absolute top-[15px] right-[15px] flex flex-col items-end;
+    @apply m-0 text-center bg-(--color-button) text-(--color-button-text) border-none transition-all duration-(--transition-fast) ease-out hover:transform-[translateY(-1px)] hover:shadow-md active:transform-[translateY(0px)];
 }
 
 .route-step {
-    @apply mb-2.5 p-2.5 rounded-sm border-l-4;
-    background-color: var(--color-background-alt);
-    border-left-color: var(--color-primary-light);
-    transition: all var(--transition-normal) var(--ease-out);
-}
-
-.route-step:hover {
-    transform: translateX(4px);
-    box-shadow: -2px 2px 4px var(--color-shadow);
+    @apply mb-2.5 p-2.5 bg-(--color-background-alt) border-l-(--color-primary-light) rounded-sm border-l-4 transition-all duration-(--transition-normal) ease-out hover:transform-[translateX(4px)] hover:shadow-md;
 }
 
 @media (prefers-color-scheme: dark) {
     .route-step {
-        background-color: var(--color-background-alt-dark);
+        @apply bg-(--color-background-alt-dark);
     }
 }
 
@@ -326,83 +193,29 @@ p {
 }
 
 .line-border {
-    @apply my-5 border-b-1;
-    border-bottom-color: var(--color-border);
-    transition: border-color var(--transition-normal) var(--ease-in-out);
+    @apply my-5 border-b-1 border-b-(--color-border);
 }
 
 .hsr-badge {
-    @apply relative;
-}
-
-.hsr-badge::after {
-    @apply content-["★"] text-[10px] absolute top-[-5px] right-[-5px] bg-[gold] text-black px-[3px] py-[1px] rounded-[3px];
+    @apply relative after:content-["★"] after:text-[10px] after:absolute after:top-[-5px] after:right-[-5px] after:bg-[gold] after:text-black after:px-[3px] after:py-[1px] after:rounded-[3px];
 }
 
 .transfer-station {
-    @apply font-bold;
-    color: var(--color-primary-light);
-    transition: color var(--transition-fast) var(--ease-out);
-}
-
-.transfer-station:hover {
-    color: var(--color-primary-dark);
+    @apply font-bold text-(--color-primary-light) transition-[color] duration-(--transition-fast) ease-out hover:text-(--color-primary-dark);
 }
 
 .station-count {
-    font-size: var(--font-size-sm);
-    line-height: var(--line-height-normal);
-    color: var(--color-text-muted);
-    @apply mt-[5px];
+    @apply mt-[5px] text-(length:--font-size-sm)/(--line-height-normal) text-(--color-text-muted);
 }
 
 @media (prefers-color-scheme: dark) {
     .station-count {
-        color: var(--color-text-muted-dark);
+        @apply text-(--color-text-muted-dark);
     }
 }
 
 .total-time {
-    font-size: var(--font-size-lg);
-    line-height: var(--line-height-tight);
-    @apply font-bold mt-2.5;
-}
-
-/* Animation System */
-:root {
-    /* Transition Speeds */
-    --transition-fast: 150ms;
-    --transition-normal: 250ms;
-    --transition-slow: 350ms;
-
-    /* Transition Curves */
-    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-    --ease-out: cubic-bezier(0, 0, 0.2, 1);
-    --ease-in: cubic-bezier(0.4, 0, 1, 1);
-}
-
-/* Base transitions */
-.transition-all {
-    transition-property: all;
-    transition-timing-function: var(--ease-in-out);
-    transition-duration: var(--transition-normal);
-}
-
-/* Loading State Animation */
-@keyframes pulse {
-    0% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.5;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-.loading {
-    animation: pulse 2s var(--ease-in-out) infinite;
+    @apply text-(length:--font-size-lg)/(--line-height-tight) font-bold mt-2.5;
 }
 
 /* Fade In Animation */
@@ -423,67 +236,7 @@ p {
 
 /* Find Route Button */
 .find-route-btn {
-    background-color: var(--color-primary);
-    color: white;
-    padding: 0 1rem;
-    border: none;
-    border-radius: 0.125rem;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all var(--transition-fast) var(--ease-out);
-    height: 43px;
-}
-
-.find-route-btn:hover {
-    background-color: var(--color-primary-dark);
-    transform: translateY(-1px);
-    box-shadow: 0 2px 4px var(--color-shadow);
-}
-
-.find-route-btn:active {
-    transform: translateY(0);
-    box-shadow: none;
-}
-
-/* Loading States */
-.loading-skeleton {
-    @apply relative overflow-hidden;
-    background: var(--color-background-alt);
-}
-
-.loading-skeleton::after {
-    @apply absolute inset-0;
-    content: "";
-    background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(255, 255, 255, 0.2),
-            transparent
-    );
-    animation: shimmer 1.5s infinite;
-}
-
-@keyframes shimmer {
-    0% {
-        transform: translateX(-100%);
-    }
-    100% {
-        transform: translateX(100%);
-    }
-}
-
-/* Route Result Feedback */
-.route-result {
-    opacity: 0;
-    transform: translateY(10px);
-    animation: slideIn var(--transition-normal) var(--ease-out) forwards;
-}
-
-@keyframes slideIn {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    @apply bg-(--color-primary) text-white font-bold px-4 border-none rounded-lg h-[52px] cursor-pointer transition-all duration-(--transition-fast) ease-out hover:bg-(--color-primary-dark) hover:transform-[translateY(-1px)] hover:shadow-md active:transform-[translateY(0px)] active:shadow-none;
 }
 
 /* Status Messages */
@@ -492,113 +245,10 @@ p {
     animation: fadeIn var(--transition-normal) var(--ease-out);
 }
 
-.status-message--success {
-    background-color: rgba(76, 175, 80, 0.1);
-    color: var(--color-success);
-    border-left: 4px solid var(--color-success);
-}
-
 .status-message--error {
     background-color: rgba(244, 67, 54, 0.1);
     color: var(--color-error);
     border-left: 4px solid var(--color-error);
-}
-
-.status-message--warning {
-    background-color: rgba(255, 152, 0, 0.1);
-    color: var(--color-warning);
-    border-left: 4px solid var(--color-warning);
-}
-
-.status-message--info {
-    background-color: rgba(33, 150, 243, 0.1);
-    color: var(--color-info);
-    border-left: 4px solid var(--color-info);
-}
-
-/* Loading Spinner */
-.loading-spinner {
-    @apply inline-block w-4 h-4 border-2 border-solid rounded-full;
-    border-color: var(--color-primary) transparent transparent transparent;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-/* Loading Button State */
-.find-route-btn.loading {
-    position: relative;
-    pointer-events: none;
-    color: transparent;
-}
-
-.find-route-btn.loading::after {
-    content: "";
-    @apply absolute inset-0 m-auto w-4 h-4 border-2 border-solid rounded-full;
-    border-color: white transparent transparent transparent;
-    animation: spin 1s linear infinite;
-}
-
-/* Route Step Loading */
-.route-step.loading {
-    position: relative;
-    overflow: hidden;
-}
-
-.route-step.loading::after {
-    content: "";
-    @apply absolute inset-0;
-    background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(255, 255, 255, 0.1),
-            transparent
-    );
-    animation: shimmer 1.5s infinite;
-}
-
-/* Accessibility Improvements */
-:root {
-    /* Focus outline colors */
-    --focus-ring: rgba(88, 129, 87, 0.5);
-    --focus-ring-offset: #ffffff;
-}
-
-/* Focus Visible Styles */
-:focus-visible {
-    outline: 2px solid var(--focus-ring);
-    outline-offset: 2px;
-}
-
-/* Skip to main content link */
-.skip-to-main {
-    @apply fixed left-2 -top-40 z-50 p-3 bg-white rounded-sm;
-    transition: top var(--transition-fast) var(--ease-out);
-}
-
-.skip-to-main:focus {
-    @apply top-2;
-}
-
-/* Enhanced button focus states */
-.find-route-btn:focus-visible {
-    outline: 2px solid var(--focus-ring);
-    outline-offset: 2px;
-    box-shadow: 0 0 0 4px var(--focus-ring-offset);
-}
-
-/* Form input focus improvements */
-.mantine-NativeSelect-input:focus-visible {
-    outline: 2px solid var(--focus-ring);
-    outline-offset: 1px;
-    box-shadow: 0 0 0 4px var(--focus-ring-offset);
 }
 
 /* High contrast mode adjustments */
@@ -623,24 +273,5 @@ p {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
-    }
-}
-
-/* Screen reader only text */
-.sr-only {
-    @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
-    clip: rect(0, 0, 0, 0);
-    clip-path: inset(50%);
-}
-
-/* Enhanced touch targets */
-@media (pointer: coarse) {
-    .find-route-btn,
-    .mantine-NativeSelect-input {
-        min-height: 44px; /* Minimum touch target size */
-    }
-
-    .route-step {
-        padding: 1rem;
     }
 }

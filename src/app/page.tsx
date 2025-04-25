@@ -13,7 +13,6 @@ export default function Home() {
     const [startStation, setStartStation] = useState("");
     const [endStation, setEndStation] = useState("");
     const [route, setRoute] = useState<LegProp[] | null | undefined>(undefined);
-    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | undefined>();
     const [isClient, setIsClient] = useState(false);
 
@@ -25,7 +24,6 @@ export default function Home() {
     }, []);
 
     const handleRouteFind = async () => {
-        setIsLoading(true);
         setError(undefined);
 
         try {
@@ -43,15 +41,13 @@ export default function Home() {
         } catch (err) {
             setError(err instanceof Error ? err.message : "An error occurred finding the route");
             setRoute(null);
-        } finally {
-            setIsLoading(false);
         }
     };
 
     if (!isClient) {
         return (
-            <main className="container mt-0 mb-0 rounded-lg shadow-lg fade-in" role="main">
-                <div className="grid-layout">
+            <main className="w-full max-w-7xl mx-auto mt-0 mb-0 px-4 rounded-lg shadow-lg fade-in" role="main">
+                <div className="grid gap-4 grid-cols-2">
                     <div className="col-span-full">
                         <h2 className="text-center mb-5" style={{ color: "var(--color-primary-light)" }}>Loading...</h2>
                     </div>
@@ -62,19 +58,18 @@ export default function Home() {
 
     return (
         <>
-            <main className="container mt-0 mb-0 rounded-lg shadow-lg fade-in" role="main">
-                <div className="grid-layout">
+            <main className="w-full max-w-7xl mx-auto mt-0 mb-0 px-4 rounded-lg shadow-lg fade-in" role="main">
+                <div className="grid gap-4 grid-cols-2">
                     <div className="col-span-full">
-                        <h1 className="text-center" style={{ color: "var(--color-primary)" }}>CARBONARA</h1>
-                        <h2 className="text-center mb-5" style={{ color: "var(--color-primary-light)" }}>A P.E.S.T.O. Train Router</h2>
-                        <p className="text-body text-center mb-5">Comprehensive And Rapid Browser for Organized Navigation And Route Assistance</p>
+                        <h1 className="text-center text-[2rem]/(--line-height-tight) font-bold font-(family-name:--font-primary) tracking-wider" style={{ color: "var(--color-primary)" }}>CARBONARA</h1>
+                        <h2 className="text-center text-[1.5rem]/(--line-height-tight) font-bold font-(family-name:--font-primary) tracking-wide mb-5" style={{ color: "var(--color-primary-light)" }}>A P.E.S.T.O. Train Router</h2>
+                        <p className="text-center text-base/(--line-height-relaxed) mb-5">Comprehensive And Rapid Browser for Organized Navigation And Route Assistance</p>
 
                         <div className="line-border" role="separator" />
 
-                        <div className="text-body text-center transition-all">
+                        <div className="text-center text-base/(--line-height-relaxed) transition-all">
                             <p>Select your starting point and destination to find the best route.</p>
-                            <p className="text-small mt-2">
-                                <span className="sr-only">Important note: </span>
+                            <p className="text-(length:--font-size-sm)/(--line-height-normal) mt-2">
                                 <b>Note: Total journey time does not take into account transfer times.</b>
                             </p>
                         </div>
@@ -89,16 +84,13 @@ export default function Home() {
                                 startStation={startStation}
                                 endStation={endStation}
                                 onRouteFind={handleRouteFind}
-                                isLoading={isLoading}
                                 error={error}
                             />
 
                             <div
-                                className={`route-result ${isLoading ? "loading-skeleton" : ""}`}
                                 role="region"
                                 aria-label="Route Results"
                                 aria-live="polite"
-                                aria-busy={isLoading}
                             >
                                 {RoutingResult({ route })}
                             </div>
