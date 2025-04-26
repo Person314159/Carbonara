@@ -572,7 +572,7 @@ const networkData = {
             name: "Pardubice"
         },
         {
-            name: "Paterborn"
+            name: "Paderborn"
         },
         {
             name: "Plymouth"
@@ -925,7 +925,7 @@ const networkData = {
             from: "Płock",
             to: "Warsaw Central",
             lineID: "E08",
-            time: null
+            time: 25
         },
         {
             from: "Warsaw Central",
@@ -1157,12 +1157,12 @@ const networkData = {
         },
         {
             from: "Kiel",
-            to: "Paterborn",
+            to: "Paderborn",
             lineID: "E27",
             time: 50
         },
         {
-            from: "Paterborn",
+            from: "Paderborn",
             to: "Frankfurt",
             lineID: "E27",
             time: 25
