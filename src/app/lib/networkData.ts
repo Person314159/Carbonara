@@ -189,6 +189,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "E32",
+            name: "E32",
+            colour: "#006db8",
+            type: "LSR"
+        },
+        {
             id: "F01",
             name: "Lampedusa Line",
             colour: "#ffcd02",
@@ -327,6 +333,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "O09",
+            name: "O09",
+            colour: "#87d3df",
+            type: "LSR"
+        },
+        {
             id: "T01",
             name: "Big Bridge Line",
             colour: "#f59fb3",
@@ -348,6 +360,9 @@ const networkData = {
     stations: [
         {
             name: "Accra"
+        },
+        {
+            name: "Adelaide"
         },
         {
             name: "Alexandria"
@@ -582,6 +597,9 @@ const networkData = {
         },
         {
             name: "Poronaysk"
+        },
+        {
+            name: "Porto"
         },
         {
             name: "Porvoo"
@@ -1192,6 +1210,12 @@ const networkData = {
             time: 65
         },
         {
+            from: "Mequinenza",
+            to: "Porto",
+            lineID: "E32",
+            time: 120
+        },
+        {
             from: "Central Mediterranean",
             to: "Lampedusa",
             lineID: "F01",
@@ -1435,6 +1459,12 @@ const networkData = {
             from: "Sydney",
             to: "Brisbane",
             lineID: "O08",
+            time: 115
+        },
+        {
+            from: "Melbourne",
+            to: "Adelaide",
+            lineID: "O09",
             time: 115
         },
         {
