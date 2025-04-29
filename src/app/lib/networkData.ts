@@ -937,7 +937,7 @@ const networkData = {
             from: "Bydgoszcz",
             to: "Płock",
             lineID: "E08",
-            time: null
+            time: 35
         },
         {
             from: "Płock",
