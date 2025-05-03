@@ -4,7 +4,7 @@ import { DiagonalPathAttributes } from "../components/svgs/lines/paths/diagonal"
 import { PerpendicularPathAttributes } from "../components/svgs/lines/paths/perpendicular";
 import { SingleColorAttributes } from "../components/svgs/lines/styles/single-color";
 import { BjsubwayDottedAttributes } from "../components/svgs/lines/styles/bjsubway-dotted";
-import { LondonLutonAirportDARTAttributes } from "../components/svgs/lines/styles/london-DART";
+import { BjsubwayTramAttributes } from "../components/svgs/lines/styles/bjsubway-tram";
 
 export enum LinePathType {
     Diagonal = "diagonal",
@@ -20,13 +20,13 @@ export interface ExternalLinePathAttributes {
 export enum LineStyleType {
     SingleColor = "single-color",
     BjsubwayDotted = "bjsubway-dotted",
-    LondonLutonAirportDART = "london-DART",
+    BjsubwayTram = "bjsubway-tram",
 }
 
 export interface ExternalLineStyleAttributes {
     [LineStyleType.SingleColor]?: SingleColorAttributes;
     [LineStyleType.BjsubwayDotted]?: BjsubwayDottedAttributes;
-    [LineStyleType.LondonLutonAirportDART]?: LondonLutonAirportDARTAttributes;
+    [LineStyleType.BjsubwayTram]?: BjsubwayTramAttributes;
 }
 
 /* ----- Below are core types for all lines, DO NOT TOUCH. ----- */

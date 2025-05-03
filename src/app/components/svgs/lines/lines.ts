@@ -3,7 +3,7 @@ import diagonalPath from "./paths/diagonal";
 import perpendicularPath from "./paths/perpendicular";
 import singleColor from "./styles/single-color";
 import bjsubwayDotted from "./styles/bjsubway-dotted";
-import londonLutonAirportDART from "./styles/london-DART";
+import bjsubwayTram from "@/app/components/svgs/lines/styles/bjsubway-tram";
 import simplePath from "@/app/components/svgs/lines/paths/simple";
 
 export const linePaths = {
@@ -15,5 +15,5 @@ export const linePaths = {
 export const lineStyles = {
     [LineStyleType.SingleColor]: singleColor,
     [LineStyleType.BjsubwayDotted]: bjsubwayDotted,
-    [LineStyleType.LondonLutonAirportDART]: londonLutonAirportDART
+    [LineStyleType.BjsubwayTram]: bjsubwayTram,
 };

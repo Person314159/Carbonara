@@ -225,6 +225,12 @@ const networkData = {
             type: "HSR"
         },
         {
+            id: "HPU",
+            name: "Purple HSR",
+            colour: "#662c91",
+            type: "HSR"
+        },
+        {
             id: "N01",
             name: "N01",
             colour: "#00b397",
@@ -256,7 +262,7 @@ const networkData = {
         },
         {
             id: "N11",
-            name: "N11",
+            name: "Vancouver Line",
             colour: "#f59fb3",
             type: "LSR"
         },
@@ -334,8 +340,14 @@ const networkData = {
         },
         {
             id: "O09",
-            name: "O09",
+            name: "Adelaide Line",
             colour: "#87d3df",
+            type: "LSR"
+        },
+        {
+            id: "O10",
+            name: "Nullarbor Line",
+            colour: "#008c5a",
             type: "LSR"
         },
         {
@@ -590,6 +602,9 @@ const networkData = {
             name: "Paderborn"
         },
         {
+            name: "Perth"
+        },
+        {
             name: "Plymouth"
         },
         {
@@ -708,6 +723,9 @@ const networkData = {
         },
         {
             name: "Valencia"
+        },
+        {
+            name: "Vancouver"
         },
         {
             name: "Venice"
@@ -1174,6 +1192,12 @@ const networkData = {
             time: 20
         },
         {
+            from: "Zagreb",
+            to: "Sarajevo",
+            lineID: "E23",
+            time: 55
+        },
+        {
             from: "Kiel",
             to: "Paderborn",
             lineID: "E27",
@@ -1468,6 +1492,12 @@ const networkData = {
             time: 115
         },
         {
+            from: "Adelaide",
+            to: "Perth",
+            lineID: "O10",
+            time: 340
+        },
+        {
             from: "Charleville-Mézières",
             to: "West Mediterranean",
             lineID: "T01",
@@ -1616,6 +1646,12 @@ const networkData = {
             to: "Warsaw Central",
             lineID: "HGR",
             time: 165
+        },
+        {
+            from: "San Jose",
+            to: "Vancouver",
+            lineID: "HPU",
+            time: null
         }
     ]
 } as NetworkData;

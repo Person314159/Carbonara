@@ -56,7 +56,6 @@ export type Id = StnId | MiscNodeId | LineId;
 
 export enum CityCode {
     Beijing = "beijing",
-    London = "london",
     Shanghai = "shanghai",
     Tokyo = "tokyo",
 }

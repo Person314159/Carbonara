@@ -4,7 +4,7 @@ import { NodeComponentProps } from "@/app/constants/nodes";
 import { StationComponentProps } from "@/app/constants/stations";
 import { SingleColorAttributes } from "@/app/components/svgs/lines/styles/single-color";
 import { BjsubwayDottedAttributes } from "@/app/components/svgs/lines/styles/bjsubway-dotted";
-import { LondonLutonAirportDARTAttributes } from "@/app/components/svgs/lines/styles/london-DART";
+import { BjsubwayTramAttributes } from "@/app/components/svgs/lines/styles/bjsubway-tram";
 
 export const UnknownNode = (props: StationComponentProps | NodeComponentProps<object>) => {
     const { id, x, y } = props;
@@ -25,7 +25,7 @@ export const UnknownNode = (props: StationComponentProps | NodeComponentProps<ob
     );
 };
 
-export const UnknownLineStyle = (props: LineStyleComponentProps<NonNullable<SingleColorAttributes | BjsubwayDottedAttributes | LondonLutonAirportDARTAttributes | undefined>>) => {
+export const UnknownLineStyle = (props: LineStyleComponentProps<NonNullable<SingleColorAttributes | BjsubwayTramAttributes | BjsubwayDottedAttributes | undefined>>) => {
     const { id, path } = props;
 
     return (
