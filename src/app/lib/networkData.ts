@@ -70,7 +70,7 @@ const networkData = {
         },
         {
             id: "E08",
-            name: "Vistula Line",
+            name: "Vistula Regional Line",
             colour: "#008c5a",
             type: "LSR"
         },
@@ -126,12 +126,6 @@ const networkData = {
             id: "E17",
             name: "Finnish Regional Line",
             colour: "#006db8",
-            type: "LSR"
-        },
-        {
-            id: "E18",
-            name: "French Line",
-            colour: "#662c91",
             type: "LSR"
         },
         {
@@ -545,6 +539,9 @@ const networkData = {
             name: "Marrakesh"
         },
         {
+            name: "Marseille"
+        },
+        {
             name: "Melbourne"
         },
         {
@@ -587,9 +584,6 @@ const networkData = {
             name: "Oran"
         },
         {
-            name: "Orléans"
-        },
-        {
             name: "Otiria"
         },
         {
@@ -597,6 +591,9 @@ const networkData = {
         },
         {
             name: "Pardubice"
+        },
+        {
+            name: "Paris"
         },
         {
             name: "Paderborn"
@@ -1096,30 +1093,6 @@ const networkData = {
             time: null
         },
         {
-            from: "Cratère-sur-Mer",
-            to: "Brest (FR)",
-            lineID: "E18",
-            time: null
-        },
-        {
-            from: "Brest (FR)",
-            to: "Rennes",
-            lineID: "E18",
-            time: null
-        },
-        {
-            from: "Rennes",
-            to: "Orléans",
-            lineID: "E18",
-            time: 50
-        },
-        {
-            from: "Orléans",
-            to: "Charleville-Mézières",
-            lineID: "E18",
-            time: 55
-        },
-        {
             from: "Copenhagen",
             to: "Bornholm",
             lineID: "E19",
@@ -1498,10 +1471,28 @@ const networkData = {
             time: 340
         },
         {
+            from: "Rennes",
+            to: "Paris",
+            lineID: "T01",
+            time: 65
+        },
+        {
+            from: "Paris",
+            to: "Charleville-Mézières",
+            lineID: "T01",
+            time: 45
+        },
+        {
             from: "Charleville-Mézières",
+            to: "Marseille",
+            lineID: "T01",
+            time: 90
+        },
+        {
+            from: "Marseille",
             to: "West Mediterranean",
             lineID: "T01",
-            time: 115
+            time: 35
         },
         {
             from: "West Mediterranean",
