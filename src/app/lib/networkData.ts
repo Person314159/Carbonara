@@ -21,7 +21,7 @@ const networkData = {
             type: "LSR"
         },
         {
-            id: "A06",
+            id: "A05",
             name: "Ararat Line",
             colour: "#ff9e1b",
             type: "LSR"
@@ -162,6 +162,12 @@ const networkData = {
             id: "E27",
             name: "Rhine Line",
             colour: "#800000",
+            type: "LSR"
+        },
+        {
+            id: "E28",
+            name: "Roman Line",
+            colour: "#8d6539",
             type: "LSR"
         },
         {
@@ -361,6 +367,18 @@ const networkData = {
             name: "Atlantic Line",
             colour: "#87d3df",
             type: "LSR"
+        },
+        {
+            id: "T04",
+            name: "Big Bridge 2",
+            colour: "#77c696",
+            type: "LSR"
+        },
+        {
+            id: "T05",
+            name: "Big Bridge 3",
+            colour: "#ca84ff",
+            type: "LSR"
         }
     ],
     stations: [
@@ -393,6 +411,9 @@ const networkData = {
         },
         {
             name: "Bari"
+        },
+        {
+            name: "Basra"
         },
         {
             name: "Bayreuth"
@@ -1189,6 +1210,54 @@ const networkData = {
             time: 60
         },
         {
+            from: "Porto",
+            to: "Gesalibar",
+            lineID: "E28",
+            time: null
+        },
+        {
+            from: "Gesalibar",
+            to: "Pyrenees",
+            lineID: "E28",
+            time: null
+        },
+        {
+            from: "Pyrenees",
+            to: "Marseille",
+            lineID: "E28",
+            time: null
+        },
+        {
+            from: "Marseille",
+            to: "Milan",
+            lineID: "E28",
+            time: null
+        },
+        {
+            from: "Milan",
+            to: "Venice",
+            lineID: "E28",
+            time: null
+        },
+        {
+            from: "Venice",
+            to: "Graz",
+            lineID: "E28",
+            time: null
+        },
+        {
+            from: "Graz",
+            to: "Košice",
+            lineID: "E28",
+            time: null
+        },
+        {
+            from: "Košice",
+            to: "Brest (BY)",
+            lineID: "E28",
+            time: null
+        },
+        {
             from: "Thun",
             to: "Merlischachen",
             lineID: "E29",
@@ -1595,6 +1664,18 @@ const networkData = {
             to: "Accra",
             lineID: "T03",
             time: null
+        },
+        {
+            from: "Rasht",
+            to: "Basra",
+            lineID: "T04",
+            time: 115
+        },
+        {
+            from: "Rasht",
+            to: "Basra",
+            lineID: "T05",
+            time: 115
         },
         {
             from: "Charleville-Mézières",
