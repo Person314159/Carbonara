@@ -26,14 +26,14 @@ export function StationSelect({ selectStart, selectEnd, startStation, endStation
                         value={endStation}
                         setValue={selectEnd} />
                 </div>
-                <button
-                    className="find-route-btn"
-                    aria-label="Find route between selected stations"
-                    onClick={onRouteFind}
-                >
-                    Find Route
-                </button>
             </div>
+            <button
+                className="find-route-btn"
+                aria-label="Find route between selected stations"
+                onClick={onRouteFind}
+            >
+                Find Route
+            </button>
             {error && (
                 <div className="status-message status-message--error">
                     {error}
