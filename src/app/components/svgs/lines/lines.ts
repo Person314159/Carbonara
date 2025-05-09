@@ -15,5 +15,5 @@ export const linePaths = {
 export const lineStyles = {
     [LineStyleType.SingleColor]: singleColor,
     [LineStyleType.BjsubwayDotted]: bjsubwayDotted,
-    [LineStyleType.BjsubwayTram]: bjsubwayTram,
+    [LineStyleType.BjsubwayTram]: bjsubwayTram
 };

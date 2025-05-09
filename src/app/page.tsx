@@ -79,8 +79,8 @@ export default function Home() {
                             aria-label="Route Planning Section"
                         >
                             <StationSelect
-                                selectStart={(event) => setStartStation(event.currentTarget.value)}
-                                selectEnd={(event) => setEndStation(event.currentTarget.value)}
+                                selectStart={(val: string) => setStartStation(val)}
+                                selectEnd={(val: string) => setEndStation(val)}
                                 startStation={startStation}
                                 endStation={endStation}
                                 onRouteFind={handleRouteFind}

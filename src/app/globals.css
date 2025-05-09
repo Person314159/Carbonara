@@ -1,3 +1,4 @@
+@import "@mantine/core/styles.layer.css";
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
 
@@ -22,6 +23,7 @@
 
     /* UI Colors */
     --color-border: #dddddd;
+    --color-border-dark: #666666;
     --color-shadow: rgba(0, 0, 0, 0.1);
     --color-button: #2f2f2f;
     --color-button-text: #888888;
@@ -62,51 +64,6 @@
     --ease-in: cubic-bezier(0.4, 0, 1, 1);
 }
 
-/* Dark mode color adjustments */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --color-background: #444444;
-        --color-text: #ffffff;
-        --color-border: #666666;
-    }
-}
-
-/* Responsive breakpoints */
-@media (min-width: 640px) {
-    .container {
-        @apply max-w-[640px];
-    }
-}
-
-@media (min-width: 768px) {
-    .container {
-        @apply max-w-3xl;
-    }
-}
-
-@media (min-width: 1024px) {
-    .container {
-        @apply max-w-5xl;
-    }
-}
-
-@media (min-width: 1280px) {
-    .container {
-        @apply max-w-7xl;
-    }
-}
-
-/* Responsive padding/margin adjustments */
-@media (max-width: 640px) {
-    .controls {
-        @apply static flex-row justify-center mt-4;
-    }
-
-    .route-step {
-        @apply mx-2;
-    }
-}
-
 @font-face {
     font-family: "MontaguSlab";
     src: url(./fonts/MontaguSlab.ttf) format("truetype");
@@ -118,45 +75,16 @@
 }
 
 /* Select Input Styling */
-.mantine-NativeSelect-root {
-    @apply grow;
-}
-
-.mantine-NativeSelect-label {
-    @apply block mb-2 font-bold text-(--color-text) text-(length:--font-size-sm) transition-[color] duration-(--transition-fast) ease-(--ease-out);
-}
-
-.mantine-NativeSelect-input {
+.mantine-InputBase-input {
     @apply w-full p-3 text-(--color-text) text-(length:--font-size-base)/(--line-height-normal) bg-(--color-background-alt) border-2 border-solid border-(--color-border) rounded-lg appearance-none transition-all duration-(--transition-fast) ease-(--ease-out) focus:border-(--color-primary) focus:bg-(--color-background) focus:outline-none focus:transform-[translateY(-1px)] focus:shadow-md hover:border-(--color-primary) hover:bg-(--color-background) hover:transform-[translateY(-1px)];
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 0.75rem center;
-    background-size: 1em;
-    padding-right: 2.5rem;
 }
 
-/* Dark mode adjustments */
-@media (prefers-color-scheme: dark) {
-    .mantine-NativeSelect-label {
-        @apply text-(--color-text-dark);
-    }
-
-    .mantine-NativeSelect-input {
-        @apply bg-(--color-background-alt-dark) border-(--color-border) text-(--color-text-dark);
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-    }
-
-    .mantine-NativeSelect-input:hover:not(:disabled) {
-        @apply bg-(--color-background-dark);
-    }
-
-    .mantine-NativeSelect-input:focus {
-        @apply bg-(--color-background-dark) shadow-md;
-    }
+.mantine-Combobox-dropdown {
+    @apply bg-(--color-background-alt);
 }
 
-.mantine-NativeSelect-section {
-    @apply hidden;
+.mantine-Combobox-option {
+    @apply hover:bg-(--color-background-dark) hover:text-(--color-text-dark);
 }
 
 .rmp-name__tokyo_en {
@@ -182,12 +110,6 @@
     @apply mb-2.5 p-2.5 bg-(--color-background-alt) border-l-(--color-primary-light) rounded-sm border-l-4 transition-all duration-(--transition-normal) ease-out hover:transform-[translateX(4px)] hover:shadow-md;
 }
 
-@media (prefers-color-scheme: dark) {
-    .route-step {
-        @apply bg-(--color-background-alt-dark);
-    }
-}
-
 .line-badge {
     @apply inline-block px-2 py-[3px] rounded-sm text-white font-bold;
 }
@@ -206,12 +128,6 @@
 
 .station-count {
     @apply mt-[5px] text-(length:--font-size-sm)/(--line-height-normal) text-(--color-text-muted);
-}
-
-@media (prefers-color-scheme: dark) {
-    .station-count {
-        @apply text-(--color-text-muted-dark);
-    }
 }
 
 .total-time {
@@ -236,7 +152,7 @@
 
 /* Find Route Button */
 .find-route-btn {
-    @apply bg-(--color-primary) text-white font-bold px-4 border-none rounded-lg h-[52px] cursor-pointer transition-all duration-(--transition-fast) ease-out hover:bg-(--color-primary-dark) hover:transform-[translateY(-1px)] hover:shadow-md active:transform-[translateY(0px)] active:shadow-none;
+    @apply bg-(--color-primary) text-white font-bold px-4 border-none rounded-lg h-[36px] cursor-pointer transition-all duration-(--transition-fast) ease-out hover:bg-(--color-primary-dark) hover:transform-[translateY(-1px)] hover:shadow-md active:transform-[translateY(0px)] active:shadow-none;
 }
 
 /* Status Messages */
@@ -251,18 +167,30 @@
     border-left: 4px solid var(--color-error);
 }
 
-/* High contrast mode adjustments */
-@media (forced-colors: active) {
-    .find-route-btn {
-        border: 2px solid ButtonText;
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+    .mantine-InputBase-input {
+        @apply bg-(--color-background-alt-dark) border-(--color-border-dark) text-(--color-text-dark) focus:bg-(--color-background-dark) focus:shadow-md;
     }
 
-    .find-route-btn:focus {
-        outline: 2px solid ButtonText;
+    .mantine-Combobox-dropdown {
+        @apply bg-(--color-background-dark);
+    }
+
+    .mantine-Combobox-option {
+        @apply hover:bg-(--color-background) hover:text-(--color-text);
     }
 
     .route-step {
-        border: 1px solid ButtonText;
+        @apply bg-(--color-background-alt-dark);
+    }
+
+    .line-border {
+        @apply my-5 border-b-1 border-b-(--color-border-dark);
+    }
+
+    .station-count {
+        @apply text-(--color-text-muted-dark);
     }
 }
 

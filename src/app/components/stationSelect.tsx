@@ -1,10 +1,9 @@
-import { NativeSelect } from "@mantine/core";
-import { options } from "@/app/util/routing";
-import React, { ChangeEvent } from "react";
+import React from "react";
+import { SearchableSelect } from "@/app/components/searchableSelect";
 
 interface StationSelectProps {
-    selectStart: (event: ChangeEvent<HTMLSelectElement>) => void;
-    selectEnd: (event: ChangeEvent<HTMLSelectElement>) => void;
+    selectStart: (val: string) => void;
+    selectEnd: (val: string) => void;
     startStation: string;
     endStation: string;
     onRouteFind: () => void;
@@ -16,20 +15,16 @@ export function StationSelect({ selectStart, selectEnd, startStation, endStation
         <div className="mb-5">
             <div className="flex gap-4 items-end">
                 <div className="flex-1">
-                    <NativeSelect
-                        label="Start Station:"
-                        data={options}
+                    <p>Start Station:</p>
+                    <SearchableSelect
                         value={startStation}
-                        onChange={selectStart}
-                    />
+                        setValue={selectStart} />
                 </div>
                 <div className="flex-1">
-                    <NativeSelect
-                        label="End Station:"
-                        data={options}
+                    <p>End Station:</p>
+                    <SearchableSelect
                         value={endStation}
-                        onChange={selectEnd}
-                    />
+                        setValue={selectEnd} />
                 </div>
                 <button
                     className="find-route-btn"
