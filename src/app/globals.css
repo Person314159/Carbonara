@@ -152,7 +152,7 @@
 
 /* Find Route Button */
 .find-route-btn {
-    @apply w-full bg-(--color-primary) text-white font-bold px-4 my-4 border-none rounded-lg h-[36px] cursor-pointer transition-all duration-(--transition-fast) ease-out hover:bg-(--color-primary-dark) hover:transform-[translateY(-1px)] hover:shadow-md active:transform-[translateY(0px)] active:shadow-none;
+    @apply bg-(--color-primary) text-white font-bold px-4 w-full border-none rounded-lg h-[36px] cursor-pointer transition-all duration-(--transition-fast) ease-out hover:bg-(--color-primary-dark) hover:transform-[translateY(-1px)] hover:shadow-md active:transform-[translateY(0px)] active:shadow-none sm:w-auto;
 }
 
 /* Status Messages */

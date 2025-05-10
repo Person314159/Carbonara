@@ -13,7 +13,7 @@ interface StationSelectProps {
 export function StationSelect({ selectStart, selectEnd, startStation, endStation, onRouteFind, error }: StationSelectProps) {
     return (
         <div className="mb-5">
-            <div className="flex gap-4 items-end">
+            <div className="flex flex-wrap gap-4 items-start sm:flex-nowrap sm:items-end">
                 <div className="flex-1">
                     <p>Start Station:</p>
                     <SearchableSelect
@@ -26,14 +26,14 @@ export function StationSelect({ selectStart, selectEnd, startStation, endStation
                         value={endStation}
                         setValue={selectEnd} />
                 </div>
+                <button
+                    className="find-route-btn"
+                    aria-label="Find route between selected stations"
+                    onClick={onRouteFind}
+                >
+                    Find Route
+                </button>
             </div>
-            <button
-                className="find-route-btn"
-                aria-label="Find route between selected stations"
-                onClick={onRouteFind}
-            >
-                Find Route
-            </button>
             {error && (
                 <div className="status-message status-message--error">
                     {error}
