@@ -4,7 +4,7 @@ const networkData = {
     lines: [
         {
             id: "A01",
-            name: "Big Bridge Line Georgian Branch",
+            name: "Big Bridge Georgian Branch",
             colour: "#b80b4b",
             type: "LSR"
         },
@@ -16,7 +16,7 @@ const networkData = {
         },
         {
             id: "A03",
-            name: "Warzone Express Line",
+            name: "Warzone Express",
             colour: "#662c91",
             type: "LSR"
         },
@@ -52,7 +52,7 @@ const networkData = {
         },
         {
             id: "E04",
-            name: "Vistula Express Line",
+            name: "Vistula Express",
             colour: "#080e5c",
             type: "LSR"
         },
@@ -184,19 +184,25 @@ const networkData = {
         },
         {
             id: "E30",
-            name: "Big Bridge Line Thessaloniki Branch",
+            name: "Big Bridge Thessaloniki Branch",
             colour: "#bb4a9b",
             type: "LSR"
         },
         {
             id: "E31",
-            name: "Big Bridge Line Mequinenza Branch",
+            name: "Big Bridge Mequinenza Branch",
             colour: "#b80b4b",
             type: "LSR"
         },
         {
             id: "E32",
             name: "E32",
+            colour: "#006db8",
+            type: "LSR"
+        },
+        {
+            id: "E33",
+            name: "Fjord Connection",
             colour: "#006db8",
             type: "LSR"
         },
@@ -358,13 +364,13 @@ const networkData = {
         },
         {
             id: "T01",
-            name: "Big Bridge Line",
+            name: "Big Bridge",
             colour: "#f59fb3",
             type: "LSR"
         },
         {
             id: "T02",
-            name: "Big Bridge Line Istanbul Branch",
+            name: "Big Bridge Istanbul Branch",
             colour: "#c5a3cd",
             type: "LSR"
         },
@@ -432,6 +438,9 @@ const networkData = {
         },
         {
             name: "Benghazi"
+        },
+        {
+            name: "Bergen"
         },
         {
             name: "Birmingham"
@@ -602,6 +611,9 @@ const networkData = {
             name: "Norfolk"
         },
         {
+            name: "Odda"
+        },
+        {
             name: "Odessa"
         },
         {
@@ -612,6 +624,9 @@ const networkData = {
         },
         {
             name: "Orenburg"
+        },
+        {
+            name: "Oslo"
         },
         {
             name: "Otiria"
@@ -678,6 +693,9 @@ const networkData = {
         },
         {
             name: "Romanian Slime Farm"
+        },
+        {
+            name: "Sandefjord"
         },
         {
             name: "San Diego"
@@ -1310,6 +1328,30 @@ const networkData = {
             to: "Porto",
             lineID: "E32",
             time: 120
+        },
+        {
+            from: "Kiel",
+            to: "Sandefjord",
+            lineID: "E33",
+            time: null
+        },
+        {
+            from: "Sandefjord",
+            to: "Oslo",
+            lineID: "E33",
+            time: null
+        },
+        {
+            from: "Oslo",
+            to: "Odda",
+            lineID: "E33",
+            time: null
+        },
+        {
+            from: "Odda",
+            to: "Bergen",
+            lineID: "E33",
+            time: null
         },
         {
             from: "Central Mediterranean",
