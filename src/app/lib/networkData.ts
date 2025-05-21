@@ -292,7 +292,7 @@ const networkData = {
         },
         {
             id: "N15",
-            name: "N15",
+            name: "Chesapeake Line",
             colour: "#006db8",
             type: "LSR"
         },
@@ -593,9 +593,6 @@ const networkData = {
             name: "Newcastle"
         },
         {
-            name: "New Orleans"
-        },
-        {
             name: "New York Central"
         },
         {
@@ -633,6 +630,9 @@ const networkData = {
         },
         {
             name: "Perth"
+        },
+        {
+            name: "Philadelphia"
         },
         {
             name: "Plymouth"
@@ -765,6 +765,9 @@ const networkData = {
         },
         {
             name: "Vienna"
+        },
+        {
+            name: "Wallops Island"
         },
         {
             name: "Warsaw Central"
@@ -1448,15 +1451,15 @@ const networkData = {
         },
         {
             from: "New York Central",
-            to: "Norfolk",
+            to: "Philadelphia",
             lineID: "N15",
-            time: null
+            time: 30
         },
         {
-            from: "Norfolk",
-            to: "New Orleans",
+            from: "Philadelphia",
+            to: "Wallops Island",
             lineID: "N15",
-            time: null
+            time: 35
         },
         {
             from: "Montréal Central",
