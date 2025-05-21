@@ -27,6 +27,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "A06",
+            name: "Badly Built Line",
+            colour: "#000000",
+            type: "LSR"
+        },
+        {
             id: "E01",
             name: "Brighton Red Line",
             colour: "#ed1c2a",
@@ -404,6 +410,9 @@ const networkData = {
             name: "Arthur's Pass"
         },
         {
+            name: "Atyrau"
+        },
+        {
             name: "Auckland"
         },
         {
@@ -605,6 +614,9 @@ const networkData = {
             name: "Oran"
         },
         {
+            name: "Orenburg"
+        },
+        {
             name: "Otiria"
         },
         {
@@ -734,6 +746,9 @@ const networkData = {
             name: "Tracy Industrial Area"
         },
         {
+            name: "Trinity Bay North"
+        },
+        {
             name: "Tunis"
         },
         {
@@ -804,8 +819,20 @@ const networkData = {
         {
             from: "Rasht",
             to: "Gay",
-            lineID: "A06",
+            lineID: "A05",
             time: 125
+        },
+        {
+            from: "Rasht",
+            to: "Atyrau",
+            lineID: "A06",
+            time: 280
+        },
+        {
+            from: "Atyrau",
+            to: "Orenburg",
+            lineID: "A06",
+            time: 120
         },
         {
             from: "Queen's Cross",
@@ -1538,6 +1565,12 @@ const networkData = {
             to: "Perth",
             lineID: "O10",
             time: 340
+        },
+        {
+            from: "Trinity Bay North",
+            to: "Rennes",
+            lineID: "T01",
+            time: 660
         },
         {
             from: "Rennes",
