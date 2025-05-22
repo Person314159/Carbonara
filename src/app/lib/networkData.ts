@@ -491,9 +491,6 @@ const networkData = {
             name: "Copenhagen"
         },
         {
-            name: "Cratère-sur-Mer"
-        },
-        {
             name: "Del Norte"
         },
         {
@@ -606,9 +603,6 @@ const networkData = {
         },
         {
             name: "Nicosia"
-        },
-        {
-            name: "Norfolk"
         },
         {
             name: "Odda"
@@ -740,6 +734,9 @@ const networkData = {
             name: "Tel Aviv"
         },
         {
+            name: "Terrebonne"
+        },
+        {
             name: "Thessaloniki"
         },
         {
@@ -762,9 +759,6 @@ const networkData = {
         },
         {
             name: "Tracy Industrial Area"
-        },
-        {
-            name: "Trinity Bay North"
         },
         {
             name: "Tunis"
@@ -1462,7 +1456,7 @@ const networkData = {
             time: null
         },
         {
-            from: "Montréal Central",
+            from: "Terrebonne",
             to: "Iqaluit",
             lineID: "N12",
             time: null
@@ -1480,7 +1474,7 @@ const networkData = {
             time: null
         },
         {
-            from: "Montréal Central",
+            from: "Terrebonne",
             to: "Boston",
             lineID: "N14",
             time: null
@@ -1612,10 +1606,10 @@ const networkData = {
             time: 340
         },
         {
-            from: "Trinity Bay North",
+            from: "Terrebonne",
             to: "Rennes",
             lineID: "T01",
-            time: 660
+            time: 960
         },
         {
             from: "Rennes",
