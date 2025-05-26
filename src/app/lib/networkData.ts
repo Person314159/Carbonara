@@ -431,9 +431,6 @@ const networkData = {
             name: "Basra"
         },
         {
-            name: "Bayreuth"
-        },
-        {
             name: "Belgrade"
         },
         {
@@ -489,6 +486,9 @@ const networkData = {
         },
         {
             name: "Copenhagen"
+        },
+        {
+            name: "Delhi"
         },
         {
             name: "Del Norte"
@@ -642,6 +642,9 @@ const networkData = {
         },
         {
             name: "Philadelphia"
+        },
+        {
+            name: "Phuket"
         },
         {
             name: "Plymouth"
@@ -1184,15 +1187,9 @@ const networkData = {
         },
         {
             from: "Prague",
-            to: "Bayreuth",
-            lineID: "E22",
-            time: 40
-        },
-        {
-            from: "Bayreuth",
             to: "Frankfurt",
             lineID: "E22",
-            time: 40
+            time: 80
         },
         {
             from: "Frankfurt",
@@ -1745,6 +1742,18 @@ const networkData = {
             to: "Basra",
             lineID: "T05",
             time: 115
+        },
+        {
+            from: "Basra",
+            to: "Delhi",
+            lineID: "T05",
+            time: 410
+        },
+        {
+            from: "Delhi",
+            to: "Phuket",
+            lineID: "T05",
+            time: 545
         },
         {
             from: "Charleville-Mézières",
