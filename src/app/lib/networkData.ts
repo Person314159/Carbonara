@@ -203,7 +203,7 @@ const networkData = {
         {
             id: "E33",
             name: "Fjord Connection",
-            colour: "#006db8",
+            colour: "#b9e8ea",
             type: "LSR"
         },
         {
@@ -1321,7 +1321,7 @@ const networkData = {
             from: "Kiel",
             to: "Sandefjord",
             lineID: "E33",
-            time: null
+            time: 90
         },
         {
             from: "Sandefjord",
