@@ -33,6 +33,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "A07",
+            name: "Iran Line",
+            colour: "#ffd966",
+            type: "LSR"
+        },
+        {
             id: "E01",
             name: "Brighton Red Line",
             colour: "#ed1c2a",
@@ -407,6 +413,9 @@ const networkData = {
             name: "Algiers"
         },
         {
+            name: "Amol"
+        },
+        {
             name: "Amsterdam Central"
         },
         {
@@ -593,6 +602,9 @@ const networkData = {
             name: "Montréal Central"
         },
         {
+            name: "Mt. Damavand"
+        },
+        {
             name: "National Park"
         },
         {
@@ -734,6 +746,9 @@ const networkData = {
             name: "Tamanrasset"
         },
         {
+            name: "Tehran"
+        },
+        {
             name: "Tel Aviv"
         },
         {
@@ -839,15 +854,33 @@ const networkData = {
         },
         {
             from: "Rasht",
+            to: "Amol",
+            lineID: "A06",
+            time: 65
+        },
+        {
+            from: "Amol",
             to: "Atyrau",
             lineID: "A06",
-            time: 280
+            time: 215
         },
         {
             from: "Atyrau",
             to: "Orenburg",
             lineID: "A06",
             time: 120
+        },
+        {
+            from: "Amol",
+            to: "Mt. Damavand",
+            lineID: "A07",
+            time: 20
+        },
+        {
+            from: "Mt. Damavand",
+            to: "Tehran",
+            lineID: "A07",
+            time: 20
         },
         {
             from: "Queen's Cross",
