@@ -1,19 +1,22 @@
 import React from "react";
 import { SearchableSelect } from "@/app/components/searchableSelect";
+import NavigationModeToggle from "@/app/components/navigationModeToggle";
 
 interface StationSelectProps {
     selectStart: (val: string) => void;
     selectEnd: (val: string) => void;
     startStation: string;
     endStation: string;
+    metric: string;
+    setMetric: (value: string) => void;
     onRouteFind: () => void;
     error?: string;
 }
 
-export function StationSelect({ selectStart, selectEnd, startStation, endStation, onRouteFind, error }: StationSelectProps) {
+export function StationSelect({ selectStart, selectEnd, startStation, endStation, metric, setMetric, onRouteFind, error }: StationSelectProps) {
     return (
         <div className="mb-5">
-            <div className="flex flex-wrap gap-4 items-start sm:flex-nowrap sm:items-end">
+            <div className="flex flex-wrap gap-4 sm:items-end">
                 <div className="flex-1">
                     <p>Start Station:</p>
                     <SearchableSelect
@@ -33,6 +36,9 @@ export function StationSelect({ selectStart, selectEnd, startStation, endStation
                 >
                     Find Route
                 </button>
+                <div className="w-full h-[36px] flex justify-center sm:w-auto sm:justify-start">
+                    <NavigationModeToggle checked={metric === "transfers"} onChange={checked => setMetric(checked ? "transfers" : "time")}></NavigationModeToggle>
+                </div>
             </div>
             {error && (
                 <div className="status-message status-message--error">

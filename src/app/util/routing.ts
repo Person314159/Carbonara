@@ -23,10 +23,9 @@ networkData.stations.forEach(station => {
 });
 
 export const options = networkData.stations.map((station) => station.name);
-const routeCache = new Map<string, LegProp[]>();
 
 // Dijkstra's algorithm implementation
-function dijkstra(start: string) {
+function dijkstra(start: string, metric: string) {
     const distances = new Map<string, number>();
     const previous = new Map<string, Neighbour | null>();
     const pq = new PriorityQueue((a: Node, b: Node) => distances.get(`${a.destination}-${a.lineID}`)! - distances.get(`${b.destination}-${b.lineID}`)!);
@@ -57,9 +56,7 @@ function dijkstra(start: string) {
         // Update distances to adjacent nodes
         graph.get(minStation)!.forEach(({ lineID, destination, time }) => {
             if (time !== null && !visited.has({ destination, lineID })) {
-                let alt = distances.get(`${minStation}-${minLine}`)! + time;
-
-                if (lineID !== minLine) alt += 0.1;
+                const alt = distances.get(`${minStation}-${minLine}`)! + (lineID !== minLine ? 1 : 0) + (metric === "time" ? time : 0);
 
                 if (alt < distances.get(`${destination}-${lineID}`)!) {
                     distances.set(`${destination}-${lineID}`, alt);
@@ -117,14 +114,10 @@ function convertPathToRoute(path: Neighbour[]) {
     return r;
 }
 
-export function findRoute(start: string, end: string) {
+export function findRoute(start: string, end: string, metric: string) {
     if (start === end) return null;
 
-    const key = `${start}-${end}`;
-
-    if (routeCache.has(key)) return routeCache.get(key);
-
-    const { distances, previous } = dijkstra(start);
+    const { distances, previous } = dijkstra(start, metric);
 
     // If there's no path to the destination
     let minNode = null;
@@ -138,7 +131,6 @@ export function findRoute(start: string, end: string) {
     }
 
     if (minTime === Infinity) {
-        routeCache.set(key, []);
         return [];
     }
 
@@ -155,7 +147,5 @@ export function findRoute(start: string, end: string) {
     path.reverse();
 
     // Convert the path to a route with train lines
-    const convertedPath = convertPathToRoute(path);
-    routeCache.set(key, convertedPath);
-    return convertedPath;
+    return convertPathToRoute(path);
 }

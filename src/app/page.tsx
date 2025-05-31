@@ -12,6 +12,7 @@ import { StationSelect } from "@/app/components/stationSelect";
 export default function Home() {
     const [startStation, setStartStation] = useState("");
     const [endStation, setEndStation] = useState("");
+    const [metric, setMetric] = useState("time");
     const [route, setRoute] = useState<LegProp[] | null | undefined>(undefined);
     const [error, setError] = useState<string | undefined>();
     const [isClient, setIsClient] = useState(false);
@@ -31,7 +32,7 @@ export default function Home() {
                 throw new Error("Start and end stations must be different");
             }
 
-            const result = findRoute(startStation, endStation);
+            const result = findRoute(startStation, endStation, metric);
 
             if (result !== null && result !== undefined && result.length === 0) {
                 throw new Error("No route found between selected stations");
@@ -83,6 +84,8 @@ export default function Home() {
                                 selectEnd={(val: string) => setEndStation(val)}
                                 startStation={startStation}
                                 endStation={endStation}
+                                metric={metric}
+                                setMetric={(val: string) => setMetric(val)}
                                 onRouteFind={handleRouteFind}
                                 error={error}
                             />

@@ -186,7 +186,7 @@
     }
 
     .line-border {
-        @apply my-5 border-b-1 border-b-(--color-border-dark);
+        @apply border-b-(--color-border-dark);
     }
 
     .station-count {
