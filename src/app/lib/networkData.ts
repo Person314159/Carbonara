@@ -39,6 +39,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "A08",
+            name: "East Asia Main Line",
+            colour: "#f78f4b",
+            type: "LSR"
+        },
+        {
             id: "E01",
             name: "Brighton Red Line",
             colour: "#ed1c2a",
@@ -716,6 +722,9 @@ const networkData = {
             name: "San Jose"
         },
         {
+            name: "Sapporo"
+        },
+        {
             name: "Sarajevo"
         },
         {
@@ -726,6 +735,9 @@ const networkData = {
         },
         {
             name: "Sparta"
+        },
+        {
+            name: "Starodubskoe"
         },
         {
             name: "Stockholm"
@@ -881,6 +893,18 @@ const networkData = {
             to: "Tehran",
             lineID: "A07",
             time: 20
+        },
+        {
+            from: "Poronaysk",
+            to: "Starodubskoe",
+            lineID: "A08",
+            time: 25
+        },
+        {
+            from: "Starodubskoe",
+            to: "Sapporo",
+            lineID: "A08",
+            time: 80
         },
         {
             from: "Queen's Cross",
