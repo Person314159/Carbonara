@@ -632,6 +632,9 @@ const networkData = {
             name: "Nicosia"
         },
         {
+            name: "North Mediterranean"
+        },
+        {
             name: "Odda"
         },
         {
@@ -1334,9 +1337,15 @@ const networkData = {
         },
         {
             from: "Marseille",
+            to: "North Mediterranean",
+            lineID: "E28",
+            time: 50
+        },
+        {
+            from: "North Mediterranean",
             to: "Milan",
             lineID: "E28",
-            time: 80
+            time: 30
         },
         {
             from: "Milan",
