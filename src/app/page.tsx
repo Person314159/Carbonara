@@ -104,7 +104,7 @@ export default function Home() {
 
                     <div className="col-span-full transition-all">
                         <div role="region" aria-label="Network Map">
-                            <ParentSize debounceTime={0} initialSize={{ width: 1280, height: 800 }}>
+                            <ParentSize debounceTime={0} initialSize={{ width: 1280 - 2 * 16, height: 800 }}>
                                 {({ width, height }) => <NetworkMap width={width} height={height} />}
                             </ParentSize>
                         </div>
