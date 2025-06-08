@@ -321,6 +321,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "N19",
+            name: "Manicouagan Line",
+            colour: "#522921",
+            type: "LSR"
+        },
+        {
             id: "O02",
             name: "Victorian Line",
             colour: "#b80b4b",
@@ -587,6 +593,9 @@ const networkData = {
             name: "Lublin"
         },
         {
+            name: "Manicouagan"
+        },
+        {
             name: "Marrakesh"
         },
         {
@@ -705,6 +714,9 @@ const networkData = {
         },
         {
             name: "Riga"
+        },
+        {
+            name: "Rimouski"
         },
         {
             name: "Romanian Slime Farm"
@@ -1318,19 +1330,19 @@ const networkData = {
             from: "Pyrenees",
             to: "Marseille",
             lineID: "E28",
-            time: null
+            time: 75
         },
         {
             from: "Marseille",
             to: "Milan",
             lineID: "E28",
-            time: null
+            time: 80
         },
         {
             from: "Milan",
             to: "Venice",
             lineID: "E28",
-            time: null
+            time: 45
         },
         {
             from: "Venice",
@@ -1561,6 +1573,12 @@ const networkData = {
             time: null
         },
         {
+            from: "Manicouagan",
+            to: "Rimouski",
+            lineID: "N19",
+            time: 80
+        },
+        {
             from: "Melbourne",
             to: "Sydney",
             lineID: "O02",
@@ -1658,9 +1676,15 @@ const networkData = {
         },
         {
             from: "Montréal Central",
+            to: "Rimouski",
+            lineID: "T01",
+            time: 95
+        },
+        {
+            from: "Rimouski",
             to: "Rennes",
             lineID: "T01",
-            time: 960
+            time: 865
         },
         {
             from: "Rennes",
