@@ -219,6 +219,24 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "E37",
+            name: "Corsica Line",
+            colour: "#157788",
+            type: "LSR"
+        },
+        {
+            id: "E38",
+            name: "E38",
+            colour: "#a1dbe6",
+            type: "LSR"
+        },
+        {
+            id: "E39",
+            name: "O-K Line",
+            colour: "#02ff23",
+            type: "LSR"
+        },
+        {
             id: "F01",
             name: "Lampedusa Line",
             colour: "#ffcd02",
@@ -566,6 +584,9 @@ const networkData = {
             name: "Karlsruhe"
         },
         {
+            name: "Katowice"
+        },
+        {
             name: "Kiel"
         },
         {
@@ -575,7 +596,7 @@ const networkData = {
             name: "Košice"
         },
         {
-            name: "Katowice"
+            name: "Kuressaare"
         },
         {
             name: "Kyiv"
@@ -639,6 +660,9 @@ const networkData = {
         },
         {
             name: "Odessa"
+        },
+        {
+            name: "Ogre"
         },
         {
             name: "Ōkaihau"
@@ -756,6 +780,9 @@ const networkData = {
         },
         {
             name: "Stockholm"
+        },
+        {
+            name: "Strait of Bonifacio"
         },
         {
             name: "Sudbury"
@@ -1418,6 +1445,42 @@ const networkData = {
             to: "Bergen",
             lineID: "E33",
             time: null
+        },
+        {
+            from: "West Mediterranean",
+            to: "Strait of Bonifacio",
+            lineID: "E37",
+            time: 60
+        },
+        {
+            from: "Strait of Bonifacio",
+            to: "Bari",
+            lineID: "E37",
+            time: null
+        },
+        {
+            from: "North Mediterranean",
+            to: "Strait of Bonifacio",
+            lineID: "E38",
+            time: null
+        },
+        {
+            from: "Strait of Bonifacio",
+            to: "Central Mediterranean",
+            lineID: "E38",
+            time: null
+        },
+        {
+            from: "Ogre",
+            to: "Riga",
+            lineID: "E39",
+            time: 15
+        },
+        {
+            from: "Riga",
+            to: "Kuressaare",
+            lineID: "E39",
+            time: 60
         },
         {
             from: "Central Mediterranean",
