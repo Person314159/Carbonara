@@ -1573,7 +1573,7 @@ const networkData = {
             from: "Montréal Central",
             to: "New York Central",
             lineID: "N16",
-            time: 120
+            time: 65
         },
         {
             from: "New York Central",
