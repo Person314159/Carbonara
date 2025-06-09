@@ -668,6 +668,9 @@ const networkData = {
             name: "Ōkaihau"
         },
         {
+            name: "Old Perlican"
+        },
+        {
             name: "Oran"
         },
         {
@@ -1754,9 +1757,15 @@ const networkData = {
         },
         {
             from: "Rimouski",
+            to: "Old Perlican",
+            lineID: "T01",
+            time: 205
+        },
+        {
+            from: "Old Perlican",
             to: "Rennes",
             lineID: "T01",
-            time: 865
+            time: 660
         },
         {
             from: "Rennes",
