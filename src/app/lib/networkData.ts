@@ -1555,7 +1555,7 @@ const networkData = {
             from: "North Mediterranean",
             to: "Strait of Bonifacio",
             lineID: "E38",
-            time: null
+            time: 40
         },
         {
             from: "Strait of Bonifacio",
