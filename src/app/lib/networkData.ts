@@ -452,6 +452,9 @@ const networkData = {
             name: "Antalya"
         },
         {
+            name: "Aomori"
+        },
+        {
             name: "Arthur's Pass"
         },
         {
@@ -539,6 +542,12 @@ const networkData = {
             name: "Frankfurt"
         },
         {
+            name: "Fuji"
+        },
+        {
+            name: "Fukuoka"
+        },
+        {
             name: "Gay"
         },
         {
@@ -554,6 +563,9 @@ const networkData = {
             name: "Greymouth"
         },
         {
+            name: "Hakodate"
+        },
+        {
             name: "Halifax"
         },
         {
@@ -561,6 +573,9 @@ const networkData = {
         },
         {
             name: "Helsinki"
+        },
+        {
+            name: "Hiroshima"
         },
         {
             name: "Jane Peak"
@@ -677,6 +692,9 @@ const networkData = {
             name: "Orenburg"
         },
         {
+            name: "Osaka"
+        },
+        {
             name: "Oslo"
         },
         {
@@ -770,6 +788,9 @@ const networkData = {
             name: "Sarajevo"
         },
         {
+            name: "Sendai"
+        },
+        {
             name: "Sfax"
         },
         {
@@ -827,6 +848,9 @@ const networkData = {
             name: "Tirana"
         },
         {
+            name: "Tokyo"
+        },
+        {
             name: "Toronto Union"
         },
         {
@@ -851,6 +875,9 @@ const networkData = {
             name: "Vienna"
         },
         {
+            name: "Wakkanai"
+        },
+        {
             name: "Wallops Island"
         },
         {
@@ -867,6 +894,9 @@ const networkData = {
         },
         {
             name: "Whanganui"
+        },
+        {
+            name: "Yuzhno-Sakhalinsk"
         },
         {
             name: "Zagreb"
@@ -947,9 +977,69 @@ const networkData = {
         },
         {
             from: "Starodubskoe",
+            to: "Yuzhno-Sakhalinsk",
+            lineID: "A08",
+            time: 10
+        },
+        {
+            from: "Yuzhno-Sakhalinsk",
+            to: "Wakkanai",
+            lineID: "A08",
+            time: 40
+        },
+        {
+            from: "Wakkanai",
             to: "Sapporo",
             lineID: "A08",
-            time: 80
+            time: 40
+        },
+        {
+            from: "Sapporo",
+            to: "Hakodate",
+            lineID: "A08",
+            time: 40
+        },
+        {
+            from: "Hakodate",
+            to: "Aomori",
+            lineID: "A08",
+            time: 20
+        },
+        {
+            from: "Aomori",
+            to: "Sendai",
+            lineID: "A08",
+            time: 50
+        },
+        {
+            from: "Sendai",
+            to: "Tokyo",
+            lineID: "A08",
+            time: 45
+        },
+        {
+            from: "Tokyo",
+            to: "Fuji",
+            lineID: "A08",
+            time: 25
+        },
+        {
+            from: "Fuji",
+            to: "Osaka",
+            lineID: "A08",
+            time: 50
+        },
+        {
+            from: "Osaka",
+            to: "Hiroshima",
+            lineID: "A08",
+            time: 50
+        },
+        {
+            from: "Hiroshima",
+            to: "Fukuoka",
+            lineID: "A08",
+            time: 40
         },
         {
             from: "Queen's Cross",
