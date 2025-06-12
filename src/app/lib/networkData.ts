@@ -692,7 +692,7 @@ const networkData = {
             name: "Orenburg"
         },
         {
-            name: "Osaka"
+            name: "Ōsaka"
         },
         {
             name: "Oslo"
@@ -848,7 +848,7 @@ const networkData = {
             name: "Tirana"
         },
         {
-            name: "Tokyo"
+            name: "Tōkyō"
         },
         {
             name: "Toronto Union"
@@ -1013,24 +1013,24 @@ const networkData = {
         },
         {
             from: "Sendai",
-            to: "Tokyo",
+            to: "Tōkyō",
             lineID: "A08",
             time: 45
         },
         {
-            from: "Tokyo",
+            from: "Tōkyō",
             to: "Fuji",
             lineID: "A08",
             time: 25
         },
         {
             from: "Fuji",
-            to: "Osaka",
+            to: "Ōsaka",
             lineID: "A08",
             time: 50
         },
         {
-            from: "Osaka",
+            from: "Ōsaka",
             to: "Hiroshima",
             lineID: "A08",
             time: 50
