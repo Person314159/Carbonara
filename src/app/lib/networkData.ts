@@ -623,6 +623,9 @@ const networkData = {
             name: "Lappeenranta"
         },
         {
+            name: "Larissa"
+        },
+        {
             name: "Ljubljana"
         },
         {
@@ -792,6 +795,9 @@ const networkData = {
         },
         {
             name: "Sfax"
+        },
+        {
+            name: "Singapore"
         },
         {
             name: "Southampton"
@@ -1504,6 +1510,18 @@ const networkData = {
             time: 40
         },
         {
+            from: "Thessaloniki",
+            to: "Larissa",
+            lineID: "E30",
+            time: 20
+        },
+        {
+            from: "Larissa",
+            to: "Sparta",
+            lineID: "E30",
+            time: 30
+        },
+        {
             from: "West Mediterranean",
             to: "Mequinenza",
             lineID: "E31",
@@ -2006,6 +2024,24 @@ const networkData = {
             to: "Phuket",
             lineID: "T05",
             time: 545
+        },
+        {
+            from: "Phuket",
+            to: "Singapore",
+            lineID: "T05",
+            time: 155
+        },
+        {
+            from: "Singapore",
+            to: "Melbourne",
+            lineID: "T05",
+            time: 1030
+        },
+        {
+            from: "Melbourne",
+            to: "Christchurch",
+            lineID: "T05",
+            time: 445
         },
         {
             from: "Charleville-Mézières",
