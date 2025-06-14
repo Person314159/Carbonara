@@ -427,6 +427,12 @@ const networkData = {
             name: "Big Bridge 3",
             colour: "#ca84ff",
             type: "LSR"
+        },
+        {
+            id: "T07",
+            name: "Ross Line",
+            colour: "#cccccc",
+            type: "LSR"
         }
     ],
     stations: [
@@ -462,6 +468,9 @@ const networkData = {
         },
         {
             name: "Auckland"
+        },
+        {
+            name: "Auckland Island"
         },
         {
             name: "Baikonur"
@@ -641,6 +650,9 @@ const networkData = {
             name: "Marseille"
         },
         {
+            name: "McMurdo Station"
+        },
+        {
             name: "Melbourne"
         },
         {
@@ -807,6 +819,9 @@ const networkData = {
         },
         {
             name: "Starodubskoe"
+        },
+        {
+            name: "Stewart Island"
         },
         {
             name: "Stockholm"
@@ -1723,7 +1738,7 @@ const networkData = {
             from: "Montréal Central",
             to: "Boston",
             lineID: "N14",
-            time: null
+            time: 95
         },
         {
             from: "Boston",
@@ -2042,6 +2057,24 @@ const networkData = {
             to: "Christchurch",
             lineID: "T05",
             time: 445
+        },
+        {
+            from: "Jane Peak",
+            to: "Stewart Island",
+            lineID: "T07",
+            time: 35
+        },
+        {
+            from: "Stewart Island",
+            to: "Auckland Island",
+            lineID: "T07",
+            time: 60
+        },
+        {
+            from: "Auckland Island",
+            to: "McMurdo Station",
+            lineID: "T07",
+            time: null
         },
         {
             from: "Charleville-Mézières",

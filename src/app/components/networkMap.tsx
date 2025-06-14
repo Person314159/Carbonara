@@ -90,10 +90,10 @@ const NetworkMap = React.memo(function({ width, height }: ZoomIProps) {
                                 skewY: 0
                             })} name="North America" />
                             <ZoomToButton onClick={() => zoom.setTransformMatrix({
-                                scaleX: 1.25,
-                                scaleY: 1.25,
-                                translateX: -9550 * 1.25 + width / 2,
-                                translateY: -2245 * 1.25 + h / 2,
+                                scaleX: 0.7,
+                                scaleY: 0.7,
+                                translateX: -9500 * 0.7 + width / 2,
+                                translateY: -2385 * 0.7 + h / 2,
                                 skewX: 0,
                                 skewY: 0
                             })} name="New Zealand" />
