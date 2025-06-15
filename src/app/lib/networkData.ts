@@ -1702,13 +1702,13 @@ const networkData = {
             from: "Montréal Central",
             to: "Ottawa",
             lineID: "N10",
-            time: 70
+            time: 35
         },
         {
             from: "Ottawa",
             to: "Toronto Union",
             lineID: "N10",
-            time: null
+            time: 75
         },
         {
             from: "Toronto Union",
