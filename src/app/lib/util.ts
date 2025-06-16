@@ -1,15 +1,7 @@
-// Format time (seconds to minutes and seconds)
-export function formatTime(seconds: number) {
-    if (seconds < 60) {
-        return `${seconds} seconds`;
-    }
+export function formatTime(s: number) {
+    const hours   = Math.floor(s / 3600).toString();
+    const minutes = (Math.floor(s / 60) % 60).toString();
+    const seconds = (s % 60).toString();
 
-    const min = Math.floor(seconds / 60);
-    const sec = seconds % 60;
-
-    if (sec === 0) {
-        return `${min} minute${min !== 1 ? "s" : ""}`;
-    }
-
-    return `${min} minute${min !== 1 ? "s" : ""} ${sec} second${sec !== 1 ? "s" : ""}`;
+    return `${hours !== "0" ? hours + "h": ""}${minutes !== "0" ? minutes + "m": ""}${seconds !== "0" ? seconds + "s": ""}`;
 }

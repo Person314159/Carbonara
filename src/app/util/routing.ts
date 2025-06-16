@@ -24,18 +24,22 @@ networkData.stations.forEach(station => {
 
 export const options = networkData.stations.map((station) => station.name);
 
+function tupleCmp([a1, a2]: [number, number], [b1, b2]: [number, number]) {
+    return a1 != b1 ? a1 - b1 : a2 - b2;
+}
+
 // Dijkstra's algorithm implementation
 function dijkstra(start: string, metric: string) {
-    const distances = new Map<string, number>();
+    const distances = new Map<string, [number, number]>();
     const previous = new Map<string, Neighbour | null>();
-    const pq = new PriorityQueue((a: Node, b: Node) => distances.get(`${a.destination}-${a.lineID}`)! - distances.get(`${b.destination}-${b.lineID}`)!);
-    const visited = new Set<Node>();
+    const pq = new PriorityQueue((a: Node, b: Node) => tupleCmp(distances.get(`${a.destination}-${a.lineID}`)!, distances.get(`${b.destination}-${b.lineID}`)!));
+    const visited = new Set<string>();
 
     // Initialize distances and add all nodes to the unvisited set
     graph.forEach((neighbours) => {
         neighbours.forEach(({ lineID, destination }) => {
             const node: Node = { destination, lineID };
-            distances.set(`${destination}-${lineID}`, destination === start ? 0 : Infinity);
+            distances.set(`${destination}-${lineID}`, [destination === start ? 0 : Infinity, destination === start ? 0 : Infinity]);
             previous.set(`${destination}-${lineID}`, null);
 
             if (destination === start) pq.push(node);
@@ -44,22 +48,21 @@ function dijkstra(start: string, metric: string) {
 
     while (!pq.isEmpty()) {
         // Find the node with the minimum distance
-        const minNode = pq.pop()!;
-
-        const { destination: minStation, lineID: minLine } = minNode;
+        const { destination: minStation, lineID: minLine } = pq.pop()!;
 
         // If the minimum distance is infinity, there are no more reachable nodes
-        if (distances.get(`${minStation}-${minLine}`) === Infinity) break;
+        if (distances.get(`${minStation}-${minLine}`)![0] === Infinity) break;
 
-        visited.add(minNode);
+        visited.add(`${minStation}-${minLine}`);
 
         // Update distances to adjacent nodes
         graph.get(minStation)!.forEach(({ lineID, destination, time }) => {
-            if (time !== null && !visited.has({ destination, lineID })) {
-                const alt = distances.get(`${minStation}-${minLine}`)! + (lineID !== minLine ? 1 : 0) + (metric === "time" ? time : 0);
+            if (time !== null && !visited.has(`${destination}-${lineID}`)) {
+                const [curr_a, curr_b] = distances.get(`${minStation}-${minLine}`)!;
+                const [alt_a, alt_b] = [curr_a + (metric === "time" ? time : (lineID !== minLine ? 1 : 0)), curr_b + (metric === "time" ? (lineID !== minLine ? 1 : 0) : time)];
 
-                if (alt < distances.get(`${destination}-${lineID}`)!) {
-                    distances.set(`${destination}-${lineID}`, alt);
+                if (tupleCmp([alt_a, alt_b], distances.get(`${destination}-${lineID}`)!) < 0) {
+                    distances.set(`${destination}-${lineID}`, [alt_a, alt_b]);
                     previous.set(`${destination}-${lineID}`, { destination: minStation, lineID: minLine, time });
                     pq.push({ destination, lineID });
                 }
@@ -121,18 +124,16 @@ export function findRoute(start: string, end: string, metric: string) {
 
     // If there's no path to the destination
     let minNode = null;
-    let minTime = Infinity;
+    let minTime: [number, number] = [Infinity, Infinity];
 
     for (const neighbour of graph.get(end)!) {
-        if (distances.get(`${end}-${neighbour.lineID}`)! < minTime) {
+        if (tupleCmp(distances.get(`${end}-${neighbour.lineID}`)!, minTime) < 0) {
             minTime = distances.get(`${end}-${neighbour.lineID}`)!;
             minNode = { destination: end, lineID: neighbour.lineID };
         }
     }
 
-    if (minTime === Infinity) {
-        return [];
-    }
+    if (minTime[0] === Infinity) return [];
 
     // Reconstruct the path
     const path: Neighbour[] = [{ lineID: minNode!.lineID, destination: minNode!.destination, time: -1 }];
