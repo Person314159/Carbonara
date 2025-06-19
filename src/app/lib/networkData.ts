@@ -1558,7 +1558,7 @@ const networkData = {
             from: "Sandefjord",
             to: "Oslo",
             lineID: "E33",
-            time: null
+            time: 25
         },
         {
             from: "Oslo",
