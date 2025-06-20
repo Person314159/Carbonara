@@ -153,12 +153,6 @@ const networkData = {
             type: "LSR"
         },
         {
-            id: "E20",
-            name: "E20",
-            colour: "#ffcd02",
-            type: "LSR"
-        },
-        {
             id: "E21",
             name: "E21",
             colour: "#cccccc",
@@ -603,9 +597,6 @@ const networkData = {
         },
         {
             name: "Kaliningrad"
-        },
-        {
-            name: "Karlsruhe"
         },
         {
             name: "Katowice"
@@ -1373,12 +1364,6 @@ const networkData = {
             to: "Bornholm",
             lineID: "E19",
             time: 80
-        },
-        {
-            from: "Charleville-Mézières",
-            to: "Karlsruhe",
-            lineID: "E20",
-            time: 110
         },
         {
             from: "Mequinenza",
