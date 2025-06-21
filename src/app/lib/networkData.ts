@@ -231,6 +231,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "E41",
+            name: "Anabenraa Line",
+            colour: "#e233ff",
+            type: "LSR"
+        },
+        {
             id: "F01",
             name: "Lampedusa Line",
             colour: "#ffcd02",
@@ -431,6 +437,9 @@ const networkData = {
     ],
     stations: [
         {
+            name: "Aabenraa"
+        },
+        {
             name: "Accra"
         },
         {
@@ -537,6 +546,9 @@ const networkData = {
         },
         {
             name: "Del Norte"
+        },
+        {
+            name: "Den Oever"
         },
         {
             name: "Dunedin"
@@ -1535,9 +1547,15 @@ const networkData = {
         },
         {
             from: "Kiel",
+            to: "Aabenraa",
+            lineID: "E33",
+            time: 25
+        },
+        {
+            from: "Aabenraa",
             to: "Sandefjord",
             lineID: "E33",
-            time: 90
+            time: 65
         },
         {
             from: "Sandefjord",
@@ -1592,6 +1610,18 @@ const networkData = {
             to: "Kuressaare",
             lineID: "E39",
             time: 60
+        },
+        {
+            from: "Amsterdam Central",
+            to: "Den Oever",
+            lineID: "E41",
+            time: 10
+        },
+        {
+            from: "Den Oever",
+            to: "Aabenraa",
+            lineID: "E41",
+            time: 85
         },
         {
             from: "Central Mediterranean",
