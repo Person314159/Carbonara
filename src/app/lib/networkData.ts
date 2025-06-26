@@ -1573,7 +1573,7 @@ const networkData = {
             from: "Odda",
             to: "Bergen",
             lineID: "E33",
-            time: null
+            time: 25
         },
         {
             from: "West Mediterranean",
