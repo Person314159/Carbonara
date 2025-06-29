@@ -399,6 +399,18 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "S01",
+            name: "Apple Line",
+            colour: "#ff0802",
+            type: "LSR"
+        },
+        {
+            id: "S02",
+            name: "World Cup Line",
+            colour: "#68ab33",
+            type: "LSR"
+        },
+        {
             id: "T01",
             name: "Big Bridge",
             colour: "#f59fb3",
@@ -467,6 +479,9 @@ const networkData = {
             name: "Arthur's Pass"
         },
         {
+            name: "Asunción"
+        },
+        {
             name: "Atyrau"
         },
         {
@@ -518,6 +533,9 @@ const networkData = {
             name: "Brno"
         },
         {
+            name: "Buenos Aires"
+        },
+        {
             name: "Bydgoszcz"
         },
         {
@@ -549,6 +567,15 @@ const networkData = {
         },
         {
             name: "Den Oever"
+        },
+        {
+            name: "Doctor Cecilio Báez"
+        },
+        {
+            name: "Doctor Juan León Mallorquín"
+        },
+        {
+            name: "Doctor Juan Manuel Frutos"
         },
         {
             name: "Dunedin"
@@ -666,6 +693,9 @@ const networkData = {
         },
         {
             name: "Milan"
+        },
+        {
+            name: "Montevideo"
         },
         {
             name: "Montréal Central"
@@ -1886,6 +1916,36 @@ const networkData = {
             to: "Perth",
             lineID: "O10",
             time: 340
+        },
+        {
+            from: "Asunción",
+            to: "Doctor Cecilio Báez",
+            lineID: "S01",
+            time: null
+        },
+        {
+            from: "Doctor Cecilio Báez",
+            to: "Doctor Juan Manuel Frutos",
+            lineID: "S01",
+            time: null
+        },
+        {
+            from: "Doctor Juan Manuel Frutos",
+            to: "Doctor Juan León Mallorquín",
+            lineID: "S01",
+            time: null
+        },
+        {
+            from: "Asunción",
+            to: "Buenos Aires",
+            lineID: "S02",
+            time: null
+        },
+        {
+            from: "Buenos Aires",
+            to: "Montevideo",
+            lineID: "S02",
+            time: null
         },
         {
             from: "Montréal Central",
