@@ -345,6 +345,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "N21",
+            name: "USA Explorer Line",
+            colour: "#3c6fb3",
+            type: "LSR"
+        },
+        {
             id: "O02",
             name: "Victorian Line",
             colour: "#b80b4b",
@@ -534,6 +540,9 @@ const networkData = {
         },
         {
             name: "Buenos Aires"
+        },
+        {
+            name: "Burlington"
         },
         {
             name: "Bydgoszcz"
@@ -1820,6 +1829,12 @@ const networkData = {
             to: "Rimouski",
             lineID: "N19",
             time: 80
+        },
+        {
+            from: "Montréal Central",
+            to: "Burlington",
+            lineID: "N21",
+            time: 30
         },
         {
             from: "Melbourne",
