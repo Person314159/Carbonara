@@ -458,6 +458,9 @@ const networkData = {
             name: "Aabenraa"
         },
         {
+            name: "Aarhus"
+        },
+        {
             name: "Accra"
         },
         {
@@ -726,6 +729,9 @@ const networkData = {
         },
         {
             name: "North Mediterranean"
+        },
+        {
+            name: "Oates Land"
         },
         {
             name: "Odda"
@@ -1592,9 +1598,15 @@ const networkData = {
         },
         {
             from: "Aabenraa",
+            to: "Aarhus",
+            lineID: "E33",
+            time: 30
+        },
+        {
+            from: "Aarhus",
             to: "Sandefjord",
             lineID: "E33",
-            time: 65
+            time: 35
         },
         {
             from: "Sandefjord",
@@ -2162,9 +2174,15 @@ const networkData = {
         },
         {
             from: "Auckland Island",
+            to: "Oates Land",
+            lineID: "T07",
+            time: 260
+        },
+        {
+            from: "Oates Land",
             to: "McMurdo Station",
             lineID: "T07",
-            time: null
+            time: 95
         },
         {
             from: "Charleville-Mézières",
