@@ -467,6 +467,9 @@ const networkData = {
             name: "Adelaide"
         },
         {
+            name: "Albany"
+        },
+        {
             name: "Alexandria"
         },
         {
@@ -1222,7 +1225,7 @@ const networkData = {
             from: "Tallinn",
             to: "Turku",
             lineID: "E06",
-            time: null
+            time: 50
         },
         {
             from: "Turku",
@@ -1847,6 +1850,12 @@ const networkData = {
             to: "Burlington",
             lineID: "N21",
             time: 30
+        },
+        {
+            from: "Burlington",
+            to: "Albany",
+            lineID: "N21",
+            time: 40
         },
         {
             from: "Melbourne",
