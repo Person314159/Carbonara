@@ -214,13 +214,13 @@ const networkData = {
         },
         {
             id: "E37",
-            name: "Corsica Line",
-            colour: "#157788",
+            name: "E37",
+            colour: "#073941",
             type: "LSR"
         },
         {
             id: "E38",
-            name: "E38",
+            name: "Corsica Line",
             colour: "#a1dbe6",
             type: "LSR"
         },
@@ -258,6 +258,12 @@ const networkData = {
             id: "HBL",
             name: "Blue HSR",
             colour: "#4c90cd",
+            type: "HSR"
+        },
+        {
+            id: "HCY",
+            name: "Cyan HSR",
+            colour: "#157788",
             type: "HSR"
         },
         {
@@ -488,6 +494,9 @@ const networkData = {
             name: "Aomori"
         },
         {
+            name: "Apennines"
+        },
+        {
             name: "Arthur's Pass"
         },
         {
@@ -573,6 +582,9 @@ const networkData = {
         },
         {
             name: "Copenhagen"
+        },
+        {
+            name: "Corsica"
         },
         {
             name: "Delhi"
@@ -713,7 +725,7 @@ const networkData = {
             name: "Montevideo"
         },
         {
-            name: "Montréal Central"
+            name: "Montréal"
         },
         {
             name: "Mt. Damavand"
@@ -878,7 +890,7 @@ const networkData = {
             name: "Stockholm"
         },
         {
-            name: "Strait of Bonifacio"
+            name: "Sardinia"
         },
         {
             name: "Sudbury"
@@ -1631,24 +1643,30 @@ const networkData = {
         },
         {
             from: "West Mediterranean",
-            to: "Strait of Bonifacio",
+            to: "Sardinia",
             lineID: "E37",
             time: 60
         },
         {
-            from: "Strait of Bonifacio",
+            from: "Sardinia",
             to: "Bari",
             lineID: "E37",
             time: null
         },
         {
             from: "North Mediterranean",
-            to: "Strait of Bonifacio",
+            to: "Corsica",
             lineID: "E38",
-            time: 40
+            time: 25
         },
         {
-            from: "Strait of Bonifacio",
+            from: "Corsica",
+            to: "Sardinia",
+            lineID: "E38",
+            time: 15
+        },
+        {
+            from: "Sardinia",
             to: "Central Mediterranean",
             lineID: "E38",
             time: null
@@ -1768,7 +1786,7 @@ const networkData = {
             time: null
         },
         {
-            from: "Montréal Central",
+            from: "Montréal",
             to: "Ottawa",
             lineID: "N10",
             time: 35
@@ -1786,13 +1804,13 @@ const networkData = {
             time: null
         },
         {
-            from: "Montréal Central",
+            from: "Montréal",
             to: "Iqaluit",
             lineID: "N12",
             time: null
         },
         {
-            from: "Montréal Central",
+            from: "Montréal",
             to: "Québec",
             lineID: "N13",
             time: null
@@ -1804,7 +1822,7 @@ const networkData = {
             time: null
         },
         {
-            from: "Montréal Central",
+            from: "Montréal",
             to: "Boston",
             lineID: "N14",
             time: 95
@@ -1828,7 +1846,7 @@ const networkData = {
             time: 35
         },
         {
-            from: "Montréal Central",
+            from: "Montréal",
             to: "New York Central",
             lineID: "N16",
             time: 65
@@ -1846,7 +1864,7 @@ const networkData = {
             time: 80
         },
         {
-            from: "Montréal Central",
+            from: "Montréal",
             to: "Burlington",
             lineID: "N21",
             time: 30
@@ -1984,7 +2002,7 @@ const networkData = {
             time: null
         },
         {
-            from: "Montréal Central",
+            from: "Montréal",
             to: "Rimouski",
             lineID: "T01",
             time: 95
@@ -2228,6 +2246,66 @@ const networkData = {
             to: "Queen's Cross",
             lineID: "HBL",
             time: 60
+        },
+        {
+            from: "Apennines",
+            to: "Bari",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Apennines",
+            to: "Corsica",
+            lineID: "HCY",
+            time: 65
+        },
+        {
+            from: "Apennines",
+            to: "Milan",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Apennines",
+            to: "Sardinia",
+            lineID: "HCY",
+            time: 60
+        },
+        {
+            from: "Bari",
+            to: "Corsica",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Bari",
+            to: "Milan",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Bari",
+            to: "Sardinia",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Corsica",
+            to: "Sardinia",
+            lineID: "HCY",
+            time: 15
+        },
+        {
+            from: "Corsica",
+            to: "Milan",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Milan",
+            to: "Sardinia",
+            lineID: "HCY",
+            time: null
         },
         {
             from: "Amsterdam Central",
