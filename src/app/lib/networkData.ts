@@ -316,7 +316,7 @@ const networkData = {
         },
         {
             id: "N12",
-            name: "N12",
+            name: "Great Northern Railway",
             colour: "#bb4a9b",
             type: "LSR"
         },
@@ -328,7 +328,7 @@ const networkData = {
         },
         {
             id: "N14",
-            name: "N14",
+            name: "fish fish fish fish fish",
             colour: "#ed1c2a",
             type: "LSR"
         },
@@ -352,7 +352,7 @@ const networkData = {
         },
         {
             id: "N21",
-            name: "USA Explorer Line",
+            name: "Adirondack Line",
             colour: "#3c6fb3",
             type: "LSR"
         },
@@ -659,6 +659,9 @@ const networkData = {
             name: "Istanbul"
         },
         {
+            name: "Ittoqoorttomit"
+        },
+        {
             name: "Kaikōura"
         },
         {
@@ -744,6 +747,9 @@ const networkData = {
         },
         {
             name: "North Mediterranean"
+        },
+        {
+            name: "Nuuk"
         },
         {
             name: "Oates Land"
@@ -839,6 +845,9 @@ const networkData = {
             name: "Rennes"
         },
         {
+            name: "Reykjavík"
+        },
+        {
             name: "Riga"
         },
         {
@@ -906,6 +915,9 @@ const networkData = {
         },
         {
             name: "Tamanrasset"
+        },
+        {
+            name: "Tasiujaq"
         },
         {
             name: "Tehran"
@@ -1805,7 +1817,31 @@ const networkData = {
         },
         {
             from: "Montréal",
+            to: "Tasiujaq",
+            lineID: "N12",
+            time: null
+        },
+        {
+            from: "Tasiujaq",
             to: "Iqaluit",
+            lineID: "N12",
+            time: null
+        },
+        {
+            from: "Iqaluit",
+            to: "Nuuk",
+            lineID: "N12",
+            time: null
+        },
+        {
+            from: "Nuuk",
+            to: "Ittoqoorttomit",
+            lineID: "N12",
+            time: null
+        },
+        {
+            from: "Ittoqoorttomit",
+            to: "Reykjavík",
             lineID: "N12",
             time: null
         },
@@ -2317,7 +2353,7 @@ const networkData = {
             from: "San Jose",
             to: "Vancouver",
             lineID: "HPU",
-            time: null
+            time: 135
         }
     ]
 } as NetworkData;
