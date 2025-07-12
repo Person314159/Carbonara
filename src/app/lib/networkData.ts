@@ -328,7 +328,7 @@ const networkData = {
         },
         {
             id: "N14",
-            name: "fish fish fish fish fish",
+            name: "Northeast Star Line",
             colour: "#ed1c2a",
             type: "LSR"
         },
