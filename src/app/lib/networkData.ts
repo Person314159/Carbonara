@@ -2299,7 +2299,7 @@ const networkData = {
             from: "Apennines",
             to: "Milan",
             lineID: "HCY",
-            time: null
+            time: 100
         },
         {
             from: "Apennines",
@@ -2335,13 +2335,13 @@ const networkData = {
             from: "Corsica",
             to: "Milan",
             lineID: "HCY",
-            time: null
+            time: 35
         },
         {
             from: "Milan",
             to: "Sardinia",
             lineID: "HCY",
-            time: null
+            time: 50
         },
         {
             from: "Amsterdam Central",
