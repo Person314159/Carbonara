@@ -153,6 +153,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "E20",
+            name: "Balearic Line",
+            colour: "#f9ebc8",
+            type: "LSR"
+        },
+        {
             id: "E21",
             name: "E21",
             colour: "#cccccc",
@@ -699,6 +705,9 @@ const networkData = {
         },
         {
             name: "Lublin"
+        },
+        {
+            name: "Mallorca"
         },
         {
             name: "Manicouagan"
@@ -1448,6 +1457,12 @@ const networkData = {
             to: "Bornholm",
             lineID: "E19",
             time: 80
+        },
+        {
+            from: "West Mediterranean",
+            to: "Mallorca",
+            lineID: "E20",
+            time: 45
         },
         {
             from: "Mequinenza",
