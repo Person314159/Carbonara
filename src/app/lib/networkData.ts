@@ -2086,7 +2086,7 @@ const networkData = {
             from: "Charleville-Mézières",
             to: "Marseille",
             lineID: "T01",
-            time: 90
+            time: 85
         },
         {
             from: "Marseille",
