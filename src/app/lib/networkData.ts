@@ -1109,6 +1109,12 @@ const networkData = {
         },
         {
             from: "Starodubskoe",
+            to: "Sapporo",
+            lineID: "A08",
+            time: 80
+        },
+        {
+            from: "Starodubskoe",
             to: "Yuzhno-Sakhalinsk",
             lineID: "A08",
             time: 10
