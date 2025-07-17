@@ -45,6 +45,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "A09",
+            name: "Korea Link",
+            colour: "#b80b4b",
+            type: "LSR"
+        },
+        {
             id: "E01",
             name: "Brighton Red Line",
             colour: "#ed1c2a",
@@ -566,6 +572,9 @@ const networkData = {
             name: "Burlington"
         },
         {
+            name: "Busan"
+        },
+        {
             name: "Bydgoszcz"
         },
         {
@@ -584,6 +593,9 @@ const networkData = {
             name: "Charleville-Mézières"
         },
         {
+            name: "Cholsan"
+        },
+        {
             name: "Christchurch"
         },
         {
@@ -591,6 +603,9 @@ const networkData = {
         },
         {
             name: "Corsica"
+        },
+        {
+            name: "Daegu"
         },
         {
             name: "Delhi"
@@ -654,6 +669,9 @@ const networkData = {
         },
         {
             name: "Jane Peak"
+        },
+        {
+            name: "Iksan"
         },
         {
             name: "Iqaluit"
@@ -836,6 +854,9 @@ const networkData = {
             name: "Pristina"
         },
         {
+            name: "Pyongyang"
+        },
+        {
             name: "Pyrenees"
         },
         {
@@ -885,6 +906,9 @@ const networkData = {
         },
         {
             name: "Sendai"
+        },
+        {
+            name: "Seoul-Incheon"
         },
         {
             name: "Sfax"
@@ -966,6 +990,9 @@ const networkData = {
         },
         {
             name: "Turku"
+        },
+        {
+            name: "Ulanhot"
         },
         {
             name: "Valencia"
@@ -1145,6 +1172,48 @@ const networkData = {
             to: "Fukuoka",
             lineID: "A08",
             time: 40
+        },
+        {
+            from: "Ulanhot",
+            to: "Cholsan",
+            lineID: "A09",
+            time: null
+        },
+        {
+            from: "Cholsan",
+            to: "Pyongyang",
+            lineID: "A09",
+            time: null
+        },
+        {
+            from: "Pyongyang",
+            to: "Seoul-Incheon",
+            lineID: "A09",
+            time: null
+        },
+        {
+            from: "Seoul-Incheon",
+            to: "Iksan",
+            lineID: "A09",
+            time: 30
+        },
+        {
+            from: "Iksan",
+            to: "Daegu",
+            lineID: "A09",
+            time: 30
+        },
+        {
+            from: "Daegu",
+            to: "Busan",
+            lineID: "A09",
+            time: 25
+        },
+        {
+            from: "Busan",
+            to: "Fukuoka",
+            lineID: "A09",
+            time: 55
         },
         {
             from: "Queen's Cross",
@@ -2132,9 +2201,15 @@ const networkData = {
         },
         {
             from: "Baikonur",
+            to: "Ulanhot",
+            lineID: "T01",
+            time: 750
+        },
+        {
+            from: "Ulanhot",
             to: "Poronaysk",
             lineID: "T01",
-            time: 1075
+            time: 325
         },
         {
             from: "Antalya",
