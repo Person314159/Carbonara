@@ -243,7 +243,7 @@ const networkData = {
             type: "LSR"
         },
         {
-            id: "E41",
+            id: "E40",
             name: "Anabenraa Line",
             colour: "#e233ff",
             type: "LSR"
@@ -1782,13 +1782,13 @@ const networkData = {
         {
             from: "Amsterdam Central",
             to: "Den Oever",
-            lineID: "E41",
+            lineID: "E40",
             time: 10
         },
         {
             from: "Den Oever",
             to: "Aabenraa",
-            lineID: "E41",
+            lineID: "E40",
             time: 85
         },
         {
