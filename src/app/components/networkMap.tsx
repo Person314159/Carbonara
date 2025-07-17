@@ -28,15 +28,15 @@ const NetworkMap = React.memo(function({ width, height }: ZoomIProps) {
             <Zoom<SVGSVGElement>
                 width={width}
                 height={h}
-                scaleXMin={1 / 8}
+                scaleXMin={1 / 32}
                 scaleXMax={4}
-                scaleYMin={1 / 8}
+                scaleYMin={1 / 32}
                 scaleYMax={4}
                 initialTransformMatrix={{
-                    scaleX: 0.5,
-                    scaleY: 0.5,
-                    translateX: -700 * 0.5 + width / 2,
-                    translateY: 2658 * 0.5 + h / 2,
+                    scaleX: 0.06,
+                    scaleY: 0.06,
+                    translateX: 0 * 0.06 + width / 2,
+                    translateY: 0 * 0.06 + h / 2,
                     skewX: 0,
                     skewY: 0
                 }}
@@ -74,6 +74,14 @@ const NetworkMap = React.memo(function({ width, height }: ZoomIProps) {
                             <button type="button" className="btn w-[26px] text-[22px]" onClick={() => zoom.scale({ scaleX: 1.2, scaleY: 1.2 })}>+</button>
                             <button type="button" className="btn w-[26px] text-[22px] !mb-4" onClick={() => zoom.scale({ scaleX: 0.8, scaleY: 0.8 })}>-</button>
                             <ZoomToButton onClick={() => zoom.setTransformMatrix({
+                                scaleX: 0.06,
+                                scaleY: 0.06,
+                                translateX: 0 * 0.06 + width / 2,
+                                translateY: 0 * 0.06 + h / 2,
+                                skewX: 0,
+                                skewY: 0
+                            })} name="Global" />
+                            <ZoomToButton onClick={() => zoom.setTransformMatrix({
                                 scaleX: 0.5,
                                 scaleY: 0.5,
                                 translateX: -700 * 0.5 + width / 2,
@@ -82,21 +90,45 @@ const NetworkMap = React.memo(function({ width, height }: ZoomIProps) {
                                 skewY: 0
                             })} name="Europe" />
                             <ZoomToButton onClick={() => zoom.setTransformMatrix({
+                                scaleX: 0.5,
+                                scaleY: 0.5,
+                                translateX: 6664 * 0.5 + width / 2,
+                                translateY: 2274 * 0.5 + h / 2,
+                                skewX: 0,
+                                skewY: 0
+                            })} name="NA West" />
+                            <ZoomToButton onClick={() => zoom.setTransformMatrix({
                                 scaleX: 0.3,
                                 scaleY: 0.3,
-                                translateX: 4885 * 0.3 + width / 2,
-                                translateY: 2600 * 0.3 + h / 2,
+                                translateX: 3900 * 0.3 + width / 2,
+                                translateY: 2482 * 0.3 + h / 2,
                                 skewX: 0,
                                 skewY: 0
-                            })} name="North America" />
+                            })} name="NA East" />
                             <ZoomToButton onClick={() => zoom.setTransformMatrix({
-                                scaleX: 0.7,
-                                scaleY: 0.7,
-                                translateX: -9500 * 0.7 + width / 2,
-                                translateY: -2385 * 0.7 + h / 2,
+                                scaleX: 0.4,
+                                scaleY: 0.4,
+                                translateX: -2968 * 0.4 + width / 2,
+                                translateY: 2237 * 0.4 + h / 2,
                                 skewX: 0,
                                 skewY: 0
-                            })} name="New Zealand" />
+                            })} name="Asia West" />
+                            <ZoomToButton onClick={() => zoom.setTransformMatrix({
+                                scaleX: 0.25,
+                                scaleY: 0.25,
+                                translateX: -6114 * 0.25 + width / 2,
+                                translateY: 1409 * 0.25 + h / 2,
+                                skewX: 0,
+                                skewY: 0
+                            })} name="Asia East" />
+                            <ZoomToButton onClick={() => zoom.setTransformMatrix({
+                                scaleX: 0.3,
+                                scaleY: 0.3,
+                                translateX: -8090 * 0.3 + width / 2,
+                                translateY: -1630 * 0.3 + h / 2,
+                                skewX: 0,
+                                skewY: 0
+                            })} name="Oceania" />
                         </div>
                     </div>
                 )}
