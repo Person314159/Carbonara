@@ -506,6 +506,9 @@ const networkData = {
             name: "Amsterdam Central"
         },
         {
+            name: "Anshan"
+        },
+        {
             name: "Antalya"
         },
         {
@@ -1211,21 +1214,27 @@ const networkData = {
         },
         {
             from: "Ulanhot",
+            to: "Anshan",
+            lineID: "A09",
+            time: 75
+        },
+        {
+            from: "Anshan",
             to: "Cholsan",
             lineID: "A09",
-            time: null
+            time: 45
         },
         {
             from: "Cholsan",
             to: "Pyongyang",
             lineID: "A09",
-            time: null
+            time: 25
         },
         {
             from: "Pyongyang",
             to: "Seoul-Incheon",
             lineID: "A09",
-            time: null
+            time: 35
         },
         {
             from: "Seoul-Incheon",
