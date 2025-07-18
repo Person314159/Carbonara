@@ -238,8 +238,8 @@ const networkData = {
         },
         {
             id: "E39",
-            name: "O-K Line",
-            colour: "#02ff23",
+            name: "Latvian Regional Loop",
+            colour: "#9d2235",
             type: "LSR"
         },
         {
@@ -485,6 +485,9 @@ const networkData = {
             name: "Adelaide"
         },
         {
+            name: "Aizkraukle"
+        },
+        {
             name: "Albany"
         },
         {
@@ -492,6 +495,9 @@ const networkData = {
         },
         {
             name: "Algiers"
+        },
+        {
+            name: "Alūksne"
         },
         {
             name: "Amol"
@@ -608,6 +614,9 @@ const networkData = {
             name: "Daegu"
         },
         {
+            name: "Daugavpils"
+        },
+        {
             name: "Delhi"
         },
         {
@@ -698,6 +707,9 @@ const networkData = {
             name: "Kiel"
         },
         {
+            name: "Kolkasrags"
+        },
+        {
             name: "Kotka"
         },
         {
@@ -717,6 +729,9 @@ const networkData = {
         },
         {
             name: "Larissa"
+        },
+        {
+            name: "Liepāja"
         },
         {
             name: "Ljubljana"
@@ -878,6 +893,9 @@ const networkData = {
             name: "Reykjavík"
         },
         {
+            name: "Rēzekne"
+        },
+        {
             name: "Riga"
         },
         {
@@ -885,6 +903,9 @@ const networkData = {
         },
         {
             name: "Romanian Slime Farm"
+        },
+        {
+            name: "Ruhnu Island"
         },
         {
             name: "Sandefjord"
@@ -915,6 +936,9 @@ const networkData = {
         },
         {
             name: "Singapore"
+        },
+        {
+            name: "Skrunda"
         },
         {
             name: "Southampton"
@@ -998,10 +1022,16 @@ const networkData = {
             name: "Valencia"
         },
         {
+            name: "Valka"
+        },
+        {
             name: "Vancouver"
         },
         {
             name: "Venice"
+        },
+        {
+            name: "Ventspils"
         },
         {
             name: "Vienna"
@@ -1774,16 +1804,82 @@ const networkData = {
             time: null
         },
         {
-            from: "Ogre",
-            to: "Riga",
+            from: "Riga",
+            to: "Ogre",
             lineID: "E39",
-            time: 15
+            time: null
         },
         {
-            from: "Riga",
+            from: "Ogre",
+            to: "Aizkraukle",
+            lineID: "E39",
+            time: null
+        },
+        {
+            from: "Aizkraukle",
+            to: "Daugavpils",
+            lineID: "E39",
+            time: null
+        },
+        {
+            from: "Daugavpils",
+            to: "Rēzekne",
+            lineID: "E39",
+            time: null
+        },
+        {
+            from: "Rēzekne",
+            to: "Alūksne",
+            lineID: "E39",
+            time: null
+        },
+        {
+            from: "Alūksne",
+            to: "Valka",
+            lineID: "E39",
+            time: null
+        },
+        {
+            from: "Valka",
+            to: "Ruhnu Island",
+            lineID: "E39",
+            time: null
+        },
+        {
+            from: "Ruhnu Island",
             to: "Kuressaare",
             lineID: "E39",
-            time: 60
+            time: null
+        },
+        {
+            from: "Kuressaare",
+            to: "Kolkasrags",
+            lineID: "E39",
+            time: null
+        },
+        {
+            from: "Kolkasrags",
+            to: "Ventspils",
+            lineID: "E39",
+            time: 20
+        },
+        {
+            from: "Ventspils",
+            to: "Liepāja",
+            lineID: "E39",
+            time: 20
+        },
+        {
+            from: "Liepāja",
+            to: "Skrunda",
+            lineID: "E39",
+            time: 20
+        },
+        {
+            from: "Skrunda",
+            to: "Riga",
+            lineID: "E39",
+            time: 40
         },
         {
             from: "Amsterdam Central",
