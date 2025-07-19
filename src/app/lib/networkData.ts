@@ -225,6 +225,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "E35",
+            name: "Thrace Line",
+            colour: "#521bfd",
+            type: "LSR"
+        },
+        {
             id: "E37",
             name: "E37",
             colour: "#073941",
@@ -609,6 +615,9 @@ const networkData = {
         },
         {
             name: "Copenhagen"
+        },
+        {
+            name: "Çorlu"
         },
         {
             name: "Corsica"
@@ -1783,6 +1792,12 @@ const networkData = {
             time: 25
         },
         {
+            from: "Thessaloniki",
+            to: "Çorlu",
+            lineID: "E35",
+            time: 75
+        },
+        {
             from: "West Mediterranean",
             to: "Sardinia",
             lineID: "E37",
@@ -2330,9 +2345,15 @@ const networkData = {
         },
         {
             from: "Istanbul",
+            to: "Çorlu",
+            lineID: "T02",
+            time: 25
+        },
+        {
+            from: "Çorlu",
             to: "Romanian Slime Farm",
             lineID: "T02",
-            time: 95
+            time: 70
         },
         {
             from: "Romanian Slime Farm",
