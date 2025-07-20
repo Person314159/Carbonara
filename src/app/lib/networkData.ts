@@ -2074,7 +2074,7 @@ const networkData = {
             time: 75
         },
         {
-            from: "Toronto Union",
+            from: "Ottawa",
             to: "Sudbury",
             lineID: "N11",
             time: null
