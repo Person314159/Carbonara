@@ -641,7 +641,7 @@ const networkData = {
             name: "Charleville-Mézières"
         },
         {
-            name: "Chicago"
+            name: "Gary"
         },
         {
             name: "Cholsan"
@@ -2261,7 +2261,7 @@ const networkData = {
         },
         {
             from: "Bloomington",
-            to: "Chicago",
+            to: "Gary",
             lineID: "N23",
             time: null
         },
