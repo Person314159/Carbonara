@@ -334,7 +334,7 @@ const networkData = {
         },
         {
             id: "N12",
-            name: "River Monorail",
+            name: "Saint-Laurent Monorail",
             colour: "#45818e",
             type: "LSR"
         },
@@ -352,7 +352,7 @@ const networkData = {
         },
         {
             id: "N15",
-            name: "Chesapeake Line",
+            name: "Coastliner",
             colour: "#006db8",
             type: "LSR"
         },
@@ -360,6 +360,12 @@ const networkData = {
             id: "N16",
             name: "Maple Liberty Line",
             colour: "#008c5a",
+            type: "LSR"
+        },
+        {
+            id: "N17",
+            name: "Trans-Appalachian Line",
+            colour: "#273c7b",
             type: "LSR"
         },
         {
@@ -388,7 +394,7 @@ const networkData = {
         },
         {
             id: "N24",
-            name: "End Portal Express",
+            name: "Ontario Line",
             colour: "#38664b",
             type: "LSR"
         },
@@ -989,6 +995,9 @@ const networkData = {
             name: "Savannah"
         },
         {
+            name: "Scranton"
+        },
+        {
             name: "Sendai"
         },
         {
@@ -1023,6 +1032,9 @@ const networkData = {
         },
         {
             name: "Sydney"
+        },
+        {
+            name: "Syracuse"
         },
         {
             name: "Szczecin"
@@ -2191,6 +2203,30 @@ const networkData = {
             from: "New York Central",
             to: "Washington D.C.",
             lineID: "N16",
+            time: null
+        },
+        {
+            from: "Ottawa",
+            to: "Syracuse",
+            lineID: "N17",
+            time: null
+        },
+        {
+            from: "Syracuse",
+            to: "Scranton",
+            lineID: "N17",
+            time: null
+        },
+        {
+            from: "Scranton",
+            to: "Washington D.C.",
+            lineID: "N17",
+            time: null
+        },
+        {
+            from: "Washington D.C.",
+            to: "Wallops Island",
+            lineID: "N17",
             time: null
         },
         {
