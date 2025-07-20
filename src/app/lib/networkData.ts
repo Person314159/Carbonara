@@ -232,12 +232,6 @@ const networkData = {
         },
         {
             id: "E37",
-            name: "E37",
-            colour: "#073941",
-            type: "LSR"
-        },
-        {
-            id: "E38",
             name: "Corsica Line",
             colour: "#a1dbe6",
             type: "LSR"
@@ -1871,27 +1865,15 @@ const networkData = {
         },
         {
             from: "Sardinia",
-            to: "Bari",
-            lineID: "E37",
-            time: null
-        },
-        {
-            from: "North Mediterranean",
             to: "Corsica",
-            lineID: "E38",
-            time: 25
-        },
-        {
-            from: "Corsica",
-            to: "Sardinia",
-            lineID: "E38",
+            lineID: "E37",
             time: 15
         },
         {
-            from: "Sardinia",
-            to: "Central Mediterranean",
-            lineID: "E38",
-            time: null
+            from: "Corsica",
+            to: "North Mediterranean",
+            lineID: "E37",
+            time: 25
         },
         {
             from: "Riga",
