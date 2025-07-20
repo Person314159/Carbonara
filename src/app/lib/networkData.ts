@@ -394,7 +394,7 @@ const networkData = {
         },
         {
             id: "N24",
-            name: "Ontario Line",
+            name: "End Portal Express",
             colour: "#38664b",
             type: "LSR"
         },
@@ -2219,13 +2219,7 @@ const networkData = {
         },
         {
             from: "Scranton",
-            to: "Washington D.C.",
-            lineID: "N17",
-            time: null
-        },
-        {
-            from: "Washington D.C.",
-            to: "Wallops Island",
+            to: "Philadelphia",
             lineID: "N17",
             time: null
         },
@@ -2251,6 +2245,12 @@ const networkData = {
             from: "Toronto Union",
             to: "Kawartha Lakes",
             lineID: "N22",
+            time: null
+        },
+        {
+            from: "Savannah",
+            to: "Atlanta",
+            lineID: "N23",
             time: null
         },
         {
