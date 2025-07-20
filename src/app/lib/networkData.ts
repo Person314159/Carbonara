@@ -328,14 +328,14 @@ const networkData = {
         },
         {
             id: "N11",
-            name: "Vancouver Line",
+            name: "The Canadian",
             colour: "#f59fb3",
             type: "LSR"
         },
         {
             id: "N12",
-            name: "Great Northern Railway",
-            colour: "#bb4a9b",
+            name: "River Monorail",
+            colour: "#45818e",
             type: "LSR"
         },
         {
@@ -372,6 +372,24 @@ const networkData = {
             id: "N21",
             name: "Adirondack Line",
             colour: "#3c6fb3",
+            type: "LSR"
+        },
+        {
+            id: "N22",
+            name: "Cathedral Line",
+            colour: "#666666",
+            type: "LSR"
+        },
+        {
+            id: "N23",
+            name: "Koash Line",
+            colour: "#71368a",
+            type: "LSR"
+        },
+        {
+            id: "N24",
+            name: "End Portal Express",
+            colour: "#38664b",
             type: "LSR"
         },
         {
@@ -530,6 +548,9 @@ const networkData = {
             name: "Asunción"
         },
         {
+            name: "Atlanta"
+        },
+        {
             name: "Atyrau"
         },
         {
@@ -558,6 +579,9 @@ const networkData = {
         },
         {
             name: "Birmingham"
+        },
+        {
+            name: "Bloomington"
         },
         {
             name: "Bornholm"
@@ -593,6 +617,9 @@ const networkData = {
             name: "Bydgoszcz"
         },
         {
+            name: "Calgary"
+        },
+        {
             name: "Carpathia"
         },
         {
@@ -606,6 +633,9 @@ const networkData = {
         },
         {
             name: "Charleville-Mézières"
+        },
+        {
+            name: "Chicago"
         },
         {
             name: "Cholsan"
@@ -707,6 +737,9 @@ const networkData = {
             name: "Ittoqoorttomit"
         },
         {
+            name: "Jacksonville"
+        },
+        {
             name: "Kaikōura"
         },
         {
@@ -714,6 +747,9 @@ const networkData = {
         },
         {
             name: "Katowice"
+        },
+        {
+            name: "Kawartha Lakes"
         },
         {
             name: "Kiel"
@@ -774,6 +810,9 @@ const networkData = {
         },
         {
             name: "Merlischachen"
+        },
+        {
+            name: "Miami"
         },
         {
             name: "Milan"
@@ -899,6 +938,9 @@ const networkData = {
             name: "Rasht"
         },
         {
+            name: "Regina"
+        },
+        {
             name: "Rennes"
         },
         {
@@ -938,6 +980,15 @@ const networkData = {
             name: "Sarajevo"
         },
         {
+            name: "Sardinia"
+        },
+        {
+            name: "Sault Ste. Marie"
+        },
+        {
+            name: "Savannah"
+        },
+        {
             name: "Sendai"
         },
         {
@@ -966,9 +1017,6 @@ const networkData = {
         },
         {
             name: "Stockholm"
-        },
-        {
-            name: "Sardinia"
         },
         {
             name: "Sudbury"
@@ -1068,6 +1116,12 @@ const networkData = {
         },
         {
             name: "Whanganui"
+        },
+        {
+            name: "Wilmington"
+        },
+        {
+            name: "Winnipeg"
         },
         {
             name: "Yuzhno-Sakhalinsk"
@@ -2026,6 +2080,36 @@ const networkData = {
             time: null
         },
         {
+            from: "Sudbury",
+            to: "Sault Ste. Marie",
+            lineID: "N11",
+            time: null
+        },
+        {
+            from: "Sault Ste. Marie",
+            to: "Winnipeg",
+            lineID: "N11",
+            time: null
+        },
+        {
+            from: "Winnipeg",
+            to: "Regina",
+            lineID: "N11",
+            time: null
+        },
+        {
+            from: "Regina",
+            to: "Calgary",
+            lineID: "N11",
+            time: null
+        },
+        {
+            from: "Calgary",
+            to: "Vancouver",
+            lineID: "N11",
+            time: null
+        },
+        {
             from: "Montréal",
             to: "Tasiujaq",
             lineID: "N12",
@@ -2092,6 +2176,12 @@ const networkData = {
             time: 35
         },
         {
+            from: "Wallops Island",
+            to: "Wilmington",
+            lineID: "N15",
+            time: null
+        },
+        {
             from: "Montréal",
             to: "New York Central",
             lineID: "N16",
@@ -2120,6 +2210,30 @@ const networkData = {
             to: "Albany",
             lineID: "N21",
             time: 40
+        },
+        {
+            from: "Toronto Union",
+            to: "Kawartha Lakes",
+            lineID: "N22",
+            time: null
+        },
+        {
+            from: "Atlanta",
+            to: "Bloomington",
+            lineID: "N23",
+            time: null
+        },
+        {
+            from: "Bloomington",
+            to: "Chicago",
+            lineID: "N23",
+            time: null
+        },
+        {
+            from: "Atlanta",
+            to: "Wallops Island",
+            lineID: "N24",
+            time: null
         },
         {
             from: "Melbourne",
