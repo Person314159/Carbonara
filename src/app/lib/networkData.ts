@@ -1735,7 +1735,7 @@ const networkData = {
             from: "Gesalibar",
             to: "Pyrenees",
             lineID: "E28",
-            time: null
+            time: 20
         },
         {
             from: "Pyrenees",
@@ -1993,7 +1993,7 @@ const networkData = {
             from: "Oran",
             to: "Algiers",
             lineID: "F02",
-            time: null
+            time: 75
         },
         {
             from: "Algiers",
