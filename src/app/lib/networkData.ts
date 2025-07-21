@@ -2239,7 +2239,7 @@ const networkData = {
             from: "Atlanta",
             to: "Bloomington",
             lineID: "N23",
-            time: null
+            time: 100
         },
         {
             from: "Bloomington",
