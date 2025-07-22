@@ -267,6 +267,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "HBA",
+            name: "Black HSR",
+            colour: "#000000",
+            type: "HSR"
+        },
+        {
             id: "HBL",
             name: "Blue HSR",
             colour: "#4c90cd",
@@ -2230,12 +2236,6 @@ const networkData = {
             time: null
         },
         {
-            from: "Savannah",
-            to: "Atlanta",
-            lineID: "N23",
-            time: null
-        },
-        {
             from: "Atlanta",
             to: "Bloomington",
             lineID: "N23",
@@ -2245,7 +2245,7 @@ const networkData = {
             from: "Bloomington",
             to: "Gary",
             lineID: "N23",
-            time: null
+            time: 45
         },
         {
             from: "Atlanta",
