@@ -701,6 +701,9 @@ const networkData = {
             name: "Gdańsk"
         },
         {
+            name: "Genoa"
+        },
+        {
             name: "Gesalibar"
         },
         {
@@ -1760,9 +1763,15 @@ const networkData = {
         },
         {
             from: "North Mediterranean",
+            to: "Genoa",
+            lineID: "E28",
+            time: 15
+        },
+        {
+            from: "Genoa",
             to: "Milan",
             lineID: "E28",
-            time: 30
+            time: 15
         },
         {
             from: "Milan",
@@ -1996,7 +2005,7 @@ const networkData = {
             from: "Casablanca",
             to: "Oran",
             lineID: "F02",
-            time: null
+            time: 140
         },
         {
             from: "Oran",
