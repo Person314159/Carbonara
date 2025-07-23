@@ -761,6 +761,9 @@ const networkData = {
             name: "Kiel"
         },
         {
+            name: "Knoxville"
+        },
+        {
             name: "Kolkasrags"
         },
         {
@@ -2249,6 +2252,12 @@ const networkData = {
         },
         {
             from: "Atlanta",
+            to: "Knoxville",
+            lineID: "N24",
+            time: 35
+        },
+        {
+            from: "Knoxville",
             to: "Wallops Island",
             lineID: "N24",
             time: null
@@ -2492,6 +2501,12 @@ const networkData = {
             to: "Odessa",
             lineID: "T02",
             time: 35
+        },
+        {
+            from: "Reykjavík",
+            to: "Isle of Man",
+            lineID: "T03",
+            time: null
         },
         {
             from: "Isle of Man",
