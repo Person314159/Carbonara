@@ -1690,7 +1690,7 @@ const networkData = {
             from: "Frankfurt",
             to: "Charleville-Mézières",
             lineID: "E22",
-            time: 55
+            time: 65
         },
         {
             from: "Pardubice",
