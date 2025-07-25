@@ -671,6 +671,9 @@ const networkData = {
             name: "Del Norte"
         },
         {
+            name: "Denver"
+        },
+        {
             name: "Den Oever"
         },
         {
@@ -1097,9 +1100,6 @@ const networkData = {
             name: "Ulanhot"
         },
         {
-            name: "Valencia"
-        },
-        {
             name: "Valka"
         },
         {
@@ -1140,6 +1140,9 @@ const networkData = {
         },
         {
             name: "Winnipeg"
+        },
+        {
+            name: "Yellel"
         },
         {
             name: "Yuzhno-Sakhalinsk"
@@ -2009,9 +2012,15 @@ const networkData = {
         },
         {
             from: "Oran",
+            to: "Yellel",
+            lineID: "F02",
+            time: 15
+        },
+        {
+            from: "Yellel",
             to: "Algiers",
             lineID: "F02",
-            time: 75
+            time: 60
         },
         {
             from: "Algiers",
@@ -2398,6 +2407,18 @@ const networkData = {
             time: null
         },
         {
+            from: "San Jose",
+            to: "Denver",
+            lineID: "T01",
+            time: 260
+        },
+        {
+            from: "Denver",
+            to: "Montréal",
+            lineID: "T01",
+            time: 490
+        },
+        {
             from: "Montréal",
             to: "Rimouski",
             lineID: "T01",
@@ -2543,19 +2564,13 @@ const networkData = {
         },
         {
             from: "Mequinenza",
-            to: "Valencia",
-            lineID: "T03",
-            time: null
-        },
-        {
-            from: "Valencia",
-            to: "Oran",
+            to: "Yellel",
             lineID: "T03",
             time: null
         },
         {
             from: "Oran",
-            to: "Accra",
+            to: "Yellel",
             lineID: "T03",
             time: null
         },
