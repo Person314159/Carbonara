@@ -71,7 +71,7 @@ export default function Home() {
                         <div className="text-center text-base/(--line-height-relaxed) transition-all">
                             <p>Select your starting point and destination to find the best route.</p>
                             <p className="text-(length:--font-size-sm)/(--line-height-normal) mt-2">
-                                <b>Note: Total journey time does not take into account transfer times.</b>
+                                <b>Note: Total journey time does not take into account transfer times, and assumes the optimal tick rate of 20 TPS.</b>
                             </p>
                         </div>
 

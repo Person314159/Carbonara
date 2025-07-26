@@ -118,7 +118,7 @@ const networkData = {
         },
         {
             id: "E12",
-            name: "E12",
+            name: "Good Line",
             colour: "#080e5c",
             type: "LSR"
         },
@@ -249,6 +249,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "E43",
+            name: "Apennine Line",
+            colour: "#8b9b74",
+            type: "LSR"
+        },
+        {
             id: "F01",
             name: "Lampedusa Line",
             colour: "#ffcd02",
@@ -330,12 +336,6 @@ const networkData = {
             id: "N11",
             name: "The Canadian",
             colour: "#f59fb3",
-            type: "LSR"
-        },
-        {
-            id: "N12",
-            name: "Saint-Laurent Monorail",
-            colour: "#45818e",
             type: "LSR"
         },
         {
@@ -465,6 +465,18 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "S03",
+            name: "West Line",
+            colour: "#c8102e",
+            type: "LSR"
+        },
+        {
+            id: "S04",
+            name: "East Line",
+            colour: "#00674f",
+            type: "LSR"
+        },
+        {
             id: "T01",
             name: "Big Bridge",
             colour: "#f59fb3",
@@ -499,6 +511,18 @@ const networkData = {
             name: "Ross Line",
             colour: "#cccccc",
             type: "LSR"
+        },
+        {
+            id: "T08",
+            name: "Great Northern Railway",
+            colour: "#bb4a9b",
+            type: "LSR"
+        },
+        {
+            id: "T09",
+            name: "Indies Railway",
+            colour: "#01fe03",
+            type: "LSR"
         }
     ],
     stations: [
@@ -530,6 +554,9 @@ const networkData = {
             name: "Alūksne"
         },
         {
+            name: "Amapá"
+        },
+        {
             name: "Amol"
         },
         {
@@ -540,6 +567,9 @@ const networkData = {
         },
         {
             name: "Antalya"
+        },
+        {
+            name: "Antigua"
         },
         {
             name: "Aomori"
@@ -572,7 +602,13 @@ const networkData = {
             name: "Bari"
         },
         {
+            name: "Barranquilla"
+        },
+        {
             name: "Basra"
+        },
+        {
+            name: "Belém"
         },
         {
             name: "Belgrade"
@@ -588,6 +624,9 @@ const networkData = {
         },
         {
             name: "Bloomington"
+        },
+        {
+            name: "Bogotá"
         },
         {
             name: "Bornholm"
@@ -626,7 +665,16 @@ const networkData = {
             name: "Calgary"
         },
         {
+            name: "Cali"
+        },
+        {
+            name: "Caracas"
+        },
+        {
             name: "Carpathia"
+        },
+        {
+            name: "Cartagena"
         },
         {
             name: "Casablanca"
@@ -635,13 +683,19 @@ const networkData = {
             name: "Catania"
         },
         {
+            name: "Cayenne"
+        },
+        {
             name: "Central Mediterranean"
         },
         {
             name: "Charleville-Mézières"
         },
         {
-            name: "Gary"
+            name: "Chiclayo"
+        },
+        {
+            name: "Chimbote"
         },
         {
             name: "Cholsan"
@@ -657,6 +711,9 @@ const networkData = {
         },
         {
             name: "Corsica"
+        },
+        {
+            name: "Cuenca"
         },
         {
             name: "Daegu"
@@ -686,6 +743,9 @@ const networkData = {
             name: "Doctor Juan Manuel Frutos"
         },
         {
+            name: "Dominica"
+        },
+        {
             name: "Dunedin"
         },
         {
@@ -698,6 +758,9 @@ const networkData = {
             name: "Fukuoka"
         },
         {
+            name: "Gary"
+        },
+        {
             name: "Gay"
         },
         {
@@ -707,13 +770,25 @@ const networkData = {
             name: "Genoa"
         },
         {
+            name: "Georgetown"
+        },
+        {
             name: "Gesalibar"
+        },
+        {
+            name: "Grand Bahama"
         },
         {
             name: "Graz"
         },
         {
+            name: "Grenada"
+        },
+        {
             name: "Greymouth"
+        },
+        {
+            name: "Guadeloupe"
         },
         {
             name: "Hakodate"
@@ -731,7 +806,13 @@ const networkData = {
             name: "Hiroshima"
         },
         {
+            name: "Holguín"
+        },
+        {
             name: "Jane Peak"
+        },
+        {
+            name: "Ibagué"
         },
         {
             name: "Iksan"
@@ -797,10 +878,16 @@ const networkData = {
             name: "Liepāja"
         },
         {
+            name: "Lima"
+        },
+        {
             name: "Ljubljana"
         },
         {
             name: "Lublin"
+        },
+        {
+            name: "Macapá"
         },
         {
             name: "Mallorca"
@@ -809,13 +896,22 @@ const networkData = {
             name: "Manicouagan"
         },
         {
+            name: "Maracaibo"
+        },
+        {
             name: "Marrakesh"
         },
         {
             name: "Marseille"
         },
         {
+            name: "Martinique"
+        },
+        {
             name: "McMurdo Station"
+        },
+        {
+            name: "Medellín"
         },
         {
             name: "Melbourne"
@@ -852,6 +948,9 @@ const networkData = {
         },
         {
             name: "Nicosia"
+        },
+        {
+            name: "Nieuw Nickerie"
         },
         {
             name: "North Mediterranean"
@@ -896,13 +995,19 @@ const networkData = {
             name: "Ottawa"
         },
         {
+            name: "Paderborn"
+        },
+        {
+            name: "Paramaribo"
+        },
+        {
             name: "Pardubice"
         },
         {
             name: "Paris"
         },
         {
-            name: "Paderborn"
+            name: "Pasto"
         },
         {
             name: "Perth"
@@ -926,6 +1031,9 @@ const networkData = {
             name: "Porto"
         },
         {
+            name: "Port-au-Prince"
+        },
+        {
             name: "Porvoo"
         },
         {
@@ -933,6 +1041,9 @@ const networkData = {
         },
         {
             name: "Pristina"
+        },
+        {
+            name: "Puerto La Cruz"
         },
         {
             name: "Pyongyang"
@@ -948,6 +1059,9 @@ const networkData = {
         },
         {
             name: "Queen's Cross"
+        },
+        {
+            name: "Quito"
         },
         {
             name: "Rasht"
@@ -977,6 +1091,9 @@ const networkData = {
             name: "Ruhnu Island"
         },
         {
+            name: "Saint-Laurent-du-Maroni"
+        },
+        {
             name: "Sandefjord"
         },
         {
@@ -987,6 +1104,12 @@ const networkData = {
         },
         {
             name: "San Jose"
+        },
+        {
+            name: "San Juan"
+        },
+        {
+            name: "Santo Domingo"
         },
         {
             name: "Sapporo"
@@ -1037,7 +1160,19 @@ const networkData = {
             name: "Stockholm"
         },
         {
+            name: "St. Kitts"
+        },
+        {
+            name: "St. Lucia"
+        },
+        {
+            name: "St. Vincent"
+        },
+        {
             name: "Sudbury"
+        },
+        {
+            name: "Sullana"
         },
         {
             name: "Sydney"
@@ -1091,6 +1226,9 @@ const networkData = {
             name: "Tracy Industrial Area"
         },
         {
+            name: "Trinidad"
+        },
+        {
             name: "Tunis"
         },
         {
@@ -1113,6 +1251,9 @@ const networkData = {
         },
         {
             name: "Vienna"
+        },
+        {
+            name: "Virgin Islands"
         },
         {
             name: "Wakkanai"
@@ -1987,6 +2128,12 @@ const networkData = {
             time: 85
         },
         {
+            from: "Apennines",
+            to: "Bari",
+            lineID: "E43",
+            time: 85
+        },
+        {
             from: "Central Mediterranean",
             to: "Lampedusa",
             lineID: "F01",
@@ -2128,36 +2275,6 @@ const networkData = {
             from: "Calgary",
             to: "Vancouver",
             lineID: "N11",
-            time: null
-        },
-        {
-            from: "Montréal",
-            to: "Tasiujaq",
-            lineID: "N12",
-            time: null
-        },
-        {
-            from: "Tasiujaq",
-            to: "Iqaluit",
-            lineID: "N12",
-            time: null
-        },
-        {
-            from: "Iqaluit",
-            to: "Nuuk",
-            lineID: "N12",
-            time: null
-        },
-        {
-            from: "Nuuk",
-            to: "Ittoqoorttomit",
-            lineID: "N12",
-            time: null
-        },
-        {
-            from: "Ittoqoorttomit",
-            to: "Reykjavík",
-            lineID: "N12",
             time: null
         },
         {
@@ -2407,6 +2524,132 @@ const networkData = {
             time: null
         },
         {
+            from: "Maracaibo",
+            to: "Barranquilla",
+            lineID: "S03",
+            time: null
+        },
+        {
+            from: "Barranquilla",
+            to: "Cartagena",
+            lineID: "S03",
+            time: null
+        },
+        {
+            from: "Cartagena",
+            to: "Medellín",
+            lineID: "S03",
+            time: null
+        },
+        {
+            from: "Medellín",
+            to: "Bogotá",
+            lineID: "S03",
+            time: null
+        },
+        {
+            from: "Bogotá",
+            to: "Ibagué",
+            lineID: "S03",
+            time: null
+        },
+        {
+            from: "Ibagué",
+            to: "Cali",
+            lineID: "S03",
+            time: null
+        },
+        {
+            from: "Cali",
+            to: "Pasto",
+            lineID: "S03",
+            time: null
+        },
+        {
+            from: "Pasto",
+            to: "Quito",
+            lineID: "S03",
+            time: null
+        },
+        {
+            from: "Quito",
+            to: "Cuenca",
+            lineID: "S03",
+            time: null
+        },
+        {
+            from: "Cuenca",
+            to: "Sullana",
+            lineID: "S03",
+            time: null
+        },
+        {
+            from: "Sullana",
+            to: "Chiclayo",
+            lineID: "S03",
+            time: null
+        },
+        {
+            from: "Chiclayo",
+            to: "Chimbote",
+            lineID: "S03",
+            time: null
+        },
+        {
+            from: "Chimbote",
+            to: "Lima",
+            lineID: "S03",
+            time: null
+        },
+        {
+            from: "Trinidad",
+            to: "Georgetown",
+            lineID: "S04",
+            time: null
+        },
+        {
+            from: "Georgetown",
+            to: "Nieuw Nickerie",
+            lineID: "S04",
+            time: null
+        },
+        {
+            from: "Nieuw Nickerie",
+            to: "Paramaribo",
+            lineID: "S04",
+            time: null
+        },
+        {
+            from: "Paramaribo",
+            to: "Saint-Laurent-du-Maroni",
+            lineID: "S04",
+            time: null
+        },
+        {
+            from: "Saint-Laurent-du-Maroni",
+            to: "Cayenne",
+            lineID: "S04",
+            time: null
+        },
+        {
+            from: "Cayenne",
+            to: "Amapá",
+            lineID: "S04",
+            time: null
+        },
+        {
+            from: "Amapá",
+            to: "Macapá",
+            lineID: "S04",
+            time: null
+        },
+        {
+            from: "Macapá",
+            to: "Belém",
+            lineID: "S04",
+            time: null
+        },
+        {
             from: "San Jose",
             to: "Denver",
             lineID: "T01",
@@ -2641,6 +2884,144 @@ const networkData = {
             time: 95
         },
         {
+            from: "Montréal",
+            to: "Tasiujaq",
+            lineID: "T08",
+            time: null
+        },
+        {
+            from: "Tasiujaq",
+            to: "Iqaluit",
+            lineID: "T08",
+            time: null
+        },
+        {
+            from: "Iqaluit",
+            to: "Nuuk",
+            lineID: "T08",
+            time: null
+        },
+        {
+            from: "Nuuk",
+            to: "Ittoqoorttomit",
+            lineID: "T08",
+            time: null
+        },
+        {
+            from: "Ittoqoorttomit",
+            to: "Reykjavík",
+            lineID: "T08",
+            time: null
+        },
+        {
+            from: "Miami",
+            to: "Grand Bahama",
+            lineID: "T09",
+            time: null
+        },
+        {
+            from: "Grand Bahama",
+            to: "Holguín",
+            lineID: "T09",
+            time: null
+        },
+        {
+            from: "Holguín",
+            to: "Port-au-Prince",
+            lineID: "T09",
+            time: null
+        },
+        {
+            from: "Port-au-Prince",
+            to: "Santo Domingo",
+            lineID: "T09",
+            time: null
+        },
+        {
+            from: "Santo Domingo",
+            to: "San Juan",
+            lineID: "T09",
+            time: null
+        },
+        {
+            from: "San Juan",
+            to: "Virgin Islands",
+            lineID: "T09",
+            time: null
+        },
+        {
+            from: "Virgin Islands",
+            to: "St. Kitts",
+            lineID: "T09",
+            time: null
+        },
+        {
+            from: "St. Kitts",
+            to: "Antigua",
+            lineID: "T09",
+            time: null
+        },
+        {
+            from: "Antigua",
+            to: "Guadeloupe",
+            lineID: "T09",
+            time: null
+        },
+        {
+            from: "Guadeloupe",
+            to: "Dominica",
+            lineID: "T09",
+            time: null
+        },
+        {
+            from: "Dominica",
+            to: "Martinique",
+            lineID: "T09",
+            time: null
+        },
+        {
+            from: "Martinique",
+            to: "St. Lucia",
+            lineID: "T09",
+            time: null
+        },
+        {
+            from: "St. Lucia",
+            to: "St. Vincent",
+            lineID: "T09",
+            time: null
+        },
+        {
+            from: "St. Vincent",
+            to: "Grenada",
+            lineID: "T09",
+            time: null
+        },
+        {
+            from: "Grenada",
+            to: "Trinidad",
+            lineID: "T09",
+            time: null
+        },
+        {
+            from: "Trinidad",
+            to: "Puerto La Cruz",
+            lineID: "T09",
+            time: null
+        },
+        {
+            from: "Puerto La Cruz",
+            to: "Caracas",
+            lineID: "T09",
+            time: null
+        },
+        {
+            from: "Caracas",
+            to: "Maracaibo",
+            lineID: "T09",
+            time: null
+        },
+        {
             from: "Charleville-Mézières",
             to: "Amsterdam Central",
             lineID: "HBL",
@@ -2677,64 +3058,400 @@ const networkData = {
             time: 60
         },
         {
-            from: "Apennines",
-            to: "Bari",
-            lineID: "HCY",
-            time: null
+            "from": "Apennines",
+            "to": "Charleville-Mézières",
+            "lineID": "HCY",
+            "time": null
         },
         {
-            from: "Apennines",
-            to: "Corsica",
-            lineID: "HCY",
-            time: 65
+            "from": "Apennines",
+            "to": "Central Mediterranean",
+            "lineID": "HCY",
+            "time": null
         },
         {
-            from: "Apennines",
-            to: "Milan",
-            lineID: "HCY",
-            time: 100
+            "from": "Apennines",
+            "to": "Corsica",
+            "lineID": "HCY",
+            "time": 65
         },
         {
-            from: "Apennines",
-            to: "Sardinia",
-            lineID: "HCY",
-            time: 60
+            "from": "Apennines",
+            "to": "Mallorca",
+            "lineID": "HCY",
+            "time": null
         },
         {
-            from: "Bari",
-            to: "Corsica",
-            lineID: "HCY",
-            time: null
+            "from": "Apennines",
+            "to": "Mequinenza",
+            "lineID": "HCY",
+            "time": null
         },
         {
-            from: "Bari",
-            to: "Milan",
-            lineID: "HCY",
-            time: null
+            "from": "Apennines",
+            "to": "Milan",
+            "lineID": "HCY",
+            "time": 100
         },
         {
-            from: "Bari",
-            to: "Sardinia",
-            lineID: "HCY",
-            time: null
+            "from": "Apennines",
+            "to": "Rennes",
+            "lineID": "HCY",
+            "time": null
         },
         {
-            from: "Corsica",
-            to: "Sardinia",
-            lineID: "HCY",
-            time: 15
+            "from": "Apennines",
+            "to": "Sardinia",
+            "lineID": "HCY",
+            "time": 60
         },
         {
-            from: "Corsica",
-            to: "Milan",
-            lineID: "HCY",
-            time: 35
+            "from": "Apennines",
+            "to": "Sparta",
+            "lineID": "HCY",
+            "time": null
         },
         {
-            from: "Milan",
-            to: "Sardinia",
-            lineID: "HCY",
-            time: 50
+            "from": "Apennines",
+            "to": "Thessaloniki",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Apennines",
+            "to": "Tirana",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Charleville-Mézières",
+            "to": "Central Mediterranean",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Charleville-Mézières",
+            "to": "Corsica",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Charleville-Mézières",
+            "to": "Mallorca",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Charleville-Mézières",
+            "to": "Mequinenza",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Charleville-Mézières",
+            "to": "Milan",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Charleville-Mézières",
+            "to": "Rennes",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Charleville-Mézières",
+            "to": "Sardinia",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Charleville-Mézières",
+            "to": "Sparta",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Charleville-Mézières",
+            "to": "Thessaloniki",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Charleville-Mézières",
+            "to": "Tirana",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Central Mediterranean",
+            "to": "Corsica",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Central Mediterranean",
+            "to": "Mallorca",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Central Mediterranean",
+            "to": "Mequinenza",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Central Mediterranean",
+            "to": "Milan",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Central Mediterranean",
+            "to": "Rennes",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Central Mediterranean",
+            "to": "Sardinia",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Central Mediterranean",
+            "to": "Sparta",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Central Mediterranean",
+            "to": "Thessaloniki",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Central Mediterranean",
+            "to": "Tirana",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Corsica",
+            "to": "Mallorca",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Corsica",
+            "to": "Mequinenza",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Corsica",
+            "to": "Milan",
+            "lineID": "HCY",
+            "time": 35
+        },
+        {
+            "from": "Corsica",
+            "to": "Rennes",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Corsica",
+            "to": "Sardinia",
+            "lineID": "HCY",
+            "time": 15
+        },
+        {
+            "from": "Corsica",
+            "to": "Sparta",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Corsica",
+            "to": "Thessaloniki",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Corsica",
+            "to": "Tirana",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Mallorca",
+            "to": "Mequinenza",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Mallorca",
+            "to": "Milan",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Mallorca",
+            "to": "Rennes",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Mallorca",
+            "to": "Sardinia",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Mallorca",
+            "to": "Sparta",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Mallorca",
+            "to": "Thessaloniki",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Mallorca",
+            "to": "Tirana",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Mequinenza",
+            "to": "Milan",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Mequinenza",
+            "to": "Rennes",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Mequinenza",
+            "to": "Sardinia",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Mequinenza",
+            "to": "Sparta",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Mequinenza",
+            "to": "Thessaloniki",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Mequinenza",
+            "to": "Tirana",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Milan",
+            "to": "Rennes",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Milan",
+            "to": "Sardinia",
+            "lineID": "HCY",
+            "time": 50
+        },
+        {
+            "from": "Milan",
+            "to": "Sparta",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Milan",
+            "to": "Thessaloniki",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Milan",
+            "to": "Tirana",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Rennes",
+            "to": "Sardinia",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Rennes",
+            "to": "Sparta",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Rennes",
+            "to": "Thessaloniki",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Rennes",
+            "to": "Tirana",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Sardinia",
+            "to": "Sparta",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Sardinia",
+            "to": "Thessaloniki",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Sardinia",
+            "to": "Tirana",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Sparta",
+            "to": "Thessaloniki",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Sparta",
+            "to": "Tirana",
+            "lineID": "HCY",
+            "time": null
+        },
+        {
+            "from": "Thessaloniki",
+            "to": "Tirana",
+            "lineID": "HCY",
+            "time": null
         },
         {
             from: "Amsterdam Central",
