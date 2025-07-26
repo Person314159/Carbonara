@@ -2803,7 +2803,7 @@ const networkData = {
             from: "Rennes",
             to: "Pyrenees",
             lineID: "T03",
-            time: 75
+            time: 70
         },
         {
             from: "Pyrenees",
@@ -2815,7 +2815,7 @@ const networkData = {
             from: "Mequinenza",
             to: "Yellel",
             lineID: "T03",
-            time: null
+            time: 75
         },
         {
             from: "Oran",
