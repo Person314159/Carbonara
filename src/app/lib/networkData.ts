@@ -2938,6 +2938,12 @@ const networkData = {
             time: null
         },
         {
+            from: "Port-au-Prince",
+            to: "Maracaibo",
+            lineID: "T09",
+            time: null
+        },
+        {
             from: "Santo Domingo",
             to: "San Juan",
             lineID: "T09",
