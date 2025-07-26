@@ -1621,7 +1621,7 @@ const networkData = {
             from: "Warsaw Central",
             to: "Brest (BY)",
             lineID: "E07",
-            time: 40
+            time: 45
         },
         {
             from: "Brest (BY)",
@@ -1673,6 +1673,12 @@ const networkData = {
         },
         {
             from: "Warsaw Central",
+            to: "Brest (BY)",
+            lineID: "E09",
+            time: 45
+        },
+        {
+            from: "Brest (BY)",
             to: "Carpathia",
             lineID: "E09",
             time: null
@@ -1687,7 +1693,7 @@ const networkData = {
             from: "Warsaw Central",
             to: "Brest (BY)",
             lineID: "E10",
-            time: 40
+            time: 45
         },
         {
             from: "Brest (BY)",
