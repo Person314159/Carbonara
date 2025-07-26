@@ -2278,7 +2278,7 @@ const networkData = {
             from: "Knoxville",
             to: "Wallops Island",
             lineID: "N24",
-            time: null
+            time: 145
         },
         {
             from: "Melbourne",
