@@ -782,6 +782,9 @@ const networkData = {
             name: "Gdańsk"
         },
         {
+            name: "Geneva"
+        },
+        {
             name: "Genoa"
         },
         {
@@ -863,7 +866,7 @@ const networkData = {
             name: "Kaliningrad"
         },
         {
-            name: "Katowice"
+            name: "Kraków"
         },
         {
             name: "Kawartha Lakes"
@@ -897,6 +900,9 @@ const networkData = {
         },
         {
             name: "Larissa"
+        },
+        {
+            name: "Lausanne"
         },
         {
             name: "Liepāja"
@@ -999,9 +1005,6 @@ const networkData = {
         },
         {
             name: "Odessa"
-        },
-        {
-            name: "Ogre"
         },
         {
             name: "Old Perlican"
@@ -1595,12 +1598,12 @@ const networkData = {
         },
         {
             from: "Warsaw Central",
-            to: "Katowice",
+            to: "Kraków",
             lineID: "E05",
             time: 30
         },
         {
-            from: "Katowice",
+            from: "Kraków",
             to: "Košice",
             lineID: "E05",
             time: 40
@@ -1727,7 +1730,7 @@ const networkData = {
         },
         {
             from: "Lublin",
-            to: "Katowice",
+            to: "Kraków",
             lineID: "E08",
             time: null
         },
@@ -1876,7 +1879,7 @@ const networkData = {
             time: 110
         },
         {
-            from: "Katowice",
+            from: "Kraków",
             to: "Pardubice",
             lineID: "E22",
             time: 60
@@ -1946,6 +1949,24 @@ const networkData = {
             to: "Thun",
             lineID: "E27",
             time: 60
+        },
+        {
+            from: "Thun",
+            to: "Lausanne",
+            lineID: "E27",
+            time: 20
+        },
+        {
+            from: "Lausanne",
+            to: "Geneva",
+            lineID: "E27",
+            time: null
+        },
+        {
+            from: "Geneva",
+            to: "Marseille",
+            lineID: "E27",
+            time: null
         },
         {
             from: "Porto",
@@ -2105,21 +2126,15 @@ const networkData = {
         },
         {
             from: "Riga",
-            to: "Ogre",
-            lineID: "E39",
-            time: null
-        },
-        {
-            from: "Ogre",
             to: "Aizkraukle",
             lineID: "E39",
-            time: null
+            time: 20
         },
         {
             from: "Aizkraukle",
             to: "Daugavpils",
             lineID: "E39",
-            time: null
+            time: 25
         },
         {
             from: "Daugavpils",
