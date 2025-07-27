@@ -523,6 +523,12 @@ const networkData = {
             name: "Indies Railway",
             colour: "#01fe03",
             type: "LSR"
+        },
+        {
+            id: "T10",
+            name: "North Darien Line",
+            colour: "#d9008d",
+            type: "LSR"
         }
     ],
     stations: [
@@ -578,6 +584,9 @@ const networkData = {
             name: "Apennines"
         },
         {
+            name: "Arriaga"
+        },
+        {
             name: "Arthur's Pass"
         },
         {
@@ -608,10 +617,10 @@ const networkData = {
             name: "Basra"
         },
         {
-            name: "Belém"
+            name: "Belgrade"
         },
         {
-            name: "Belgrade"
+            name: "Belém"
         },
         {
             name: "Benghazi"
@@ -662,6 +671,9 @@ const networkData = {
             name: "Bydgoszcz"
         },
         {
+            name: "Cabo San Lucas"
+        },
+        {
             name: "Calgary"
         },
         {
@@ -707,9 +719,6 @@ const networkData = {
             name: "Copenhagen"
         },
         {
-            name: "Çorlu"
-        },
-        {
             name: "Corsica"
         },
         {
@@ -722,16 +731,19 @@ const networkData = {
             name: "Daugavpils"
         },
         {
-            name: "Delhi"
+            name: "David"
         },
         {
             name: "Del Norte"
         },
         {
-            name: "Denver"
+            name: "Delhi"
         },
         {
             name: "Den Oever"
+        },
+        {
+            name: "Denver"
         },
         {
             name: "Doctor Cecilio Báez"
@@ -747,6 +759,9 @@ const networkData = {
         },
         {
             name: "Dunedin"
+        },
+        {
+            name: "Ensenada"
         },
         {
             name: "Frankfurt"
@@ -788,7 +803,16 @@ const networkData = {
             name: "Greymouth"
         },
         {
+            name: "Guadalajara"
+        },
+        {
             name: "Guadeloupe"
+        },
+        {
+            name: "Guatemala City"
+        },
+        {
+            name: "Guerrero Negro"
         },
         {
             name: "Hakodate"
@@ -807,9 +831,6 @@ const networkData = {
         },
         {
             name: "Holguín"
-        },
-        {
-            name: "Jane Peak"
         },
         {
             name: "Ibagué"
@@ -831,6 +852,9 @@ const networkData = {
         },
         {
             name: "Jacksonville"
+        },
+        {
+            name: "Jane Peak"
         },
         {
             name: "Kaikōura"
@@ -893,6 +917,9 @@ const networkData = {
             name: "Mallorca"
         },
         {
+            name: "Managua"
+        },
+        {
             name: "Manicouagan"
         },
         {
@@ -906,6 +933,9 @@ const networkData = {
         },
         {
             name: "Martinique"
+        },
+        {
+            name: "Mazatlán"
         },
         {
             name: "McMurdo Station"
@@ -941,10 +971,10 @@ const networkData = {
             name: "National Park"
         },
         {
-            name: "Newcastle"
+            name: "New York Central"
         },
         {
-            name: "New York Central"
+            name: "Newcastle"
         },
         {
             name: "Nicosia"
@@ -962,6 +992,9 @@ const networkData = {
             name: "Oates Land"
         },
         {
+            name: "Oaxaca"
+        },
+        {
             name: "Odda"
         },
         {
@@ -971,9 +1004,6 @@ const networkData = {
             name: "Ogre"
         },
         {
-            name: "Ōkaihau"
-        },
-        {
             name: "Old Perlican"
         },
         {
@@ -981,9 +1011,6 @@ const networkData = {
         },
         {
             name: "Orenburg"
-        },
-        {
-            name: "Ōsaka"
         },
         {
             name: "Oslo"
@@ -996,6 +1023,9 @@ const networkData = {
         },
         {
             name: "Paderborn"
+        },
+        {
+            name: "Panama City"
         },
         {
             name: "Paramaribo"
@@ -1028,10 +1058,10 @@ const networkData = {
             name: "Poronaysk"
         },
         {
-            name: "Porto"
+            name: "Port-au-Prince"
         },
         {
-            name: "Port-au-Prince"
+            name: "Porto"
         },
         {
             name: "Porvoo"
@@ -1041,6 +1071,9 @@ const networkData = {
         },
         {
             name: "Pristina"
+        },
+        {
+            name: "Puebla"
         },
         {
             name: "Puerto La Cruz"
@@ -1055,13 +1088,16 @@ const networkData = {
             name: "Płock"
         },
         {
-            name: "Québec"
-        },
-        {
             name: "Queen's Cross"
         },
         {
+            name: "Quetzaltenango"
+        },
+        {
             name: "Quito"
+        },
+        {
+            name: "Québec"
         },
         {
             name: "Rasht"
@@ -1076,9 +1112,6 @@ const networkData = {
             name: "Reykjavík"
         },
         {
-            name: "Rēzekne"
-        },
-        {
             name: "Riga"
         },
         {
@@ -1091,10 +1124,10 @@ const networkData = {
             name: "Ruhnu Island"
         },
         {
-            name: "Saint-Laurent-du-Maroni"
+            name: "Rēzekne"
         },
         {
-            name: "Sandefjord"
+            name: "Saint-Laurent-du-Maroni"
         },
         {
             name: "San Diego"
@@ -1106,7 +1139,16 @@ const networkData = {
             name: "San Jose"
         },
         {
+            name: "San José"
+        },
+        {
             name: "San Juan"
+        },
+        {
+            name: "San Salvador"
+        },
+        {
+            name: "Sandefjord"
         },
         {
             name: "Santo Domingo"
@@ -1151,15 +1193,6 @@ const networkData = {
             name: "Sparta"
         },
         {
-            name: "Starodubskoe"
-        },
-        {
-            name: "Stewart Island"
-        },
-        {
-            name: "Stockholm"
-        },
-        {
             name: "St. Kitts"
         },
         {
@@ -1167,6 +1200,15 @@ const networkData = {
         },
         {
             name: "St. Vincent"
+        },
+        {
+            name: "Starodubskoe"
+        },
+        {
+            name: "Stewart Island"
+        },
+        {
+            name: "Stockholm"
         },
         {
             name: "Sudbury"
@@ -1193,7 +1235,13 @@ const networkData = {
             name: "Tasiujaq"
         },
         {
+            name: "Tegucigalpa"
+        },
+        {
             name: "Tehran"
+        },
+        {
+            name: "Tehuacán"
         },
         {
             name: "Tel Aviv"
@@ -1203,6 +1251,9 @@ const networkData = {
         },
         {
             name: "Thun"
+        },
+        {
+            name: "Tijuana"
         },
         {
             name: "Timaru"
@@ -1215,9 +1266,6 @@ const networkData = {
         },
         {
             name: "Tirana"
-        },
-        {
-            name: "Tōkyō"
         },
         {
             name: "Toronto Union"
@@ -1233,6 +1281,9 @@ const networkData = {
         },
         {
             name: "Turku"
+        },
+        {
+            name: "Tōkyō"
         },
         {
             name: "Ulanhot"
@@ -1296,6 +1347,15 @@ const networkData = {
         },
         {
             name: "Zugdidi"
+        },
+        {
+            name: "Çorlu"
+        },
+        {
+            name: "Ōkaihau"
+        },
+        {
+            name: "Ōsaka"
         }
     ],
     connections: [
@@ -3031,6 +3091,120 @@ const networkData = {
             from: "Caracas",
             to: "Maracaibo",
             lineID: "T09",
+            time: null
+        },
+        {
+            from: "Medellín",
+            to: "Panama City",
+            lineID: "T10",
+            time: null
+        },
+        {
+            from: "Panama City",
+            to: "David",
+            lineID: "T10",
+            time: null
+        },
+        {
+            from: "David",
+            to: "San José",
+            lineID: "T10",
+            time: null
+        },
+        {
+            from: "San José",
+            to: "Managua",
+            lineID: "T10",
+            time: null
+        },
+        {
+            from: "Managua",
+            to: "Tegucigalpa",
+            lineID: "T10",
+            time: null
+        },
+        {
+            from: "Tegucigalpa",
+            to: "San Salvador",
+            lineID: "T10",
+            time: null
+        },
+        {
+            from: "San Salvador",
+            to: "Guatemala City",
+            lineID: "T10",
+            time: null
+        },
+        {
+            from: "Guatemala City",
+            to: "Quetzaltenango",
+            lineID: "T10",
+            time: null
+        },
+        {
+            from: "Quetzaltenango",
+            to: "Arriaga",
+            lineID: "T10",
+            time: null
+        },
+        {
+            from: "Arriaga",
+            to: "Oaxaca",
+            lineID: "T10",
+            time: null
+        },
+        {
+            from: "Oaxaca",
+            to: "Tehuacán",
+            lineID: "T10",
+            time: null
+        },
+        {
+            from: "Tehuacán",
+            to: "Puebla",
+            lineID: "T10",
+            time: null
+        },
+        {
+            from: "Puebla",
+            to: "Guadalajara",
+            lineID: "T10",
+            time: null
+        },
+        {
+            from: "Guadalajara",
+            to: "Mazatlán",
+            lineID: "T10",
+            time: null
+        },
+        {
+            from: "Mazatlán",
+            to: "Cabo San Lucas",
+            lineID: "T10",
+            time: null
+        },
+        {
+            from: "Cabo San Lucas",
+            to: "Guerrero Negro",
+            lineID: "T10",
+            time: null
+        },
+        {
+            from: "Guerrero Negro",
+            to: "Ensenada",
+            lineID: "T10",
+            time: null
+        },
+        {
+            from: "Ensenada",
+            to: "Tijuana",
+            lineID: "T10",
+            time: null
+        },
+        {
+            from: "Tijuana",
+            to: "San Diego",
+            lineID: "T10",
             time: null
         },
         {
