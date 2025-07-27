@@ -632,6 +632,9 @@ const networkData = {
             name: "Birmingham"
         },
         {
+            name: "Bitola"
+        },
+        {
             name: "Bloomington"
         },
         {
@@ -725,6 +728,9 @@ const networkData = {
             name: "Cuenca"
         },
         {
+            name: "Cusco"
+        },
+        {
             name: "Daegu"
         },
         {
@@ -780,6 +786,9 @@ const networkData = {
         },
         {
             name: "Gdańsk"
+        },
+        {
+            name: "General Eugenio A. Garay"
         },
         {
             name: "Geneva"
@@ -839,6 +848,9 @@ const networkData = {
             name: "Ibagué"
         },
         {
+            name: "Ica"
+        },
+        {
             name: "Iksan"
         },
         {
@@ -893,6 +905,9 @@ const networkData = {
             name: "Kyiv"
         },
         {
+            name: "La Paz"
+        },
+        {
             name: "Lampedusa"
         },
         {
@@ -906,9 +921,6 @@ const networkData = {
         },
         {
             name: "Liepāja"
-        },
-        {
-            name: "Lima"
         },
         {
             name: "Ljubljana"
@@ -1007,6 +1019,9 @@ const networkData = {
             name: "Odessa"
         },
         {
+            name: "Ohrid"
+        },
+        {
             name: "Old Perlican"
         },
         {
@@ -1082,6 +1097,9 @@ const networkData = {
             name: "Puerto La Cruz"
         },
         {
+            name: "Puno"
+        },
+        {
             name: "Pyongyang"
         },
         {
@@ -1119,6 +1137,9 @@ const networkData = {
         },
         {
             name: "Rimouski"
+        },
+        {
+            name: "Rio Verde"
         },
         {
             name: "Romanian Slime Farm"
@@ -1187,6 +1208,9 @@ const networkData = {
             name: "Singapore"
         },
         {
+            name: "Skopje"
+        },
+        {
             name: "Skrunda"
         },
         {
@@ -1212,6 +1236,12 @@ const networkData = {
         },
         {
             name: "Stockholm"
+        },
+        {
+            name: "Strumica"
+        },
+        {
+            name: "Sucre"
         },
         {
             name: "Sudbury"
@@ -2678,7 +2708,49 @@ const networkData = {
         },
         {
             from: "Chimbote",
-            to: "Lima",
+            to: "Ica",
+            lineID: "S03",
+            time: null
+        },
+        {
+            from: "Ica",
+            to: "Cusco",
+            lineID: "S03",
+            time: null
+        },
+        {
+            from: "Cusco",
+            to: "Puno",
+            lineID: "S03",
+            time: null
+        },
+        {
+            from: "Puno",
+            to: "La Paz",
+            lineID: "S03",
+            time: null
+        },
+        {
+            from: "La Paz",
+            to: "Sucre",
+            lineID: "S03",
+            time: null
+        },
+        {
+            from: "Sucre",
+            to: "General Eugenio A. Garay",
+            lineID: "S03",
+            time: null
+        },
+        {
+            from: "General Eugenio A. Garay",
+            to: "Rio Verde",
+            lineID: "S03",
+            time: null
+        },
+        {
+            from: "Rio Verde",
+            to: "Asunción",
             lineID: "S03",
             time: null
         },
