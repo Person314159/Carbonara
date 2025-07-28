@@ -2242,7 +2242,7 @@ const networkData = {
             from: "Apennines",
             to: "Bari",
             lineID: "E43",
-            time: 85
+            time: 60
         },
         {
             from: "Central Mediterranean",
