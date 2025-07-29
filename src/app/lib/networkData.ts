@@ -231,6 +231,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "E36",
+            name: "East Italy Line",
+            colour: "#f78f4b",
+            type: "LSR"
+        },
+        {
             id: "E37",
             name: "Corsica Line",
             colour: "#a1dbe6",
@@ -246,12 +252,6 @@ const networkData = {
             id: "E40",
             name: "Anabenraa Line",
             colour: "#e233ff",
-            type: "LSR"
-        },
-        {
-            id: "E43",
-            name: "Apennine Line",
-            colour: "#8b9b74",
             type: "LSR"
         },
         {
@@ -372,6 +372,12 @@ const networkData = {
             id: "N19",
             name: "Manicouagan Line",
             colour: "#522921",
+            type: "LSR"
+        },
+        {
+            id: "N20",
+            name: "DC Line",
+            colour: "#4c1130",
             type: "LSR"
         },
         {
@@ -641,6 +647,9 @@ const networkData = {
             name: "Bogotá"
         },
         {
+            name: "Bologna"
+        },
+        {
             name: "Bornholm"
         },
         {
@@ -702,6 +711,9 @@ const networkData = {
         },
         {
             name: "Central Mediterranean"
+        },
+        {
+            name: "Changhua"
         },
         {
             name: "Charleville-Mézières"
@@ -845,6 +857,9 @@ const networkData = {
             name: "Holguín"
         },
         {
+            name: "Hong Kong"
+        },
+        {
             name: "Ibagué"
         },
         {
@@ -870,6 +885,9 @@ const networkData = {
         },
         {
             name: "Jane Peak"
+        },
+        {
+            name: "Kagoshima"
         },
         {
             name: "Kaikōura"
@@ -906,6 +924,9 @@ const networkData = {
         },
         {
             name: "La Paz"
+        },
+        {
+            name: "Lashio"
         },
         {
             name: "Lampedusa"
@@ -984,6 +1005,9 @@ const networkData = {
         },
         {
             name: "Mt. Damavand"
+        },
+        {
+            name: "Naha"
         },
         {
             name: "National Park"
@@ -1142,7 +1166,7 @@ const networkData = {
             name: "Rio Verde"
         },
         {
-            name: "Romanian Slime Farm"
+            name: "Danube Delta"
         },
         {
             name: "Ruhnu Island"
@@ -1205,6 +1229,9 @@ const networkData = {
             name: "Sfax"
         },
         {
+            name: "Shantou"
+        },
+        {
             name: "Singapore"
         },
         {
@@ -1257,6 +1284,9 @@ const networkData = {
         },
         {
             name: "Szczecin"
+        },
+        {
+            name: "Taipei"
         },
         {
             name: "Tallinn"
@@ -1317,6 +1347,9 @@ const networkData = {
         },
         {
             name: "Tōkyō"
+        },
+        {
+            name: "Udine"
         },
         {
             name: "Ulanhot"
@@ -1529,6 +1562,48 @@ const networkData = {
             to: "Fukuoka",
             lineID: "A08",
             time: 40
+        },
+        {
+            from: "Fukuoka",
+            to: "Kagoshima",
+            lineID: "A08",
+            time: 30
+        },
+        {
+            from: "Kagoshima",
+            to: "Naha",
+            lineID: "A08",
+            time: null
+        },
+        {
+            from: "Naha",
+            to: "Taipei",
+            lineID: "A08",
+            time: null
+        },
+        {
+            from: "Taipei",
+            to: "Changhua",
+            lineID: "A08",
+            time: null
+        },
+        {
+            from: "Changhua",
+            to: "Shantou",
+            lineID: "A08",
+            time: null
+        },
+        {
+            from: "Shantou",
+            to: "Hong Kong",
+            lineID: "A08",
+            time: null
+        },
+        {
+            from: "Hong Kong",
+            to: "Lashio",
+            lineID: "A08",
+            time: null
         },
         {
             from: "Ulanhot",
@@ -1778,7 +1853,7 @@ const networkData = {
         },
         {
             from: "Carpathia",
-            to: "Romanian Slime Farm",
+            to: "Danube Delta",
             lineID: "E09",
             time: null
         },
@@ -2137,6 +2212,30 @@ const networkData = {
             time: 75
         },
         {
+            from: "Udine",
+            to: "Venice",
+            lineID: "E36",
+            time: 25
+        },
+        {
+            from: "Venice",
+            to: "Bologna",
+            lineID: "E36",
+            time: null
+        },
+        {
+            from: "Bologna",
+            to: "Apennines",
+            lineID: "E36",
+            time: null
+        },
+        {
+            from: "Apennines",
+            to: "Bari",
+            lineID: "E36",
+            time: 60
+        },
+        {
             from: "West Mediterranean",
             to: "Sardinia",
             lineID: "E37",
@@ -2237,12 +2336,6 @@ const networkData = {
             to: "Aabenraa",
             lineID: "E40",
             time: 85
-        },
-        {
-            from: "Apennines",
-            to: "Bari",
-            lineID: "E43",
-            time: 60
         },
         {
             from: "Central Mediterranean",
@@ -2465,6 +2558,12 @@ const networkData = {
             to: "Rimouski",
             lineID: "N19",
             time: 80
+        },
+        {
+            from: "Washington D.C.",
+            to: "Philadelphia",
+            lineID: "N20",
+            time: 40
         },
         {
             from: "Montréal",
@@ -2918,12 +3017,12 @@ const networkData = {
         },
         {
             from: "Çorlu",
-            to: "Romanian Slime Farm",
+            to: "Danube Delta",
             lineID: "T02",
             time: 70
         },
         {
-            from: "Romanian Slime Farm",
+            from: "Danube Delta",
             to: "Odessa",
             lineID: "T02",
             time: 35
@@ -2990,9 +3089,15 @@ const networkData = {
         },
         {
             from: "Delhi",
+            to: "Lashio",
+            lineID: "T05",
+            time: 360
+        },
+        {
+            from: "Lashio",
             to: "Phuket",
             lineID: "T05",
-            time: 545
+            time: 185
         },
         {
             from: "Phuket",
