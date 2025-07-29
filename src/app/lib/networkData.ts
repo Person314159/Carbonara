@@ -2117,12 +2117,12 @@ const networkData = {
         },
         {
             from: "Venice",
-            to: "Graz",
+            to: "Zagreb",
             lineID: "E28",
             time: null
         },
         {
-            from: "Graz",
+            from: "Zagreb",
             to: "Košice",
             lineID: "E28",
             time: null
