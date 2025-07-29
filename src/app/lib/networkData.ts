@@ -213,12 +213,6 @@ const networkData = {
             type: "LSR"
         },
         {
-            id: "E32",
-            name: "E32",
-            colour: "#006db8",
-            type: "LSR"
-        },
-        {
             id: "E33",
             name: "Fjord Connection",
             colour: "#b9e8ea",
@@ -2166,7 +2160,7 @@ const networkData = {
         {
             from: "Mequinenza",
             to: "Porto",
-            lineID: "E32",
+            lineID: "E31",
             time: 120
         },
         {
