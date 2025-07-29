@@ -1834,7 +1834,7 @@ const networkData = {
             from: "Podgorica",
             to: "Pristina",
             lineID: "E12",
-            time: 30
+            time: 25
         },
         {
             from: "Pristina",
