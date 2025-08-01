@@ -237,6 +237,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "E38",
+            name: "Macedonia Line",
+            colour: "#ffcd02",
+            type: "LSR"
+        },
+        {
             id: "E39",
             name: "Latvian Regional Loop",
             colour: "#9d2235",
@@ -360,6 +366,12 @@ const networkData = {
             id: "N17",
             name: "Trans-Appalachian Line",
             colour: "#273c7b",
+            type: "LSR"
+        },
+        {
+            id: "N18",
+            name: "Peace River Line",
+            colour: "#78caf1",
             type: "LSR"
         },
         {
@@ -680,6 +692,9 @@ const networkData = {
             name: "Cabo San Lucas"
         },
         {
+            name: "Cache Creek"
+        },
+        {
             name: "Calgary"
         },
         {
@@ -713,6 +728,9 @@ const networkData = {
             name: "Charleville-Mézières"
         },
         {
+            name: "Chetwynd"
+        },
+        {
             name: "Chiclayo"
         },
         {
@@ -744,6 +762,9 @@ const networkData = {
         },
         {
             name: "David"
+        },
+        {
+            name: "Dawson Creek"
         },
         {
             name: "Del Norte"
@@ -812,6 +833,9 @@ const networkData = {
             name: "Grand Bahama"
         },
         {
+            name: "Grande Prairie"
+        },
+        {
             name: "Graz"
         },
         {
@@ -852,6 +876,9 @@ const networkData = {
         },
         {
             name: "Hong Kong"
+        },
+        {
+            name: "Hope"
         },
         {
             name: "Ibagué"
@@ -920,16 +947,19 @@ const networkData = {
             name: "La Paz"
         },
         {
-            name: "Lashio"
+            name: "Lampedusa"
         },
         {
-            name: "Lampedusa"
+            name: "Lào Cai"
         },
         {
             name: "Lappeenranta"
         },
         {
             name: "Larissa"
+        },
+        {
+            name: "Lashio"
         },
         {
             name: "Lausanne"
@@ -945,6 +975,9 @@ const networkData = {
         },
         {
             name: "Macapá"
+        },
+        {
+            name: "Mackenzie"
         },
         {
             name: "Mallorca"
@@ -990,6 +1023,9 @@ const networkData = {
         },
         {
             name: "Milan"
+        },
+        {
+            name: "Mission"
         },
         {
             name: "Montevideo"
@@ -1038,9 +1074,6 @@ const networkData = {
         },
         {
             name: "Ohrid"
-        },
-        {
-            name: "Old Perlican"
         },
         {
             name: "Oran"
@@ -1106,6 +1139,12 @@ const networkData = {
             name: "Prague"
         },
         {
+            name: "Prilep"
+        },
+        {
+            name: "Prince George"
+        },
+        {
             name: "Pristina"
         },
         {
@@ -1137,6 +1176,9 @@ const networkData = {
         },
         {
             name: "Québec"
+        },
+        {
+            name: "Quesnel"
         },
         {
             name: "Rasht"
@@ -1304,6 +1346,9 @@ const networkData = {
             name: "Tel Aviv"
         },
         {
+            name: "Tetovo"
+        },
+        {
             name: "Thessaloniki"
         },
         {
@@ -1386,6 +1431,9 @@ const networkData = {
         },
         {
             name: "Whanganui"
+        },
+        {
+            name: "Williams Lake"
         },
         {
             name: "Wilmington"
@@ -1567,37 +1615,43 @@ const networkData = {
             from: "Kagoshima",
             to: "Naha",
             lineID: "A08",
-            time: null
+            time: 110
         },
         {
             from: "Naha",
             to: "Taipei",
             lineID: "A08",
-            time: null
+            time: 100
         },
         {
             from: "Taipei",
             to: "Changhua",
             lineID: "A08",
-            time: null
+            time: 35
         },
         {
             from: "Changhua",
             to: "Shantou",
             lineID: "A08",
-            time: null
+            time: 55
         },
         {
             from: "Shantou",
             to: "Hong Kong",
             lineID: "A08",
-            time: null
+            time: 45
         },
         {
             from: "Hong Kong",
+            to: "Lào Cai",
+            lineID: "A08",
+            time: 135
+        },
+        {
+            from: "Lào Cai",
             to: "Lashio",
             lineID: "A08",
-            time: null
+            time: 80
         },
         {
             from: "Ulanhot",
@@ -2248,6 +2302,36 @@ const networkData = {
             time: 25
         },
         {
+            from: "Pristina",
+            to: "Ohrid",
+            lineID: "E38",
+            time: 30
+        },
+        {
+            from: "Ohrid",
+            to: "Bitola",
+            lineID: "E38",
+            time: 15
+        },
+        {
+            from: "Bitola",
+            to: "Prilep",
+            lineID: "E38",
+            time: 10
+        },
+        {
+            from: "Prilep",
+            to: "Tetovo",
+            lineID: "E38",
+            time: null
+        },
+        {
+            from: "Tetovo",
+            to: "Skopje",
+            lineID: "E38",
+            time: null
+        },
+        {
             from: "Riga",
             to: "Aizkraukle",
             lineID: "E39",
@@ -2545,6 +2629,66 @@ const networkData = {
             from: "Scranton",
             to: "Philadelphia",
             lineID: "N17",
+            time: null
+        },
+        {
+            from: "Grande Prairie",
+            to: "Dawson Creek",
+            lineID: "N18",
+            time: 35
+        },
+        {
+            from: "Dawson Creek",
+            to: "Chetwynd",
+            lineID: "N18",
+            time: 25
+        },
+        {
+            from: "Chetwynd",
+            to: "Mackenzie",
+            lineID: "N18",
+            time: 40
+        },
+        {
+            from: "Mackenzie",
+            to: "Prince George",
+            lineID: "N18",
+            time: null
+        },
+        {
+            from: "Prince George",
+            to: "Quesnel",
+            lineID: "N18",
+            time: null
+        },
+        {
+            from: "Quesnel",
+            to: "Williams Lake",
+            lineID: "N18",
+            time: null
+        },
+        {
+            from: "Williams Lake",
+            to: "Cache Creek",
+            lineID: "N18",
+            time: null
+        },
+        {
+            from: "Cache Creek",
+            to: "Hope",
+            lineID: "N18",
+            time: null
+        },
+        {
+            from: "Hope",
+            to: "Mission",
+            lineID: "N18",
+            time: null
+        },
+        {
+            from: "Mission",
+            to: "Vancouver",
+            lineID: "N18",
             time: null
         },
         {
@@ -2915,15 +3059,9 @@ const networkData = {
         },
         {
             from: "Rimouski",
-            to: "Old Perlican",
-            lineID: "T01",
-            time: 205
-        },
-        {
-            from: "Old Perlican",
             to: "Rennes",
             lineID: "T01",
-            time: 660
+            time: 865
         },
         {
             from: "Rennes",
