@@ -51,6 +51,18 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "A10",
+            name: "Dalian Line",
+            colour: "#662c91",
+            type: "LSR"
+        },
+        {
+            id: "A09",
+            name: "Jeju Line",
+            colour: "#52ffc5",
+            type: "LSR"
+        },
+        {
             id: "E01",
             name: "Brighton Red Line",
             colour: "#ed1c2a",
@@ -184,7 +196,7 @@ const networkData = {
         },
         {
             id: "E27",
-            name: "Rhine Line",
+            name: "E27",
             colour: "#800000",
             type: "LSR"
         },
@@ -202,7 +214,7 @@ const networkData = {
         },
         {
             id: "E30",
-            name: "Big Bridge Thessaloniki Branch",
+            name: "Greek Line",
             colour: "#bb4a9b",
             type: "LSR"
         },
@@ -370,7 +382,7 @@ const networkData = {
         },
         {
             id: "N18",
-            name: "Peace River Line",
+            name: "who cares Line",
             colour: "#78caf1",
             type: "LSR"
         },
@@ -551,6 +563,9 @@ const networkData = {
             name: "Aarhus"
         },
         {
+            name: "Abbotsford"
+        },
+        {
             name: "Accra"
         },
         {
@@ -630,6 +645,9 @@ const networkData = {
         },
         {
             name: "Belgrade"
+        },
+        {
+            name: "Bellingham"
         },
         {
             name: "Belém"
@@ -749,6 +767,9 @@ const networkData = {
             name: "Corsica"
         },
         {
+            name: "Crete"
+        },
+        {
             name: "Cuenca"
         },
         {
@@ -756,6 +777,9 @@ const networkData = {
         },
         {
             name: "Daegu"
+        },
+        {
+            name: "Dalian"
         },
         {
             name: "Daugavpils"
@@ -857,6 +881,9 @@ const networkData = {
             name: "Guerrero Negro"
         },
         {
+            name: "Gwangju"
+        },
+        {
             name: "Hakodate"
         },
         {
@@ -906,6 +933,9 @@ const networkData = {
         },
         {
             name: "Jane Peak"
+        },
+        {
+            name: "Jeju"
         },
         {
             name: "Kagoshima"
@@ -1025,7 +1055,7 @@ const networkData = {
             name: "Milan"
         },
         {
-            name: "Mission"
+            name: "Montclair"
         },
         {
             name: "Montevideo"
@@ -1047,9 +1077,6 @@ const networkData = {
         },
         {
             name: "Newcastle"
-        },
-        {
-            name: "Nicosia"
         },
         {
             name: "Nieuw Nickerie"
@@ -1475,15 +1502,9 @@ const networkData = {
         },
         {
             from: "Antalya",
-            to: "Nicosia",
-            lineID: "A02",
-            time: 60
-        },
-        {
-            from: "Nicosia",
             to: "Tel Aviv",
             lineID: "A02",
-            time: 60
+            time: 120
         },
         {
             from: "Rasht",
@@ -1700,6 +1721,30 @@ const networkData = {
             to: "Fukuoka",
             lineID: "A09",
             time: 55
+        },
+        {
+            from: "Pyongyang",
+            to: "Dalian",
+            lineID: "A10",
+            time: null
+        },
+        {
+            from: "Pyongyang",
+            to: "Seoul-Incheon",
+            lineID: "A11",
+            time: null
+        },
+        {
+            from: "Seoul-Incheon",
+            to: "Gwangju",
+            lineID: "A11",
+            time: null
+        },
+        {
+            from: "Gwangju",
+            to: "Jeju",
+            lineID: "A11",
+            time: null
         },
         {
             from: "Queen's Cross",
@@ -2113,7 +2158,7 @@ const networkData = {
             from: "Lausanne",
             to: "Geneva",
             lineID: "E27",
-            time: null
+            time: 20
         },
         {
             from: "Geneva",
@@ -2204,6 +2249,12 @@ const networkData = {
             to: "Sparta",
             lineID: "E30",
             time: 30
+        },
+        {
+            from: "Sparta",
+            to: "Crete",
+            lineID: "E30",
+            time: null
         },
         {
             from: "West Mediterranean",
@@ -2653,43 +2704,43 @@ const networkData = {
             from: "Mackenzie",
             to: "Prince George",
             lineID: "N18",
-            time: null
+            time: 30
         },
         {
             from: "Prince George",
             to: "Quesnel",
             lineID: "N18",
-            time: null
+            time: 20
         },
         {
             from: "Quesnel",
             to: "Williams Lake",
             lineID: "N18",
-            time: null
+            time: 30
         },
         {
             from: "Williams Lake",
             to: "Cache Creek",
             lineID: "N18",
-            time: null
+            time: 45
         },
         {
             from: "Cache Creek",
             to: "Hope",
             lineID: "N18",
-            time: null
+            time: 30
         },
         {
             from: "Hope",
-            to: "Mission",
+            to: "Abbotsford",
             lineID: "N18",
-            time: null
+            time: 25
         },
         {
-            from: "Mission",
+            from: "Abbotsford",
             to: "Vancouver",
             lineID: "N18",
-            time: null
+            time: 20
         },
         {
             from: "Manicouagan",
@@ -3971,7 +4022,7 @@ const networkData = {
         },
         {
             from: "San Jose",
-            to: "Vancouver",
+            to: "Bellingham",
             lineID: "HPU",
             time: 135
         }
