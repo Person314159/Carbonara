@@ -9,15 +9,15 @@ const networkData = {
             type: "LSR"
         },
         {
-            id: "A02",
-            name: "Cypriot Line",
-            colour: "#cec92a",
-            type: "LSR"
-        },
-        {
             id: "A03",
             name: "Warzone Express",
             colour: "#662c91",
+            type: "LSR"
+        },
+        {
+            id: "A04",
+            name: "A04",
+            colour: "#fca3d6",
             type: "LSR"
         },
         {
@@ -264,6 +264,12 @@ const networkData = {
             id: "E40",
             name: "Anabenraa Line",
             colour: "#e233ff",
+            type: "LSR"
+        },
+        {
+            id: "E43",
+            name: "E43",
+            colour: "#5e53a1",
             type: "LSR"
         },
         {
@@ -553,7 +559,13 @@ const networkData = {
             name: "North Darien Line",
             colour: "#d9008d",
             type: "LSR"
-        }
+        },
+        {
+            id: "T12",
+            name: "Medium Bridge",
+            colour: "#be9a60",
+            type: "LSR"
+        },
     ],
     stations: [
         {
@@ -680,10 +692,7 @@ const networkData = {
             name: "Boston"
         },
         {
-            name: "Brest (BY)"
-        },
-        {
-            name: "Brest (FR)"
+            name: "Brest"
         },
         {
             name: "Brighton"
@@ -816,6 +825,9 @@ const networkData = {
         },
         {
             name: "Dunedin"
+        },
+        {
+            name: "Doğanyurt"
         },
         {
             name: "Ensenada"
@@ -1097,7 +1109,7 @@ const networkData = {
             name: "Odda"
         },
         {
-            name: "Odessa"
+            name: "Odesa"
         },
         {
             name: "Ohrid"
@@ -1149,6 +1161,9 @@ const networkData = {
         },
         {
             name: "Podgorica"
+        },
+        {
+            name: "Ponta Delgada"
         },
         {
             name: "Poronaysk"
@@ -1259,6 +1274,9 @@ const networkData = {
             name: "San Salvador"
         },
         {
+            name: "Sanaa"
+        },
+        {
             name: "Sandefjord"
         },
         {
@@ -1326,9 +1344,6 @@ const networkData = {
         },
         {
             name: "Stockholm"
-        },
-        {
-            name: "Strumica"
         },
         {
             name: "Sucre"
@@ -1421,6 +1436,9 @@ const networkData = {
             name: "Ulanhot"
         },
         {
+            name: "Ureki"
+        },
+        {
             name: "Valka"
         },
         {
@@ -1501,14 +1519,14 @@ const networkData = {
             time: 185
         },
         {
-            from: "Antalya",
-            to: "Tel Aviv",
-            lineID: "A02",
-            time: 120
-        },
-        {
             from: "Rasht",
             to: "Tel Aviv",
+            lineID: "A03",
+            time: 255
+        },
+        {
+            from: "Tel Aviv",
+            to: "Sanaa",
             lineID: "A03",
             time: 255
         },
@@ -1726,7 +1744,7 @@ const networkData = {
             from: "Pyongyang",
             to: "Dalian",
             lineID: "A10",
-            time: null
+            time: 55
         },
         {
             from: "Pyongyang",
@@ -1880,12 +1898,12 @@ const networkData = {
         },
         {
             from: "Warsaw Central",
-            to: "Brest (BY)",
+            to: "Brest",
             lineID: "E07",
             time: 45
         },
         {
-            from: "Brest (BY)",
+            from: "Brest",
             to: "Riga",
             lineID: "E07",
             time: 85
@@ -1934,12 +1952,12 @@ const networkData = {
         },
         {
             from: "Warsaw Central",
-            to: "Brest (BY)",
+            to: "Brest",
             lineID: "E09",
             time: 45
         },
         {
-            from: "Brest (BY)",
+            from: "Brest",
             to: "Carpathia",
             lineID: "E09",
             time: null
@@ -1952,19 +1970,19 @@ const networkData = {
         },
         {
             from: "Warsaw Central",
-            to: "Brest (BY)",
+            to: "Brest",
             lineID: "E10",
             time: 45
         },
         {
-            from: "Brest (BY)",
+            from: "Brest",
             to: "Kyiv",
             lineID: "E10",
             time: 105
         },
         {
             from: "Kyiv",
-            to: "Odessa",
+            to: "Odesa",
             lineID: "E10",
             time: 50
         },
@@ -2222,7 +2240,7 @@ const networkData = {
         },
         {
             from: "Košice",
-            to: "Brest (BY)",
+            to: "Brest",
             lineID: "E28",
             time: null
         },
@@ -2374,7 +2392,7 @@ const networkData = {
             from: "Prilep",
             to: "Tetovo",
             lineID: "E38",
-            time: null
+            time: 35
         },
         {
             from: "Tetovo",
@@ -2465,6 +2483,24 @@ const networkData = {
             to: "Aabenraa",
             lineID: "E40",
             time: 85
+        },
+        {
+            from: "Danube Delta",
+            to: "Çorlu",
+            lineID: "E43",
+            time: 70
+        },
+        {
+            from: "Çorlu",
+            to: "Istanbul",
+            lineID: "E43",
+            time: 25
+        },
+        {
+            from: "Istanbul",
+            to: "Döganyurt",
+            lineID: "E43",
+            time: 25
         },
         {
             from: "Central Mediterranean",
@@ -3187,6 +3223,18 @@ const networkData = {
             time: 325
         },
         {
+            from: "Basra",
+            to: "Tel Aviv",
+            lineID: "T02",
+            time: null
+        },
+        {
+            from: "Tel Aviv",
+            to: "Antalya",
+            lineID: "T02",
+            time: 120
+        },
+        {
             from: "Antalya",
             to: "Istanbul",
             lineID: "T02",
@@ -3194,19 +3242,13 @@ const networkData = {
         },
         {
             from: "Istanbul",
-            to: "Çorlu",
-            lineID: "T02",
-            time: 25
-        },
-        {
-            from: "Çorlu",
             to: "Danube Delta",
             lineID: "T02",
-            time: 70
+            time: 60
         },
         {
             from: "Danube Delta",
-            to: "Odessa",
+            to: "Odesa",
             lineID: "T02",
             time: 35
         },
@@ -3247,9 +3289,39 @@ const networkData = {
             time: 75
         },
         {
-            from: "Oran",
-            to: "Yellel",
+            from: "Yellel",
+            to: "Oran",
             lineID: "T03",
+            time: null
+        },
+        {
+            from: "Oran",
+            to: "Accra",
+            lineID: "T03",
+            time: null
+        },
+        {
+            from: "Danube Delta",
+            to: "Doğanyurt",
+            lineID: "T04",
+            time: null
+        },
+        {
+            from: "Doğanyurt",
+            to: "Rasht",
+            lineID: "T04",
+            time: null
+        },
+        {
+            from: "Rasht",
+            to: "Basra",
+            lineID: "T04",
+            time: null
+        },
+        {
+            from: "Basra",
+            to: "Sanaa",
+            lineID: "T04",
             time: null
         },
         {
