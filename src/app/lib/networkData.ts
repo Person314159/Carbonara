@@ -561,6 +561,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "T11",
+            name: "Denmark Line",
+            colour: "#fcba03",
+            type: "LSR"
+        },
+        {
             id: "T12",
             name: "Medium Bridge",
             colour: "#b80b4b",
@@ -807,6 +813,39 @@ const networkData = {
         },
         {
             name: "Den Oever"
+        },
+        {
+            name: "Denmark (AR)"
+        },
+        {
+            name: "Denmark (IA)"
+        },
+        {
+            name: "Denmark (IL)"
+        },
+        {
+            name: "Denmark (KS)"
+        },
+        {
+            name: "Denmark (ME)"
+        },
+        {
+            name: "Denmark (MI)"
+        },
+        {
+            name: "Denmark (MS)"
+        },
+        {
+            name: "Denmark (NS)"
+        },
+        {
+            name: "Denmark (NY)"
+        },
+        {
+            name: "Denmark (TN)"
+        },
+        {
+            name: "Denmark (WI)"
         },
         {
             name: "Denver"
@@ -1137,6 +1176,9 @@ const networkData = {
         },
         {
             name: "Pardubice"
+        },
+        {
+            name: "Paris (DK)"
         },
         {
             name: "Paris (FR)"
@@ -3667,6 +3709,72 @@ const networkData = {
             from: "Tijuana",
             to: "San Diego",
             lineID: "T10",
+            time: null
+        },
+        {
+            from: "Paris (DK)",
+            to: "Denmark (NS)",
+            lineID: "T11",
+            time: 1075
+        },
+        {
+            from: "Denmark (NS)",
+            to: "Denmark (ME)",
+            lineID: "T11",
+            time: 125
+        },
+        {
+            from: "Denmark (ME)",
+            to: "Denmark (NY)",
+            lineID: "T11",
+            time: null
+        },
+        {
+            from: "Denmark (NY)",
+            to: "Denmark (MI)",
+            lineID: "T11",
+            time: null
+        },
+        {
+            from: "Denmark (MI)",
+            to: "Denmark (WI)",
+            lineID: "T11",
+            time: null
+        },
+        {
+            from: "Denmark (WI)",
+            to: "Denmark (IA)",
+            lineID: "T11",
+            time: null
+        },
+        {
+            from: "Denmark (IA)",
+            to: "Denmark (IL)",
+            lineID: "T11",
+            time: null
+        },
+        {
+            from: "Denmark (IL)",
+            to: "Denmark (TN)",
+            lineID: "T11",
+            time: null
+        },
+        {
+            from: "Denmark (TN)",
+            to: "Denmark (MS)",
+            lineID: "T11",
+            time: null
+        },
+        {
+            from: "Denmark (MS)",
+            to: "Denmark (AR)",
+            lineID: "T11",
+            time: null
+        },
+        {
+            from: "Denmark (AR)",
+            to: "Denmark (KS)",
+            lineID: "T11",
             time: null
         },
         {
