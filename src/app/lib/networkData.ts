@@ -565,7 +565,7 @@ const networkData = {
             name: "Medium Bridge",
             colour: "#be9a60",
             type: "LSR"
-        },
+        }
     ],
     stations: [
         {
@@ -1528,7 +1528,7 @@ const networkData = {
             from: "Tel Aviv",
             to: "Sanaa",
             lineID: "A03",
-            time: 255
+            time: null
         },
         {
             from: "Rasht",
@@ -2498,7 +2498,7 @@ const networkData = {
         },
         {
             from: "Istanbul",
-            to: "Döganyurt",
+            to: "Doğanyurt",
             lineID: "E43",
             time: 25
         },
@@ -3691,400 +3691,400 @@ const networkData = {
             time: 60
         },
         {
-            "from": "Apennines",
-            "to": "Charleville-Mézières",
-            "lineID": "HCY",
-            "time": null
+            from: "Apennines",
+            to: "Charleville-Mézières",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Apennines",
-            "to": "Central Mediterranean",
-            "lineID": "HCY",
-            "time": null
+            from: "Apennines",
+            to: "Central Mediterranean",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Apennines",
-            "to": "Corsica",
-            "lineID": "HCY",
-            "time": 65
+            from: "Apennines",
+            to: "Corsica",
+            lineID: "HCY",
+            time: 65
         },
         {
-            "from": "Apennines",
-            "to": "Mallorca",
-            "lineID": "HCY",
-            "time": null
+            from: "Apennines",
+            to: "Mallorca",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Apennines",
-            "to": "Mequinenza",
-            "lineID": "HCY",
-            "time": null
+            from: "Apennines",
+            to: "Mequinenza",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Apennines",
-            "to": "Milan",
-            "lineID": "HCY",
-            "time": 100
+            from: "Apennines",
+            to: "Milan",
+            lineID: "HCY",
+            time: 100
         },
         {
-            "from": "Apennines",
-            "to": "Rennes",
-            "lineID": "HCY",
-            "time": null
+            from: "Apennines",
+            to: "Rennes",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Apennines",
-            "to": "Sardinia",
-            "lineID": "HCY",
-            "time": 60
+            from: "Apennines",
+            to: "Sardinia",
+            lineID: "HCY",
+            time: 60
         },
         {
-            "from": "Apennines",
-            "to": "Sparta",
-            "lineID": "HCY",
-            "time": null
+            from: "Apennines",
+            to: "Sparta",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Apennines",
-            "to": "Thessaloniki",
-            "lineID": "HCY",
-            "time": null
+            from: "Apennines",
+            to: "Thessaloniki",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Apennines",
-            "to": "Tirana",
-            "lineID": "HCY",
-            "time": null
+            from: "Apennines",
+            to: "Tirana",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Charleville-Mézières",
-            "to": "Central Mediterranean",
-            "lineID": "HCY",
-            "time": null
+            from: "Charleville-Mézières",
+            to: "Central Mediterranean",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Charleville-Mézières",
-            "to": "Corsica",
-            "lineID": "HCY",
-            "time": null
+            from: "Charleville-Mézières",
+            to: "Corsica",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Charleville-Mézières",
-            "to": "Mallorca",
-            "lineID": "HCY",
-            "time": null
+            from: "Charleville-Mézières",
+            to: "Mallorca",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Charleville-Mézières",
-            "to": "Mequinenza",
-            "lineID": "HCY",
-            "time": null
+            from: "Charleville-Mézières",
+            to: "Mequinenza",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Charleville-Mézières",
-            "to": "Milan",
-            "lineID": "HCY",
-            "time": null
+            from: "Charleville-Mézières",
+            to: "Milan",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Charleville-Mézières",
-            "to": "Rennes",
-            "lineID": "HCY",
-            "time": null
+            from: "Charleville-Mézières",
+            to: "Rennes",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Charleville-Mézières",
-            "to": "Sardinia",
-            "lineID": "HCY",
-            "time": null
+            from: "Charleville-Mézières",
+            to: "Sardinia",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Charleville-Mézières",
-            "to": "Sparta",
-            "lineID": "HCY",
-            "time": null
+            from: "Charleville-Mézières",
+            to: "Sparta",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Charleville-Mézières",
-            "to": "Thessaloniki",
-            "lineID": "HCY",
-            "time": null
+            from: "Charleville-Mézières",
+            to: "Thessaloniki",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Charleville-Mézières",
-            "to": "Tirana",
-            "lineID": "HCY",
-            "time": null
+            from: "Charleville-Mézières",
+            to: "Tirana",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Central Mediterranean",
-            "to": "Corsica",
-            "lineID": "HCY",
-            "time": null
+            from: "Central Mediterranean",
+            to: "Corsica",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Central Mediterranean",
-            "to": "Mallorca",
-            "lineID": "HCY",
-            "time": null
+            from: "Central Mediterranean",
+            to: "Mallorca",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Central Mediterranean",
-            "to": "Mequinenza",
-            "lineID": "HCY",
-            "time": null
+            from: "Central Mediterranean",
+            to: "Mequinenza",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Central Mediterranean",
-            "to": "Milan",
-            "lineID": "HCY",
-            "time": null
+            from: "Central Mediterranean",
+            to: "Milan",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Central Mediterranean",
-            "to": "Rennes",
-            "lineID": "HCY",
-            "time": null
+            from: "Central Mediterranean",
+            to: "Rennes",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Central Mediterranean",
-            "to": "Sardinia",
-            "lineID": "HCY",
-            "time": null
+            from: "Central Mediterranean",
+            to: "Sardinia",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Central Mediterranean",
-            "to": "Sparta",
-            "lineID": "HCY",
-            "time": null
+            from: "Central Mediterranean",
+            to: "Sparta",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Central Mediterranean",
-            "to": "Thessaloniki",
-            "lineID": "HCY",
-            "time": null
+            from: "Central Mediterranean",
+            to: "Thessaloniki",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Central Mediterranean",
-            "to": "Tirana",
-            "lineID": "HCY",
-            "time": null
+            from: "Central Mediterranean",
+            to: "Tirana",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Corsica",
-            "to": "Mallorca",
-            "lineID": "HCY",
-            "time": null
+            from: "Corsica",
+            to: "Mallorca",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Corsica",
-            "to": "Mequinenza",
-            "lineID": "HCY",
-            "time": null
+            from: "Corsica",
+            to: "Mequinenza",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Corsica",
-            "to": "Milan",
-            "lineID": "HCY",
-            "time": 35
+            from: "Corsica",
+            to: "Milan",
+            lineID: "HCY",
+            time: 35
         },
         {
-            "from": "Corsica",
-            "to": "Rennes",
-            "lineID": "HCY",
-            "time": null
+            from: "Corsica",
+            to: "Rennes",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Corsica",
-            "to": "Sardinia",
-            "lineID": "HCY",
-            "time": 15
+            from: "Corsica",
+            to: "Sardinia",
+            lineID: "HCY",
+            time: 15
         },
         {
-            "from": "Corsica",
-            "to": "Sparta",
-            "lineID": "HCY",
-            "time": null
+            from: "Corsica",
+            to: "Sparta",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Corsica",
-            "to": "Thessaloniki",
-            "lineID": "HCY",
-            "time": null
+            from: "Corsica",
+            to: "Thessaloniki",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Corsica",
-            "to": "Tirana",
-            "lineID": "HCY",
-            "time": null
+            from: "Corsica",
+            to: "Tirana",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Mallorca",
-            "to": "Mequinenza",
-            "lineID": "HCY",
-            "time": null
+            from: "Mallorca",
+            to: "Mequinenza",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Mallorca",
-            "to": "Milan",
-            "lineID": "HCY",
-            "time": null
+            from: "Mallorca",
+            to: "Milan",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Mallorca",
-            "to": "Rennes",
-            "lineID": "HCY",
-            "time": null
+            from: "Mallorca",
+            to: "Rennes",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Mallorca",
-            "to": "Sardinia",
-            "lineID": "HCY",
-            "time": null
+            from: "Mallorca",
+            to: "Sardinia",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Mallorca",
-            "to": "Sparta",
-            "lineID": "HCY",
-            "time": null
+            from: "Mallorca",
+            to: "Sparta",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Mallorca",
-            "to": "Thessaloniki",
-            "lineID": "HCY",
-            "time": null
+            from: "Mallorca",
+            to: "Thessaloniki",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Mallorca",
-            "to": "Tirana",
-            "lineID": "HCY",
-            "time": null
+            from: "Mallorca",
+            to: "Tirana",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Mequinenza",
-            "to": "Milan",
-            "lineID": "HCY",
-            "time": null
+            from: "Mequinenza",
+            to: "Milan",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Mequinenza",
-            "to": "Rennes",
-            "lineID": "HCY",
-            "time": null
+            from: "Mequinenza",
+            to: "Rennes",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Mequinenza",
-            "to": "Sardinia",
-            "lineID": "HCY",
-            "time": null
+            from: "Mequinenza",
+            to: "Sardinia",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Mequinenza",
-            "to": "Sparta",
-            "lineID": "HCY",
-            "time": null
+            from: "Mequinenza",
+            to: "Sparta",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Mequinenza",
-            "to": "Thessaloniki",
-            "lineID": "HCY",
-            "time": null
+            from: "Mequinenza",
+            to: "Thessaloniki",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Mequinenza",
-            "to": "Tirana",
-            "lineID": "HCY",
-            "time": null
+            from: "Mequinenza",
+            to: "Tirana",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Milan",
-            "to": "Rennes",
-            "lineID": "HCY",
-            "time": null
+            from: "Milan",
+            to: "Rennes",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Milan",
-            "to": "Sardinia",
-            "lineID": "HCY",
-            "time": 50
+            from: "Milan",
+            to: "Sardinia",
+            lineID: "HCY",
+            time: 50
         },
         {
-            "from": "Milan",
-            "to": "Sparta",
-            "lineID": "HCY",
-            "time": null
+            from: "Milan",
+            to: "Sparta",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Milan",
-            "to": "Thessaloniki",
-            "lineID": "HCY",
-            "time": null
+            from: "Milan",
+            to: "Thessaloniki",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Milan",
-            "to": "Tirana",
-            "lineID": "HCY",
-            "time": null
+            from: "Milan",
+            to: "Tirana",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Rennes",
-            "to": "Sardinia",
-            "lineID": "HCY",
-            "time": null
+            from: "Rennes",
+            to: "Sardinia",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Rennes",
-            "to": "Sparta",
-            "lineID": "HCY",
-            "time": null
+            from: "Rennes",
+            to: "Sparta",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Rennes",
-            "to": "Thessaloniki",
-            "lineID": "HCY",
-            "time": null
+            from: "Rennes",
+            to: "Thessaloniki",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Rennes",
-            "to": "Tirana",
-            "lineID": "HCY",
-            "time": null
+            from: "Rennes",
+            to: "Tirana",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Sardinia",
-            "to": "Sparta",
-            "lineID": "HCY",
-            "time": null
+            from: "Sardinia",
+            to: "Sparta",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Sardinia",
-            "to": "Thessaloniki",
-            "lineID": "HCY",
-            "time": null
+            from: "Sardinia",
+            to: "Thessaloniki",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Sardinia",
-            "to": "Tirana",
-            "lineID": "HCY",
-            "time": null
+            from: "Sardinia",
+            to: "Tirana",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Sparta",
-            "to": "Thessaloniki",
-            "lineID": "HCY",
-            "time": null
+            from: "Sparta",
+            to: "Thessaloniki",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Sparta",
-            "to": "Tirana",
-            "lineID": "HCY",
-            "time": null
+            from: "Sparta",
+            to: "Tirana",
+            lineID: "HCY",
+            time: null
         },
         {
-            "from": "Thessaloniki",
-            "to": "Tirana",
-            "lineID": "HCY",
-            "time": null
+            from: "Thessaloniki",
+            to: "Tirana",
+            lineID: "HCY",
+            time: null
         },
         {
             from: "Amsterdam Central",
