@@ -219,12 +219,6 @@ const networkData = {
             type: "LSR"
         },
         {
-            id: "E31",
-            name: "Big Bridge Mequinenza Branch",
-            colour: "#b80b4b",
-            type: "LSR"
-        },
-        {
             id: "E33",
             name: "Fjord Connection",
             colour: "#b9e8ea",
@@ -270,6 +264,12 @@ const networkData = {
             id: "E43",
             name: "E43",
             colour: "#5e53a1",
+            type: "LSR"
+        },
+        {
+            id: "E44",
+            name: "Liechtenstein Line",
+            colour: "#0b5394",
             type: "LSR"
         },
         {
@@ -371,13 +371,7 @@ const networkData = {
         {
             id: "N15",
             name: "Coastliner",
-            colour: "#006db8",
-            type: "LSR"
-        },
-        {
-            id: "N16",
-            name: "Maple Liberty Line",
-            colour: "#008c5a",
+            colour: "#ffcd02",
             type: "LSR"
         },
         {
@@ -426,6 +420,12 @@ const networkData = {
             id: "N24",
             name: "End Portal Express",
             colour: "#38664b",
+            type: "LSR"
+        },
+        {
+            id: "N29",
+            name: "Florida Georgia Line",
+            colour: "#b00828",
             type: "LSR"
         },
         {
@@ -563,7 +563,7 @@ const networkData = {
         {
             id: "T12",
             name: "Medium Bridge",
-            colour: "#be9a60",
+            colour: "#b80b4b",
             type: "LSR"
         }
     ],
@@ -938,7 +938,7 @@ const networkData = {
             name: "Istanbul"
         },
         {
-            name: "Ittoqoorttomit"
+            name: "Ittoqqortoormiit"
         },
         {
             name: "Jacksonville"
@@ -1085,9 +1085,6 @@ const networkData = {
             name: "National Park"
         },
         {
-            name: "New York Central"
-        },
-        {
             name: "Newcastle"
         },
         {
@@ -1142,7 +1139,7 @@ const networkData = {
             name: "Pardubice"
         },
         {
-            name: "Paris"
+            name: "Paris (FR)"
         },
         {
             name: "Pasto"
@@ -1367,6 +1364,9 @@ const networkData = {
             name: "Taipei"
         },
         {
+            name: "Tallahassee"
+        },
+        {
             name: "Tallinn"
         },
         {
@@ -1437,6 +1437,9 @@ const networkData = {
         },
         {
             name: "Ureki"
+        },
+        {
+            name: "Vaduz"
         },
         {
             name: "Valka"
@@ -2182,7 +2185,7 @@ const networkData = {
             from: "Geneva",
             to: "Marseille",
             lineID: "E27",
-            time: null
+            time: 55
         },
         {
             from: "Porto",
@@ -2273,18 +2276,6 @@ const networkData = {
             to: "Crete",
             lineID: "E30",
             time: null
-        },
-        {
-            from: "West Mediterranean",
-            to: "Mequinenza",
-            lineID: "E31",
-            time: 65
-        },
-        {
-            from: "Mequinenza",
-            to: "Porto",
-            lineID: "E31",
-            time: 120
         },
         {
             from: "Kiel",
@@ -2503,6 +2494,12 @@ const networkData = {
             time: 25
         },
         {
+            from: "Merlischachen",
+            to: "Vaduz",
+            lineID: "E44",
+            time: null
+        },
+        {
             from: "Central Mediterranean",
             to: "Lampedusa",
             lineID: "F01",
@@ -2666,15 +2663,21 @@ const networkData = {
         },
         {
             from: "Boston",
-            to: "New York Central",
+            to: "Montclair",
             lineID: "N14",
             time: null
         },
         {
-            from: "New York Central",
+            from: "Montréal",
+            to: "Montclair",
+            lineID: "N15",
+            time: 75
+        },
+        {
+            from: "Montclair",
             to: "Philadelphia",
             lineID: "N15",
-            time: 30
+            time: 25
         },
         {
             from: "Philadelphia",
@@ -2686,18 +2689,6 @@ const networkData = {
             from: "Wallops Island",
             to: "Wilmington",
             lineID: "N15",
-            time: null
-        },
-        {
-            from: "Montréal",
-            to: "New York Central",
-            lineID: "N16",
-            time: 65
-        },
-        {
-            from: "New York Central",
-            to: "Washington D.C.",
-            lineID: "N16",
             time: null
         },
         {
@@ -2831,6 +2822,30 @@ const networkData = {
             to: "Wallops Island",
             lineID: "N24",
             time: 145
+        },
+        {
+            from: "Atlanta",
+            to: "Savannah",
+            lineID: "N29",
+            time: 75
+        },
+        {
+            from: "Savannah",
+            to: "Jacksonville",
+            lineID: "N29",
+            time: 30
+        },
+        {
+            from: "Jacksonville",
+            to: "Tallahassee",
+            lineID: "N29",
+            time: null
+        },
+        {
+            from: "Tallahassee",
+            to: "Atlanta",
+            lineID: "N29",
+            time: null
         },
         {
             from: "Melbourne",
@@ -3152,12 +3167,12 @@ const networkData = {
         },
         {
             from: "Rennes",
-            to: "Paris",
+            to: "Paris (FR)",
             lineID: "T01",
             time: 65
         },
         {
-            from: "Paris",
+            from: "Paris (FR)",
             to: "Charleville-Mézières",
             lineID: "T01",
             time: 45
@@ -3652,6 +3667,30 @@ const networkData = {
             from: "Tijuana",
             to: "San Diego",
             lineID: "T10",
+            time: null
+        },
+        {
+            from: "West Mediterranean",
+            to: "Mequinenza",
+            lineID: "T12",
+            time: 65
+        },
+        {
+            from: "Mequinenza",
+            to: "Porto",
+            lineID: "T12",
+            time: 120
+        },
+        {
+            from: "Porto",
+            to: "Ponta Delgada",
+            lineID: "T12",
+            time: 265
+        },
+        {
+            from: "Ponta Delgada",
+            to: "Wallops Island",
+            lineID: "T12",
             time: null
         },
         {
