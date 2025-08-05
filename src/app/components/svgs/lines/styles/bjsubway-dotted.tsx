@@ -2,12 +2,10 @@ import { MonoColour } from "@railmapgen/rmg-palette-resources";
 import React, { useEffect, useState } from "react";
 import { CityCode } from "@/app/constants/constants";
 import { LinePathAttributes, LineStyle, LineStyleComponentProps } from "@/app/constants/lines";
-import { AttributesWithColor } from "../../../panels/details/color-field";
+import { ColorAttribute } from "../../../panels/details/color-field";
 
 function useDarkMode(): boolean {
-    const [isDarkMode, setIsDarkMode] = useState(() =>
-        window.matchMedia("(prefers-color-scheme: dark)").matches
-    );
+    const [isDarkMode, setIsDarkMode] = useState(() => window.matchMedia("(prefers-color-scheme: dark)").matches);
 
     useEffect(() => {
         const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -24,7 +22,6 @@ function useDarkMode(): boolean {
 const BjsubwayDotted = (props: LineStyleComponentProps<BjsubwayDottedAttributes>) => {
     const { id, path, styleAttrs } = props;
     const { color = defaultBjsubwayDottedAttributes.color } = styleAttrs ?? defaultBjsubwayDottedAttributes;
-
     const bgColor = useDarkMode() ? "#333" : "#f0f0f0";
 
     return (
@@ -38,13 +35,11 @@ const BjsubwayDotted = (props: LineStyleComponentProps<BjsubwayDottedAttributes>
 /**
  * BjsubwayDotted specific props.
  */
-export interface BjsubwayDottedAttributes extends LinePathAttributes, AttributesWithColor {
-}
+export interface BjsubwayDottedAttributes extends LinePathAttributes, ColorAttribute {}
 
 const defaultBjsubwayDottedAttributes: BjsubwayDottedAttributes = {
     color: [CityCode.Beijing, "bj1", "#c23a30", MonoColour.white]
 };
-
 const bjsubwayDotted: LineStyle<BjsubwayDottedAttributes> = {
     component: BjsubwayDotted,
     defaultAttrs: defaultBjsubwayDottedAttributes

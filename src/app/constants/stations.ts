@@ -5,7 +5,7 @@ import React from "react";
 
 export enum StationType {
     TokyoMetroBasic = "tokyo-metro-basic",
-    TokyoMetroInt = "tokyo-metro-int",
+    TokyoMetroInt = "tokyo-metro-int"
 }
 
 export interface ExternalStationAttributes {
@@ -32,6 +32,7 @@ export interface StationAttributes {
 
 // handy types for nameOffset
 export type NameOffsetX = "left" | "middle" | "right";
+
 export type NameOffsetY = "top" | "middle" | "bottom";
 
 /**
@@ -59,5 +60,3 @@ export interface Station {
      */
     postComponent?: React.FC<StationComponentProps>;
 }
-
-export const defaultStationAttributes: StationAttributes = { names: ["车站", "Stn"] };

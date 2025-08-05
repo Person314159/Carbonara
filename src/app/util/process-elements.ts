@@ -1,7 +1,7 @@
 import { MultiDirectedGraph } from "graphology";
 import { EdgeEntry } from "graphology-types";
 import { linePaths } from "../components/svgs/lines/lines";
-import { EdgeAttributes, GraphAttributes, Id, LineId, MiscNodeId, NodeAttributes, StnId } from "../constants/constants";
+import { EdgeAttributes, Id, LineId, MiscNodeId, NodeAttributes, StnId } from "../constants/constants";
 import { ExternalLinePathAttributes, LinePathType, Path } from "../constants/lines";
 import { checkSimplePathAvailability, reconcileSimplePathWithParallel } from "./auto-simple";
 import { classifyParallelLines, getBaseParallelLineID, makeParallelPaths } from "./parallel";
@@ -21,11 +21,15 @@ export interface Element {
     line?: LinePathElement;
 }
 
-export const getNodes = (graph: MultiDirectedGraph<NodeAttributes, EdgeAttributes, GraphAttributes>): Element[] =>
+export const getNodes = (graph: MultiDirectedGraph<NodeAttributes, EdgeAttributes>): Element[] =>
     [...graph.nodeEntries()].map(_ =>
         _.node.startsWith("stn")
             ? { id: _.node as StnId, type: "station", station: _.attributes }
-            : { id: _.node as MiscNodeId, type: "misc-node", miscNode: _.attributes }
+            : {
+                  id: _.node as MiscNodeId,
+                  type: "misc-node",
+                  miscNode: _.attributes
+              }
     );
 
 interface LinePathElement {
@@ -35,12 +39,15 @@ interface LinePathElement {
 
 type NonNullableExternalLinePathAttribute = NonNullable<ExternalLinePathAttributes[keyof ExternalLinePathAttributes]>;
 
-export const getLines = (graph: MultiDirectedGraph<NodeAttributes, EdgeAttributes, GraphAttributes>): Element[] => {
+export const getLines = (graph: MultiDirectedGraph<NodeAttributes, EdgeAttributes>): Element[] => {
     const resolvedLines: { [k in LineId]: LinePathElement } = {};
-
-    const cachedSimplePathAvailability: { [k in LineId]: ReturnType<typeof checkSimplePathAvailability> } = {};
+    const cachedSimplePathAvailability: {
+        [k in LineId]: ReturnType<typeof checkSimplePathAvailability>;
+    } = {};
     const parallelLines: EdgeEntry<NodeAttributes, EdgeAttributes>[] = [];
-    const lineGroupsToReconcile: { [reconcileId: string]: EdgeEntry<NodeAttributes, EdgeAttributes>[] } = {};
+    const lineGroupsToReconcile: {
+        [reconcileId: string]: EdgeEntry<NodeAttributes, EdgeAttributes>[];
+    } = {};
     const normalLines: EdgeEntry<NodeAttributes, EdgeAttributes>[] = [];
 
     // Check and cache all the lines if they can be a simple path.
@@ -51,20 +58,28 @@ export const getLines = (graph: MultiDirectedGraph<NodeAttributes, EdgeAttribute
             lineEntry.targetAttributes.x,
             lineEntry.targetAttributes.y
         ];
-        // @ts-expect-error simple
         const attr = lineEntry.attributes[lineEntry.attributes.type] as NonNullableExternalLinePathAttribute;
-        cachedSimplePathAvailability[lineEntry.edge as LineId] = checkSimplePathAvailability(lineEntry.attributes.type, x1, y1, x2, y2, attr);
+
+        cachedSimplePathAvailability[lineEntry.edge as LineId] = checkSimplePathAvailability(
+            lineEntry.attributes.type,
+            x1,
+            y1,
+            x2,
+            y2,
+            attr
+        );
     }
 
     // Generalize all the lines into parallel, reconcile, simple, and normal lines.
     for (const lineEntry of graph.edgeEntries()) {
         let simplePathAvailability = cachedSimplePathAvailability[lineEntry.edge as LineId];
-
         const { parallelIndex } = lineEntry.attributes;
+
         if (parallelIndex >= 0) {
             // only find the base parallel line and see if it is a simple path
             const baseLineId = getBaseParallelLineID(graph, lineEntry.attributes.type, lineEntry.edge as LineId);
             const baseSimplePathAvailability = cachedSimplePathAvailability[baseLineId];
+
             if (!baseSimplePathAvailability) {
                 parallelLines.push(lineEntry);
                 continue;
@@ -74,11 +89,13 @@ export const getLines = (graph: MultiDirectedGraph<NodeAttributes, EdgeAttribute
             // based on the parallelIndex and make it looks like parallel
             if (parallelIndex > 0) {
                 const { x1, y1, x2, y2, offset } = baseSimplePathAvailability;
+
                 simplePathAvailability = reconcileSimplePathWithParallel(x1, y1, x2, y2, offset, parallelIndex);
             }
         }
         if (lineEntry.attributes.reconcileId !== "") {
             const reconcileId = lineEntry.attributes.reconcileId;
+
             if (reconcileId in lineGroupsToReconcile) lineGroupsToReconcile[reconcileId].push(lineEntry);
             else lineGroupsToReconcile[reconcileId] = [lineEntry];
             continue;
@@ -88,6 +105,7 @@ export const getLines = (graph: MultiDirectedGraph<NodeAttributes, EdgeAttribute
             const lineID = lineEntry.edge as LineId;
             const attr = lineEntry.attributes;
             const { x1, y1, x2, y2, offset } = simplePathAvailability;
+
             resolvedLines[lineID] = {
                 attr,
                 path: linePaths[LinePathType.Simple].generatePath(x1, x2, y1, y2, { offset })
@@ -99,19 +117,24 @@ export const getLines = (graph: MultiDirectedGraph<NodeAttributes, EdgeAttribute
 
     // Handle parallel lines.
     const resolvedParallelLinesID: Set<LineId> = new Set();
+
     while (parallelLines.length) {
         const lineEntry = parallelLines.pop()!;
+
         if (resolvedParallelLinesID.has(lineEntry.edge as LineId)) continue;
 
         // find all the parallel lines between source and target from lineEntry
         // `normal` are dropped as they are already handled in normalLines
         const { parallel: parallels } = classifyParallelLines(graph, lineEntry);
+
         if (!parallels.length) continue;
         parallels.forEach(_ => resolvedParallelLinesID.add(_.edge as LineId));
 
         const parallelPaths = makeParallelPaths(parallels);
+
         for (const parallel of parallels) {
             const lineID = parallel.edge as LineId;
+
             resolvedLines[lineID] = {
                 attr: parallel.attributes,
                 path: parallelPaths[lineID]
@@ -121,10 +144,13 @@ export const getLines = (graph: MultiDirectedGraph<NodeAttributes, EdgeAttribute
 
     // Handle reconcile lines.
     const { allReconciledLines, danglingLines } = reconcileLines(graph, lineGroupsToReconcile);
+
     for (const reconciledLine of allReconciledLines) {
         const path = makeReconciledPath(graph, reconciledLine);
+
         if (!path) continue;
         const lineID = reconciledLine[0];
+
         resolvedLines[lineID] = { attr: graph.getEdgeAttributes(lineID), path };
     }
     for (const danglingLine of danglingLines) {
@@ -132,6 +158,7 @@ export const getLines = (graph: MultiDirectedGraph<NodeAttributes, EdgeAttribute
         const [source, target] = graph.extremities(danglingLine);
         const sourceAttr = graph.getNodeAttributes(source);
         const targetAttr = graph.getNodeAttributes(target);
+
         resolvedLines[danglingLine] = {
             attr,
             path: linePaths[LinePathType.Simple].generatePath(
@@ -155,16 +182,26 @@ export const getLines = (graph: MultiDirectedGraph<NodeAttributes, EdgeAttribute
             lineEntry.targetAttributes.x,
             lineEntry.targetAttributes.y
         ];
+
         if (!(type in linePaths)) {
             // unknown line path type
-            resolvedLines[lineID] = { attr, path: `M ${x1} ${y1} L ${x2} ${y2}` };
+            resolvedLines[lineID] = {
+                attr,
+                path: `M ${x1} ${y1} L ${x2} ${y2}`
+            };
             continue;
         }
 
         // regular line path type, call the corresponding generatePath function
-        // @ts-expect-error simple
-        resolvedLines[lineID] = { attr, path: linePaths[type].generatePath(x1, x2, y1, y2, attr[type] as never) };
+        resolvedLines[lineID] = {
+            attr,
+            path: linePaths[type].generatePath(x1, x2, y1, y2, attr[type] as never)
+        };
     }
 
-    return Object.entries(resolvedLines).map(([id, line]) => ({ id: id as LineId, type: "line", line }));
+    return Object.entries(resolvedLines).map(([id, line]) => ({
+        id: id as LineId,
+        type: "line",
+        line
+    }));
 };

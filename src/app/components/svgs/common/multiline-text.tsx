@@ -23,7 +23,6 @@ export const MultilineText = React.forwardRef((props: MultilineTextProps, ref: R
         funcDX = (_: number) => 0, // default dx will always be 0
         ...otherSvgTextProps
     } = props;
-
     // additional offset for bidirectional, shift a global upward for half the whole height
     const offset = grow === "bidirectional" ? -((text.length - 1) * lineHeight) / 2 : 0;
 

@@ -1,18 +1,20 @@
 import React from "react";
 import { LineId } from "./constants";
+import { SimplePathAttributes } from "../components/svgs/lines/paths/simple";
 import { DiagonalPathAttributes } from "../components/svgs/lines/paths/diagonal";
 import { PerpendicularPathAttributes } from "../components/svgs/lines/paths/perpendicular";
 import { SingleColorAttributes } from "../components/svgs/lines/styles/single-color";
 import { BjsubwayDottedAttributes } from "../components/svgs/lines/styles/bjsubway-dotted";
-import { BjsubwayTramAttributes } from "../components/svgs/lines/styles/bjsubway-tram";
+import { BjsubwayTramAttributes } from "@/app/components/svgs/lines/styles/bjsubway-tram";
 
 export enum LinePathType {
     Diagonal = "diagonal",
     Perpendicular = "perpendicular",
-    Simple = "simple",
+    Simple = "simple"
 }
 
 export interface ExternalLinePathAttributes {
+    [LinePathType.Simple]?: SimplePathAttributes;
     [LinePathType.Diagonal]?: DiagonalPathAttributes;
     [LinePathType.Perpendicular]?: PerpendicularPathAttributes;
 }
@@ -20,7 +22,7 @@ export interface ExternalLinePathAttributes {
 export enum LineStyleType {
     SingleColor = "single-color",
     BjsubwayDotted = "bjsubway-dotted",
-    BjsubwayTram = "bjsubway-tram",
+    BjsubwayTram = "bjsubway-tram"
 }
 
 export interface ExternalLineStyleAttributes {
@@ -34,7 +36,7 @@ export interface ExternalLineStyleAttributes {
 export type Path = `M${string}`;
 
 export interface LineStyleComponentProps<
-    T extends NonNullable<ExternalLineStyleAttributes[keyof ExternalLineStyleAttributes]>,
+    T extends NonNullable<ExternalLineStyleAttributes[keyof ExternalLineStyleAttributes]>
 > {
     id: LineId;
     /**
@@ -63,7 +65,7 @@ interface LineBase<T extends LinePathAttributes> {
     defaultAttrs: T;
 }
 
-export type LinePathAttributes = object
+export type LinePathAttributes = object;
 
 /**
  * The type a line path should export.
@@ -78,7 +80,8 @@ export interface LinePath<T extends LinePathAttributes> extends LineBase<T> {
 /**
  * The type a line style should export.
  */
-export interface LineStyle<T extends NonNullable<ExternalLineStyleAttributes[keyof ExternalLineStyleAttributes]>> extends LineBase<T> {
+export interface LineStyle<T extends NonNullable<ExternalLineStyleAttributes[keyof ExternalLineStyleAttributes]>>
+    extends LineBase<T> {
     /**
      * The line style component.
      */

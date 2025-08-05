@@ -20,7 +20,6 @@ export const MultilineTextVertical = React.forwardRef(
             baseDY = 0, // default dy
             ...otherSvgTextProps
         } = props;
-
         // additional offset for bidirectional, shift a global upward for half the whole height
         const offset = grow === "bidirectional" ? -((text.length - 1) * lineWidth) / 2 : 0;
 

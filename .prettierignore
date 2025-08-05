@@ -1,0 +1,7 @@
+out
+node_modules
+.next
+.prettierignore
+.github
+.idea
+src/lib/RMP.json

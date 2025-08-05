@@ -3,7 +3,7 @@ import { VirtualAttributes } from "../components/svgs/nodes/virtual";
 import React from "react";
 
 export enum MiscNodeType {
-    Virtual = "virtual",
+    Virtual = "virtual"
 }
 
 export interface MiscNodeAttributes {
@@ -40,4 +40,8 @@ export interface Node<T> {
      * Note it will be under other elements that have a bigger zIndex.
      */
     postComponent?: React.FC<NodeComponentProps<T>>;
+    /**
+     * Default attributes for this component.
+     */
+    defaultAttrs: T;
 }

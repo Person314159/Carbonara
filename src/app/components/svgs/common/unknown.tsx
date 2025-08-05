@@ -10,11 +10,7 @@ export const UnknownNode = (props: StationComponentProps | NodeComponentProps<ob
     const { id, x, y } = props;
 
     return (
-        <g
-            id={id}
-            transform={`translate(${x - 6.4} ${y - 6.4})scale(0.025)`}
-            style={{ cursor: "move" }}
-        >
+        <g id={id} transform={`translate(${x - 6.4} ${y - 6.4})scale(0.025)`} style={{ cursor: "move" }}>
             <path
                 id={`stn_core_${id}`}
                 fillRule="evenodd"
@@ -25,18 +21,12 @@ export const UnknownNode = (props: StationComponentProps | NodeComponentProps<ob
     );
 };
 
-export const UnknownLineStyle = (props: LineStyleComponentProps<NonNullable<SingleColorAttributes | BjsubwayTramAttributes | BjsubwayDottedAttributes | undefined>>) => {
+export const UnknownLineStyle = (
+    props: LineStyleComponentProps<
+        NonNullable<SingleColorAttributes | BjsubwayTramAttributes | BjsubwayDottedAttributes | undefined>
+    >
+) => {
     const { id, path } = props;
 
-    return (
-        <path
-            id={id}
-            d={path}
-            fill="none"
-            stroke="grey"
-            strokeWidth="5"
-            strokeLinecap="round"
-            cursor="pointer"
-        />
-    );
+    return <path id={id} d={path} fill="none" stroke="grey" strokeWidth="5" strokeLinecap="round" cursor="pointer" />;
 };

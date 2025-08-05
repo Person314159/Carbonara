@@ -41,7 +41,6 @@ function _roundPathCorners(pathString, radius, useFractionalRadius) {
     function moveTowardsLength(movingPoint, targetPoint, amount) {
         const width = targetPoint.x - movingPoint.x;
         const height = targetPoint.y - movingPoint.y;
-
         const distance = Math.sqrt(width * width + height * height);
 
         return moveTowardsFractional(movingPoint, targetPoint, Math.min(1, amount / distance));
@@ -71,8 +70,9 @@ function _roundPathCorners(pathString, radius, useFractionalRadius) {
     }
 
     // Split apart the path, handing concatonated letters and numbers
-    const pathParts = pathString.split(/[,\s]/).reduce(function(parts, part) {
+    const pathParts = pathString.split(/[,\s]/).reduce(function (parts, part) {
         const match = part.match("([a-zA-Z])(.+)");
+
         if (match) {
             parts.push(match[1]);
             parts.push(match[2]);
@@ -82,9 +82,8 @@ function _roundPathCorners(pathString, radius, useFractionalRadius) {
 
         return parts;
     }, []);
-
     // Group the commands with their arguments for easier handling
-    const commands = pathParts.reduce(function(commands, part) {
+    const commands = pathParts.reduce(function (commands, part) {
         if (parseFloat(part) == part && commands.length) {
             commands[commands.length - 1].push(part);
         } else {
@@ -93,15 +92,14 @@ function _roundPathCorners(pathString, radius, useFractionalRadius) {
 
         return commands;
     }, []);
-
     // The resulting commands, also grouped
     let resultCommands = [];
 
     if (commands.length > 1) {
         const startPoint = pointForCommand(commands[0]);
-
         // Handle the close path case with a "virtual" closing line
         let virtualCloseLine = null;
+
         if (commands[commands.length - 1][0] == "Z" && commands[0].length > 2) {
             virtualCloseLine = ["L", startPoint.x, startPoint.y];
             commands[commands.length - 1] = virtualCloseLine;
@@ -112,9 +110,7 @@ function _roundPathCorners(pathString, radius, useFractionalRadius) {
 
         for (let cmdIndex = 1; cmdIndex < commands.length; cmdIndex++) {
             const prevCmd = resultCommands[resultCommands.length - 1];
-
             const curCmd = commands[cmdIndex];
-
             // Handle closing case
             const nextCmd = curCmd == virtualCloseLine ? commands[1] : commands[cmdIndex + 1];
 
@@ -131,7 +127,6 @@ function _roundPathCorners(pathString, radius, useFractionalRadius) {
                 const prevPoint = pointForCommand(prevCmd);
                 const curPoint = pointForCommand(curCmd);
                 const nextPoint = pointForCommand(nextCmd);
-
                 // The start and end of the cuve are just our point moved towards the previous and next points, respectivly
                 let curveStart, curveEnd;
 
@@ -152,7 +147,6 @@ function _roundPathCorners(pathString, radius, useFractionalRadius) {
                 // the original point
                 const startControl = moveTowardsFractional(curveStart, curPoint, 0.5);
                 const endControl = moveTowardsFractional(curPoint, curveEnd, 0.5);
-
                 // Create the curve
                 const curveCmd = [
                     "C",
@@ -163,6 +157,7 @@ function _roundPathCorners(pathString, radius, useFractionalRadius) {
                     curveEnd.x,
                     curveEnd.y
                 ];
+
                 // Save the original point for fractional calculations
                 curveCmd.origPoint = curPoint;
                 resultCommands.push(curveCmd);
@@ -175,6 +170,7 @@ function _roundPathCorners(pathString, radius, useFractionalRadius) {
         // Fix up the starting point and restore the close path if the path was orignally closed
         if (virtualCloseLine) {
             const newStartPoint = pointForCommand(resultCommands[resultCommands.length - 1]);
+
             resultCommands.push(["Z"]);
             adjustCommand(resultCommands[0], newStartPoint);
         }
@@ -182,7 +178,7 @@ function _roundPathCorners(pathString, radius, useFractionalRadius) {
         resultCommands = commands;
     }
 
-    return resultCommands.reduce(function(str, c) {
+    return resultCommands.reduce(function (str, c) {
         return str + c.join(" ") + " ";
     }, "");
 }

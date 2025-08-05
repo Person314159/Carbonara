@@ -47,10 +47,12 @@ export default function Home() {
 
     if (!isClient) {
         return (
-            <main className="w-full max-w-7xl mx-auto mt-0 mb-0 px-4 rounded-lg shadow-lg fade-in" role="main">
-                <div className="grid gap-4 grid-cols-2">
+            <main className="fade-in mx-auto mt-0 mb-0 w-full max-w-7xl rounded-lg px-4 shadow-lg" role="main">
+                <div className="grid grid-cols-2 gap-4">
                     <div className="col-span-full">
-                        <h2 className="text-center mb-5" style={{ color: "var(--color-primary-light)" }}>Loading...</h2>
+                        <h2 className="mb-5 text-center" style={{ color: "var(--color-primary-light)" }}>
+                            Loading...
+                        </h2>
                     </div>
                 </div>
             </main>
@@ -59,26 +61,38 @@ export default function Home() {
 
     return (
         <>
-            <main className="w-full max-w-7xl mx-auto mt-0 mb-0 px-4 rounded-lg shadow-lg fade-in" role="main">
-                <div className="grid gap-4 grid-cols-2">
+            <main className="fade-in mx-auto mt-0 mb-0 w-full max-w-7xl rounded-lg px-4 shadow-lg" role="main">
+                <div className="grid grid-cols-2 gap-4">
                     <div className="col-span-full">
-                        <h1 className="text-center text-[2rem]/(--line-height-tight) font-bold font-(family-name:--font-primary) tracking-wider" style={{ color: "var(--color-primary)" }}>CARBONARA</h1>
-                        <h2 className="text-center text-[1.5rem]/(--line-height-tight) font-bold font-(family-name:--font-primary) tracking-wide mb-5" style={{ color: "var(--color-primary-light)" }}>A P.E.S.T.O. Train Router</h2>
-                        <p className="text-center text-base/(--line-height-relaxed) mb-5">Comprehensive And Rapid Browser for Organized Navigation And Route Assistance</p>
+                        <h1
+                            className="text-center font-(family-name:--font-primary) text-[2rem]/(--line-height-tight) font-bold tracking-wider"
+                            style={{ color: "var(--color-primary)" }}
+                        >
+                            CARBONARA
+                        </h1>
+                        <h2
+                            className="mb-5 text-center font-(family-name:--font-primary) text-[1.5rem]/(--line-height-tight) font-bold tracking-wide"
+                            style={{ color: "var(--color-primary-light)" }}
+                        >
+                            A P.E.S.T.O. Train Router
+                        </h2>
+                        <p className="mb-5 text-center text-base/(--line-height-relaxed)">
+                            Comprehensive And Rapid Browser for Organized Navigation And Route Assistance
+                        </p>
 
                         <div className="line-border" role="separator" />
 
                         <div className="text-center text-base/(--line-height-relaxed) transition-all">
                             <p>Select your starting point and destination to find the best route.</p>
-                            <p className="text-(length:--font-size-sm)/(--line-height-normal) mt-2">
-                                <b>Note: Total journey time does not take into account transfer times, and assumes the optimal tick rate of 20 TPS.</b>
+                            <p className="mt-2 text-(length:--font-size-sm)/(--line-height-normal)">
+                                <b>
+                                    Note: Total journey time does not take into account transfer times, and assumes the
+                                    optimal tick rate of 20 TPS.
+                                </b>
                             </p>
                         </div>
 
-                        <div
-                            role="region"
-                            aria-label="Route Planning Section"
-                        >
+                        <div role="region" aria-label="Route Planning Section">
                             <StationSelect
                                 selectStart={(val: string) => setStartStation(val)}
                                 selectEnd={(val: string) => setEndStation(val)}
@@ -90,11 +104,7 @@ export default function Home() {
                                 error={error}
                             />
 
-                            <div
-                                role="region"
-                                aria-label="Route Results"
-                                aria-live="polite"
-                            >
+                            <div role="region" aria-label="Route Results" aria-live="polite">
                                 {RoutingResult({ route })}
                             </div>
                         </div>
@@ -104,7 +114,13 @@ export default function Home() {
 
                     <div className="col-span-full transition-all">
                         <div role="region" aria-label="Network Map">
-                            <ParentSize debounceTime={0} initialSize={{ width: 1280 - 2 * 16, height: 800 }}>
+                            <ParentSize
+                                debounceTime={0}
+                                initialSize={{
+                                    width: 1280 - 2 * 16,
+                                    height: 800
+                                }}
+                            >
                                 {({ width, height }) => <NetworkMap width={width} height={height} />}
                             </ParentSize>
                         </div>

@@ -12,6 +12,7 @@ interface BaseAttributes {
 }
 
 export type NodeType = StationType | MiscNodeType;
+
 export type NodeAttributes = BaseAttributes & {
     x: number;
     y: number;
@@ -20,6 +21,7 @@ export type NodeAttributes = BaseAttributes & {
     Partial<MiscNodeAttributes>;
 
 export type EdgeType = LinePathType;
+
 export type EdgeAttributes = BaseAttributes & {
     type: EdgeType;
     style: LineStyleType;
@@ -48,14 +50,15 @@ export type GraphAttributes = {
 export type Theme = [CityCode, string, ColourHex, MonoColour];
 
 export type StnId = `stn_${string}`;
+
 export type LineId = `line_${string}`;
+
 export type MiscNodeId = `misc_node_${string}`;
 
 export type Id = StnId | MiscNodeId | LineId;
 
-
 export enum CityCode {
     Beijing = "beijing",
     Shanghai = "shanghai",
-    Tokyo = "tokyo",
+    Tokyo = "tokyo"
 }

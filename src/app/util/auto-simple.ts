@@ -38,6 +38,7 @@ export const checkSimplePathAvailability = (
     //      target combination for simple path such as dot1'(10,0) dot2(10,10) or dot1'(0,10) dot2(10,10).
     // This should be considered a feature instead of a bug and suggest user to slightly move the dot.
     const [offset1, offset2] = [attrs["offsetFrom"], attrs["offsetTo"]];
+
     for (let rad1 = 0; rad1 < Math.PI; rad1 += Math.PI / 8) {
         // here is some optimization that only make the target dot in the same or the opposite direction of the origin dot
         for (let rad2 = rad1, i = 0; i < 2; i++, rad2 += Math.PI) {
@@ -47,9 +48,16 @@ export const checkSimplePathAvailability = (
                 Math.sin(rad2) * offset2,
                 Math.cos(rad2) * offset2
             ];
+
             if (checkKAndType(type, x1 + dx1, y1 + dy1, x2 + dx2, y2 + dy2)) {
                 // console.log(id, (rad1 * 180) / Math.PI, (rad2 * 180) / Math.PI, x1 + dx1, y1 + dy1, x2 + dx2, y2 + dy2);
-                return { x1: x1 + dx1, y1: y1 + dy1, x2: x2 + dx2, y2: y2 + dy2, offset: 0 };
+                return {
+                    x1: x1 + dx1,
+                    y1: y1 + dy1,
+                    x2: x2 + dx2,
+                    y2: y2 + dy2,
+                    offset: 0
+                };
             }
         }
     }
@@ -67,10 +75,22 @@ export const reconcileSimplePathWithParallel = (
     parallelIndex: number
 ) => {
     if (x1 === x2) {
-        return { x1: x1 + 5 * parallelIndex, y1, x2: x2 + 5 * parallelIndex, y2, offset };
+        return {
+            x1: x1 + 5 * parallelIndex,
+            y1,
+            x2: x2 + 5 * parallelIndex,
+            y2,
+            offset
+        };
     }
     if (y1 === y2) {
-        return { x1, y1: y1 + 5 * parallelIndex, x2, y2: y2 + 5 * parallelIndex, offset };
+        return {
+            x1,
+            y1: y1 + 5 * parallelIndex,
+            x2,
+            y2: y2 + 5 * parallelIndex,
+            offset
+        };
     }
     return {
         x1: x1 + 5 * Math.SQRT1_2 * parallelIndex,
@@ -94,6 +114,5 @@ export const reconcileSimplePathWithParallel = (
  */
 const checkKAndType = (type: LinePathType, x1: number, y1: number, x2: number, y2: number) => {
     if ((x1 === x2 || y1 === y2) && [LinePathType.Diagonal, LinePathType.Perpendicular].includes(type)) return true;
-    return Math.abs((y2 - y1) / (x2 - x1)) === 1 &&
-        [LinePathType.Diagonal].includes(type);
+    return Math.abs((y2 - y1) / (x2 - x1)) === 1 && [LinePathType.Diagonal].includes(type);
 };

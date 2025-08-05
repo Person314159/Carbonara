@@ -1,4 +1,4 @@
-import React from "react";
+import React, { type JSX } from "react";
 import { LineId, StnId } from "../constants/constants";
 import { ExternalLineStyleAttributes, LineStyleComponentProps } from "../constants/lines";
 import { StationType } from "../constants/stations";
@@ -19,13 +19,17 @@ type StyleComponent = React.FC<
 const SvgLayer = React.memo(
     (props: SvgLayerProps) => {
         const { elements } = props;
-
         const layers = Object.fromEntries(
             Array.from({ length: 21 }, (_, i) => [
                 i - 10,
-                { pre: [] as JSX.Element[], main: [] as JSX.Element[], post: [] as JSX.Element[] }
+                {
+                    pre: [] as JSX.Element[],
+                    main: [] as JSX.Element[],
+                    post: [] as JSX.Element[]
+                }
             ])
         );
+
         for (const element of elements) {
             if (element.type === "line") {
                 const type = element.line!.attr.type;
@@ -33,8 +37,8 @@ const SvgLayer = React.memo(
                 const styleAttrs = element.line!.attr[style] as NonNullable<
                     ExternalLineStyleAttributes[keyof ExternalLineStyleAttributes]
                 >;
-
                 const PreStyleComponent = lineStyles[style]?.preComponent as StyleComponent | undefined;
+
                 if (PreStyleComponent) {
                     layers[element.line!.attr.zIndex].pre.push(
                         <PreStyleComponent
@@ -49,6 +53,7 @@ const SvgLayer = React.memo(
                 }
 
                 const StyleComponent = (lineStyles[style]?.component ?? UnknownLineStyle) as StyleComponent;
+
                 layers[element.line!.attr.zIndex].main.push(
                     <StyleComponent
                         key={element.id}
@@ -61,6 +66,7 @@ const SvgLayer = React.memo(
                 );
 
                 const PostStyleComponent = lineStyles[style]?.postComponent as StyleComponent | undefined;
+
                 if (PostStyleComponent) {
                     layers[element.line!.attr.zIndex].post.push(
                         <PostStyleComponent
@@ -76,8 +82,8 @@ const SvgLayer = React.memo(
             } else if (element.type === "station") {
                 const attr = element.station!;
                 const type = attr.type as StationType;
-
                 const PreStationComponent = allStations[type]?.preComponent;
+
                 if (PreStationComponent) {
                     layers[element.station!.zIndex].pre.push(
                         <PreStationComponent
@@ -91,17 +97,13 @@ const SvgLayer = React.memo(
                 }
 
                 const StationComponent = allStations[type]?.component ?? UnknownNode;
+
                 layers[element.station!.zIndex].main.push(
-                    <StationComponent
-                        key={element.id}
-                        id={element.id as StnId}
-                        x={attr.x}
-                        y={attr.y}
-                        attrs={attr}
-                    />
+                    <StationComponent key={element.id} id={element.id as StnId} x={attr.x} y={attr.y} attrs={attr} />
                 );
 
                 const PostStationComponent = allStations[type]?.postComponent;
+
                 if (PostStationComponent) {
                     layers[element.station!.zIndex].post.push(
                         <PostStationComponent
