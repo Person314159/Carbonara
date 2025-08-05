@@ -16,6 +16,7 @@ const Virtual = (props: NodeComponentProps<VirtualAttributes>) => {
 /**
  * Virtual has no specific props.
  */
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface VirtualAttributes {}
 
 const defaultVirtualAttributes: VirtualAttributes = {};
