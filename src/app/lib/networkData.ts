@@ -2881,7 +2881,7 @@ const networkData = {
             from: "Jacksonville",
             to: "Tallahassee",
             lineID: "N29",
-            time: null
+            time: 35
         },
         {
             from: "Tallahassee",
@@ -3727,7 +3727,7 @@ const networkData = {
             from: "Denmark (ME)",
             to: "Denmark (NY)",
             lineID: "T11",
-            time: null
+            time: 70
         },
         {
             from: "Denmark (NY)",
