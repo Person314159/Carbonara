@@ -2539,7 +2539,7 @@ const networkData = {
             from: "Merlischachen",
             to: "Vaduz",
             lineID: "E44",
-            time: null
+            time: 25
         },
         {
             from: "Central Mediterranean",
