@@ -2887,7 +2887,7 @@ const networkData = {
             from: "Tallahassee",
             to: "Atlanta",
             lineID: "N29",
-            time: null
+            time: 50
         },
         {
             from: "Melbourne",
@@ -3841,7 +3841,7 @@ const networkData = {
             from: "Apennines",
             to: "Charleville-Mézières",
             lineID: "HCY",
-            time: null
+            time: 145
         },
         {
             from: "Apennines",
@@ -3913,7 +3913,7 @@ const networkData = {
             from: "Charleville-Mézières",
             to: "Corsica",
             lineID: "HCY",
-            time: null
+            time: 85
         },
         {
             from: "Charleville-Mézières",
@@ -3931,7 +3931,7 @@ const networkData = {
             from: "Charleville-Mézières",
             to: "Milan",
             lineID: "HCY",
-            time: null
+            time: 50
         },
         {
             from: "Charleville-Mézières",
@@ -3943,7 +3943,7 @@ const networkData = {
             from: "Charleville-Mézières",
             to: "Sardinia",
             lineID: "HCY",
-            time: null
+            time: 95
         },
         {
             from: "Charleville-Mézières",
