@@ -435,6 +435,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "N31",
+            name: "Mid-Atlantic Beltway",
+            colour: "#ffb270",
+            type: "LSR"
+        },
+        {
             id: "O02",
             name: "Victorian Line",
             colour: "#b80b4b",
@@ -951,6 +957,9 @@ const networkData = {
         },
         {
             name: "Hamilton"
+        },
+        {
+            name: "Harrisburg"
         },
         {
             name: "Helsinki"
@@ -2914,6 +2923,24 @@ const networkData = {
             time: 50
         },
         {
+            from: "Montclair",
+            to: "Scranton",
+            lineID: "N31",
+            time: 30
+        },
+        {
+            from: "Scranton",
+            to: "Harrisburg",
+            lineID: "N31",
+            time: null
+        },
+        {
+            from: "Harrisburg",
+            to: "Washington D.C.",
+            lineID: "N31",
+            time: null
+        },
+        {
             from: "Melbourne",
             to: "Sydney",
             lineID: "O02",
@@ -3757,7 +3784,7 @@ const networkData = {
             from: "Denmark (NY)",
             to: "Denmark (MI)",
             lineID: "T11",
-            time: null
+            time: 120
         },
         {
             from: "Denmark (MI)",
