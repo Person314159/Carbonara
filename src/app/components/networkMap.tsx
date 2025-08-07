@@ -1,6 +1,5 @@
 import React, { Suspense } from "react";
 import { Zoom } from "@visx/zoom";
-import { localPoint } from "@visx/event";
 import { RectClipPath } from "@visx/clip-path";
 
 const SvgWrapper = React.lazy(() => import("./svg-wrapper"));
@@ -80,14 +79,6 @@ const NetworkMap = React.memo(function ({ width, height }: ZoomIProps) {
                             onMouseUp={zoom.dragEnd}
                             onMouseLeave={() => {
                                 if (zoom.isDragging) zoom.dragEnd();
-                            }}
-                            onDoubleClick={event => {
-                                const point = localPoint(event) || {
-                                    x: 0,
-                                    y: 0
-                                };
-
-                                zoom.scale({ scaleX: 1.1, scaleY: 1.1, point });
                             }}
                         />
                     </svg>
