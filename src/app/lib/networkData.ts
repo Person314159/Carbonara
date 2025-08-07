@@ -196,7 +196,7 @@ const networkData = {
         },
         {
             id: "E27",
-            name: "E27",
+            name: "Rhine Line",
             colour: "#800000",
             type: "LSR"
         },
@@ -222,6 +222,12 @@ const networkData = {
             id: "E33",
             name: "Fjord Connection",
             colour: "#b9e8ea",
+            type: "LSR"
+        },
+        {
+            id: "E34",
+            name: "Lapland Line ",
+            colour: "#e99d06",
             type: "LSR"
         },
         {
@@ -797,6 +803,9 @@ const networkData = {
             name: "Dalian"
         },
         {
+            name: "Danube Delta"
+        },
+        {
             name: "Daugavpils"
         },
         {
@@ -1166,6 +1175,9 @@ const networkData = {
             name: "Ottawa"
         },
         {
+            name: "Oulu"
+        },
+        {
             name: "Paderborn"
         },
         {
@@ -1283,7 +1295,7 @@ const networkData = {
             name: "Rio Verde"
         },
         {
-            name: "Danube Delta"
+            name: "Rovaniemi"
         },
         {
             name: "Ruhnu Island"
@@ -2354,6 +2366,18 @@ const networkData = {
             to: "Bergen",
             lineID: "E33",
             time: 25
+        },
+        {
+            from: "Helsinki",
+            to: "Oulu",
+            lineID: "E34",
+            time: 65
+        },
+        {
+            from: "Oulu",
+            to: "Rovaniemi",
+            lineID: "E34",
+            time: 10
         },
         {
             from: "Thessaloniki",
@@ -3837,12 +3861,7 @@ const networkData = {
             lineID: "HBL",
             time: 60
         },
-        {
-            from: "Apennines",
-            to: "Charleville-Mézières",
-            lineID: "HCY",
-            time: 145
-        },
+
         {
             from: "Apennines",
             to: "Central Mediterranean",
@@ -3851,9 +3870,21 @@ const networkData = {
         },
         {
             from: "Apennines",
+            to: "Charleville-Mézières",
+            lineID: "HCY",
+            time: 145
+        },
+        {
+            from: "Apennines",
             to: "Corsica",
             lineID: "HCY",
             time: 65
+        },
+        {
+            from: "Apennines",
+            to: "Lausanne",
+            lineID: "HCY",
+            time: 120
         },
         {
             from: "Apennines",
@@ -3904,8 +3935,68 @@ const networkData = {
             time: null
         },
         {
-            from: "Charleville-Mézières",
-            to: "Central Mediterranean",
+            from: "Central Mediterranean",
+            to: "Charleville-Mézières",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Central Mediterranean",
+            to: "Corsica",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Central Mediterranean",
+            to: "Lausanne",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Central Mediterranean",
+            to: "Mallorca",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Central Mediterranean",
+            to: "Mequinenza",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Central Mediterranean",
+            to: "Milan",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Central Mediterranean",
+            to: "Rennes",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Central Mediterranean",
+            to: "Sardinia",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Central Mediterranean",
+            to: "Sparta",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Central Mediterranean",
+            to: "Thessaloniki",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Central Mediterranean",
+            to: "Tirana",
             lineID: "HCY",
             time: null
         },
@@ -3914,6 +4005,12 @@ const networkData = {
             to: "Corsica",
             lineID: "HCY",
             time: 85
+        },
+        {
+            from: "Charleville-Mézières",
+            to: "Lausanne",
+            lineID: "HCY",
+            time: 35
         },
         {
             from: "Charleville-Mézières",
@@ -3964,58 +4061,10 @@ const networkData = {
             time: null
         },
         {
-            from: "Central Mediterranean",
-            to: "Corsica",
+            from: "Corsica",
+            to: "Lausanne",
             lineID: "HCY",
-            time: null
-        },
-        {
-            from: "Central Mediterranean",
-            to: "Mallorca",
-            lineID: "HCY",
-            time: null
-        },
-        {
-            from: "Central Mediterranean",
-            to: "Mequinenza",
-            lineID: "HCY",
-            time: null
-        },
-        {
-            from: "Central Mediterranean",
-            to: "Milan",
-            lineID: "HCY",
-            time: null
-        },
-        {
-            from: "Central Mediterranean",
-            to: "Rennes",
-            lineID: "HCY",
-            time: null
-        },
-        {
-            from: "Central Mediterranean",
-            to: "Sardinia",
-            lineID: "HCY",
-            time: null
-        },
-        {
-            from: "Central Mediterranean",
-            to: "Sparta",
-            lineID: "HCY",
-            time: null
-        },
-        {
-            from: "Central Mediterranean",
-            to: "Thessaloniki",
-            lineID: "HCY",
-            time: null
-        },
-        {
-            from: "Central Mediterranean",
-            to: "Tirana",
-            lineID: "HCY",
-            time: null
+            time: 60
         },
         {
             from: "Corsica",
@@ -4061,6 +4110,54 @@ const networkData = {
         },
         {
             from: "Corsica",
+            to: "Tirana",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Lausanne",
+            to: "Mallorca",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Lausanne",
+            to: "Mequinenza",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Lausanne",
+            to: "Milan",
+            lineID: "HCY",
+            time: 25
+        },
+        {
+            from: "Lausanne",
+            to: "Rennes",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Lausanne",
+            to: "Sardinia",
+            lineID: "HCY",
+            time: 70
+        },
+        {
+            from: "Lausanne",
+            to: "Sparta",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Lausanne",
+            to: "Thessaloniki",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Lausanne",
             to: "Tirana",
             lineID: "HCY",
             time: null
