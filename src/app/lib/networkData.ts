@@ -2932,7 +2932,7 @@ const networkData = {
             from: "Scranton",
             to: "Harrisburg",
             lineID: "N31",
-            time: null
+            time: 30
         },
         {
             from: "Harrisburg",
@@ -3524,12 +3524,12 @@ const networkData = {
         },
         {
             from: "Nuuk",
-            to: "Ittoqoorttomit",
+            to: "Ittoqqortoormiit",
             lineID: "T08",
             time: null
         },
         {
-            from: "Ittoqoorttomit",
+            from: "Ittoqqortoormiit",
             to: "Reykjavík",
             lineID: "T08",
             time: null
@@ -3853,19 +3853,13 @@ const networkData = {
             time: null
         },
         {
-            from: "Charleville-Mézières",
-            to: "Amsterdam Central",
+            from: "Amsterdam Central",
+            to: "Charleville-Mézières",
             lineID: "HBL",
             time: 40
         },
         {
-            from: "Charleville-Mézières",
-            to: "Rennes",
-            lineID: "HBL",
-            time: 85
-        },
-        {
-            from: "Charleville-Mézières",
+            from: "Amsterdam Central",
             to: "Queen's Cross",
             lineID: "HBL",
             time: 65
@@ -3877,14 +3871,20 @@ const networkData = {
             time: 85
         },
         {
-            from: "Amsterdam Central",
+            from: "Charleville-Mézières",
             to: "Queen's Cross",
             lineID: "HBL",
             time: 65
         },
         {
-            from: "Rennes",
-            to: "Queen's Cross",
+            from: "Charleville-Mézières",
+            to: "Rennes",
+            lineID: "HBL",
+            time: 85
+        },
+        {
+            from: "Queen's Cross",
+            to: "Rennes",
             lineID: "HBL",
             time: 60
         },
