@@ -57,7 +57,7 @@ const NetworkMap = React.memo(function ({ width, height }: ZoomIProps) {
                 React.useEffect(() => {
                     const m = zoom.transformMatrix;
 
-                    api.start({ transformMatrix: [m.scaleX, m.scaleY, m.translateX, m.translateY, m.skewX, m.skewY] });
+                    api.start({ transformMatrix: [m.scaleX, m.skewX, m.skewY, m.scaleY, m.translateX, m.translateY] });
                 }, [zoom.transformMatrix]);
 
                 useGesture(
@@ -84,11 +84,11 @@ const NetworkMap = React.memo(function ({ width, height }: ZoomIProps) {
                             api.start({
                                 transformMatrix: [
                                     scaleX * scaleFactor,
+                                    zoom.transformMatrix.skewX,
+                                    zoom.transformMatrix.skewY,
                                     scaleY * scaleFactor,
                                     ox - (ox - translateX) * scaleFactor,
-                                    oy - (oy - translateY) * scaleFactor,
-                                    zoom.transformMatrix.skewX,
-                                    zoom.transformMatrix.skewY
+                                    oy - (oy - translateY) * scaleFactor
                                 ]
                             });
                             return memo;
