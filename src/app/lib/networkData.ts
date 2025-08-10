@@ -52,14 +52,8 @@ const networkData = {
         },
         {
             id: "A10",
-            name: "Dalian Line",
+            name: "Bohai-Jeju Line",
             colour: "#662c91",
-            type: "LSR"
-        },
-        {
-            id: "A09",
-            name: "Jeju Line",
-            colour: "#52ffc5",
             type: "LSR"
         },
         {
@@ -674,6 +668,9 @@ const networkData = {
             name: "Basra"
         },
         {
+            name: "Beijing"
+        },
+        {
             name: "Belgrade"
         },
         {
@@ -771,6 +768,9 @@ const networkData = {
         },
         {
             name: "Charleville-Mézières"
+        },
+        {
+            name: "Cheonan"
         },
         {
             name: "Chetwynd"
@@ -1142,6 +1142,9 @@ const networkData = {
             name: "National Park"
         },
         {
+            name: "New Haven"
+        },
+        {
             name: "Newcastle"
         },
         {
@@ -1458,6 +1461,9 @@ const networkData = {
         },
         {
             name: "Thun"
+        },
+        {
+            name: "Tianjin"
         },
         {
             name: "Tijuana"
@@ -1807,27 +1813,51 @@ const networkData = {
             time: 55
         },
         {
-            from: "Pyongyang",
+            from: "Beijing",
+            to: "Tianjin",
+            lineID: "A10",
+            time: null
+        },
+        {
+            from: "Tianjin",
             to: "Dalian",
+            lineID: "A10",
+            time: null
+        },
+        {
+            from: "Dalian",
+            to: "Pyongyang",
             lineID: "A10",
             time: 55
         },
         {
             from: "Pyongyang",
             to: "Seoul-Incheon",
-            lineID: "A11",
+            lineID: "A10",
             time: null
         },
         {
             from: "Seoul-Incheon",
+            to: "Cheonan",
+            lineID: "A10",
+            time: 15
+        },
+        {
+            from: "Cheonan",
+            to: "Iksan",
+            lineID: "A10",
+            time: 20
+        },
+        {
+            from: "Iksan",
             to: "Gwangju",
-            lineID: "A11",
+            lineID: "A10",
             time: null
         },
         {
             from: "Gwangju",
             to: "Jeju",
-            lineID: "A11",
+            lineID: "A10",
             time: null
         },
         {
@@ -2395,6 +2425,12 @@ const networkData = {
             time: 75
         },
         {
+            from: "Çorlu",
+            to: "Danube Delta",
+            lineID: "E35",
+            time: 70
+        },
+        {
             from: "Udine",
             to: "Venice",
             lineID: "E36",
@@ -2549,12 +2585,6 @@ const networkData = {
             to: "Aabenraa",
             lineID: "E40",
             time: 85
-        },
-        {
-            from: "Danube Delta",
-            to: "Çorlu",
-            lineID: "E43",
-            time: 70
         },
         {
             from: "Çorlu",
@@ -2738,9 +2768,15 @@ const networkData = {
         },
         {
             from: "Boston",
+            to: "New Haven",
+            lineID: "N14",
+            time: 40
+        },
+        {
+            from: "New Haven",
             to: "Montclair",
             lineID: "N14",
-            time: null
+            time: 20
         },
         {
             from: "Montréal",
@@ -2938,7 +2974,7 @@ const networkData = {
             from: "Harrisburg",
             to: "Washington D.C.",
             lineID: "N31",
-            time: null
+            time: 25
         },
         {
             from: "Melbourne",
@@ -3850,7 +3886,7 @@ const networkData = {
             from: "Ponta Delgada",
             to: "Wallops Island",
             lineID: "T12",
-            time: null
+            time: 650
         },
         {
             from: "Amsterdam Central",

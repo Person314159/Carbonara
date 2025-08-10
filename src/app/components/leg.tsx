@@ -25,8 +25,8 @@ const Leg = React.memo(function ({ from, to, line, stops, segments, time }: LegP
             )}
             {!isHSR && (
                 <div className="station-count">
-                    {segments.map(seg => (
-                        <div key={seg.from}>
+                    {segments.map((seg, i) => (
+                        <div key={`${seg.from}-${i}`}>
                             {seg.from} to {seg.to}: {formatTime(seg.time)}
                         </div>
                     ))}

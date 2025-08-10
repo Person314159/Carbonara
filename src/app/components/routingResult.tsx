@@ -19,8 +19,8 @@ export default function RoutingResult({ route }: RoutingResultProps) {
             <div id="result">
                 {route.length > 0 ? (
                     <>
-                        {route.map(l => (
-                            <Leg key={`${l.line}-${l.from}-${l.to}`} {...l} />
+                        {route.map((l, i) => (
+                            <Leg key={`${l.line.name}-${l.from}-${l.to}-${i}`} {...l} />
                         ))}
                         <div className="total-time">
                             Total journey time: {formatTime(route.map(l => l.time).reduce((a, b) => a + b, 0))}
