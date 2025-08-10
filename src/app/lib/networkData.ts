@@ -1379,9 +1379,6 @@ const networkData = {
             name: "Singapore"
         },
         {
-            name: "Skopje"
-        },
-        {
             name: "Skrunda"
         },
         {
@@ -2495,12 +2492,6 @@ const networkData = {
             to: "Tetovo",
             lineID: "E38",
             time: 35
-        },
-        {
-            from: "Tetovo",
-            to: "Skopje",
-            lineID: "E38",
-            time: null
         },
         {
             from: "Riga",
