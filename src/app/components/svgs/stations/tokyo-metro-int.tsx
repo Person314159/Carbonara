@@ -15,7 +15,7 @@ import { MultilineTextVertical } from "../common/multiline-text-vertical";
 import { TokyoMetroBasicSvg, TokyoMetroBasicSvgAttributes } from "./tokyo-metro-basic";
 
 const TokyoMetroIntStation = (props: StationComponentProps) => {
-    const { id, x, y, attrs, zoomScale } = props;
+    const { id, x, y, attrs } = props;
     const {
         names = ["日本橋"],
         nameOffsetX = defaultTokyoMetroIntStationAttributes.nameOffsetX,
@@ -173,7 +173,7 @@ const TokyoMetroIntStation = (props: StationComponentProps) => {
               : "middle";
 
     return (
-        <g id={id} transform={`translate(${x}, ${y}) scale(${Math.max(1, Math.min(1 / 0.5, 1 / zoomScale))})`}>
+        <g id={id} transform={`translate(${x}, ${y})`}>
             {align === "horizontal" ? (
                 <>
                     <rect

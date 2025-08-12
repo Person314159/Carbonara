@@ -6,7 +6,7 @@ import { MultiDirectedGraph } from "graphology";
 import SvgLayer from "../components/svg-layer";
 import { getLines, getNodes } from "../util/process-elements";
 
-const SvgWrapper = React.memo(({ zoomScale }: { zoomScale: number }) => {
+const SvgWrapper = React.memo(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { version, ...save } = MapData as RMPSave;
     const graph: MultiDirectedGraph<NodeAttributes, EdgeAttributes> = new MultiDirectedGraph();
@@ -18,7 +18,7 @@ const SvgWrapper = React.memo(({ zoomScale }: { zoomScale: number }) => {
     // They are updated by the refresh triggers in the runtime state.
     const elements = [...getLines(graph), ...getNodes(graph)];
 
-    return <SvgLayer elements={elements} zoomScale={zoomScale} />;
+    return <SvgLayer elements={elements} />;
 });
 
 SvgWrapper.displayName = "SvgWrapper";

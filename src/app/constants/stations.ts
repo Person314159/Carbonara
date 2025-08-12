@@ -20,7 +20,6 @@ export interface StationComponentProps {
     attrs: ExternalStationAttributes;
     x: number;
     y: number;
-    zoomScale: number;
 }
 
 export interface StationAttributes {

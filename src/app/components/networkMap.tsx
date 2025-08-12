@@ -133,7 +133,7 @@ const NetworkMap = React.memo(function ({ width, height }: ZoomIProps) {
                                         </text>
                                     }
                                 >
-                                    <SvgWrapper zoomScale={zoom.transformMatrix.scaleX} />
+                                    <SvgWrapper />
                                 </Suspense>
                             </animated.g>
                             <rect width={width} height={h} rx={14} fill="transparent" />

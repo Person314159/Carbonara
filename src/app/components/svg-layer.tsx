@@ -9,7 +9,6 @@ import { default as allStations } from "./svgs/stations/stations";
 
 interface SvgLayerProps {
     elements: Element[];
-    zoomScale: number;
 }
 
 // HELP NEEDED: Why component is not this type?
@@ -19,7 +18,7 @@ type StyleComponent = React.FC<
 
 const SvgLayer = React.memo(
     (props: SvgLayerProps) => {
-        const { elements, zoomScale } = props;
+        const { elements } = props;
         const layers = Object.fromEntries(
             Array.from({ length: 21 }, (_, i) => [
                 i - 10,
@@ -93,7 +92,6 @@ const SvgLayer = React.memo(
                             x={attr.x}
                             y={attr.y}
                             attrs={attr}
-                            zoomScale={zoomScale}
                         />
                     );
                 }
@@ -101,14 +99,7 @@ const SvgLayer = React.memo(
                 const StationComponent = allStations[type]?.component ?? UnknownNode;
 
                 layers[element.station!.zIndex].main.push(
-                    <StationComponent
-                        key={element.id}
-                        id={element.id as StnId}
-                        x={attr.x}
-                        y={attr.y}
-                        attrs={attr}
-                        zoomScale={zoomScale}
-                    />
+                    <StationComponent key={element.id} id={element.id as StnId} x={attr.x} y={attr.y} attrs={attr} />
                 );
 
                 const PostStationComponent = allStations[type]?.postComponent;
@@ -121,7 +112,6 @@ const SvgLayer = React.memo(
                             x={attr.x}
                             y={attr.y}
                             attrs={attr}
-                            zoomScale={zoomScale}
                         />
                     );
                 }
