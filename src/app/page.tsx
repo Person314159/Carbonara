@@ -13,6 +13,11 @@ export default function Home() {
     const [startStation, setStartStation] = useState("");
     const [endStation, setEndStation] = useState("");
     const [metric, setMetric] = useState("time");
+    const [timeRange, setTimeRange] = useState<[number, number]>([0, 3600]);
+    const [maxLinesUsed, setMaxLinesUsed] = useState(10);
+    const [transferProbability, setTransferProbability] = useState(0.2);
+    const [maxSteps, setMaxSteps] = useState(20);
+    const [allowRepeatStations, setAllowRepeatStations] = useState(false);
     const [route, setRoute] = useState<LegProp[] | null | undefined>(undefined);
     const [error, setError] = useState<string | undefined>();
     const [isClient, setIsClient] = useState(false);
@@ -24,19 +29,21 @@ export default function Home() {
         setIsClient(true);
     }, []);
 
-    const handleRouteFind = async () => {
+    const handleRouteFind = async (kind: string) => {
         setError(undefined);
 
         try {
-            if (startStation === endStation) {
-                throw new Error("Start and end stations must be different");
-            }
+            if (startStation === endStation) throw new Error("Start and end stations must be different");
 
-            const result = findRoute(startStation, endStation, metric);
+            const result = findRoute(startStation, endStation, kind, metric, {
+                timeRange,
+                maxLinesUsed,
+                transferProbability,
+                maxSteps,
+                allowRepeatStations
+            });
 
-            if (result !== null && result !== undefined && result.length === 0) {
-                throw new Error("No route found between selected stations");
-            }
+            if (result.length === 0) throw new Error("No route found between selected stations");
 
             setRoute(result);
         } catch (err) {
@@ -94,12 +101,22 @@ export default function Home() {
 
                         <div role="region" aria-label="Route Planning Section">
                             <StationSelect
-                                selectStart={(val: string) => setStartStation(val)}
-                                selectEnd={(val: string) => setEndStation(val)}
                                 startStation={startStation}
+                                selectStart={(val: string) => setStartStation(val)}
                                 endStation={endStation}
+                                selectEnd={(val: string) => setEndStation(val)}
                                 metric={metric}
                                 setMetric={(val: string) => setMetric(val)}
+                                timeRange={timeRange}
+                                setTimeRange={(val: [number, number]) => setTimeRange(val)}
+                                maxLinesUsed={maxLinesUsed}
+                                setMaxLinesUsed={(val: number) => setMaxLinesUsed(val)}
+                                transferProbability={transferProbability}
+                                setTransferProbability={(val: number) => setTransferProbability(val)}
+                                maxSteps={maxSteps}
+                                setMaxSteps={(val: number) => setMaxSteps(val)}
+                                allowRepeatStations={allowRepeatStations}
+                                setAllowRepeatStations={(val: boolean) => setAllowRepeatStations(val)}
                                 onRouteFind={handleRouteFind}
                                 error={error}
                             />

@@ -39,7 +39,6 @@
     --focus-ring-offset: #ffffff;
 
     /* Typography System */
-    --font-primary: "M PLUS 2", system-ui, -apple-system, sans-serif;
     --font-map: MontaguSlab, Arial, sans-serif;
     --font-size-xs: 0.75rem;
     --font-size-sm: 0.875rem;
@@ -87,19 +86,19 @@
     @apply hover:bg-(--color-background-dark) hover:text-(--color-text-dark);
 }
 
-.rmp-name__tokyo_en {
-    font-family: var(--font-map);
+.sliders-details .sliders-content {
+    max-height: 0;
 }
 
-.rmp-name__jreast_ja {
-    font-family: "M PLUS 2", sans-serif;
+.sliders-details[open] .sliders-content {
+    max-height: 500px;
 }
 
-.rmp-name-outline {
+.rmp-name-outline text {
     paint-order: stroke;
-    stroke: white;
     /* Do not forget to define stroke-width when using this class! */
     stroke-linejoin: round;
+    fill: var(--color-text);
 }
 
 .btn {
@@ -152,7 +151,37 @@
 
 /* Find Route Button */
 .find-route-btn {
-    @apply h-[36px] w-full cursor-pointer rounded-lg border-none bg-(--color-primary) px-4 font-bold text-white transition-all duration-(--transition-fast) ease-out hover:transform-[translateY(-1px)] hover:bg-(--color-primary-dark) hover:shadow-md active:transform-[translateY(0px)] active:shadow-none sm:w-auto;
+    @apply h-[36px] w-full cursor-pointer rounded-lg border-none bg-(--color-primary) px-2 font-bold text-white transition-all duration-(--transition-fast) ease-out hover:transform-[translateY(-1px)] hover:bg-(--color-primary-dark) hover:shadow-md active:transform-[translateY(0px)] active:shadow-none sm:w-auto;
+}
+
+/* I'm Feeling Lucky Button */
+.feeling-lucky-btn {
+    --d: 100px;
+    --angle: 120deg;
+
+    @apply h-[36px] w-full cursor-pointer rounded-lg border-none px-1 font-bold text-white transition-all duration-(--transition-fast) ease-out hover:transform-[translateY(-1px)] hover:bg-(--color-primary-dark) hover:shadow-md active:transform-[translateY(0px)] active:shadow-none sm:w-auto;
+    background: repeating-linear-gradient(
+        var(--angle),
+        rgba(255, 0, 0, 1),
+        rgba(255, 154, 0, 1),
+        rgba(208, 222, 33, 1),
+        rgba(79, 220, 74, 1),
+        rgba(63, 218, 216, 1),
+        rgba(47, 201, 226, 1),
+        rgba(28, 127, 238, 1),
+        rgba(95, 21, 242, 1),
+        rgba(186, 12, 248, 1),
+        rgba(251, 7, 217, 1),
+        rgba(255, 0, 0, 1) var(--d)
+    );
+    background-size: calc(var(--d) / sin(var(--angle))) 100%;
+    animation: rainbowGradient 2s linear infinite reverse;
+}
+
+@keyframes rainbowGradient {
+    0% {
+        background-position: calc(var(--d) / sin(var(--angle))) 0;
+    }
 }
 
 /* Status Messages */
@@ -179,6 +208,10 @@
 
     .mantine-Combobox-option {
         @apply hover:bg-(--color-background) hover:text-(--color-text);
+    }
+
+    .rmp-name-outline text {
+        fill: var(--color-text-dark);
     }
 
     .route-step {

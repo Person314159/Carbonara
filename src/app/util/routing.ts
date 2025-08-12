@@ -1,7 +1,8 @@
 import networkData from "@/app/lib/networkData";
 import MapData from "../lib/RMP.json";
-import { LegProp, Neighbour } from "@/app/lib/interfaces";
+import { Connection, LegProp, Neighbour, RandomPathOptions } from "@/app/lib/interfaces";
 import { PriorityQueue } from "@datastructures-js/priority-queue";
+import { shuffle, tupleCmp } from "@/app/lib/util";
 
 interface Node {
     destination: string;
@@ -22,7 +23,7 @@ MapData.graph.nodes.forEach(node => {
     }
 });
 
-export const graph = new Map<string, Neighbour[]>();
+const graph = new Map<string, Neighbour[]>();
 
 networkData.stations.forEach(station => {
     const neighbours: Neighbour[] = [];
@@ -37,11 +38,6 @@ networkData.stations.forEach(station => {
 
 export const options = networkData.stations.map(station => station.name);
 
-function tupleCmp([a1, a2]: [number, number], [b1, b2]: [number, number]) {
-    return a1 != b1 ? a1 - b1 : a2 - b2;
-}
-
-// Dijkstra's algorithm implementation
 function dijkstra(start: string, metric: string) {
     const distances = new Map<string, [number, number]>();
     const previous = new Map<string, Neighbour | null>();
@@ -50,7 +46,6 @@ function dijkstra(start: string, metric: string) {
     );
     const visited = new Set<string>();
 
-    // Initialize distances and add all nodes to the unvisited set
     graph.forEach(neighbours => {
         neighbours.forEach(({ lineID, destination }) => {
             const node: Node = { destination, lineID };
@@ -66,15 +61,12 @@ function dijkstra(start: string, metric: string) {
     });
 
     while (!pq.isEmpty()) {
-        // Find the node with the minimum distance
         const { destination: minStation, lineID: minLine } = pq.pop()!;
 
-        // If the minimum distance is infinity, there are no more reachable nodes
         if (distances.get(`${minStation}-${minLine}`)![0] === Infinity) break;
 
         visited.add(`${minStation}-${minLine}`);
 
-        // Update distances to adjacent nodes
         graph.get(minStation)!.forEach(({ lineID, destination, time }) => {
             if (time !== null && !visited.has(`${destination}-${lineID}`)) {
                 const [curr_a, curr_b] = distances.get(`${minStation}-${minLine}`)!;
@@ -99,96 +91,211 @@ function dijkstra(start: string, metric: string) {
     return { distances, previous };
 }
 
+interface State {
+    station: string;
+    timeSoFar: number;
+    path: Connection[];
+    linesUsed: Set<string>;
+    steps: number;
+    segmentsVisited: Set<string>;
+    stationsVisited: Set<string>;
+}
+
+function random_dfs(start: string, end: string, options: RandomPathOptions): LegProp[] {
+    const {
+        timeRange: [minTotalTime, maxTotalTime],
+        maxLinesUsed,
+        transferProbability,
+        maxSteps,
+        allowRepeatStations
+    } = options;
+
+    // Precompute minimum time from each station to end using Dijkstra
+    const { distances } = dijkstra(end, "time");
+
+    function minTimeToEnd(station: string): number {
+        let min = Infinity;
+
+        for (const n of graph.get(station) ?? [])
+            min = Math.min(min, distances.get(`${station}-${n.lineID}`)?.[0] ?? Infinity);
+
+        return min;
+    }
+
+    const stack: State[] = [
+        {
+            station: start,
+            timeSoFar: 0,
+            path: [],
+            linesUsed: new Set(),
+            steps: 0,
+            segmentsVisited: new Set(),
+            stationsVisited: new Set()
+        }
+    ];
+
+    while (stack.length) {
+        const { station, timeSoFar, path, linesUsed, steps, segmentsVisited, stationsVisited } = stack.pop()!;
+
+        if (!allowRepeatStations && stationsVisited.has(station)) continue;
+
+        const newStations = new Set(stationsVisited);
+        newStations.add(station);
+
+        if (station === end && timeSoFar >= minTotalTime) return convertPathToRoute(path);
+
+        if (steps >= maxSteps || timeSoFar + minTimeToEnd(station) > maxTotalTime) continue;
+
+        const valid = (graph.get(station) ?? []).filter(({ destination, lineID, time }) => {
+            if (time === null) return false;
+
+            const [a, b] = [station, destination].sort();
+            const segKey = `${a}|${b}|${lineID}`;
+
+            if (segmentsVisited.has(segKey)) return false;
+
+            const newTime = timeSoFar + time;
+
+            if (newTime > maxTotalTime) return false;
+
+            const newLines = new Set(linesUsed);
+
+            newLines.add(lineID);
+
+            return newLines.size <= maxLinesUsed;
+        });
+
+        if (valid.length === 0) continue;
+
+        const prevLineID = path.length > 0 ? path[path.length - 1].lineID : null;
+        const transfers = valid.filter(e => e.lineID !== prevLineID);
+        const sames = valid.filter(e => e.lineID === prevLineID);
+        let chosenGroup: Neighbour[];
+
+        if (transfers.length > 0 && sames.length > 0)
+            chosenGroup = Math.random() < transferProbability ? transfers : sames;
+        else if (transfers.length > 0) chosenGroup = transfers;
+        else chosenGroup = sames;
+
+        for (const { destination, lineID, time } of shuffle(chosenGroup)) {
+            const [a, b] = [station, destination].sort();
+            const segKey = `${a}|${b}|${lineID}`;
+            const newTime = timeSoFar + time!;
+            const newLines = new Set(linesUsed);
+
+            newLines.add(lineID);
+
+            const newPath = path.concat([{ from: station, to: destination, lineID, time: time! }]);
+            const newSegments = new Set(segmentsVisited);
+
+            newSegments.add(segKey);
+
+            stack.push({
+                station: destination,
+                timeSoFar: newTime,
+                path: newPath,
+                linesUsed: newLines,
+                steps: steps + 1,
+                segmentsVisited: newSegments,
+                stationsVisited: newStations
+            });
+        }
+    }
+
+    return [];
+}
+
 // Convert a path of stations to a route with train lines
-function convertPathToRoute(path: Neighbour[]) {
+function convertPathToRoute(path: Connection[]) {
     const r: LegProp[] = [];
 
-    for (let i = 0; i < path.length - 1; ++i) {
-        const { destination: from, time } = path[i];
-        const { lineID, destination: to } = path[i + 1];
+    for (const { from, to, lineID, time } of path) {
         const line = networkData.lines.find(l => l.id === lineID)!;
 
-        if (r.length > 0 && r[r.length - 1].line.name === line.name) {
+        if (line.type === "LSR" && r.length > 0 && r[r.length - 1].line.name === line.name) {
             const lastSegment = r[r.length - 1];
 
             lastSegment.to = to;
             lastSegment.stops.push(to);
-
-            if (line.type === "LSR") {
-                lastSegment.time += time;
-                lastSegment.segments.push({ from, to, lineID: lineID, time });
-            }
+            lastSegment.time += time;
+            lastSegment.segments.push({ from, to, lineID: lineID, time });
+        } else if (line.type === "LSR") {
+            r.push({
+                from,
+                to,
+                line,
+                stops: [from, to],
+                time,
+                segments: [{ from, to, lineID: lineID, time }]
+            });
         } else {
-            if (line.type === "LSR") {
-                r.push({
-                    from,
-                    to,
-                    line,
-                    stops: [from, to],
-                    time,
-                    segments: [{ from, to, lineID: lineID, time }]
-                });
-            } else {
-                // HSR
-                r.push({
-                    from,
-                    to,
-                    line,
-                    stops: [from, to],
-                    time,
-                    segments: []
-                });
-            }
+            r.push({
+                from,
+                to,
+                line,
+                stops: [from, to],
+                time,
+                segments: []
+            });
         }
     }
 
     return r;
 }
 
-export function findRoute(start: string, end: string, metric: string) {
-    if (start === end) return null;
+export function findRoute(
+    start: string,
+    end: string,
+    kind: string,
+    metric: string,
+    randomPathOptions: RandomPathOptions
+) {
+    if (kind === "f") {
+        const { distances, previous } = dijkstra(start, metric);
+        let minNode = null;
+        let minTime: [number, number] = [Infinity, Infinity];
 
-    const { distances, previous } = dijkstra(start, metric);
-    // If there's no path to the destination
-    let minNode = null;
-    let minTime: [number, number] = [Infinity, Infinity];
-
-    for (const neighbour of graph.get(end)!) {
-        if (tupleCmp(distances.get(`${end}-${neighbour.lineID}`)!, minTime) < 0) {
-            minTime = distances.get(`${end}-${neighbour.lineID}`)!;
-            minNode = { destination: end, lineID: neighbour.lineID };
+        for (const neighbour of graph.get(end)!) {
+            if (tupleCmp(distances.get(`${end}-${neighbour.lineID}`)!, minTime) < 0) {
+                minTime = distances.get(`${end}-${neighbour.lineID}`)!;
+                minNode = { destination: end, lineID: neighbour.lineID };
+            }
         }
-    }
 
-    if (minTime[0] === Infinity) return [];
+        if (minTime[0] === Infinity) return [];
 
-    // Reconstruct the path
-    const path: Neighbour[] = [
-        {
-            lineID: minNode!.lineID,
-            destination: minNode!.destination,
-            time: -1
+        const path: Connection[] = [
+            {
+                from: "",
+                to: minNode!.destination,
+                lineID: minNode!.lineID,
+                time: -1
+            }
+        ];
+        let currentNode = minNode!;
+
+        while (currentNode.destination !== start) {
+            const {
+                destination: prevStation,
+                lineID: prevLineID,
+                time: prevTime
+            } = previous.get(`${currentNode.destination}-${currentNode.lineID}`)!;
+
+            path[path.length - 1].from = prevStation;
+            path[path.length - 1].time = prevTime;
+
+            path.push({
+                from: "",
+                to: prevStation,
+                lineID: prevLineID,
+                time: -1
+            });
+            currentNode = { destination: prevStation, lineID: prevLineID };
         }
-    ];
-    let currentNode = minNode!;
 
-    while (currentNode.destination !== start) {
-        const {
-            destination: prevStation,
-            lineID: prevLineID,
-            time: prevTime
-        } = previous.get(`${currentNode.destination}-${currentNode.lineID}`)!;
+        path.pop();
+        path.reverse();
 
-        path.push({
-            lineID: prevLineID,
-            destination: prevStation,
-            time: prevTime
-        });
-        currentNode = { destination: prevStation, lineID: prevLineID };
-    }
-
-    path.reverse();
-
-    // Convert the path to a route with train lines
-    return convertPathToRoute(path);
+        return convertPathToRoute(path);
+    } else return random_dfs(start, end, randomPathOptions);
 }

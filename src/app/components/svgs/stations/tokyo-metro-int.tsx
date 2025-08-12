@@ -173,7 +173,7 @@ const TokyoMetroIntStation = (props: StationComponentProps) => {
               : "middle";
 
     return (
-        <g id={id} transform={`translate(${x}, ${y}) scale(${Math.max(1 / 1.5, Math.min(1, 1 / zoomScale))})`}>
+        <g id={id} transform={`translate(${x}, ${y}) scale(${Math.max(1, Math.min(1 / 0.5, 1 / zoomScale))})`}>
             {align === "horizontal" ? (
                 <>
                     <rect
@@ -199,17 +199,6 @@ const TokyoMetroIntStation = (props: StationComponentProps) => {
                             />
                         </g>
                     ))}
-
-                    <rect
-                        id={`stn_core_${id}`}
-                        x={-(width + 3) / 2}
-                        y={-10.5}
-                        width={width + 3}
-                        height={21}
-                        rx={3}
-                        opacity={0}
-                        style={{ cursor: "move" }}
-                    />
                 </>
             ) : (
                 <>
@@ -236,17 +225,6 @@ const TokyoMetroIntStation = (props: StationComponentProps) => {
                             />
                         </g>
                     ))}
-
-                    <rect
-                        id={`stn_core_${id}`}
-                        x={-8}
-                        y={-(height + 3) / 2}
-                        width={16}
-                        height={height + 3}
-                        rx={3}
-                        opacity={0}
-                        style={{ cursor: "move" }}
-                    />
                 </>
             )}
             <g textAnchor={textAnchor} className="rmp-name-outline" strokeWidth="1">

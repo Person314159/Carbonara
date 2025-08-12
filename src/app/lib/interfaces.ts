@@ -39,3 +39,11 @@ export interface LegProp {
     segments: Connection[];
     time: number;
 }
+
+export interface RandomPathOptions {
+    timeRange: [number, number];
+    maxLinesUsed: number;
+    transferProbability: number;
+    maxSteps: number;
+    allowRepeatStations: boolean;
+}

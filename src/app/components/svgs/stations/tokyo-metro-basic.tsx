@@ -104,18 +104,8 @@ const TokyoMetroBasicStation = (props: StationComponentProps) => {
     const textAnchor = nameOffsetX === "left" ? "end" : nameOffsetX === "right" ? "start" : "middle";
 
     return (
-        <g id={id} transform={`translate(${x}, ${y}) scale(${Math.max(1 / 1.5, Math.min(1, 1 / zoomScale))})`}>
+        <g id={id} transform={`translate(${x}, ${y}) scale(${Math.max(1, Math.min(1 / 0.5, 1 / zoomScale))})`}>
             <TokyoMetroBasicSvg lineCode={lineCode} stationCode={stationCode} color={color} />
-            <rect
-                id={`stn_core_${id}`}
-                x={-5.8}
-                y={-8.2}
-                width={11.6}
-                height={16.4}
-                rx={2.5}
-                opacity={0}
-                style={{ cursor: "move" }}
-            />
             <g textAnchor={textAnchor} className="rmp-name-outline" strokeWidth="1">
                 {!textVertical ? (
                     <g transform={`translate(${textX}, ${textY})`} textAnchor={textAnchor}>
@@ -125,7 +115,6 @@ const TokyoMetroBasicStation = (props: StationComponentProps) => {
                             lineHeight={10}
                             grow={nameOffsetY === "bottom" ? "down" : "up"}
                             {...getLangStyle(TextLanguage.jreast_ja)}
-                            fill={"black"}
                         />
                     </g>
                 ) : (
