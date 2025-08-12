@@ -1,28 +1,13 @@
 import { MonoColour } from "@railmapgen/rmg-palette-resources";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { CityCode } from "@/app/constants/constants";
 import { LinePathAttributes, LineStyle, LineStyleComponentProps } from "@/app/constants/lines";
 import { ColorAttribute } from "../../../panels/details/color-field";
 
-function useDarkMode(): boolean {
-    const [isDarkMode, setIsDarkMode] = useState(() => window.matchMedia("(prefers-color-scheme: dark)").matches);
-
-    useEffect(() => {
-        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-        const handleChange = (e: MediaQueryListEvent) => setIsDarkMode(e.matches);
-
-        mediaQuery.addEventListener("change", handleChange);
-
-        return () => mediaQuery.removeEventListener("change", handleChange);
-    }, []);
-
-    return isDarkMode;
-}
-
 const BjsubwayDotted = (props: LineStyleComponentProps<BjsubwayDottedAttributes>) => {
     const { id, path, styleAttrs } = props;
     const { color = defaultBjsubwayDottedAttributes.color } = styleAttrs ?? defaultBjsubwayDottedAttributes;
-    const bgColor = useDarkMode() ? "#333" : "#f0f0f0";
+    const bgColor = "#333";
 
     return (
         <g id={id} cursor="pointer">

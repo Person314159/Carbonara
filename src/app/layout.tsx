@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
         <html lang="en" {...mantineHtmlProps}>
-            <body className="m-0 flex-col bg-[#f0f0f0] p-5 font-sans text-[#333] dark:bg-[#333] dark:text-white">
+            <body className="m-0 flex-col bg-[#333] p-5 font-sans text-white">
                 <MantineProvider>{children}</MantineProvider>
             </body>
         </html>

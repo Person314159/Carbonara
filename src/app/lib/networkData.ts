@@ -279,6 +279,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "E47",
+            name: "Bavaria Line",
+            colour: "#f0fcff",
+            type: "LSR"
+        },
+        {
             id: "F01",
             name: "Lampedusa Line",
             colour: "#ffcd02",
@@ -438,6 +444,12 @@ const networkData = {
             id: "N31",
             name: "Mid-Atlantic Beltway",
             colour: "#ffb270",
+            type: "LSR"
+        },
+        {
+            id: "N33",
+            name: "Yellowhead Line",
+            colour: "#ffed8d",
             type: "LSR"
         },
         {
@@ -692,6 +704,9 @@ const networkData = {
             name: "Bergen"
         },
         {
+            name: "Berlin"
+        },
+        {
             name: "Birmingham"
         },
         {
@@ -729,6 +744,9 @@ const networkData = {
         },
         {
             name: "Burlington"
+        },
+        {
+            name: "Burns Lake"
         },
         {
             name: "Busan"
@@ -899,6 +917,9 @@ const networkData = {
             name: "Frankfurt"
         },
         {
+            name: "Fraser Lake"
+        },
+        {
             name: "Fuji"
         },
         {
@@ -962,6 +983,9 @@ const networkData = {
             name: "Hakodate"
         },
         {
+            name: "Haida Gwaii"
+        },
+        {
             name: "Halifax"
         },
         {
@@ -984,6 +1008,9 @@ const networkData = {
         },
         {
             name: "Hope"
+        },
+        {
+            name: "Houston"
         },
         {
             name: "Ibagué"
@@ -1169,6 +1196,9 @@ const networkData = {
             name: "North Mediterranean"
         },
         {
+            name: "Nuremberg"
+        },
+        {
             name: "Nuuk"
         },
         {
@@ -1238,6 +1268,9 @@ const networkData = {
             name: "Plymouth"
         },
         {
+            name: "Plzeň"
+        },
+        {
             name: "Podgorica"
         },
         {
@@ -1263,6 +1296,9 @@ const networkData = {
         },
         {
             name: "Prince George"
+        },
+        {
+            name: "Prince Rupert"
         },
         {
             name: "Pristina"
@@ -1397,6 +1433,9 @@ const networkData = {
             name: "Skrunda"
         },
         {
+            name: "Smithers"
+        },
+        {
             name: "Southampton"
         },
         {
@@ -1466,6 +1505,9 @@ const networkData = {
             name: "Tel Aviv"
         },
         {
+            name: "Terrace"
+        },
+        {
             name: "Tetovo"
         },
         {
@@ -1527,6 +1569,9 @@ const networkData = {
         },
         {
             name: "Vancouver"
+        },
+        {
+            name: "Vanderhoof"
         },
         {
             name: "Venice"
@@ -2623,10 +2668,46 @@ const networkData = {
             time: 20
         },
         {
+            from: "Nuremberg",
+            to: "Plzeň",
+            lineID: "E46",
+            time: null
+        },
+        {
+            from: "Plzeň",
+            to: "Prague",
+            lineID: "E46",
+            time: null
+        },
+        {
             from: "Prague",
             to: "Dresden",
             lineID: "E46",
             time: 35
+        },
+        {
+            from: "Dresden",
+            to: "Berlin",
+            lineID: "E46",
+            time: null
+        },
+        {
+            from: "Berlin",
+            to: "Kiel",
+            lineID: "E46",
+            time: null
+        },
+        {
+            from: "Frankfurt",
+            to: "Nuremberg",
+            lineID: "E47",
+            time: 40
+        },
+        {
+            from: "Nuremberg",
+            to: "Munich",
+            lineID: "E47",
+            time: 30
         },
         {
             from: "Central Mediterranean",
@@ -2999,6 +3080,54 @@ const networkData = {
             to: "Washington D.C.",
             lineID: "N31",
             time: 25
+        },
+        {
+            from: "Prince George",
+            to: "Vanderhoof",
+            lineID: "N33",
+            time: 25
+        },
+        {
+            from: "Vanderhoof",
+            to: "Fraser Lake",
+            lineID: "N33",
+            time: 15
+        },
+        {
+            from: "Fraser Lake",
+            to: "Burns Lake",
+            lineID: "N33",
+            time: 20
+        },
+        {
+            from: "Burns Lake",
+            to: "Houston",
+            lineID: "N33",
+            time: 30
+        },
+        {
+            from: "Houston",
+            to: "Smithers",
+            lineID: "N33",
+            time: 15
+        },
+        {
+            from: "Smithers",
+            to: "Terrace",
+            lineID: "N33",
+            time: 30
+        },
+        {
+            from: "Terrace",
+            to: "Prince Rupert",
+            lineID: "N33",
+            time: 25
+        },
+        {
+            from: "Prince Rupert",
+            to: "Haida Gwaii",
+            lineID: "N33",
+            time: null
         },
         {
             from: "Melbourne",

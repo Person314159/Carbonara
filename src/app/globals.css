@@ -12,41 +12,25 @@
     /* Neutral Colors */
     --color-background: #ffffff;
     --color-background-dark: #444444;
-    --color-background-alt: #f9f9f9;
     --color-background-alt-dark: #555555;
 
     /* Text Colors */
     --color-text: #2f2f2f;
     --color-text-dark: #ffffff;
-    --color-text-muted: #666666;
     --color-text-muted-dark: #eeeeee;
 
     /* UI Colors */
-    --color-border: #dddddd;
-    --color-border-dark: #666666;
-    --color-shadow: rgba(0, 0, 0, 0.1);
+    --color-border: #666666;
     --color-button: #2f2f2f;
     --color-button-text: #888888;
 
     /* Visual Feedback System */
-    --color-success: #4caf50;
     --color-error: #f44336;
-    --color-warning: #ff9800;
-    --color-info: #2196f3;
-
-    /* Focus outline colors */
-    --focus-ring: rgba(88, 129, 87, 0.5);
-    --focus-ring-offset: #ffffff;
 
     /* Typography System */
-    --font-map: MontaguSlab, Arial, sans-serif;
-    --font-size-xs: 0.75rem;
     --font-size-sm: 0.875rem;
     --font-size-base: 1rem;
     --font-size-lg: 1.125rem;
-    --font-size-xl: 1.25rem;
-    --font-size-2xl: 1.5rem;
-    --font-size-3xl: 1.875rem;
     --line-height-tight: 1.2;
     --line-height-normal: 1.5;
     --line-height-relaxed: 1.75;
@@ -55,7 +39,6 @@
     /* Transition Speeds */
     --transition-fast: 150ms;
     --transition-normal: 250ms;
-    --transition-slow: 350ms;
 
     /* Transition Curves */
     --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
@@ -75,15 +58,15 @@
 
 /* Select Input Styling */
 .mantine-InputBase-input {
-    @apply w-full appearance-none rounded-lg border-2 border-solid border-(--color-border) bg-(--color-background-alt) p-3 text-(length:--font-size-base)/(--line-height-normal) text-(--color-text) transition-all duration-(--transition-fast) ease-(--ease-out) hover:transform-[translateY(-1px)] hover:border-(--color-primary) hover:bg-(--color-background) focus:transform-[translateY(-1px)] focus:border-(--color-primary) focus:bg-(--color-background) focus:shadow-md focus:outline-none;
+    @apply w-full appearance-none rounded-lg border-2 border-solid border-(--color-border) bg-(--color-background-alt-dark) p-3 text-(length:--font-size-base)/(--line-height-normal) text-(--color-text-dark) transition-all duration-(--transition-fast) ease-(--ease-out) hover:transform-[translateY(-1px)] hover:border-(--color-primary) hover:bg-(--color-background-dark) hover:text-(--color-text-dark) focus:transform-[translateY(-1px)] focus:border-(--color-primary) focus:bg-(--color-background-dark) focus:shadow-md focus:outline-none;
 }
 
 .mantine-Combobox-dropdown {
-    @apply bg-(--color-background-alt);
+    @apply bg-(--color-background-dark);
 }
 
 .mantine-Combobox-option {
-    @apply hover:bg-(--color-background-dark) hover:text-(--color-text-dark);
+    @apply hover:bg-(--color-background) hover:text-(--color-text);
 }
 
 .sliders-details .sliders-content {
@@ -98,7 +81,7 @@
     paint-order: stroke;
     /* Do not forget to define stroke-width when using this class! */
     stroke-linejoin: round;
-    fill: var(--color-text);
+    fill: var(--color-text-dark);
 }
 
 .btn {
@@ -106,7 +89,7 @@
 }
 
 .route-step {
-    @apply mb-2.5 rounded-sm border-l-4 border-l-(--color-primary-light) bg-(--color-background-alt) p-2.5 transition-all duration-(--transition-normal) ease-out hover:transform-[translateX(4px)] hover:shadow-md;
+    @apply mb-2.5 rounded-sm border-l-4 border-l-(--color-primary-light) bg-(--color-background-alt-dark) p-2.5 transition-all duration-(--transition-normal) ease-out hover:transform-[translateX(4px)] hover:shadow-md;
 }
 
 .line-badge {
@@ -126,7 +109,7 @@
 }
 
 .station-count {
-    @apply mt-[5px] text-(length:--font-size-sm)/(--line-height-normal) text-(--color-text-muted);
+    @apply mt-[5px] text-(length:--font-size-sm)/(--line-height-normal) text-(--color-text-muted-dark);
 }
 
 .total-time {
@@ -194,45 +177,4 @@
     background-color: rgba(244, 67, 54, 0.1);
     color: var(--color-error);
     border-left: 4px solid var(--color-error);
-}
-
-/* Dark mode adjustments */
-@media (prefers-color-scheme: dark) {
-    .mantine-InputBase-input {
-        @apply border-(--color-border-dark) bg-(--color-background-alt-dark) text-(--color-text-dark) hover:bg-(--color-background-dark) hover:text-(--color-text-dark) focus:bg-(--color-background-dark) focus:shadow-md;
-    }
-
-    .mantine-Combobox-dropdown {
-        @apply bg-(--color-background-dark);
-    }
-
-    .mantine-Combobox-option {
-        @apply hover:bg-(--color-background) hover:text-(--color-text);
-    }
-
-    .rmp-name-outline text {
-        fill: var(--color-text-dark);
-    }
-
-    .route-step {
-        @apply bg-(--color-background-alt-dark);
-    }
-
-    .line-border {
-        @apply border-b-(--color-border-dark);
-    }
-
-    .station-count {
-        @apply text-(--color-text-muted-dark);
-    }
-}
-
-/* Reduced motion preferences */
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
 }

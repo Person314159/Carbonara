@@ -13,17 +13,17 @@ export default defineConfig([
             "@stylistic": stylistic
         }
     },
-    { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
+    { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx,css}"] },
     {
-        files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
+        files: ["**/*.{js,mjs,cjs,ts,jsx,tsx,css}"],
         settings: { react: { version: "detect" } },
         languageOptions: { globals: { ...globals.browser, ...globals.node } }
     },
-    { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"], plugins: { js }, extends: ["js/recommended"] },
+    { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx,css}"], plugins: { js }, extends: ["js/recommended"] },
     tseslint.configs.recommended,
     pluginReact.configs.flat.recommended,
     {
-        files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
+        files: ["**/*.{js,mjs,cjs,ts,jsx,tsx,css}"],
         rules: {
             "@stylistic/brace-style": ["error", "1tbs", { allowSingleLine: true }],
             "@stylistic/padding-line-between-statements": [
