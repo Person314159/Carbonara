@@ -2,7 +2,6 @@ import { defineConfig } from "eslint/config";
 import globals from "globals";
 import js from "@eslint/js";
 import tseslint from "typescript-eslint";
-import tailwindcss from "eslint-plugin-tailwindcss";
 import pluginReact from "eslint-plugin-react";
 import pluginNext from "@next/eslint-plugin-next";
 import stylistic from "@stylistic/eslint-plugin";
@@ -11,8 +10,7 @@ export default defineConfig([
     {
         plugins: {
             "@next/next": pluginNext,
-            "@stylistic": stylistic,
-            tailwindcss: tailwindcss
+            "@stylistic": stylistic
         }
     },
     { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
