@@ -109,7 +109,6 @@ function random_dfs(start: string, end: string, options: RandomPathOptions): Leg
         maxSteps,
         allowRepeatStations
     } = options;
-
     // Precompute minimum time from each station to end using Dijkstra
     const { distances } = dijkstra(end, "time");
 
@@ -140,6 +139,7 @@ function random_dfs(start: string, end: string, options: RandomPathOptions): Leg
         if (!allowRepeatStations && stationsVisited.has(station)) continue;
 
         const newStations = new Set(stationsVisited);
+
         newStations.add(station);
 
         if (station === end && timeSoFar >= minTotalTime) return convertPathToRoute(path);

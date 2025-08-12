@@ -273,6 +273,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "E46",
+            name: "Ore Mountains Line",
+            colour: "#ffff00",
+            type: "LSR"
+        },
+        {
             id: "F01",
             name: "Lampedusa Line",
             colour: "#ffcd02",
@@ -878,10 +884,13 @@ const networkData = {
             name: "Dominica"
         },
         {
-            name: "Dunedin"
+            name: "Doğanyurt"
         },
         {
-            name: "Doğanyurt"
+            name: "Dresden"
+        },
+        {
+            name: "Dunedin"
         },
         {
             name: "Ensenada"
@@ -984,6 +993,9 @@ const networkData = {
         },
         {
             name: "Iksan"
+        },
+        {
+            name: "Innsbruck"
         },
         {
             name: "Iqaluit"
@@ -2338,12 +2350,6 @@ const networkData = {
             time: null
         },
         {
-            from: "Thun",
-            to: "Merlischachen",
-            lineID: "E29",
-            time: 15
-        },
-        {
             from: "Merlischachen",
             to: "Milan",
             lineID: "E29",
@@ -2437,13 +2443,13 @@ const networkData = {
             from: "Venice",
             to: "Bologna",
             lineID: "E36",
-            time: null
+            time: 25
         },
         {
             from: "Bologna",
             to: "Apennines",
             lineID: "E36",
-            time: null
+            time: 95
         },
         {
             from: "Apennines",
@@ -2590,10 +2596,34 @@ const networkData = {
             time: 25
         },
         {
+            from: "Thun",
+            to: "Merlischachen",
+            lineID: "E44",
+            time: 15
+        },
+        {
             from: "Merlischachen",
             to: "Vaduz",
             lineID: "E44",
             time: 25
+        },
+        {
+            from: "Vaduz",
+            to: "Innsbruck",
+            lineID: "E44",
+            time: 25
+        },
+        {
+            from: "Innsbruck",
+            to: "Munich",
+            lineID: "E44",
+            time: 20
+        },
+        {
+            from: "Prague",
+            to: "Dresden",
+            lineID: "E46",
+            time: 35
         },
         {
             from: "Central Mediterranean",
