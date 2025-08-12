@@ -1148,6 +1148,9 @@ const networkData = {
             name: "Mt. Damavand"
         },
         {
+            name: "Munich"
+        },
+        {
             name: "Naha"
         },
         {
