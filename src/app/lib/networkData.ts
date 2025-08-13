@@ -52,7 +52,7 @@ const networkData = {
         },
         {
             id: "A10",
-            name: "Bohai-Jeju Line",
+            name: "Stella Loop",
             colour: "#662c91",
             type: "LSR"
         },
@@ -279,6 +279,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "E48",
+            name: "Monaco Line",
+            colour: "#e06666",
+            type: "LSR"
+        },
+        {
             id: "E47",
             name: "Bavaria Line",
             colour: "#f0fcff",
@@ -450,6 +456,18 @@ const networkData = {
             id: "N33",
             name: "Yellowhead Line",
             colour: "#ffed8d",
+            type: "LSR"
+        },
+        {
+            id: "N37",
+            name: "Fort St. James Extension",
+            colour: "#ffacee",
+            type: "LSR"
+        },
+        {
+            id: "N38",
+            name: "Kitimat Extension",
+            colour: "#c9c0c0",
             type: "LSR"
         },
         {
@@ -914,6 +932,9 @@ const networkData = {
             name: "Ensenada"
         },
         {
+            name: "Fort St. James"
+        },
+        {
             name: "Frankfurt"
         },
         {
@@ -1043,7 +1064,7 @@ const networkData = {
             name: "Jane Peak"
         },
         {
-            name: "Jeju"
+            name: "Jinan"
         },
         {
             name: "Kagoshima"
@@ -1062,6 +1083,9 @@ const networkData = {
         },
         {
             name: "Kiel"
+        },
+        {
+            name: "Kitimat"
         },
         {
             name: "Knoxville"
@@ -1161,6 +1185,9 @@ const networkData = {
         },
         {
             name: "Milan"
+        },
+        {
+            name: "Monaco"
         },
         {
             name: "Montclair"
@@ -1424,6 +1451,9 @@ const networkData = {
             name: "Sfax"
         },
         {
+            name: "Shanghai"
+        },
+        {
             name: "Shantou"
         },
         {
@@ -1545,6 +1575,9 @@ const networkData = {
         },
         {
             name: "Tunis"
+        },
+        {
+            name: "Turin"
         },
         {
             name: "Turku"
@@ -1891,7 +1924,7 @@ const networkData = {
             from: "Pyongyang",
             to: "Seoul-Incheon",
             lineID: "A10",
-            time: null
+            time: 35
         },
         {
             from: "Seoul-Incheon",
@@ -1913,7 +1946,19 @@ const networkData = {
         },
         {
             from: "Gwangju",
-            to: "Jeju",
+            to: "Shanghai",
+            lineID: "A10",
+            time: null
+        },
+        {
+            from: "Shanghai",
+            to: "Jinan",
+            lineID: "A10",
+            time: null
+        },
+        {
+            from: "Jinan",
+            to: "Tianjin",
             lineID: "A10",
             time: null
         },
@@ -2671,13 +2716,13 @@ const networkData = {
             from: "Nuremberg",
             to: "Plzeň",
             lineID: "E46",
-            time: null
+            time: 35
         },
         {
             from: "Plzeň",
             to: "Prague",
             lineID: "E46",
-            time: null
+            time: 35
         },
         {
             from: "Prague",
@@ -2707,6 +2752,18 @@ const networkData = {
             from: "Nuremberg",
             to: "Munich",
             lineID: "E47",
+            time: 30
+        },
+        {
+            from: "Milan",
+            to: "Turin",
+            lineID: "E48",
+            time: 20
+        },
+        {
+            from: "Turin",
+            to: "Monaco",
+            lineID: "E48",
             time: 30
         },
         {
@@ -3128,6 +3185,18 @@ const networkData = {
             to: "Haida Gwaii",
             lineID: "N33",
             time: null
+        },
+        {
+            from: "Vanderhoof",
+            to: "Fort St. James",
+            lineID: "N37",
+            time: 10
+        },
+        {
+            from: "Terrace",
+            to: "Kitimat",
+            lineID: "N38",
+            time: 10
         },
         {
             from: "Melbourne",
