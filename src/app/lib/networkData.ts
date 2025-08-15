@@ -57,6 +57,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "A13",
+            name: "Hokkaido Line",
+            colour: "#228b22",
+            type: "LSR"
+        },
+        {
             id: "E01",
             name: "Brighton Red Line",
             colour: "#ed1c2a",
@@ -286,7 +292,7 @@ const networkData = {
         },
         {
             id: "E47",
-            name: "Bavaria Line",
+            name: "Royal Bavarian Rail",
             colour: "#f0fcff",
             type: "LSR"
         },
@@ -612,6 +618,12 @@ const networkData = {
             id: "T12",
             name: "Medium Bridge",
             colour: "#b80b4b",
+            type: "LSR"
+        },
+        {
+            id: "T13",
+            name: "Steppe Line",
+            colour: "#b6d7a8",
             type: "LSR"
         }
     ],
@@ -1430,6 +1442,9 @@ const networkData = {
             name: "Sarajevo"
         },
         {
+            name: "Saratov"
+        },
+        {
             name: "Sardinia"
         },
         {
@@ -1590,6 +1605,9 @@ const networkData = {
         },
         {
             name: "Ulanhot"
+        },
+        {
+            name: "Urahoro"
         },
         {
             name: "Ureki"
@@ -1942,7 +1960,7 @@ const networkData = {
             from: "Iksan",
             to: "Gwangju",
             lineID: "A10",
-            time: null
+            time: 15
         },
         {
             from: "Gwangju",
@@ -1961,6 +1979,12 @@ const networkData = {
             to: "Tianjin",
             lineID: "A10",
             time: null
+        },
+        {
+            from: "Urahoro",
+            to: "Sapporo",
+            lineID: "A13",
+            time: 40
         },
         {
             from: "Queen's Cross",
@@ -4109,6 +4133,24 @@ const networkData = {
             to: "Wallops Island",
             lineID: "T12",
             time: 650
+        },
+        {
+            from: "Kyiv",
+            to: "Saratov",
+            lineID: "T13",
+            time: 220
+        },
+        {
+            from: "Saratov",
+            to: "Orenburg",
+            lineID: "T13",
+            time: 130
+        },
+        {
+            from: "Orenburg",
+            to: "Baikonur",
+            lineID: "T13",
+            time: 195
         },
         {
             from: "Amsterdam Central",
