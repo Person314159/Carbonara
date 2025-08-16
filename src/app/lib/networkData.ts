@@ -4659,9 +4659,15 @@ const networkData = {
         },
         {
             from: "Amsterdam Central",
+            to: "Kiel",
+            lineID: "HGR",
+            time: 75
+        },
+        {
+            from: "Kiel",
             to: "Warsaw Central",
             lineID: "HGR",
-            time: 165
+            time: 135
         },
         {
             from: "San Jose",
