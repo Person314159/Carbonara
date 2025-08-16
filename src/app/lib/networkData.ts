@@ -477,6 +477,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "N41",
+            name: "Gwillim Line",
+            colour: "#793c1d",
+            type: "LSR"
+        },
+        {
             id: "O02",
             name: "Victorian Line",
             colour: "#b80b4b",
@@ -1587,6 +1593,9 @@ const networkData = {
         },
         {
             name: "Trinidad"
+        },
+        {
+            name: "Tumbler Ridge"
         },
         {
             name: "Tunis"
@@ -3221,6 +3230,18 @@ const networkData = {
             to: "Kitimat",
             lineID: "N38",
             time: 10
+        },
+        {
+            from: "Dawson Creek",
+            to: "Tumbler Ridge",
+            lineID: "N41",
+            time: 25
+        },
+        {
+            from: "Tumbler Ridge",
+            to: "Chetwynd",
+            lineID: "N41",
+            time: 25
         },
         {
             from: "Melbourne",
