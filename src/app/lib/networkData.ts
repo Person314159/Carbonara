@@ -1154,6 +1154,9 @@ const networkData = {
             name: "Lublin"
         },
         {
+            name: "Lviv"
+        },
+        {
             name: "Macapá"
         },
         {
@@ -2189,6 +2192,12 @@ const networkData = {
         },
         {
             from: "Brest",
+            to: "Lviv",
+            lineID: "E09",
+            time: 30
+        },
+        {
+            from: "Lviv",
             to: "Carpathia",
             lineID: "E09",
             time: null
@@ -4689,6 +4698,12 @@ const networkData = {
             to: "Warsaw Central",
             lineID: "HGR",
             time: 135
+        },
+        {
+            from: "Amsterdam Central",
+            to: "Warsaw",
+            lineID: "HGR",
+            time: 165
         },
         {
             from: "San Jose",
