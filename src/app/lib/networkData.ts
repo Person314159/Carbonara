@@ -4701,7 +4701,7 @@ const networkData = {
         },
         {
             from: "Amsterdam Central",
-            to: "Warsaw",
+            to: "Warsaw Central",
             lineID: "HGR",
             time: 165
         },
