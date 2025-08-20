@@ -182,10 +182,10 @@ const NetworkMap = React.memo(function ({ width, height }: ZoomIProps) {
                             <ZoomToButton
                                 onClick={() =>
                                     zoom.setTransformMatrix({
-                                        scaleX: 0.5,
-                                        scaleY: 0.5,
-                                        translateX: 6664 * 0.5 + width / 2,
-                                        translateY: 2274 * 0.5 + h / 2,
+                                        scaleX: 0.3,
+                                        scaleY: 0.3,
+                                        translateX: 6357 * 0.3 + width / 2,
+                                        translateY: 2185 * 0.3 + h / 2,
                                         skewX: 0,
                                         skewY: 0
                                     })

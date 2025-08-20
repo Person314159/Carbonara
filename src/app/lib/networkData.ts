@@ -399,6 +399,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "N16",
+            name: "USA Main Line",
+            colour: "#ffffff",
+            type: "LSR"
+        },
+        {
             id: "N17",
             name: "Trans-Appalachian Line",
             colour: "#273c7b",
@@ -1046,6 +1052,9 @@ const networkData = {
             name: "Hong Kong"
         },
         {
+            name: "Honolulu"
+        },
+        {
             name: "Hope"
         },
         {
@@ -1649,6 +1658,9 @@ const networkData = {
             name: "Virgin Islands"
         },
         {
+            name: "Vladivostok"
+        },
+        {
             name: "Wakkanai"
         },
         {
@@ -1706,9 +1718,15 @@ const networkData = {
     connections: [
         {
             from: "Rasht",
-            to: "Zugdidi",
+            to: "Ureki",
             lineID: "A01",
             time: 185
+        },
+        {
+            from: "Ureki",
+            to: "Zugdidi",
+            lineID: "A01",
+            time: 10
         },
         {
             from: "Rasht",
@@ -1997,6 +2015,18 @@ const networkData = {
             to: "Sapporo",
             lineID: "A13",
             time: 40
+        },
+        {
+            from: "Sapporo",
+            to: "Vladivostok",
+            lineID: "A13",
+            time: null
+        },
+        {
+            from: "Vladivostok",
+            to: "Cholsan",
+            lineID: "A13",
+            time: null
         },
         {
             from: "Queen's Cross",
@@ -3007,6 +3037,30 @@ const networkData = {
             time: null
         },
         {
+            from: "Montclair",
+            to: "Bloomington",
+            lineID: "N16",
+            time: 210
+        },
+        {
+            from: "Bloomington",
+            to: "Denver",
+            lineID: "N16",
+            time: null
+        },
+        {
+            from: "Denver",
+            to: "San Diego",
+            lineID: "N16",
+            time: null
+        },
+        {
+            from: "San Diego",
+            to: "Honolulu",
+            lineID: "N16",
+            time: null
+        },
+        {
             from: "Ottawa",
             to: "Syracuse",
             lineID: "N17",
@@ -3724,31 +3778,31 @@ const networkData = {
             from: "Danube Delta",
             to: "Doğanyurt",
             lineID: "T04",
-            time: null
+            time: 100
         },
         {
             from: "Doğanyurt",
+            to: "Ureki",
+            lineID: "T04",
+            time: 110
+        },
+        {
+            from: "Ureki",
             to: "Rasht",
             lineID: "T04",
-            time: null
-        },
-        {
-            from: "Rasht",
-            to: "Basra",
-            lineID: "T04",
-            time: null
-        },
-        {
-            from: "Basra",
-            to: "Sanaa",
-            lineID: "T04",
-            time: null
+            time: 165
         },
         {
             from: "Rasht",
             to: "Basra",
             lineID: "T04",
             time: 115
+        },
+        {
+            from: "Basra",
+            to: "Sanaa",
+            lineID: "T04",
+            time: null
         },
         {
             from: "Rasht",
@@ -4694,16 +4748,34 @@ const networkData = {
             time: 75
         },
         {
-            from: "Kiel",
-            to: "Warsaw Central",
+            from: "Amsterdam Central",
+            to: "Pardubice",
             lineID: "HGR",
-            time: 135
+            time: 140
         },
         {
             from: "Amsterdam Central",
             to: "Warsaw Central",
             lineID: "HGR",
             time: 165
+        },
+        {
+            from: "Kiel",
+            to: "Warsaw Central",
+            lineID: "HGR",
+            time: 135
+        },
+        {
+            from: "Kiel",
+            to: "Pardubice",
+            lineID: "HGR",
+            time: 110
+        },
+        {
+            from: "Pardubice",
+            to: "Warsaw Central",
+            lineID: "HGR",
+            time: 70
         },
         {
             from: "San Jose",
