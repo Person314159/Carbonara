@@ -339,6 +339,12 @@ const networkData = {
             type: "HSR"
         },
         {
+            id: "HMA",
+            name: "Magenta HSR",
+            colour: "#e320b2",
+            type: "HSR"
+        },
+        {
             id: "HPU",
             name: "Purple HSR",
             colour: "#662c91",
@@ -1689,6 +1695,9 @@ const networkData = {
         },
         {
             name: "Winnipeg"
+        },
+        {
+            name: "Yantai"
         },
         {
             name: "Yellel"
@@ -4776,6 +4785,276 @@ const networkData = {
             to: "Warsaw Central",
             lineID: "HGR",
             time: 70
+        },
+        {
+            from: "Beijing",
+            to: "Cholsan",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Beijing",
+            to: "Dalian",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Beijing",
+            to: "Fukuoka",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Beijing",
+            to: "Jinan",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Beijing",
+            to: "Osaka",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Beijing",
+            to: "Seoul-Incheon",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Beijing",
+            to: "Shanghai",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Beijing",
+            to: "Tokyo",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Beijing",
+            to: "Yantai",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Cholsan",
+            to: "Dalian",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Cholsan",
+            to: "Fukuoka",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Cholsan",
+            to: "Jinan",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Cholsan",
+            to: "Osaka",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Cholsan",
+            to: "Seoul-Incheon",
+            lineID: "HMA",
+            time: 40
+        },
+        {
+            from: "Cholsan",
+            to: "Shanghai",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Cholsan",
+            to: "Tokyo",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Cholsan",
+            to: "Yantai",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Dalian",
+            to: "Fukuoka",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Dalian",
+            to: "Jinan",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Dalian",
+            to: "Osaka",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Dalian",
+            to: "Seoul-Incheon",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Dalian",
+            to: "Shanghai",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Dalian",
+            to: "Tokyo",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Dalian",
+            to: "Yantai",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Fukuoka",
+            to: "Jinan",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Fukuoka",
+            to: "Osaka",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Fukuoka",
+            to: "Seoul-Incheon",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Fukuoka",
+            to: "Shanghai",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Fukuoka",
+            to: "Tokyo",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Fukuoka",
+            to: "Yantai",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Jinan",
+            to: "Osaka",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Jinan",
+            to: "Seoul-Incheon",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Jinan",
+            to: "Shanghai",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Jinan",
+            to: "Tokyo",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Jinan",
+            to: "Yantai",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Osaka",
+            to: "Seoul-Incheon",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Osaka",
+            to: "Shanghai",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Osaka",
+            to: "Tokyo",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Osaka",
+            to: "Yantai",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Seoul-Incheon",
+            to: "Shanghai",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Seoul-Incheon",
+            to: "Tokyo",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Seoul-Incheon",
+            to: "Yantai",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Shanghai",
+            to: "Tokyo",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Shanghai",
+            to: "Yantai",
+            lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Tokyo",
+            to: "Yantai",
+            lineID: "HMA",
+            time: null
         },
         {
             from: "San Jose",
