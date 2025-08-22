@@ -2029,7 +2029,7 @@ const networkData = {
             from: "Sapporo",
             to: "Vladivostok",
             lineID: "A13",
-            time: null
+            time: 125
         },
         {
             from: "Vladivostok",
@@ -4752,6 +4752,12 @@ const networkData = {
         },
         {
             from: "Amsterdam Central",
+            to: "Charleville-Mézières",
+            lineID: "HGR",
+            time: 60
+        },
+        {
+            from: "Amsterdam Central",
             to: "Kiel",
             lineID: "HGR",
             time: 75
@@ -4767,6 +4773,24 @@ const networkData = {
             to: "Warsaw Central",
             lineID: "HGR",
             time: 165
+        },
+        {
+            from: "Charleville-Mézières",
+            to: "Kiel",
+            lineID: "HGR",
+            time: 80
+        },
+        {
+            from: "Charleville-Mézières",
+            to: "Pardubice",
+            lineID: "HGR",
+            time: 145
+        },
+        {
+            from: "Charleville-Mézières",
+            to: "Warsaw Central",
+            lineID: "HGR",
+            time: 170
         },
         {
             from: "Kiel",
