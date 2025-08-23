@@ -1499,6 +1499,9 @@ const networkData = {
             name: "Singapore"
         },
         {
+            name: "Siping"
+        },
+        {
             name: "Skrunda"
         },
         {
@@ -2033,9 +2036,15 @@ const networkData = {
         },
         {
             from: "Vladivostok",
+            to: "Siping",
+            lineID: "A13",
+            time: 95
+        },
+        {
+            from: "Siping",
             to: "Cholsan",
             lineID: "A13",
-            time: null
+            time: 45
         },
         {
             from: "Queen's Cross",
@@ -2834,6 +2843,12 @@ const networkData = {
             to: "Munich",
             lineID: "E47",
             time: 30
+        },
+        {
+            from: "Munich",
+            to: "Vienna",
+            lineID: "E47",
+            time: 80
         },
         {
             from: "Milan",
