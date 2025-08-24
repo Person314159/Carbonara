@@ -285,15 +285,21 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "E47",
+            name: "Royal Bavarian Rail",
+            colour: "#f0fcff",
+            type: "LSR"
+        },
+        {
             id: "E48",
             name: "Monaco Line",
             colour: "#e06666",
             type: "LSR"
         },
         {
-            id: "E47",
-            name: "Royal Bavarian Rail",
-            colour: "#f0fcff",
+            id: "E49",
+            name: "Highlands Line",
+            colour: "#a288ff",
             type: "LSR"
         },
         {
@@ -1001,6 +1007,9 @@ const networkData = {
             name: "Gesalibar"
         },
         {
+            name: "Glasgow"
+        },
+        {
             name: "Grand Bahama"
         },
         {
@@ -1077,6 +1086,9 @@ const networkData = {
         },
         {
             name: "Innsbruck"
+        },
+        {
+            name: "Inverness"
         },
         {
             name: "Iqaluit"
@@ -1589,6 +1601,9 @@ const networkData = {
             name: "Thun"
         },
         {
+            name: "Thurso-Orkney"
+        },
+        {
             name: "Tianjin"
         },
         {
@@ -2077,6 +2092,12 @@ const networkData = {
             time: 70
         },
         {
+            from: "Isle of Man",
+            to: "Glasgow",
+            lineID: "E02",
+            time: 30
+        },
+        {
             from: "Southampton",
             to: "Birmingham",
             lineID: "E03",
@@ -2087,6 +2108,12 @@ const networkData = {
             to: "Newcastle",
             lineID: "E03",
             time: 30
+        },
+        {
+            from: "Newcastle",
+            to: "Glasgow",
+            lineID: "E03",
+            time: null
         },
         {
             from: "Gdańsk",
@@ -2644,13 +2671,13 @@ const networkData = {
             from: "West Mediterranean",
             to: "Sardinia",
             lineID: "E37",
-            time: 60
+            time: 70
         },
         {
             from: "Sardinia",
             to: "Corsica",
             lineID: "E37",
-            time: 15
+            time: 25
         },
         {
             from: "Corsica",
@@ -2861,6 +2888,12 @@ const networkData = {
             to: "Monaco",
             lineID: "E48",
             time: 30
+        },
+        {
+            from: "Glasgow",
+            to: "Thurso-Orkney",
+            lineID: "E49",
+            time: 55
         },
         {
             from: "Central Mediterranean",
