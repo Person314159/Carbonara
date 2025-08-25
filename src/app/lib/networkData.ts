@@ -57,9 +57,21 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "A12",
+            name: "Yellow Sea Line",
+            colour: "#ffff00",
+            type: "LSR"
+        },
+        {
             id: "A13",
             name: "Hokkaido Line",
             colour: "#228b22",
+            type: "LSR"
+        },
+        {
+            id: "A14",
+            name: "Malacca Line",
+            colour: "#cccccc",
             type: "LSR"
         },
         {
@@ -728,6 +740,9 @@ const networkData = {
             name: "Auckland Island"
         },
         {
+            name: "Awamango"
+        },
+        {
             name: "Baikonur"
         },
         {
@@ -1067,9 +1082,6 @@ const networkData = {
             name: "Hong Kong"
         },
         {
-            name: "Honolulu"
-        },
-        {
             name: "Hope"
         },
         {
@@ -1107,6 +1119,9 @@ const networkData = {
         },
         {
             name: "Jane Peak"
+        },
+        {
+            name: "Jeju"
         },
         {
             name: "Jinan"
@@ -1721,6 +1736,9 @@ const networkData = {
             name: "Yellel"
         },
         {
+            name: "Ysia"
+        },
+        {
             name: "Yuzhno-Sakhalinsk"
         },
         {
@@ -1728,6 +1746,9 @@ const networkData = {
         },
         {
             name: "Zakynthos"
+        },
+        {
+            name: "Zibo"
         },
         {
             name: "Zugdidi"
@@ -2021,20 +2042,50 @@ const networkData = {
         },
         {
             from: "Gwangju",
+            to: "Jeju",
+            lineID: "A10",
+            time: 25
+        },
+        {
+            from: "Jeju",
             to: "Shanghai",
             lineID: "A10",
             time: null
         },
         {
             from: "Shanghai",
-            to: "Jinan",
+            to: "Zibo",
+            lineID: "A10",
+            time: null
+        },
+        {
+            from: "Zibo",
+            to: "Tianjin",
             lineID: "A10",
             time: null
         },
         {
             from: "Jinan",
-            to: "Tianjin",
-            lineID: "A10",
+            to: "Zibo",
+            lineID: "A12",
+            time: 15
+        },
+        {
+            from: "Zibo",
+            to: "Yantai",
+            lineID: "A12",
+            time: 50
+        },
+        {
+            from: "Yantai",
+            to: "Ysia",
+            lineID: "A12",
+            time: null
+        },
+        {
+            from: "Ysia",
+            to: "Gwangju",
+            lineID: "A12",
             time: null
         },
         {
@@ -2060,6 +2111,12 @@ const networkData = {
             to: "Cholsan",
             lineID: "A13",
             time: 45
+        },
+        {
+            from: "Phuket",
+            to: "Awamango",
+            lineID: "A14",
+            time: 65
         },
         {
             from: "Queen's Cross",
@@ -3108,12 +3165,6 @@ const networkData = {
         {
             from: "Denver",
             to: "San Diego",
-            lineID: "N16",
-            time: null
-        },
-        {
-            from: "San Diego",
-            to: "Honolulu",
             lineID: "N16",
             time: null
         },
