@@ -393,6 +393,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "N05",
+            name: "Michigan Line",
+            colour: "#738ac9",
+            type: "LSR"
+        },
+        {
             id: "N10",
             name: "Horizon Line",
             colour: "#8d6539",
@@ -878,6 +884,9 @@ const networkData = {
             name: "Cholsan"
         },
         {
+            name: "Chornobyl"
+        },
+        {
             name: "Christchurch"
         },
         {
@@ -959,6 +968,9 @@ const networkData = {
             name: "Denver"
         },
         {
+            name: "Detroit"
+        },
+        {
             name: "Doctor Cecilio Báez"
         },
         {
@@ -978,6 +990,9 @@ const networkData = {
         },
         {
             name: "Dunedin"
+        },
+        {
+            name: "Edinburgh"
         },
         {
             name: "Ensenada"
@@ -1505,6 +1520,9 @@ const networkData = {
             name: "Savannah"
         },
         {
+            name: "Scongregation"
+        },
+        {
             name: "Scranton"
         },
         {
@@ -1706,6 +1724,9 @@ const networkData = {
             name: "Wallops Island"
         },
         {
+            name: "Wallsocket"
+        },
+        {
             name: "Warsaw Central"
         },
         {
@@ -1736,7 +1757,7 @@ const networkData = {
             name: "Yellel"
         },
         {
-            name: "Ysia"
+            name: "YSIA"
         },
         {
             name: "Yuzhno-Sakhalinsk"
@@ -2078,12 +2099,12 @@ const networkData = {
         },
         {
             from: "Yantai",
-            to: "Ysia",
+            to: "YSIA",
             lineID: "A12",
-            time: null
+            time: 50
         },
         {
-            from: "Ysia",
+            from: "YSIA",
             to: "Gwangju",
             lineID: "A12",
             time: null
@@ -2155,6 +2176,12 @@ const networkData = {
             time: 30
         },
         {
+            from: "Glasgow",
+            to: "Edinburgh",
+            lineID: "E02",
+            time: null
+        },
+        {
             from: "Southampton",
             to: "Birmingham",
             lineID: "E03",
@@ -2165,6 +2192,12 @@ const networkData = {
             to: "Newcastle",
             lineID: "E03",
             time: 30
+        },
+        {
+            from: "Newcastle",
+            to: "Edinburgh",
+            lineID: "E03",
+            time: null
         },
         {
             from: "Newcastle",
@@ -2948,9 +2981,15 @@ const networkData = {
         },
         {
             from: "Glasgow",
+            to: "Inverness",
+            lineID: "E49",
+            time: 30
+        },
+        {
+            from: "Inverness",
             to: "Thurso-Orkney",
             lineID: "E49",
-            time: 55
+            time: 20
         },
         {
             from: "Central Mediterranean",
@@ -3047,6 +3086,24 @@ const networkData = {
             to: "San Diego",
             lineID: "N04",
             time: null
+        },
+        {
+            from: "Detroit",
+            to: "Wallsocket",
+            lineID: "N05",
+            time: 15
+        },
+        {
+            from: "Wallsocket",
+            to: "Denmark (MI)",
+            lineID: "N05",
+            time: 20
+        },
+        {
+            from: "Denmark (MI)",
+            to: "Scongregation",
+            lineID: "N05",
+            time: 60
         },
         {
             from: "Montréal",
@@ -3160,13 +3217,7 @@ const networkData = {
             from: "Bloomington",
             to: "Denver",
             lineID: "N16",
-            time: null
-        },
-        {
-            from: "Denver",
-            to: "San Diego",
-            lineID: "N16",
-            time: null
+            time: 260
         },
         {
             from: "Ottawa",
@@ -3808,7 +3859,7 @@ const networkData = {
             from: "Basra",
             to: "Tel Aviv",
             lineID: "T02",
-            time: null
+            time: 200
         },
         {
             from: "Tel Aviv",
@@ -4327,10 +4378,22 @@ const networkData = {
             time: 650
         },
         {
+            from: "Brest",
+            to: "Chornobyl",
+            lineID: "T13",
+            time: 95
+        },
+        {
             from: "Kyiv",
+            to: "Chornobyl",
+            lineID: "T13",
+            time: 15
+        },
+        {
+            from: "Chornobyl",
             to: "Saratov",
             lineID: "T13",
-            time: 220
+            time: 210
         },
         {
             from: "Saratov",
@@ -4383,7 +4446,7 @@ const networkData = {
 
         {
             from: "Apennines",
-            to: "Central Mediterranean",
+            to: "Sfax",
             lineID: "HCY",
             time: null
         },
@@ -4454,72 +4517,6 @@ const networkData = {
             time: null
         },
         {
-            from: "Central Mediterranean",
-            to: "Charleville-Mézières",
-            lineID: "HCY",
-            time: null
-        },
-        {
-            from: "Central Mediterranean",
-            to: "Corsica",
-            lineID: "HCY",
-            time: null
-        },
-        {
-            from: "Central Mediterranean",
-            to: "Lausanne",
-            lineID: "HCY",
-            time: null
-        },
-        {
-            from: "Central Mediterranean",
-            to: "Mallorca",
-            lineID: "HCY",
-            time: null
-        },
-        {
-            from: "Central Mediterranean",
-            to: "Mequinenza",
-            lineID: "HCY",
-            time: null
-        },
-        {
-            from: "Central Mediterranean",
-            to: "Milan",
-            lineID: "HCY",
-            time: null
-        },
-        {
-            from: "Central Mediterranean",
-            to: "Rennes",
-            lineID: "HCY",
-            time: null
-        },
-        {
-            from: "Central Mediterranean",
-            to: "Sardinia",
-            lineID: "HCY",
-            time: null
-        },
-        {
-            from: "Central Mediterranean",
-            to: "Sparta",
-            lineID: "HCY",
-            time: null
-        },
-        {
-            from: "Central Mediterranean",
-            to: "Thessaloniki",
-            lineID: "HCY",
-            time: null
-        },
-        {
-            from: "Central Mediterranean",
-            to: "Tirana",
-            lineID: "HCY",
-            time: null
-        },
-        {
             from: "Charleville-Mézières",
             to: "Corsica",
             lineID: "HCY",
@@ -4560,6 +4557,12 @@ const networkData = {
             to: "Sardinia",
             lineID: "HCY",
             time: 95
+        },
+        {
+            from: "Charleville-Mézières",
+            to: "Sfax",
+            lineID: "HCY",
+            time: null
         },
         {
             from: "Charleville-Mézières",
@@ -4617,6 +4620,12 @@ const networkData = {
         },
         {
             from: "Corsica",
+            to: "Sfax",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Corsica",
             to: "Sparta",
             lineID: "HCY",
             time: null
@@ -4665,6 +4674,12 @@ const networkData = {
         },
         {
             from: "Lausanne",
+            to: "Sfax",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Lausanne",
             to: "Sparta",
             lineID: "HCY",
             time: null
@@ -4707,6 +4722,12 @@ const networkData = {
         },
         {
             from: "Mallorca",
+            to: "Sfax",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Mallorca",
             to: "Sparta",
             lineID: "HCY",
             time: null
@@ -4743,6 +4764,12 @@ const networkData = {
         },
         {
             from: "Mequinenza",
+            to: "Sfax",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Mequinenza",
             to: "Sparta",
             lineID: "HCY",
             time: null
@@ -4773,6 +4800,12 @@ const networkData = {
         },
         {
             from: "Milan",
+            to: "Sfax",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Milan",
             to: "Sparta",
             lineID: "HCY",
             time: null
@@ -4797,6 +4830,12 @@ const networkData = {
         },
         {
             from: "Rennes",
+            to: "Sfax",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Rennes",
             to: "Sparta",
             lineID: "HCY",
             time: null
@@ -4815,6 +4854,12 @@ const networkData = {
         },
         {
             from: "Sardinia",
+            to: "Sfax",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Sardinia",
             to: "Sparta",
             lineID: "HCY",
             time: null
@@ -4827,6 +4872,24 @@ const networkData = {
         },
         {
             from: "Sardinia",
+            to: "Tirana",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Sfax",
+            to: "Sparta",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Sfax",
+            to: "Thessaloniki",
+            lineID: "HCY",
+            time: null
+        },
+        {
+            from: "Sfax",
             to: "Tirana",
             lineID: "HCY",
             time: null
