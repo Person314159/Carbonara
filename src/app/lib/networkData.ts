@@ -291,6 +291,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "E45",
+            name: "Gothenburg Express",
+            colour: "#0d0dbd",
+            type: "LSR"
+        },
+        {
             id: "E46",
             name: "Ore Mountains Line",
             colour: "#ffff00",
@@ -767,9 +773,6 @@ const networkData = {
             name: "Belgrade"
         },
         {
-            name: "Bellingham"
-        },
-        {
             name: "Belém"
         },
         {
@@ -989,6 +992,9 @@ const networkData = {
             name: "Dresden"
         },
         {
+            name: "Dubai"
+        },
+        {
             name: "Dunedin"
         },
         {
@@ -996,6 +1002,9 @@ const networkData = {
         },
         {
             name: "Ensenada"
+        },
+        {
+            name: "Eyemouth"
         },
         {
             name: "Fort St. James"
@@ -1109,6 +1118,9 @@ const networkData = {
             name: "Ica"
         },
         {
+            name: "IKEA"
+        },
+        {
             name: "Iksan"
         },
         {
@@ -1119,6 +1131,9 @@ const networkData = {
         },
         {
             name: "Iqaluit"
+        },
+        {
+            name: "Isfahan"
         },
         {
             name: "Isle of Man"
@@ -1541,6 +1556,9 @@ const networkData = {
             name: "Shantou"
         },
         {
+            name: "Shiraz"
+        },
+        {
             name: "Singapore"
         },
         {
@@ -1703,6 +1721,9 @@ const networkData = {
             name: "Vanderhoof"
         },
         {
+            name: "Varberg"
+        },
+        {
             name: "Venice"
         },
         {
@@ -1844,6 +1865,24 @@ const networkData = {
             to: "Tehran",
             lineID: "A07",
             time: 20
+        },
+        {
+            from: "Tehran",
+            to: "Isfahan",
+            lineID: "A07",
+            time: null
+        },
+        {
+            from: "Isfahan",
+            to: "Shiraz",
+            lineID: "A07",
+            time: null
+        },
+        {
+            from: "Shiraz",
+            to: "Dubai",
+            lineID: "A07",
+            time: null
         },
         {
             from: "Poronaysk",
@@ -2179,7 +2218,7 @@ const networkData = {
             from: "Glasgow",
             to: "Edinburgh",
             lineID: "E02",
-            time: null
+            time: 20
         },
         {
             from: "Southampton",
@@ -2195,15 +2234,21 @@ const networkData = {
         },
         {
             from: "Newcastle",
-            to: "Edinburgh",
+            to: "Eyemouth",
             lineID: "E03",
-            time: null
+            time: 25
         },
         {
-            from: "Newcastle",
+            from: "Eyemouth",
+            to: "Edinburgh",
+            lineID: "E03",
+            time: 15
+        },
+        {
+            from: "Edinburgh",
             to: "Glasgow",
             lineID: "E03",
-            time: null
+            time: 20
         },
         {
             from: "Gdańsk",
@@ -2395,7 +2440,7 @@ const networkData = {
             from: "Belgrade",
             to: "Zagreb",
             lineID: "E11",
-            time: 145
+            time: 95
         },
         {
             from: "Zagreb",
@@ -2551,7 +2596,7 @@ const networkData = {
             from: "Zagreb",
             to: "Sarajevo",
             lineID: "E23",
-            time: 55
+            time: 60
         },
         {
             from: "Kiel",
@@ -2635,7 +2680,7 @@ const networkData = {
             from: "Venice",
             to: "Zagreb",
             lineID: "E28",
-            time: null
+            time: 55
         },
         {
             from: "Zagreb",
@@ -2918,6 +2963,24 @@ const networkData = {
             to: "Munich",
             lineID: "E44",
             time: 20
+        },
+        {
+            from: "Aarhus",
+            to: "Varberg",
+            lineID: "E45",
+            time: 40
+        },
+        {
+            from: "Varberg",
+            to: "IKEA",
+            lineID: "E45",
+            time: 60
+        },
+        {
+            from: "IKEA",
+            to: "Stockholm",
+            lineID: "E45",
+            time: 45
         },
         {
             from: "Nuremberg",
@@ -5244,9 +5307,9 @@ const networkData = {
         },
         {
             from: "San Jose",
-            to: "Bellingham",
+            to: "Vancouver",
             lineID: "HPU",
-            time: 135
+            time: 140
         }
     ]
 } as NetworkData;
