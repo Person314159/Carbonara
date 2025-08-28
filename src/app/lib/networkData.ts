@@ -501,9 +501,33 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "N32",
+            name: "British Columbia Line",
+            colour: "#1698a0",
+            type: "LSR"
+        },
+        {
             id: "N33",
             name: "Yellowhead Line",
             colour: "#ffed8d",
+            type: "LSR"
+        },
+        {
+            id: "N34",
+            name: "Okanagan Line",
+            colour: "#f0996c",
+            type: "LSR"
+        },
+        {
+            id: "N35",
+            name: "Savona Line",
+            colour: "#4f9b50",
+            type: "LSR"
+        },
+        {
+            id: "N36",
+            name: "Nicola Connector Line",
+            colour: "#eb6767",
             type: "LSR"
         },
         {
@@ -519,9 +543,21 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "N39",
+            name: "Vancouver Island Line",
+            colour: "#5356ff",
+            type: "LSR"
+        },
+        {
             id: "N41",
             name: "Gwillim Line",
             colour: "#793c1d",
+            type: "LSR"
+        },
+        {
+            id: "N42",
+            name: "Peace River Line",
+            colour: "#691c8a",
             type: "LSR"
         },
         {
@@ -758,6 +794,9 @@ const networkData = {
             name: "Baikonur"
         },
         {
+            name: "Banff"
+        },
+        {
             name: "Bari"
         },
         {
@@ -845,6 +884,9 @@ const networkData = {
             name: "Cali"
         },
         {
+            name: "Campbell River"
+        },
+        {
             name: "Caracas"
         },
         {
@@ -891,6 +933,9 @@ const networkData = {
         },
         {
             name: "Christchurch"
+        },
+        {
+            name: "Comox-Courtenay"
         },
         {
             name: "Copenhagen"
@@ -1010,6 +1055,9 @@ const networkData = {
             name: "Fort St. James"
         },
         {
+            name: "Fort St. John"
+        },
+        {
             name: "Frankfurt"
         },
         {
@@ -1047,6 +1095,9 @@ const networkData = {
         },
         {
             name: "Glasgow"
+        },
+        {
+            name: "Golden"
         },
         {
             name: "Grand Bahama"
@@ -1112,6 +1163,9 @@ const networkData = {
             name: "Houston"
         },
         {
+            name: "Hudson's Hope"
+        },
+        {
             name: "Ibagué"
         },
         {
@@ -1166,10 +1220,13 @@ const networkData = {
             name: "Kaliningrad"
         },
         {
-            name: "Kraków"
+            name: "Kamloops"
         },
         {
             name: "Kawartha Lakes"
+        },
+        {
+            name: "Kelowna"
         },
         {
             name: "Kiel"
@@ -1188,6 +1245,9 @@ const networkData = {
         },
         {
             name: "Košice"
+        },
+        {
+            name: "Kraków"
         },
         {
             name: "Kuressaare"
@@ -1244,6 +1304,9 @@ const networkData = {
             name: "Manicouagan"
         },
         {
+            name: "Manning"
+        },
+        {
             name: "Maracaibo"
         },
         {
@@ -1274,6 +1337,9 @@ const networkData = {
             name: "Merlischachen"
         },
         {
+            name: "Merritt"
+        },
+        {
             name: "Miami"
         },
         {
@@ -1299,6 +1365,9 @@ const networkData = {
         },
         {
             name: "Naha"
+        },
+        {
+            name: "Nanaimo"
         },
         {
             name: "National Park"
@@ -1346,6 +1415,9 @@ const networkData = {
             name: "Oslo"
         },
         {
+            name: "Osoyoos"
+        },
+        {
             name: "Otiria"
         },
         {
@@ -1376,6 +1448,12 @@ const networkData = {
             name: "Pasto"
         },
         {
+            name: "Peace River"
+        },
+        {
+            name: "Penticton"
+        },
+        {
             name: "Perth"
         },
         {
@@ -1401,6 +1479,12 @@ const networkData = {
         },
         {
             name: "Port-au-Prince"
+        },
+        {
+            name: "Port Alberni"
+        },
+        {
+            name: "Port Hardy"
         },
         {
             name: "Porto"
@@ -1466,6 +1550,9 @@ const networkData = {
             name: "Rennes"
         },
         {
+            name: "Revelstoke"
+        },
+        {
             name: "Reykjavík"
         },
         {
@@ -1488,6 +1575,9 @@ const networkData = {
         },
         {
             name: "Saint-Laurent-du-Maroni"
+        },
+        {
+            name: "Salmon Arm"
         },
         {
             name: "San Diego"
@@ -1538,6 +1628,9 @@ const networkData = {
             name: "Scongregation"
         },
         {
+            name: "Scongregations"
+        },
+        {
             name: "Scranton"
         },
         {
@@ -1575,6 +1668,9 @@ const networkData = {
         },
         {
             name: "Sparta"
+        },
+        {
+            name: "Spirit River"
         },
         {
             name: "St. Kitts"
@@ -1728,6 +1824,12 @@ const networkData = {
         },
         {
             name: "Ventspils"
+        },
+        {
+            name: "Vernon"
+        },
+        {
+            name: "Victoria"
         },
         {
             name: "Vienna"
@@ -3169,6 +3271,12 @@ const networkData = {
             time: 60
         },
         {
+            from: "Scongregation",
+            to: "Scongregations",
+            lineID: "N05",
+            time: 20
+        },
+        {
             from: "Montréal",
             to: "Ottawa",
             lineID: "N10",
@@ -3349,18 +3457,6 @@ const networkData = {
             time: 30
         },
         {
-            from: "Hope",
-            to: "Abbotsford",
-            lineID: "N18",
-            time: 25
-        },
-        {
-            from: "Abbotsford",
-            to: "Vancouver",
-            lineID: "N18",
-            time: 20
-        },
-        {
             from: "Manicouagan",
             to: "Rimouski",
             lineID: "N19",
@@ -3457,6 +3553,66 @@ const networkData = {
             time: 25
         },
         {
+            from: "Calgary",
+            to: "Banff",
+            lineID: "N32",
+            time: null
+        },
+        {
+            from: "Banff",
+            to: "Golden",
+            lineID: "N32",
+            time: null
+        },
+        {
+            from: "Golden",
+            to: "Revelstoke",
+            lineID: "N32",
+            time: null
+        },
+        {
+            from: "Revelstoke",
+            to: "Salmon Arm",
+            lineID: "N32",
+            time: null
+        },
+        {
+            from: "Salmon Arm",
+            to: "Kamloops",
+            lineID: "N32",
+            time: null
+        },
+        {
+            from: "Kamloops",
+            to: "Merritt",
+            lineID: "N32",
+            time: 15
+        },
+        {
+            from: "Merritt",
+            to: "Hope",
+            lineID: "N32",
+            time: 20
+        },
+        {
+            from: "Hope",
+            to: "Abbotsford",
+            lineID: "N32",
+            time: 25
+        },
+        {
+            from: "Abbotsford",
+            to: "Vancouver",
+            lineID: "N32",
+            time: 20
+        },
+        {
+            from: "Vancouver",
+            to: "Nanaimo",
+            lineID: "N32",
+            time: 15
+        },
+        {
             from: "Prince George",
             to: "Vanderhoof",
             lineID: "N33",
@@ -3505,6 +3661,54 @@ const networkData = {
             time: null
         },
         {
+            from: "Osoyoos",
+            to: "Penticton",
+            lineID: "N34",
+            time: 10
+        },
+        {
+            from: "Penticton",
+            to: "Kelowna",
+            lineID: "N34",
+            time: 10
+        },
+        {
+            from: "Kelowna",
+            to: "Vernon",
+            lineID: "N34",
+            time: 10
+        },
+        {
+            from: "Vernon",
+            to: "Salmon Arm",
+            lineID: "N34",
+            time: 5
+        },
+        {
+            from: "Vernon",
+            to: "Kamloops",
+            lineID: "N35",
+            time: 20
+        },
+        {
+            from: "Kamloops",
+            to: "Cache Creek",
+            lineID: "N35",
+            time: 15
+        },
+        {
+            from: "Cache Creek",
+            to: "Merritt",
+            lineID: "N36",
+            time: 20
+        },
+        {
+            from: "Merritt",
+            to: "Kelowna",
+            lineID: "N36",
+            time: 25
+        },
+        {
             from: "Vanderhoof",
             to: "Fort St. James",
             lineID: "N37",
@@ -3517,6 +3721,36 @@ const networkData = {
             time: 10
         },
         {
+            from: "Victoria",
+            to: "Nanaimo",
+            lineID: "N39",
+            time: 20
+        },
+        {
+            from: "Nanaimo",
+            to: "Port Alberni",
+            lineID: "N39",
+            time: 15
+        },
+        {
+            from: "Port Alberni",
+            to: "Comox-Courtenay",
+            lineID: "N39",
+            time: 10
+        },
+        {
+            from: "Comox-Courtenay",
+            to: "Campbell River",
+            lineID: "N39",
+            time: 10
+        },
+        {
+            from: "Campbell River",
+            to: "Port Hardy",
+            lineID: "N39",
+            time: null
+        },
+        {
             from: "Dawson Creek",
             to: "Tumbler Ridge",
             lineID: "N41",
@@ -3527,6 +3761,42 @@ const networkData = {
             to: "Chetwynd",
             lineID: "N41",
             time: 25
+        },
+        {
+            from: "Chetwynd",
+            to: "Hudson's Hope",
+            lineID: "N42",
+            time: 15
+        },
+        {
+            from: "Hudson's Hope",
+            to: "Fort St. John",
+            lineID: "N42",
+            time: 30
+        },
+        {
+            from: "Fort St. John",
+            to: "Dawson Creek",
+            lineID: "N42",
+            time: 20
+        },
+        {
+            from: "Dawson Creek",
+            to: "Spirit River",
+            lineID: "N42",
+            time: 25
+        },
+        {
+            from: "Spirit River",
+            to: "Peace River",
+            lineID: "N42",
+            time: 35
+        },
+        {
+            from: "Peace River",
+            to: "Manning",
+            lineID: "N42",
+            time: 20
         },
         {
             from: "Melbourne",
@@ -4024,7 +4294,7 @@ const networkData = {
             from: "Basra",
             to: "Sanaa",
             lineID: "T04",
-            time: null
+            time: 255
         },
         {
             from: "Rasht",
