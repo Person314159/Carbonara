@@ -5405,7 +5405,7 @@ const networkData = {
             from: "Cholsan",
             to: "Yantai",
             lineID: "HMA",
-            time: null
+            time: 35
         },
         {
             from: "Dalian",
@@ -5555,7 +5555,7 @@ const networkData = {
             from: "Seoul-Incheon",
             to: "Yantai",
             lineID: "HMA",
-            time: null
+            time: 55
         },
         {
             from: "Shanghai",
