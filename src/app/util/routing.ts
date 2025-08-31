@@ -14,12 +14,12 @@ networkData.stations.sort((a, b) => a.name.localeCompare(b.name));
 MapData.graph.nodes.forEach(node => {
     const type = node.attributes.type as keyof typeof node.attributes;
 
-    if (type !== "virtual") {
+    if (type !== "virtual" && type !== "facilities") {
         // @ts-expect-error simple
-        networkData.stations.find(s => s.name == node.attributes[type]!.names[0])!.coordinate = [
-            node.attributes.x,
-            node.attributes.y
-        ];
+        const station = networkData.stations.find(s => s.name == node.attributes[type]!.names[0]);
+
+        if (station === undefined) console.log(node);
+        else station.coordinate = [node.attributes.x, node.attributes.y];
     }
 });
 

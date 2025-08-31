@@ -1,13 +1,16 @@
 import { MiscNodeId } from "./constants";
 import { VirtualAttributes } from "../components/svgs/nodes/virtual";
 import React from "react";
+import { FacilitiesAttributes } from "@/app/components/svgs/nodes/facilities";
 
 export enum MiscNodeType {
-    Virtual = "virtual"
+    Virtual = "virtual",
+    Facilities = "facilities"
 }
 
 export interface MiscNodeAttributes {
     [MiscNodeType.Virtual]?: VirtualAttributes;
+    [MiscNodeType.Facilities]?: FacilitiesAttributes;
 }
 
 /* ----- Below are core types for all miscellaneous nodes, DO NOT TOUCH. ----- */

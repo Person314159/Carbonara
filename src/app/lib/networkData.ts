@@ -1493,7 +1493,7 @@ const networkData = {
             name: "Monaco"
         },
         {
-            name: "Mont-Saint-Michel"
+            name: "Le Mont-Saint-Michel"
         },
         {
             name: "Montclair"

@@ -1,11 +1,13 @@
 import React, { type JSX } from "react";
-import { LineId, StnId } from "../constants/constants";
+import { LineId, MiscNodeId, StnId } from "../constants/constants";
 import { ExternalLineStyleAttributes, LineStyleComponentProps } from "../constants/lines";
 import { StationType } from "../constants/stations";
 import { Element } from "../util/process-elements";
 import { UnknownLineStyle, UnknownNode } from "./svgs/common/unknown";
 import { lineStyles } from "./svgs/lines/lines";
 import { default as allStations } from "./svgs/stations/stations";
+import { MiscNodeType } from "@/app/constants/nodes";
+import miscNodes from "@/app/components/svgs/nodes/misc-nodes";
 
 interface SvgLayerProps {
     elements: Element[];
@@ -112,6 +114,54 @@ const SvgLayer = React.memo(
                             x={attr.x}
                             y={attr.y}
                             attrs={attr}
+                        />
+                    );
+                }
+            } else if (element.type === "misc-node") {
+                const attr = element.miscNode!;
+                const type = attr.type as MiscNodeType;
+
+                if (type === "virtual") continue;
+
+                const PreMiscNodeComponent = miscNodes[type]?.preComponent;
+
+                if (PreMiscNodeComponent) {
+                    layers[element.miscNode!.zIndex].pre.push(
+                        <PreMiscNodeComponent
+                            key={`${element.id}.pre`}
+                            id={element.id as MiscNodeId}
+                            x={attr.x}
+                            y={attr.y}
+                            // @ts-expect-error simple
+                            attrs={attr[type]}
+                        />
+                    );
+                }
+
+                const MiscNodeComponent = miscNodes[type]?.component ?? UnknownNode;
+
+                layers[element.miscNode!.zIndex].main.push(
+                    <MiscNodeComponent
+                        key={element.id}
+                        id={element.id as MiscNodeId}
+                        x={attr.x}
+                        y={attr.y}
+                        // @ts-expect-error simple
+                        attrs={attr[type]}
+                    />
+                );
+
+                const PostMiscNodeComponent = miscNodes[type]?.postComponent;
+
+                if (PostMiscNodeComponent) {
+                    layers[element.miscNode!.zIndex].post.push(
+                        <PostMiscNodeComponent
+                            key={`${element.id}.post`}
+                            id={element.id as MiscNodeId}
+                            x={attr.x}
+                            y={attr.y}
+                            // @ts-expect-error simple
+                            attrs={attr[type]}
                         />
                     );
                 }
