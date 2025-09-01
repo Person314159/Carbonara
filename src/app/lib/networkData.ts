@@ -75,6 +75,30 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "A15",
+            name: "Hoengdan Line",
+            colour: "#03cbe8",
+            type: "LSR"
+        },
+        {
+            id: "A16",
+            name: "Donghae Line",
+            colour: "#6efc61",
+            type: "LSR"
+        },
+        {
+            id: "A17",
+            name: "Korea Strait Shuttle",
+            colour: "#e0bfb8",
+            type: "LSR"
+        },
+        {
+            id: "A18",
+            name: "Zhengtai Railway",
+            colour: "#fddf8e",
+            type: "LSR"
+        },
+        {
             id: "E01",
             name: "Brighton Red Line",
             colour: "#ed1c2a",
@@ -234,12 +258,6 @@ const networkData = {
             id: "E30",
             name: "Greek Line",
             colour: "#bb4a9b",
-            type: "LSR"
-        },
-        {
-            id: "E31",
-            name: "French Line",
-            colour: "#ffcd02",
             type: "LSR"
         },
         {
@@ -490,7 +508,7 @@ const networkData = {
         },
         {
             id: "N16",
-            name: "USA Main Line",
+            name: "Cannonball Line",
             colour: "#ffffff",
             type: "LSR"
         },
@@ -676,24 +694,30 @@ const networkData = {
         },
         {
             id: "S01",
+            name: "Nordeste Line",
+            colour: "#3155a4",
+            type: "LSR"
+        },
+        {
+            id: "S02",
             name: "Apple Line",
             colour: "#ff0802",
             type: "LSR"
         },
         {
-            id: "S02",
+            id: "S03",
             name: "World Cup Line",
             colour: "#68ab33",
             type: "LSR"
         },
         {
-            id: "S03",
+            id: "S04",
             name: "West Line",
             colour: "#c8102e",
             type: "LSR"
         },
         {
-            id: "S04",
+            id: "S05",
             name: "East Line",
             colour: "#00674f",
             type: "LSR"
@@ -1127,10 +1151,13 @@ const networkData = {
             name: "Doctor Juan Manuel Frutos"
         },
         {
+            name: "Doğanyurt"
+        },
+        {
             name: "Dominica"
         },
         {
-            name: "Doğanyurt"
+            name: "Donghae"
         },
         {
             name: "Dresden"
@@ -1253,6 +1280,9 @@ const networkData = {
             name: "Halifax"
         },
         {
+            name: "Hamhung"
+        },
+        {
             name: "Hamilton"
         },
         {
@@ -1334,6 +1364,9 @@ const networkData = {
             name: "Jinan"
         },
         {
+            name: "Jiuquan"
+        },
+        {
             name: "Kagoshima"
         },
         {
@@ -1353,6 +1386,9 @@ const networkData = {
         },
         {
             name: "Kelowna"
+        },
+        {
+            name: "Khangai Nuruu"
         },
         {
             name: "Kherson"
@@ -1703,6 +1739,9 @@ const networkData = {
             name: "Rasht"
         },
         {
+            name: "Recife"
+        },
+        {
             name: "Regina"
         },
         {
@@ -1713,6 +1752,12 @@ const networkData = {
         },
         {
             name: "Reykjavík"
+        },
+        {
+            name: "Rēzekne"
+        },
+        {
+            name: "Rheda-Wiedenbrück"
         },
         {
             name: "Riga"
@@ -1728,9 +1773,6 @@ const networkData = {
         },
         {
             name: "Ruhnu Island"
-        },
-        {
-            name: "Rēzekne"
         },
         {
             name: "Saint-Laurent-du-Maroni"
@@ -1814,6 +1856,9 @@ const networkData = {
             name: "Shantou"
         },
         {
+            name: "Shijiazhuang"
+        },
+        {
             name: "Shiraz"
         },
         {
@@ -1884,6 +1929,9 @@ const networkData = {
         },
         {
             name: "Taipei"
+        },
+        {
+            name: "Taiyuan"
         },
         {
             name: "Tallahassee"
@@ -2067,6 +2115,9 @@ const networkData = {
         },
         {
             name: "Yellel"
+        },
+        {
+            name: "Yinchuan"
         },
         {
             name: "YSIA"
@@ -2350,12 +2401,6 @@ const networkData = {
             time: 55
         },
         {
-            from: "Beijing",
-            to: "Tianjin",
-            lineID: "A10",
-            time: null
-        },
-        {
             from: "Tianjin",
             to: "Dalian",
             lineID: "A10",
@@ -2468,6 +2513,66 @@ const networkData = {
             to: "Awamango",
             lineID: "A14",
             time: 65
+        },
+        {
+            from: "Cheonan",
+            to: "Donghae",
+            lineID: "A15",
+            time: null
+        },
+        {
+            from: "Daegu",
+            to: "Donghae",
+            lineID: "A16",
+            time: null
+        },
+        {
+            from: "Donghae",
+            to: "Hamhung",
+            lineID: "A16",
+            time: null
+        },
+        {
+            from: "Hamhung",
+            to: "Vladivostok",
+            lineID: "A16",
+            time: null
+        },
+        {
+            from: "Fukuoka",
+            to: "Jeju",
+            lineID: "A17",
+            time: null
+        },
+        {
+            from: "Khangai Nuruu",
+            to: "Jiuquan",
+            lineID: "A18",
+            time: null
+        },
+        {
+            from: "Jiuquan",
+            to: "Qinghai",
+            lineID: "A18",
+            time: null
+        },
+        {
+            from: "Qinghai",
+            to: "Yinchuan",
+            lineID: "A18",
+            time: null
+        },
+        {
+            from: "Yinchuan",
+            to: "Taiyuan",
+            lineID: "A18",
+            time: null
+        },
+        {
+            from: "Taiyuan",
+            to: "Shijiazhuang",
+            lineID: "A18",
+            time: null
         },
         {
             from: "Queen's Cross",
@@ -2938,6 +3043,12 @@ const networkData = {
             time: 25
         },
         {
+            from: "Paderborn",
+            to: "Rheda-Wiedenbrück",
+            lineID: "E27",
+            time: 10
+        },
+        {
             from: "Frankfurt",
             to: "Thun",
             lineID: "E27",
@@ -3391,13 +3502,13 @@ const networkData = {
             from: "Dresden",
             to: "Berlin",
             lineID: "E46",
-            time: null
+            time: 25
         },
         {
             from: "Berlin",
             to: "Kiel",
             lineID: "E46",
-            time: null
+            time: 65
         },
         {
             from: "Frankfurt",
@@ -4264,201 +4375,207 @@ const networkData = {
             time: 340
         },
         {
+            from: "Natal",
+            to: "Recife",
+            lineID: "S01",
+            time: 35
+        },
+        {
             from: "Asunción",
             to: "Doctor Cecilio Báez",
-            lineID: "S01",
+            lineID: "S02",
             time: null
         },
         {
             from: "Doctor Cecilio Báez",
             to: "Doctor Juan Manuel Frutos",
-            lineID: "S01",
+            lineID: "S02",
             time: null
         },
         {
             from: "Doctor Juan Manuel Frutos",
             to: "Doctor Juan León Mallorquín",
-            lineID: "S01",
+            lineID: "S02",
             time: null
         },
         {
             from: "Asunción",
             to: "Buenos Aires",
-            lineID: "S02",
+            lineID: "S03",
             time: null
         },
         {
             from: "Buenos Aires",
             to: "Montevideo",
-            lineID: "S02",
+            lineID: "S03",
             time: null
         },
         {
             from: "Maracaibo",
             to: "Barranquilla",
-            lineID: "S03",
+            lineID: "S04",
             time: null
         },
         {
             from: "Barranquilla",
             to: "Cartagena",
-            lineID: "S03",
+            lineID: "S04",
             time: null
         },
         {
             from: "Cartagena",
             to: "Medellín",
-            lineID: "S03",
+            lineID: "S04",
             time: null
         },
         {
             from: "Medellín",
             to: "Bogotá",
-            lineID: "S03",
+            lineID: "S04",
             time: null
         },
         {
             from: "Bogotá",
             to: "Ibagué",
-            lineID: "S03",
+            lineID: "S04",
             time: null
         },
         {
             from: "Ibagué",
             to: "Cali",
-            lineID: "S03",
+            lineID: "S04",
             time: null
         },
         {
             from: "Cali",
             to: "Pasto",
-            lineID: "S03",
+            lineID: "S04",
             time: null
         },
         {
             from: "Pasto",
             to: "Quito",
-            lineID: "S03",
+            lineID: "S04",
             time: null
         },
         {
             from: "Quito",
             to: "Cuenca",
-            lineID: "S03",
+            lineID: "S04",
             time: null
         },
         {
             from: "Cuenca",
             to: "Sullana",
-            lineID: "S03",
+            lineID: "S04",
             time: null
         },
         {
             from: "Sullana",
             to: "Chiclayo",
-            lineID: "S03",
+            lineID: "S04",
             time: null
         },
         {
             from: "Chiclayo",
             to: "Chimbote",
-            lineID: "S03",
+            lineID: "S04",
             time: null
         },
         {
             from: "Chimbote",
             to: "Ica",
-            lineID: "S03",
+            lineID: "S04",
             time: null
         },
         {
             from: "Ica",
             to: "Cusco",
-            lineID: "S03",
+            lineID: "S04",
             time: null
         },
         {
             from: "Cusco",
             to: "Puno",
-            lineID: "S03",
+            lineID: "S04",
             time: null
         },
         {
             from: "Puno",
             to: "La Paz",
-            lineID: "S03",
+            lineID: "S04",
             time: null
         },
         {
             from: "La Paz",
             to: "Sucre",
-            lineID: "S03",
+            lineID: "S04",
             time: null
         },
         {
             from: "Sucre",
             to: "General Eugenio A. Garay",
-            lineID: "S03",
+            lineID: "S04",
             time: null
         },
         {
             from: "General Eugenio A. Garay",
             to: "Rio Verde",
-            lineID: "S03",
+            lineID: "S04",
             time: null
         },
         {
             from: "Rio Verde",
             to: "Asunción",
-            lineID: "S03",
+            lineID: "S04",
             time: null
         },
         {
             from: "Trinidad",
             to: "Georgetown",
-            lineID: "S04",
+            lineID: "S05",
             time: null
         },
         {
             from: "Georgetown",
             to: "Nieuw Nickerie",
-            lineID: "S04",
+            lineID: "S05",
             time: null
         },
         {
             from: "Nieuw Nickerie",
             to: "Paramaribo",
-            lineID: "S04",
+            lineID: "S05",
             time: null
         },
         {
             from: "Paramaribo",
             to: "Saint-Laurent-du-Maroni",
-            lineID: "S04",
+            lineID: "S05",
             time: null
         },
         {
             from: "Saint-Laurent-du-Maroni",
             to: "Cayenne",
-            lineID: "S04",
+            lineID: "S05",
             time: null
         },
         {
             from: "Cayenne",
             to: "Amapá",
-            lineID: "S04",
+            lineID: "S05",
             time: null
         },
         {
             from: "Amapá",
             to: "Macapá",
-            lineID: "S04",
+            lineID: "S05",
             time: null
         },
         {
             from: "Macapá",
             to: "Belém",
-            lineID: "S04",
+            lineID: "S05",
             time: null
         },
         {
@@ -4606,6 +4723,12 @@ const networkData = {
             time: null
         },
         {
+            from: "Faroe Islands",
+            to: "Glasgow",
+            lineID: "T03",
+            time: null
+        },
+        {
             from: "Harris",
             to: "Isle of Skye",
             lineID: "T03",
@@ -4631,9 +4754,45 @@ const networkData = {
         },
         {
             from: "Southampton",
+            to: "Cherbourg",
+            lineID: "T03",
+            time: null
+        },
+        {
+            from: "Cherbourg",
+            to: "Le Mont-Saint-Michel",
+            lineID: "T03",
+            time: null
+        },
+        {
+            from: "Le Mont-Saint-Michel",
+            to: "Rennes",
+            lineID: "T03",
+            time: null
+        },
+        {
+            from: "Southampton",
             to: "Rennes",
             lineID: "T03",
             time: 45
+        },
+        {
+            from: "Rennes",
+            to: "Nantes",
+            lineID: "T03",
+            time: null
+        },
+        {
+            from: "Nantes",
+            to: "La Rochelle - Île d'Oléron",
+            lineID: "T03",
+            time: null
+        },
+        {
+            from: "La Rochelle - Île d'Oléron",
+            to: "Pyrenees",
+            lineID: "T03",
+            time: null
         },
         {
             from: "Rennes",
@@ -5083,13 +5242,13 @@ const networkData = {
             from: "Denmark (MI)",
             to: "Denmark (WI)",
             lineID: "T11",
-            time: null
+            time: 70
         },
         {
             from: "Denmark (WI)",
             to: "Denmark (IA)",
             lineID: "T11",
-            time: null
+            time: 105
         },
         {
             from: "Denmark (IA)",
