@@ -1556,6 +1556,9 @@ const networkData = {
             name: "Nantes"
         },
         {
+            name: "Natal"
+        },
+        {
             name: "National Park"
         },
         {
@@ -1713,6 +1716,9 @@ const networkData = {
         },
         {
             name: "Płock"
+        },
+        {
+            name: "Qinghai"
         },
         {
             name: "Queen's Cross"
