@@ -2452,7 +2452,7 @@ const networkData = {
             from: "Jeju",
             to: "Shanghai",
             lineID: "A10",
-            time: null
+            time: 100
         },
         {
             from: "Shanghai",
@@ -4762,19 +4762,19 @@ const networkData = {
             from: "Southampton",
             to: "Cherbourg",
             lineID: "T03",
-            time: null
+            time: 25
         },
         {
             from: "Cherbourg",
             to: "Le Mont-Saint-Michel",
             lineID: "T03",
-            time: null
+            time: 15
         },
         {
             from: "Le Mont-Saint-Michel",
             to: "Rennes",
             lineID: "T03",
-            time: null
+            time: 15
         },
         {
             from: "Southampton",
