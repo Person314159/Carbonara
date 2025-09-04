@@ -1613,6 +1613,9 @@ const networkData = {
             name: "Oulu"
         },
         {
+            name: "Pacific Harbour"
+        },
+        {
             name: "Paderborn"
         },
         {
@@ -1871,6 +1874,9 @@ const networkData = {
             name: "Singapore"
         },
         {
+            name: "Sinj"
+        },
+        {
             name: "Siping"
         },
         {
@@ -1917,9 +1923,6 @@ const networkData = {
         },
         {
             name: "Sullana"
-        },
-        {
-            name: "Suva"
         },
         {
             name: "Suwiskefa"
@@ -3562,7 +3565,7 @@ const networkData = {
             from: "Isle of Man",
             to: "Dublin",
             lineID: "E50",
-            time: 35
+            time: 40
         },
         {
             from: "Central Mediterranean",
@@ -5348,15 +5351,15 @@ const networkData = {
         },
         {
             from: "Whangarei",
-            to: "Suva",
+            to: "Pacific Harbour",
             lineID: "T14",
-            time: null
+            time: 270
         },
         {
-            from: "Suva",
+            from: "Pacific Harbour",
             to: "Taveuni",
             lineID: "T14",
-            time: null
+            time: 40
         },
         {
             from: "Taveuni",
