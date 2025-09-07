@@ -1217,9 +1217,6 @@ const networkData = {
             name: "Frankfurt"
         },
         {
-            name: "Fraser Lake"
-        },
-        {
             name: "Fuji"
         },
         {
@@ -4187,15 +4184,9 @@ const networkData = {
         },
         {
             from: "Vanderhoof",
-            to: "Fraser Lake",
-            lineID: "N33",
-            time: 15
-        },
-        {
-            from: "Fraser Lake",
             to: "Burns Lake",
             lineID: "N33",
-            time: 20
+            time: 35
         },
         {
             from: "Burns Lake",
@@ -4327,19 +4318,19 @@ const networkData = {
             from: "Vancouver",
             to: "Gibsons-Sechelt",
             lineID: "N40",
-            time: null
+            time: 15
         },
         {
             from: "Gibsons-Sechelt",
             to: "Powell River",
             lineID: "N40",
-            time: null
+            time: 25
         },
         {
             from: "Powell River",
             to: "Comox-Courtenay",
             lineID: "N40",
-            time: null
+            time: 10
         },
         {
             from: "Dawson Creek",
@@ -6368,6 +6359,18 @@ const networkData = {
             from: "Tokyo",
             to: "Yantai",
             lineID: "HMA",
+            time: null
+        },
+        {
+            from: "Denver",
+            to: "San Jose",
+            lineID: "HPU",
+            time: null
+        },
+        {
+            from: "Denver",
+            to: "Vancouver",
+            lineID: "HPU",
             time: null
         },
         {
