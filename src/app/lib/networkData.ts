@@ -99,6 +99,24 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "A19",
+            name: "Pyonggyong Line",
+            colour: "#006db8",
+            type: "LSR"
+        },
+        {
+            id: "A20",
+            name: "Chūō-Shinonoi Line",
+            colour: "#006db8",
+            type: "LSR"
+        },
+        {
+            id: "A21",
+            name: "Jōetsu Line",
+            colour: "#c76e06",
+            type: "LSR"
+        },
+        {
             id: "E01",
             name: "Brighton Red Line",
             colour: "#ed1c2a",
@@ -268,7 +286,7 @@ const networkData = {
         },
         {
             id: "E34",
-            name: "Lapland Line ",
+            name: "Lapland Line",
             colour: "#e99d06",
             type: "LSR"
         },
@@ -280,7 +298,7 @@ const networkData = {
         },
         {
             id: "E36",
-            name: "East Italy Line",
+            name: "Italy Line",
             colour: "#f78f4b",
             type: "LSR"
         },
@@ -292,7 +310,7 @@ const networkData = {
         },
         {
             id: "E38",
-            name: "Macedonia Line",
+            name: "Macedonian Regional Loop",
             colour: "#ffcd02",
             type: "LSR"
         },
@@ -306,18 +324,6 @@ const networkData = {
             id: "E40",
             name: "Anabenraa Line",
             colour: "#e233ff",
-            type: "LSR"
-        },
-        {
-            id: "E41",
-            name: "Estonian Regional Loop",
-            colour: "#0d0dba",
-            type: "LSR"
-        },
-        {
-            id: "E42",
-            name: "Ladoga Express",
-            colour: "#008c5a",
             type: "LSR"
         },
         {
@@ -366,6 +372,12 @@ const networkData = {
             id: "E50",
             name: "Irish Sea Link",
             colour: "#169b62",
+            type: "LSR"
+        },
+        {
+            id: "E51",
+            name: "Austrian Alps Crossing",
+            colour: "#662c91",
             type: "LSR"
         },
         {
@@ -765,6 +777,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "T08",
+            name: "Russian Line",
+            colour: "#662c91",
+            type: "LSR"
+        },
+        {
             id: "T09",
             name: "Indies Railway",
             colour: "#01fe03",
@@ -1079,6 +1097,9 @@ const networkData = {
             name: "Dalian"
         },
         {
+            name: "Damietta"
+        },
+        {
             name: "Danube Delta"
         },
         {
@@ -1268,9 +1289,6 @@ const networkData = {
             name: "Gwangju"
         },
         {
-            name: "Haapsalu"
-        },
-        {
             name: "Haida Gwaii"
         },
         {
@@ -1373,9 +1391,6 @@ const networkData = {
             name: "Kaikōura"
         },
         {
-            name: "Käina"
-        },
-        {
             name: "Kaliningrad"
         },
         {
@@ -1383,6 +1398,9 @@ const networkData = {
         },
         {
             name: "Kawartha Lakes"
+        },
+        {
+            name: "Kazan"
         },
         {
             name: "Kelowna"
@@ -1398,6 +1416,9 @@ const networkData = {
         },
         {
             name: "Knoxville"
+        },
+        {
+            name: "Kobuchizawa"
         },
         {
             name: "Kolkasrags"
@@ -1443,6 +1464,9 @@ const networkData = {
         },
         {
             name: "Lausanne"
+        },
+        {
+            name: "Le Mont-Saint-Michel"
         },
         {
             name: "Liepāja"
@@ -1499,6 +1523,9 @@ const networkData = {
             name: "Mazatlán"
         },
         {
+            name: "Matsumoto"
+        },
+        {
             name: "McMurdo Station"
         },
         {
@@ -1526,10 +1553,10 @@ const networkData = {
             name: "Milan"
         },
         {
-            name: "Monaco"
+            name: "Moscow"
         },
         {
-            name: "Le Mont-Saint-Michel"
+            name: "Monaco"
         },
         {
             name: "Montclair"
@@ -1547,10 +1574,19 @@ const networkData = {
             name: "Munich"
         },
         {
+            name: "Nagano"
+        },
+        {
+            name: "Nagoya"
+        },
+        {
             name: "Naha"
         },
         {
             name: "Nanaimo"
+        },
+        {
+            name: "Nanjing"
         },
         {
             name: "Nantes"
@@ -1569,6 +1605,9 @@ const networkData = {
         },
         {
             name: "Nieuw Nickerie"
+        },
+        {
+            name: "Niigata"
         },
         {
             name: "North Mediterranean"
@@ -1590,6 +1629,9 @@ const networkData = {
         },
         {
             name: "Ohrid"
+        },
+        {
+            name: "Omsk"
         },
         {
             name: "Oran"
@@ -1643,6 +1685,9 @@ const networkData = {
             name: "Penticton"
         },
         {
+            name: "Perm"
+        },
+        {
             name: "Perth"
         },
         {
@@ -1659,6 +1704,9 @@ const networkData = {
         },
         {
             name: "Podgorica"
+        },
+        {
+            name: "Pohang"
         },
         {
             name: "Ponta Delgada"
@@ -1742,9 +1790,6 @@ const networkData = {
             name: "Quesnel"
         },
         {
-            name: "Rakvere"
-        },
-        {
             name: "Rasht"
         },
         {
@@ -1778,6 +1823,9 @@ const networkData = {
             name: "Rio Verde"
         },
         {
+            name: "Rostov-on-Don"
+        },
+        {
             name: "Rovaniemi"
         },
         {
@@ -1787,10 +1835,10 @@ const networkData = {
             name: "Saint-Laurent-du-Maroni"
         },
         {
-            name: "Saint Petersburg"
+            name: "Salmon Arm"
         },
         {
-            name: "Salmon Arm"
+            name: "Samara"
         },
         {
             name: "San Diego"
@@ -1833,6 +1881,9 @@ const networkData = {
         },
         {
             name: "Sardinia"
+        },
+        {
+            name: "Saruhashi"
         },
         {
             name: "Sault Ste. Marie"
@@ -1943,19 +1994,16 @@ const networkData = {
             name: "Taiyuan"
         },
         {
+            name: "Takasaki"
+        },
+        {
             name: "Tallahassee"
         },
         {
             name: "Tallinn"
         },
         {
-            name: "Tallinn Airport"
-        },
-        {
             name: "Tamanrasset"
-        },
-        {
-            name: "Tartu"
         },
         {
             name: "Taveuni"
@@ -2039,7 +2087,13 @@ const networkData = {
             name: "Urahoro"
         },
         {
+            name: "Urasa"
+        },
+        {
             name: "Ureki"
+        },
+        {
+            name: "Utsunomiya"
         },
         {
             name: "Vaduz"
@@ -2066,6 +2120,9 @@ const networkData = {
             name: "Vernon"
         },
         {
+            name: "Verona"
+        },
+        {
             name: "Victoria"
         },
         {
@@ -2076,6 +2133,9 @@ const networkData = {
         },
         {
             name: "Vladivostok"
+        },
+        {
+            name: "Volgograd"
         },
         {
             name: "Wakkanai"
@@ -2121,6 +2181,9 @@ const networkData = {
         },
         {
             name: "Yantai"
+        },
+        {
+            name: "Yekaterinburg"
         },
         {
             name: "Yellel"
@@ -2285,9 +2348,15 @@ const networkData = {
         },
         {
             from: "Sendai",
+            to: "Utsunomiya",
+            lineID: "A08",
+            time: null
+        },
+        {
+            from: "Utsunomiya",
             to: "Tōkyō",
             lineID: "A08",
-            time: 45
+            time: null
         },
         {
             from: "Tōkyō",
@@ -2297,9 +2366,15 @@ const networkData = {
         },
         {
             from: "Fuji",
+            to: "Nagoya",
+            lineID: "A08",
+            time: 25
+        },
+        {
+            from: "Nagoya",
             to: "Ōsaka",
             lineID: "A08",
-            time: 50
+            time: 25
         },
         {
             from: "Ōsaka",
@@ -2459,6 +2534,12 @@ const networkData = {
         },
         {
             from: "Shanghai",
+            to: "Nanjing",
+            lineID: "A10",
+            time: null
+        },
+        {
+            from: "Nanjing",
             to: "Zibo",
             lineID: "A10",
             time: null
@@ -2518,6 +2599,12 @@ const networkData = {
             time: 45
         },
         {
+            from: "Cholsan",
+            to: "YSIA",
+            lineID: "A13",
+            time: 75
+        },
+        {
             from: "Phuket",
             to: "Awamango",
             lineID: "A14",
@@ -2531,6 +2618,12 @@ const networkData = {
         },
         {
             from: "Daegu",
+            to: "Pohang",
+            lineID: "A16",
+            time: 15
+        },
+        {
+            from: "Pohang",
             to: "Donghae",
             lineID: "A16",
             time: null
@@ -2569,7 +2662,7 @@ const networkData = {
             from: "Qinghai",
             to: "Yinchuan",
             lineID: "A18",
-            time: null
+            time: 105
         },
         {
             from: "Yinchuan",
@@ -2581,6 +2674,54 @@ const networkData = {
             from: "Taiyuan",
             to: "Shijiazhuang",
             lineID: "A18",
+            time: null
+        },
+        {
+            from: "Cholsan",
+            to: "Hamhung",
+            lineID: "A19",
+            time: null
+        },
+        {
+            from: "Tōkyō",
+            to: "Saruhashi",
+            lineID: "A20",
+            time: 15
+        },
+        {
+            from: "Saruhashi",
+            to: "Kobuchizawa",
+            lineID: "A20",
+            time: 15
+        },
+        {
+            from: "Kobuchizawa",
+            to: "Matsumoto",
+            lineID: "A20",
+            time: 15
+        },
+        {
+            from: "Matsumoto",
+            to: "Nagano",
+            lineID: "A20",
+            time: null
+        },
+        {
+            from: "Tōkyō",
+            to: "Takasaki",
+            lineID: "A21",
+            time: null
+        },
+        {
+            from: "Takasaki",
+            to: "Urasa",
+            lineID: "A21",
+            time: null
+        },
+        {
+            from: "Urasa",
+            to: "Niigata",
+            lineID: "A21",
             time: null
         },
         {
@@ -3382,60 +3523,6 @@ const networkData = {
             time: 85
         },
         {
-            from: "Tallinn",
-            to: "Tallinn Airport",
-            lineID: "E41",
-            time: null
-        },
-        {
-            from: "Tallinn Airport",
-            to: "Haapsalu",
-            lineID: "E41",
-            time: null
-        },
-        {
-            from: "Haapsalu",
-            to: "Käina",
-            lineID: "E41",
-            time: null
-        },
-        {
-            from: "Käina",
-            to: "Kuressaare",
-            lineID: "E41",
-            time: null
-        },
-        {
-            from: "Kuressaare",
-            to: "Valka/Valga",
-            lineID: "E41",
-            time: null
-        },
-        {
-            from: "Valka/Valga",
-            to: "Tartu",
-            lineID: "E41",
-            time: null
-        },
-        {
-            from: "Tartu",
-            to: "Rakvere",
-            lineID: "E41",
-            time: null
-        },
-        {
-            from: "Rakvere",
-            to: "Tallinn",
-            lineID: "E41",
-            time: null
-        },
-        {
-            from: "Tallinn",
-            to: "Saint Petersburg",
-            lineID: "E42",
-            time: null
-        },
-        {
             from: "Çorlu",
             to: "Istanbul",
             lineID: "E43",
@@ -3568,6 +3655,24 @@ const networkData = {
             time: 40
         },
         {
+            from: "Venice",
+            to: "Verona",
+            lineID: "E51",
+            time: null
+        },
+        {
+            from: "Verona",
+            to: "Innsbruck",
+            lineID: "E51",
+            time: null
+        },
+        {
+            from: "Innsbruck",
+            to: "Munich",
+            lineID: "E51",
+            time: null
+        },
+        {
             from: "Central Mediterranean",
             to: "Lampedusa",
             lineID: "F01",
@@ -3626,6 +3731,12 @@ const networkData = {
             to: "Alexandria",
             lineID: "F02",
             time: null
+        },
+        {
+            from: "Alexandria",
+            to: "Damietta",
+            lineID: "F02",
+            time: 30
         },
         {
             from: "Algiers",
@@ -4994,6 +5105,48 @@ const networkData = {
             to: "McMurdo Station",
             lineID: "T07",
             time: 95
+        },
+        {
+            from: "Volgograd",
+            to: "Rostov-on-Don",
+            lineID: "T08",
+            time: null
+        },
+        {
+            from: "Rostov-on-Don",
+            to: "Moscow",
+            lineID: "T08",
+            time: null
+        },
+        {
+            from: "Moscow",
+            to: "Kazan",
+            lineID: "T08",
+            time: null
+        },
+        {
+            from: "Kazan",
+            to: "Samara",
+            lineID: "T08",
+            time: null
+        },
+        {
+            from: "Samara",
+            to: "Perm",
+            lineID: "T08",
+            time: null
+        },
+        {
+            from: "Perm",
+            to: "Yekaterinburg",
+            lineID: "T08",
+            time: null
+        },
+        {
+            from: "Yekaterinburg",
+            to: "Omsk",
+            lineID: "T08",
+            time: null
         },
         {
             from: "Miami",
