@@ -1991,9 +1991,6 @@ const networkData = {
             name: "Taipei"
         },
         {
-            name: "Taiyuan"
-        },
-        {
             name: "Takasaki"
         },
         {
@@ -2666,15 +2663,9 @@ const networkData = {
         },
         {
             from: "Yinchuan",
-            to: "Taiyuan",
-            lineID: "A18",
-            time: null
-        },
-        {
-            from: "Taiyuan",
             to: "Shijiazhuang",
             lineID: "A18",
-            time: null
+            time: 125
         },
         {
             from: "Cholsan",
