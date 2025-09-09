@@ -13,4 +13,5 @@ export interface RMPSave {
     graph: SerializedGraph<NodeAttributes, EdgeAttributes>;
     svgViewBoxZoom: number;
     svgViewBoxMin: { x: number; y: number };
+    images?: { id: string; base64: string }[];
 }
