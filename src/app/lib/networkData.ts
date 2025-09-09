@@ -117,6 +117,18 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "A22",
+            name: "Hokuriku Line",
+            colour: "#bb4a9b",
+            type: "LSR"
+        },
+        {
+            id: "A23",
+            name: "Nishi-Chūō Line",
+            colour: "#07806c",
+            type: "LSR"
+        },
+        {
             id: "E01",
             name: "Brighton Red Line",
             colour: "#ed1c2a",
@@ -1220,6 +1232,9 @@ const networkData = {
             name: "Fuji"
         },
         {
+            name: "Fukui"
+        },
+        {
             name: "Fukuoka"
         },
         {
@@ -1392,6 +1407,9 @@ const networkData = {
         },
         {
             name: "Kamloops"
+        },
+        {
+            name: "Kanazawa"
         },
         {
             name: "Kawartha Lakes"
@@ -1580,6 +1598,9 @@ const networkData = {
             name: "Naha"
         },
         {
+            name: "Nakatsugawa"
+        },
+        {
             name: "Nanaimo"
         },
         {
@@ -1617,6 +1638,9 @@ const networkData = {
         },
         {
             name: "Oaxaca"
+        },
+        {
+            name: "Obama"
         },
         {
             name: "Odda"
@@ -1830,6 +1854,9 @@ const networkData = {
         },
         {
             name: "Saint-Laurent-du-Maroni"
+        },
+        {
+            name: "Saku"
         },
         {
             name: "Salmon Arm"
@@ -2049,6 +2076,9 @@ const networkData = {
         },
         {
             name: "Toronto Union"
+        },
+        {
+            name: "Toyama"
         },
         {
             name: "Tracy Industrial Area"
@@ -2344,13 +2374,13 @@ const networkData = {
             from: "Sendai",
             to: "Utsunomiya",
             lineID: "A08",
-            time: null
+            time: 35
         },
         {
             from: "Utsunomiya",
             to: "Tōkyō",
             lineID: "A08",
-            time: null
+            time: 15
         },
         {
             from: "Tōkyō",
@@ -2665,6 +2695,12 @@ const networkData = {
             time: 125
         },
         {
+            from: "Dalian",
+            to: "Cholsan",
+            lineID: "A19",
+            time: null
+        },
+        {
             from: "Cholsan",
             to: "Hamhung",
             lineID: "A19",
@@ -2692,7 +2728,7 @@ const networkData = {
             from: "Matsumoto",
             to: "Nagano",
             lineID: "A20",
-            time: null
+            time: 10
         },
         {
             from: "Tōkyō",
@@ -2710,6 +2746,60 @@ const networkData = {
             from: "Urasa",
             to: "Niigata",
             lineID: "A21",
+            time: null
+        },
+        {
+            from: "Ōsaka",
+            to: "Obama",
+            lineID: "A22",
+            time: null
+        },
+        {
+            from: "Obama",
+            to: "Fukui",
+            lineID: "A22",
+            time: null
+        },
+        {
+            from: "Fukui",
+            to: "Kanazawa",
+            lineID: "A22",
+            time: null
+        },
+        {
+            from: "Kanazawa",
+            to: "Toyama",
+            lineID: "A22",
+            time: 10
+        },
+        {
+            from: "Toyama",
+            to: "Nagano",
+            lineID: "A22",
+            time: 15
+        },
+        {
+            from: "Nagano",
+            to: "Saku",
+            lineID: "A22",
+            time: null
+        },
+        {
+            from: "Saku",
+            to: "Takasaki",
+            lineID: "A22",
+            time: null
+        },
+        {
+            from: "Nagoya",
+            to: "Nakatsugawa",
+            lineID: "A23",
+            time: null
+        },
+        {
+            from: "Nakatsugawa",
+            to: "Matsumoto",
+            lineID: "A23",
             time: null
         },
         {
@@ -3814,7 +3904,7 @@ const networkData = {
             from: "Montclair",
             to: "Ithaca",
             lineID: "N06",
-            time: null
+            time: 50
         },
         {
             from: "Ithaca",
@@ -4846,7 +4936,7 @@ const networkData = {
             from: "Glasgow",
             to: "Isle of Man",
             lineID: "T03",
-            time: null
+            time: 25
         },
         {
             from: "Isle of Man",
@@ -6117,7 +6207,7 @@ const networkData = {
         },
         {
             from: "Beijing",
-            to: "Osaka",
+            to: "Ōsaka",
             lineID: "HMA",
             time: null
         },
@@ -6165,7 +6255,7 @@ const networkData = {
         },
         {
             from: "Cholsan",
-            to: "Osaka",
+            to: "Ōsaka",
             lineID: "HMA",
             time: null
         },
@@ -6207,7 +6297,7 @@ const networkData = {
         },
         {
             from: "Dalian",
-            to: "Osaka",
+            to: "Ōsaka",
             lineID: "HMA",
             time: null
         },
@@ -6243,7 +6333,7 @@ const networkData = {
         },
         {
             from: "Fukuoka",
-            to: "Osaka",
+            to: "Ōsaka",
             lineID: "HMA",
             time: null
         },
@@ -6273,7 +6363,7 @@ const networkData = {
         },
         {
             from: "Jinan",
-            to: "Osaka",
+            to: "Ōsaka",
             lineID: "HMA",
             time: null
         },
@@ -6302,25 +6392,25 @@ const networkData = {
             time: null
         },
         {
-            from: "Osaka",
+            from: "Ōsaka",
             to: "Seoul-Incheon",
             lineID: "HMA",
             time: null
         },
         {
-            from: "Osaka",
+            from: "Ōsaka",
             to: "Shanghai",
             lineID: "HMA",
             time: null
         },
         {
-            from: "Osaka",
+            from: "Ōsaka",
             to: "Tokyo",
             lineID: "HMA",
             time: null
         },
         {
-            from: "Osaka",
+            from: "Ōsaka",
             to: "Yantai",
             lineID: "HMA",
             time: null
