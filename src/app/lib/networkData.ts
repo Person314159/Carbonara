@@ -496,7 +496,7 @@ const networkData = {
         },
         {
             id: "N06",
-            name: "Haapriel Line",
+            name: "Haaprielle Line",
             colour: "#ff00ff",
             type: "LSR"
         },
@@ -3254,9 +3254,15 @@ const networkData = {
         },
         {
             from: "Zagreb",
+            to: "Sinj",
+            lineID: "E23",
+            time: 35
+        },
+        {
+            from: "Sinj",
             to: "Sarajevo",
             lineID: "E23",
-            time: 60
+            time: 25
         },
         {
             from: "Kiel",
@@ -3910,7 +3916,7 @@ const networkData = {
             from: "Ithaca",
             to: "Ottawa",
             lineID: "N06",
-            time: null
+            time: 55
         },
         {
             from: "Montréal",
