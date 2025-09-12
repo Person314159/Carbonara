@@ -2629,6 +2629,12 @@ const networkData = {
             time: 75
         },
         {
+            from: "YSIA",
+            to: "Shanghai",
+            lineID: "A13",
+            time: 85
+        },
+        {
             from: "Phuket",
             to: "Awamango",
             lineID: "A14",
