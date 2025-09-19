@@ -64,7 +64,7 @@ const networkData = {
         },
         {
             id: "A13",
-            name: "Hokkaido Line",
+            name: "East Asia Express",
             colour: "#228b22",
             type: "LSR"
         },
@@ -393,6 +393,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "E52",
+            name: "Swedish Coast Line",
+            colour: "#f9801d",
+            type: "LSR"
+        },
+        {
             id: "F01",
             name: "Lampedusa Line",
             colour: "#ffcd02",
@@ -426,6 +432,12 @@ const networkData = {
             id: "F06",
             name: "Sudan Line",
             colour: "#859c63",
+            type: "LSR"
+        },
+        {
+            id: "F07",
+            name: "Maghreb Coastal Line",
+            colour: "#50c878",
             type: "LSR"
         },
         {
@@ -1271,6 +1283,9 @@ const networkData = {
             name: "Golden"
         },
         {
+            name: "Gothenburg"
+        },
+        {
             name: "Grand Bahama"
         },
         {
@@ -1511,6 +1526,9 @@ const networkData = {
             name: "Mallorca"
         },
         {
+            name: "Malmö"
+        },
+        {
             name: "Managua"
         },
         {
@@ -1587,6 +1605,9 @@ const networkData = {
         },
         {
             name: "Munich"
+        },
+        {
+            name: "Nador"
         },
         {
             name: "Nagano"
@@ -1811,6 +1832,9 @@ const networkData = {
             name: "Quesnel"
         },
         {
+            name: "Rabat"
+        },
+        {
             name: "Rasht"
         },
         {
@@ -2027,6 +2051,9 @@ const networkData = {
             name: "Tamanrasset"
         },
         {
+            name: "Tangier"
+        },
+        {
             name: "Taveuni"
         },
         {
@@ -2043,6 +2070,9 @@ const networkData = {
         },
         {
             name: "Terrace"
+        },
+        {
+            name: "Tétouan"
         },
         {
             name: "Tetovo"
@@ -3763,6 +3793,30 @@ const networkData = {
             time: null
         },
         {
+            from: "Copenhagen",
+            to: "Malmö",
+            lineID: "E52",
+            time: 15
+        },
+        {
+            from: "Malmö",
+            to: "Varberg",
+            lineID: "E52",
+            time: null
+        },
+        {
+            from: "Varberg",
+            to: "Gothenburg",
+            lineID: "E52",
+            time: null
+        },
+        {
+            from: "Gothenburg",
+            to: "Oslo",
+            lineID: "E52",
+            time: null
+        },
+        {
             from: "Central Mediterranean",
             to: "Lampedusa",
             lineID: "F01",
@@ -3863,6 +3917,36 @@ const networkData = {
             to: "Suwiskefa",
             lineID: "F06",
             time: 170
+        },
+        {
+            from: "Oran",
+            to: "Nador",
+            lineID: "F07",
+            time: null
+        },
+        {
+            from: "Nador",
+            to: "Tétouan",
+            lineID: "F07",
+            time: null
+        },
+        {
+            from: "Tétouan",
+            to: "Tangier",
+            lineID: "F07",
+            time: null
+        },
+        {
+            from: "Tangier",
+            to: "Rabat",
+            lineID: "F07",
+            time: null
+        },
+        {
+            from: "Rabat",
+            to: "Casablanca",
+            lineID: "F07",
+            time: null
         },
         {
             from: "San Francisco",
@@ -4612,7 +4696,7 @@ const networkData = {
             from: "Buenos Aires",
             to: "Montevideo",
             lineID: "S03",
-            time: null
+            time: 30
         },
         {
             from: "Maracaibo",
