@@ -1640,6 +1640,9 @@ const networkData = {
             name: "New Haven"
         },
         {
+            name: "New Shoreham"
+        },
+        {
             name: "Newcastle"
         },
         {
@@ -2542,7 +2545,7 @@ const networkData = {
             from: "Tianjin",
             to: "Dalian",
             lineID: "A10",
-            time: null
+            time: 55
         },
         {
             from: "Dalian",
@@ -2602,7 +2605,7 @@ const networkData = {
             from: "Zibo",
             to: "Tianjin",
             lineID: "A10",
-            time: null
+            time: 55
         },
         {
             from: "Jinan",
@@ -4088,9 +4091,15 @@ const networkData = {
         },
         {
             from: "Boston",
+            to: "New Shoreham",
+            lineID: "N14",
+            time: 20
+        },
+        {
+            from: "New Shoreham",
             to: "New Haven",
             lineID: "N14",
-            time: 40
+            time: 20
         },
         {
             from: "New Haven",
