@@ -1409,6 +1409,9 @@ const networkData = {
             name: "Jinan"
         },
         {
+            name: "Jingzhou"
+        },
+        {
             name: "Jiuquan"
         },
         {
@@ -1509,6 +1512,9 @@ const networkData = {
         },
         {
             name: "Lublin"
+        },
+        {
+            name: "Luoyang"
         },
         {
             name: "Lviv"

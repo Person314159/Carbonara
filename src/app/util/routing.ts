@@ -18,7 +18,7 @@ MapData.graph.nodes.forEach(node => {
         // @ts-expect-error simple
         const station = networkData.stations.find(s => s.name == node.attributes[type]!.names[0]);
 
-        if (station === undefined) console.log(node);
+        if (station === undefined) console.log(JSON.stringify(node));
         else station.coordinate = [node.attributes.x, node.attributes.y];
     }
 });
