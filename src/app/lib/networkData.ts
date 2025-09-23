@@ -291,6 +291,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "E32",
+            name: "Rock Iron Line",
+            colour: "#2596be",
+            type: "LSR"
+        },
+        {
             id: "E33",
             name: "Fjord Connection",
             colour: "#b9e8ea",
@@ -1232,6 +1238,9 @@ const networkData = {
             name: "Faroe Islands"
         },
         {
+            name: "Folldal"
+        },
+        {
             name: "Fort St. James"
         },
         {
@@ -1875,6 +1884,9 @@ const networkData = {
         },
         {
             name: "Rio Verde"
+        },
+        {
+            name: "Rock Iron Village"
         },
         {
             name: "Rostov-on-Don"
@@ -3440,6 +3452,18 @@ const networkData = {
             to: "Crete",
             lineID: "E30",
             time: null
+        },
+        {
+            from: "Rock Iron Village",
+            to: "Folldal",
+            lineID: "E32",
+            time: 20
+        },
+        {
+            from: "Folldal",
+            to: "Oslo",
+            lineID: "E32",
+            time: 80
         },
         {
             from: "Kiel",
