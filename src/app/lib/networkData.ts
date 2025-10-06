@@ -3835,7 +3835,7 @@ const networkData = {
             from: "Malmö",
             to: "Varberg",
             lineID: "E52",
-            time: null
+            time: 30
         },
         {
             from: "Varberg",
