@@ -681,6 +681,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "N44",
+            name: "Desert Sunset Line",
+            colour: "#fc8f54",
+            type: "LSR"
+        },
+        {
             id: "O02",
             name: "Victorian Line",
             colour: "#b80b4b",
@@ -853,6 +859,12 @@ const networkData = {
             name: "Steppe Express Line",
             colour: "#d85dff",
             type: "LSR"
+        },
+        {
+            id: "T16",
+            name: "South Atlantic Link",
+            colour: "#fcd20e",
+            type: "LSR"
         }
     ],
     stations: [
@@ -981,6 +993,9 @@ const networkData = {
         },
         {
             name: "Birmingham"
+        },
+        {
+            name: "Bissau"
         },
         {
             name: "Bitola"
@@ -1754,6 +1769,9 @@ const networkData = {
             name: "Philadelphia"
         },
         {
+            name: "Phoenix"
+        },
+        {
             name: "Phuket"
         },
         {
@@ -2133,6 +2151,9 @@ const networkData = {
         },
         {
             name: "Tracy Industrial Area"
+        },
+        {
+            name: "T.R.A.S.D."
         },
         {
             name: "Trinidad"
@@ -4003,7 +4024,7 @@ const networkData = {
             from: "San Jose",
             to: "San Diego",
             lineID: "N04",
-            time: null
+            time: 230
         },
         {
             from: "Detroit",
@@ -4606,6 +4627,18 @@ const networkData = {
             time: 20
         },
         {
+            from: "San Diego",
+            to: "T.R.A.S.D.",
+            lineID: "N44",
+            time: 45
+        },
+        {
+            from: "T.R.A.S.D.",
+            to: "Phoenix",
+            lineID: "N44",
+            time: 95
+        },
+        {
             from: "Melbourne",
             to: "Sydney",
             lineID: "O02",
@@ -4729,7 +4762,7 @@ const networkData = {
             from: "Asunción",
             to: "Buenos Aires",
             lineID: "S03",
-            time: null
+            time: 135
         },
         {
             from: "Buenos Aires",
@@ -5750,6 +5783,12 @@ const networkData = {
             to: "Baikonur",
             lineID: "T15",
             time: null
+        },
+        {
+            from: "Natal",
+            to: "Bissau",
+            lineID: "T16",
+            time: 485
         },
         {
             from: "Amsterdam Central",
