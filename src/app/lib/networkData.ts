@@ -573,12 +573,6 @@ const networkData = {
             type: "LSR"
         },
         {
-            id: "N20",
-            name: "DC Line",
-            colour: "#4c1130",
-            type: "LSR"
-        },
-        {
             id: "N21",
             name: "Adirondack Line",
             colour: "#3c6fb3",
@@ -681,9 +675,33 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "N43",
+            name: "Pennsylvanian Line",
+            colour: "#cae4f1",
+            type: "LSR"
+        },
+        {
             id: "N44",
-            name: "Desert Sunset Line",
+            name: "SPAMTRAK Desert Sunset",
             colour: "#fc8f54",
+            type: "LSR"
+        },
+        {
+            id: "N45",
+            name: "Crowsnest Line",
+            colour: "#bd5719",
+            type: "LSR"
+        },
+        {
+            id: "N46",
+            name: "Sea-to-Sky Line",
+            colour: "#ffffff",
+            type: "LSR"
+        },
+        {
+            id: "N47",
+            name: "SPAMTRAK Big Shot",
+            colour: "#ff69b4",
             type: "LSR"
         },
         {
@@ -1115,6 +1133,9 @@ const networkData = {
             name: "Christchurch"
         },
         {
+            name: "Columbus"
+        },
+        {
             name: "Comox-Courtenay"
         },
         {
@@ -1244,6 +1265,9 @@ const networkData = {
             name: "Edinburgh"
         },
         {
+            name: "El Paso"
+        },
+        {
             name: "Ensenada"
         },
         {
@@ -1251,6 +1275,9 @@ const networkData = {
         },
         {
             name: "Faroe Islands"
+        },
+        {
+            name: "Flagstaff"
         },
         {
             name: "Folldal"
@@ -1311,6 +1338,9 @@ const networkData = {
         },
         {
             name: "Grand Bahama"
+        },
+        {
+            name: "Grand Canyon"
         },
         {
             name: "Grande Prairie"
@@ -1439,6 +1469,9 @@ const networkData = {
             name: "Jiuquan"
         },
         {
+            name: "Joe Biden Welcome Center"
+        },
+        {
             name: "Kagoshima"
         },
         {
@@ -1488,6 +1521,9 @@ const networkData = {
         },
         {
             name: "Kraków"
+        },
+        {
+            name: "Kuala Lumpur"
         },
         {
             name: "Kunyo Barrow"
@@ -1703,6 +1739,9 @@ const networkData = {
             name: "Odesa"
         },
         {
+            name: "Odessa"
+        },
+        {
             name: "Ohrid"
         },
         {
@@ -1910,6 +1949,9 @@ const networkData = {
             name: "Rostov-on-Don"
         },
         {
+            name: "Roswell"
+        },
+        {
             name: "Rovaniemi"
         },
         {
@@ -1923,6 +1965,9 @@ const networkData = {
         },
         {
             name: "Salmon Arm"
+        },
+        {
+            name: "Salt Lake"
         },
         {
             name: "Samara"
@@ -2120,6 +2165,9 @@ const networkData = {
             name: "Thessaloniki"
         },
         {
+            name: "This Stop"
+        },
+        {
             name: "Thun"
         },
         {
@@ -2157,6 +2205,9 @@ const networkData = {
         },
         {
             name: "Trinidad"
+        },
+        {
+            name: "Tucson"
         },
         {
             name: "Tumbler Ridge"
@@ -2241,6 +2292,9 @@ const networkData = {
         },
         {
             name: "Wallsocket"
+        },
+        {
+            name: "Waco"
         },
         {
             name: "Walvis Bay"
@@ -2711,6 +2765,18 @@ const networkData = {
             to: "Awamango",
             lineID: "A14",
             time: 65
+        },
+        {
+            from: "Awamango",
+            to: "Kuala Lumpur",
+            lineID: "A14",
+            time: 50
+        },
+        {
+            from: "Kuala Lumpur",
+            to: "Singapore",
+            lineID: "A14",
+            time: 55
         },
         {
             from: "Cheonan",
@@ -4273,12 +4339,6 @@ const networkData = {
             time: 80
         },
         {
-            from: "Washington D.C.",
-            to: "Philadelphia",
-            lineID: "N20",
-            time: 40
-        },
-        {
             from: "Montréal",
             to: "Burlington",
             lineID: "N21",
@@ -4361,6 +4421,18 @@ const networkData = {
             to: "Washington D.C.",
             lineID: "N31",
             time: 25
+        },
+        {
+            from: "Washington D.C.",
+            to: "Joe Biden Welcome Center",
+            lineID: "N31",
+            time: 35
+        },
+        {
+            from: "Joe Biden Welcome Center",
+            to: "Philadelphia",
+            lineID: "N31",
+            time: 15
         },
         {
             from: "Calgary",
@@ -4637,6 +4709,72 @@ const networkData = {
             to: "Phoenix",
             lineID: "N44",
             time: 95
+        },
+        {
+            from: "Phoenix",
+            to: "Roswell",
+            lineID: "N44",
+            time: 155
+        },
+        {
+            from: "Roswell",
+            to: "Denver",
+            lineID: "N44",
+            time: 120
+        },
+        {
+            from: "Salt Lake",
+            to: "Grand Canyon",
+            lineID: "N47",
+            time: null
+        },
+        {
+            from: "Grand Canyon",
+            to: "Flagstaff",
+            lineID: "N47",
+            time: null
+        },
+        {
+            from: "Flagstaff",
+            to: "Phoenix",
+            lineID: "N47",
+            time: 55
+        },
+        {
+            from: "Phoenix",
+            to: "Tucson",
+            lineID: "N47",
+            time: 50
+        },
+        {
+            from: "Tucson",
+            to: "El Paso",
+            lineID: "N47",
+            time: null
+        },
+        {
+            from: "El Paso",
+            to: "Odessa",
+            lineID: "N47",
+            time: null
+        },
+        {
+            from: "Odessa",
+            to: "Waco",
+            lineID: "N47",
+            time: null
+        },
+        {
+            from: "Waco",
+            to: "Columbus",
+            lineID: "N47",
+            time: null
+        },
+        {
+            from: "Columbus",
+            to: "Savannah",
+            lineID: "N47",
+            time: null
         },
         {
             from: "Melbourne",
@@ -5084,7 +5222,7 @@ const networkData = {
         },
         {
             from: "Faroe Islands",
-            to: "Glasgow",
+            to: "This Stop",
             lineID: "T03",
             time: null
         },
@@ -5096,9 +5234,15 @@ const networkData = {
         },
         {
             from: "Isle of Skye",
-            to: "Glasgow",
+            to: "This Stop",
             lineID: "T03",
             time: null
+        },
+        {
+            from: "This Stop",
+            to: "Glasgow",
+            lineID: "T03",
+            time: 10
         },
         {
             from: "Glasgow",
@@ -5618,9 +5762,15 @@ const networkData = {
         },
         {
             from: "Paris (DK)",
+            to: "This Stop",
+            lineID: "T11",
+            time: 175
+        },
+        {
+            from: "This Stop",
             to: "Denmark (NS)",
             lineID: "T11",
-            time: 1075
+            time: 900
         },
         {
             from: "Denmark (NS)",
@@ -5654,30 +5804,30 @@ const networkData = {
         },
         {
             from: "Denmark (IA)",
-            to: "Denmark (IL)",
+            to: "Denmark (AR)",
             lineID: "T11",
-            time: null
+            time: 80
         },
         {
-            from: "Denmark (IL)",
-            to: "Denmark (TN)",
-            lineID: "T11",
-            time: null
-        },
-        {
-            from: "Denmark (TN)",
+            from: "Denmark (AR)",
             to: "Denmark (MS)",
             lineID: "T11",
             time: null
         },
         {
             from: "Denmark (MS)",
-            to: "Denmark (AR)",
+            to: "Denmark (TN)",
             lineID: "T11",
             time: null
         },
         {
-            from: "Denmark (AR)",
+            from: "Denmark (TN)",
+            to: "Denmark (IL)",
+            lineID: "T11",
+            time: null
+        },
+        {
+            from: "Denmark (IL)",
             to: "Denmark (KS)",
             lineID: "T11",
             time: null
