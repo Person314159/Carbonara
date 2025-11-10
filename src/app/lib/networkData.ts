@@ -992,10 +992,13 @@ const networkData = {
             name: "Beijing"
         },
         {
-            name: "Belgrade"
+            name: "Belém"
         },
         {
-            name: "Belém"
+            name: "Belfast"
+        },
+        {
+            name: "Belgrade"
         },
         {
             name: "Bella Bella"
@@ -1262,6 +1265,9 @@ const networkData = {
             name: "East Mediterranean"
         },
         {
+            name: "East Perth"
+        },
+        {
             name: "Edinburgh"
         },
         {
@@ -1287,6 +1293,9 @@ const networkData = {
         },
         {
             name: "Fort St. John"
+        },
+        {
+            name: "Fortaleza"
         },
         {
             name: "Frankfurt"
@@ -1802,9 +1811,6 @@ const networkData = {
             name: "Perm"
         },
         {
-            name: "Perth"
-        },
-        {
             name: "Philadelphia"
         },
         {
@@ -1818,6 +1824,9 @@ const networkData = {
         },
         {
             name: "Plzeň"
+        },
+        {
+            name: "Pocatello"
         },
         {
             name: "Podgorica"
@@ -1967,7 +1976,7 @@ const networkData = {
             name: "Salmon Arm"
         },
         {
-            name: "Salt Lake"
+            name: "Salt Lake City"
         },
         {
             name: "Samara"
@@ -3877,6 +3886,24 @@ const networkData = {
             time: 30
         },
         {
+            from: "Rennes",
+            to: "Dublin",
+            lineID: "E49",
+            time: 135
+        },
+        {
+            from: "Dublin",
+            to: "Belfast",
+            lineID: "E49",
+            time: 30
+        },
+        {
+            from: "Belfast",
+            to: "Glasgow",
+            lineID: "E49",
+            time: 35
+        },
+        {
             from: "Glasgow",
             to: "Inverness",
             lineID: "E49",
@@ -4723,16 +4750,22 @@ const networkData = {
             time: 120
         },
         {
-            from: "Salt Lake",
+            from: "Pocatello",
+            to: "Salt Lake City",
+            lineID: "N47",
+            time: 40
+        },
+        {
+            from: "Salt Lake City",
             to: "Grand Canyon",
             lineID: "N47",
-            time: null
+            time: 60
         },
         {
             from: "Grand Canyon",
             to: "Flagstaff",
             lineID: "N47",
-            time: null
+            time: 20
         },
         {
             from: "Flagstaff",
@@ -4750,7 +4783,7 @@ const networkData = {
             from: "Tucson",
             to: "El Paso",
             lineID: "N47",
-            time: null
+            time: 75
         },
         {
             from: "El Paso",
@@ -4868,9 +4901,15 @@ const networkData = {
         },
         {
             from: "Adelaide",
-            to: "Perth",
+            to: "East Perth",
             lineID: "O10",
-            time: 340
+            time: 335
+        },
+        {
+            from: "Fortaleza",
+            to: "Natal",
+            lineID: "S01",
+            time: null
         },
         {
             from: "Natal",
@@ -5392,13 +5431,13 @@ const networkData = {
             from: "Sanaa",
             to: "Kunyo Barrow",
             lineID: "T04",
-            time: null
+            time: 205
         },
         {
             from: "Kunyo Barrow",
             to: "Mafia Island",
             lineID: "T04",
-            time: null
+            time: 155
         },
         {
             from: "Mafia Island",
