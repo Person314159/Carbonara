@@ -3193,7 +3193,7 @@ const networkData = {
             from: "Lviv",
             to: "Carpathia",
             lineID: "E09",
-            time: null
+            time: 55
         },
         {
             from: "Carpathia",
