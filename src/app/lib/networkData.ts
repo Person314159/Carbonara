@@ -129,6 +129,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "A24",
+            name: "Hu Line",
+            colour: "#ff0802",
+            type: "LSR"
+        },
+        {
             id: "E01",
             name: "Brighton Red Line",
             colour: "#ed1c2a",
@@ -705,6 +711,18 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "N49",
+            name: "SPAMTRAK New Mexico",
+            colour: "#b22222",
+            type: "LSR"
+        },
+        {
+            id: "N50",
+            name: "Sturgeon Lake Line",
+            colour: "#6f79d5",
+            type: "LSR"
+        },
+        {
             id: "O02",
             name: "Victorian Line",
             colour: "#b80b4b",
@@ -908,6 +926,9 @@ const networkData = {
             name: "Albany"
         },
         {
+            name: "Albuquerque"
+        },
+        {
             name: "Alexandria"
         },
         {
@@ -987,6 +1008,9 @@ const networkData = {
         },
         {
             name: "Basra"
+        },
+        {
+            name: "Beaver Lodge"
         },
         {
             name: "Beijing"
@@ -1148,7 +1172,13 @@ const networkData = {
             name: "Corsica"
         },
         {
+            name: "Cranbrook"
+        },
+        {
             name: "Cratère-sur-Mer"
+        },
+        {
+            name: "Creston"
         },
         {
             name: "Crete"
@@ -1280,6 +1310,9 @@ const networkData = {
             name: "Eyemouth"
         },
         {
+            name: "Fairview"
+        },
+        {
             name: "Faroe Islands"
         },
         {
@@ -1352,6 +1385,9 @@ const networkData = {
             name: "Grand Canyon"
         },
         {
+            name: "Grand Forks"
+        },
+        {
             name: "Grande Prairie"
         },
         {
@@ -1362,6 +1398,9 @@ const networkData = {
         },
         {
             name: "Greymouth"
+        },
+        {
+            name: "Grimshaw"
         },
         {
             name: "Guadalajara"
@@ -1401,6 +1440,9 @@ const networkData = {
         },
         {
             name: "Helsinki"
+        },
+        {
+            name: "High Level"
         },
         {
             name: "Hiroshima"
@@ -1505,6 +1547,9 @@ const networkData = {
             name: "Kelowna"
         },
         {
+            name: "Keremeos"
+        },
+        {
             name: "Khangai Nuruu"
         },
         {
@@ -1581,9 +1626,6 @@ const networkData = {
         },
         {
             name: "Lublin"
-        },
-        {
-            name: "Luoyang"
         },
         {
             name: "Lviv"
@@ -1874,6 +1916,9 @@ const networkData = {
             name: "Prince Rupert"
         },
         {
+            name: "Princeton"
+        },
+        {
             name: "Pristina"
         },
         {
@@ -1971,6 +2016,9 @@ const networkData = {
         },
         {
             name: "Saku"
+        },
+        {
+            name: "Salmo"
         },
         {
             name: "Salmon Arm"
@@ -2087,6 +2135,9 @@ const networkData = {
             name: "Sparta"
         },
         {
+            name: "Sparwood"
+        },
+        {
             name: "Spirit River"
         },
         {
@@ -2145,6 +2196,9 @@ const networkData = {
         },
         {
             name: "Tangier"
+        },
+        {
+            name: "Taos"
         },
         {
             name: "Taveuni"
@@ -2210,6 +2264,9 @@ const networkData = {
             name: "Tracy Industrial Area"
         },
         {
+            name: "Trail"
+        },
+        {
             name: "T.R.A.S.D."
         },
         {
@@ -2256,6 +2313,9 @@ const networkData = {
         },
         {
             name: "Valka/Valga"
+        },
+        {
+            name: "Valleyview"
         },
         {
             name: "Vancouver"
@@ -2352,6 +2412,9 @@ const networkData = {
         },
         {
             name: "YSIA"
+        },
+        {
+            name: "Yuma"
         },
         {
             name: "Yuzhno-Sakhalinsk"
@@ -2954,6 +3017,24 @@ const networkData = {
             to: "Matsumoto",
             lineID: "A23",
             time: null
+        },
+        {
+            from: "Jinan",
+            to: "Jingzhou",
+            lineID: "A24",
+            time: 145
+        },
+        {
+            from: "Jingzhou",
+            to: "Shanghai",
+            lineID: "A24",
+            time: 125
+        },
+        {
+            from: "Shanghai",
+            to: "Taipei",
+            lineID: "A24",
+            time: 90
         },
         {
             from: "Queen's Cross",
@@ -4312,12 +4393,6 @@ const networkData = {
             time: null
         },
         {
-            from: "Grande Prairie",
-            to: "Dawson Creek",
-            lineID: "N18",
-            time: 35
-        },
-        {
             from: "Dawson Creek",
             to: "Chetwynd",
             lineID: "N18",
@@ -4715,6 +4790,18 @@ const networkData = {
         },
         {
             from: "Spirit River",
+            to: "Fairview",
+            lineID: "N42",
+            time: 10
+        },
+        {
+            from: "Fairview",
+            to: "Grimshaw",
+            lineID: "N42",
+            time: 15
+        },
+        {
+            from: "Grimshaw",
             to: "Peace River",
             lineID: "N42",
             time: 35
@@ -4724,6 +4811,12 @@ const networkData = {
             to: "Manning",
             lineID: "N42",
             time: 20
+        },
+        {
+            from: "Manning",
+            to: "High Level",
+            lineID: "N42",
+            time: 30
         },
         {
             from: "San Diego",
@@ -4748,6 +4841,60 @@ const networkData = {
             to: "Denver",
             lineID: "N44",
             time: 120
+        },
+        {
+            from: "Hope",
+            to: "Princeton",
+            lineID: "N45",
+            time: 15
+        },
+        {
+            from: "Princeton",
+            to: "Keremeos",
+            lineID: "N45",
+            time: 15
+        },
+        {
+            from: "Keremeos",
+            to: "Osoyoos",
+            lineID: "N45",
+            time: 10
+        },
+        {
+            from: "Osoyoos",
+            to: "Grand Forks",
+            lineID: "N45",
+            time: 15
+        },
+        {
+            from: "Grand Forks",
+            to: "Trail",
+            lineID: "N45",
+            time: 15
+        },
+        {
+            from: "Trail",
+            to: "Salmo",
+            lineID: "N45",
+            time: 10
+        },
+        {
+            from: "Salmo",
+            to: "Creston",
+            lineID: "N45",
+            time: 15
+        },
+        {
+            from: "Creston",
+            to: "Cranbrook",
+            lineID: "N45",
+            time: 20
+        },
+        {
+            from: "Cranbrook",
+            to: "Sparwood",
+            lineID: "N45",
+            time: 15
         },
         {
             from: "Pocatello",
@@ -4808,6 +4955,54 @@ const networkData = {
             to: "Savannah",
             lineID: "N47",
             time: null
+        },
+        {
+            from: "T.R.A.S.D.",
+            to: "Yuma",
+            lineID: "N49",
+            time: null
+        },
+        {
+            from: "Yuma",
+            to: "Phoenix",
+            lineID: "N49",
+            time: null
+        },
+        {
+            from: "Phoenix",
+            to: "Albuquerque",
+            lineID: "N49",
+            time: null
+        },
+        {
+            from: "Albuquerque",
+            to: "Taos",
+            lineID: "N49",
+            time: null
+        },
+        {
+            from: "Taos",
+            to: "Denver",
+            lineID: "N49",
+            time: null
+        },
+        {
+            from: "Dawson Creek",
+            to: "Beaver Lodge",
+            lineID: "N50",
+            time: 25
+        },
+        {
+            from: "Beaver Lodge",
+            to: "Grande Prairie",
+            lineID: "N50",
+            time: 10
+        },
+        {
+            from: "Grande Prairie",
+            to: "Valleyview",
+            lineID: "N50",
+            time: 25
         },
         {
             from: "Melbourne",

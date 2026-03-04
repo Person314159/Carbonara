@@ -1,8 +1,8 @@
 import { MultiDirectedGraph } from "graphology";
 import { EdgeEntry } from "graphology-types";
 import { linePaths } from "../components/svgs/lines/lines";
-import { EdgeAttributes, LineId, NodeAttributes } from "../constants/constants";
-import { ExternalLinePathAttributes, LinePathType, Path } from "../constants/lines";
+import { EdgeAttributes, GraphAttributes, LineId, NodeAttributes } from "../constants/constants";
+import { LinePathType, Path } from "../constants/lines";
 import { checkSimplePathAvailability } from "./auto-simple";
 
 /**
@@ -12,10 +12,8 @@ import { checkSimplePathAvailability } from "./auto-simple";
  * All the lines need to implement the generatePath function.
  */
 export const reconcileLines = (
-    graph: MultiDirectedGraph<NodeAttributes, EdgeAttributes>,
-    lineGroupsToReconcile: {
-        [reconcileId: string]: EdgeEntry<NodeAttributes, EdgeAttributes>[];
-    }
+    graph: MultiDirectedGraph<NodeAttributes, EdgeAttributes, GraphAttributes>,
+    lineGroupsToReconcile: { [reconcileId: string]: EdgeEntry<NodeAttributes, EdgeAttributes>[] }
 ) => {
     // console.log(lineGroupToReconcile);
     const allReconciledLines: LineId[][] = [];
@@ -106,7 +104,7 @@ export const reconcileLines = (
  * Call each lines' `generatePath` and merge all the paths to a single path.
  */
 export const makeReconciledPath = (
-    graph: MultiDirectedGraph<NodeAttributes, EdgeAttributes>,
+    graph: MultiDirectedGraph<NodeAttributes, EdgeAttributes, GraphAttributes>,
     reconciledLines: LineId[]
 ): Path | undefined => {
     if (!reconciledLines.every(line => graph.hasEdge(line))) return undefined;
@@ -117,9 +115,7 @@ export const makeReconciledPath = (
         const sourceAttr = graph.getNodeAttributes(source);
         const targetAttr = graph.getNodeAttributes(target);
         const { type } = graph.getEdgeAttributes(line);
-        const attr = (graph.getEdgeAttribute(line, type) ?? linePaths[type].defaultAttrs) as NonNullable<
-            ExternalLinePathAttributes[keyof ExternalLinePathAttributes]
-        >;
+        const attr = graph.getEdgeAttribute(line, type) ?? linePaths[type].defaultAttrs;
         // TODO: disable parallel on reconciled lines, use offsetFrom to offsetTo instead
         const simplePathAvailability = checkSimplePathAvailability(
             type,
@@ -134,9 +130,7 @@ export const makeReconciledPath = (
             // simple path hook on matched situation
             const { x1, y1, x2, y2, offset } = simplePathAvailability;
 
-            return linePaths[LinePathType.Simple].generatePath(x1, x2, y1, y2, {
-                offset
-            });
+            return linePaths[LinePathType.Simple].generatePath(x1, x2, y1, y2, { offset });
         }
 
         return (

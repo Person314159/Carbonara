@@ -1,7 +1,7 @@
 import { MonoColour } from "@railmapgen/rmg-palette-resources";
 import React from "react";
 import { CityCode } from "@/app/constants/constants";
-import { LinePathAttributes, LineStyle, LineStyleComponentProps } from "@/app/constants/lines";
+import { LINE_WIDTH, LinePathAttributes, LineStyle, LineStyleComponentProps } from "@/app/constants/lines";
 import { ColorAttribute } from "../../../panels/details/color-field";
 
 const SingleColor = (props: LineStyleComponentProps<SingleColorAttributes>) => {
@@ -9,7 +9,15 @@ const SingleColor = (props: LineStyleComponentProps<SingleColorAttributes>) => {
     const { color = defaultSingleColorAttributes.color } = styleAttrs ?? defaultSingleColorAttributes;
 
     return (
-        <path id={id} d={path} fill="none" stroke={color[2]} strokeWidth="5" strokeLinecap="round" cursor="pointer" />
+        <path
+            id={id}
+            d={path}
+            fill="none"
+            stroke={color[2]}
+            strokeWidth={LINE_WIDTH}
+            strokeLinecap="round"
+            cursor="pointer"
+        />
     );
 };
 

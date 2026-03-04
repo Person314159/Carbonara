@@ -1,7 +1,7 @@
 import { MultiDirectedGraph } from "graphology";
 import { EdgeEntry } from "graphology-types";
 import { linePaths } from "../components/svgs/lines/lines";
-import { EdgeAttributes, Id, LineId, MiscNodeId, NodeAttributes, StnId } from "../constants/constants";
+import { EdgeAttributes, GraphAttributes, Id, LineId, MiscNodeId, NodeAttributes, StnId } from "../constants/constants";
 import { ExternalLinePathAttributes, LinePathType, Path } from "../constants/lines";
 import { checkSimplePathAvailability, reconcileSimplePathWithParallel } from "./auto-simple";
 import { classifyParallelLines, getBaseParallelLineID, makeParallelPaths } from "./parallel";
@@ -21,15 +21,11 @@ export interface Element {
     line?: LinePathElement;
 }
 
-export const getNodes = (graph: MultiDirectedGraph<NodeAttributes, EdgeAttributes>): Element[] =>
+export const getNodes = (graph: MultiDirectedGraph<NodeAttributes, EdgeAttributes, GraphAttributes>): Element[] =>
     [...graph.nodeEntries()].map(_ =>
         _.node.startsWith("stn")
             ? { id: _.node as StnId, type: "station", station: _.attributes }
-            : {
-                  id: _.node as MiscNodeId,
-                  type: "misc-node",
-                  miscNode: _.attributes
-              }
+            : { id: _.node as MiscNodeId, type: "misc-node", miscNode: _.attributes }
     );
 
 interface LinePathElement {
@@ -39,15 +35,11 @@ interface LinePathElement {
 
 type NonNullableExternalLinePathAttribute = NonNullable<ExternalLinePathAttributes[keyof ExternalLinePathAttributes]>;
 
-export const getLines = (graph: MultiDirectedGraph<NodeAttributes, EdgeAttributes>): Element[] => {
+export const getLines = (graph: MultiDirectedGraph<NodeAttributes, EdgeAttributes, GraphAttributes>): Element[] => {
     const resolvedLines: { [k in LineId]: LinePathElement } = {};
-    const cachedSimplePathAvailability: {
-        [k in LineId]: ReturnType<typeof checkSimplePathAvailability>;
-    } = {};
+    const cachedSimplePathAvailability: { [k in LineId]: ReturnType<typeof checkSimplePathAvailability> } = {};
     const parallelLines: EdgeEntry<NodeAttributes, EdgeAttributes>[] = [];
-    const lineGroupsToReconcile: {
-        [reconcileId: string]: EdgeEntry<NodeAttributes, EdgeAttributes>[];
-    } = {};
+    const lineGroupsToReconcile: { [reconcileId: string]: EdgeEntry<NodeAttributes, EdgeAttributes>[] } = {};
     const normalLines: EdgeEntry<NodeAttributes, EdgeAttributes>[] = [];
 
     // Check and cache all the lines if they can be a simple path.
@@ -185,23 +177,13 @@ export const getLines = (graph: MultiDirectedGraph<NodeAttributes, EdgeAttribute
 
         if (!(type in linePaths)) {
             // unknown line path type
-            resolvedLines[lineID] = {
-                attr,
-                path: `M ${x1} ${y1} L ${x2} ${y2}`
-            };
+            resolvedLines[lineID] = { attr, path: `M ${x1} ${y1} L ${x2} ${y2}` };
             continue;
         }
 
         // regular line path type, call the corresponding generatePath function
-        resolvedLines[lineID] = {
-            attr,
-            path: linePaths[type].generatePath(x1, x2, y1, y2, attr[type] as never)
-        };
+        resolvedLines[lineID] = { attr, path: linePaths[type].generatePath(x1, x2, y1, y2, attr[type] as never) };
     }
 
-    return Object.entries(resolvedLines).map(([id, line]) => ({
-        id: id as LineId,
-        type: "line",
-        line
-    }));
+    return Object.entries(resolvedLines).map(([id, line]) => ({ id: id as LineId, type: "line", line }));
 };

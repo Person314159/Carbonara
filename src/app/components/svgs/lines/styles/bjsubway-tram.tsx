@@ -1,7 +1,7 @@
 import { MonoColour } from "@railmapgen/rmg-palette-resources";
 import React from "react";
 import { CityCode } from "@/app/constants/constants";
-import { LinePathAttributes, LineStyle, LineStyleComponentProps } from "@/app/constants/lines";
+import { LINE_WIDTH, LinePathAttributes, LineStyle, LineStyleComponentProps } from "@/app/constants/lines";
 import { ColorAttribute } from "../../../panels/details/color-field";
 
 const BjsubwayTram = (props: LineStyleComponentProps<BjsubwayTramAttributes>) => {
@@ -10,8 +10,8 @@ const BjsubwayTram = (props: LineStyleComponentProps<BjsubwayTramAttributes>) =>
 
     return (
         <g id={id} cursor="pointer">
-            <path d={path} fill="none" stroke={color[2]} strokeWidth="5" />
-            <path d={path} fill="none" stroke="white" strokeWidth="1.67" />
+            <path d={path} fill="none" stroke={color[2]} strokeWidth={LINE_WIDTH} />
+            <path d={path} fill="none" stroke="white" strokeWidth={LINE_WIDTH / 3} />
         </g>
     );
 };

@@ -1,7 +1,8 @@
 import { MonoColour } from "@railmapgen/rmg-palette-resources";
 import React from "react";
-import { CityCode } from "@/app/constants/constants";
+import { CityCode, Theme } from "@/app/constants/constants";
 import {
+    defaultStationAttributes,
     NameOffsetX,
     NameOffsetY,
     Station,
@@ -10,22 +11,24 @@ import {
     StationType
 } from "@/app/constants/stations";
 import { getLangStyle, TextLanguage } from "@/app/util/fonts";
+import { StationAttributesWithInterchange } from "../../panels/details/interchange-field";
 import { MultilineText } from "../common/multiline-text";
 import { MultilineTextVertical } from "../common/multiline-text-vertical";
-import { TokyoMetroBasicSvg, TokyoMetroBasicSvgAttributes } from "./tokyo-metro-basic";
+import { TokyoMetroBasicSvg } from "./tokyo-metro-basic";
 
 const TokyoMetroIntStation = (props: StationComponentProps) => {
     const { id, x, y, attrs } = props;
     const {
-        names = ["日本橋"],
+        names = defaultStationAttributes.names,
         nameOffsetX = defaultTokyoMetroIntStationAttributes.nameOffsetX,
         nameOffsetY = defaultTokyoMetroIntStationAttributes.nameOffsetY,
         textVertical = defaultTokyoMetroIntStationAttributes.textVertical,
-        interchanges = defaultTokyoMetroIntStationAttributes.interchanges,
+        transfer = defaultTokyoMetroIntStationAttributes.transfer,
         align = defaultTokyoMetroIntStationAttributes.align,
         importance = defaultTokyoMetroIntStationAttributes.importance,
         mereOffset = defaultTokyoMetroIntStationAttributes.mereOffset
     } = attrs[StationType.TokyoMetroInt] ?? defaultTokyoMetroIntStationAttributes;
+    const interchanges = transfer[0];
     const [textLength, setTextLength] = React.useState(0);
 
     React.useEffect(() => {
@@ -188,17 +191,28 @@ const TokyoMetroIntStation = (props: StationComponentProps) => {
                     />
                     {interchanges.map((s, i) => (
                         <g
-                            key={`${s.lineCode}_${s.stationCode}_${i}`}
+                            key={`${s.toString()}_${i}`}
                             transform={`translate(${i * singleWidth - (width - singleWidth) / 2}, 0)`}
                         >
                             <TokyoMetroBasicSvg
-                                lineCode={s.lineCode}
-                                stationCode={s.stationCode}
-                                color={s.color}
+                                lineCode={s[4]}
+                                stationCode={s[5]}
+                                color={s.slice(0, 4) as Theme}
                                 stroke={true}
                             />
                         </g>
                     ))}
+
+                    <rect
+                        id={`stn_core_${id}`}
+                        x={-(width + 3) / 2}
+                        y={-10.5}
+                        width={width + 3}
+                        height={21}
+                        rx={3}
+                        opacity={0}
+                        style={{ cursor: "move" }}
+                    />
                 </>
             ) : (
                 <>
@@ -214,13 +228,13 @@ const TokyoMetroIntStation = (props: StationComponentProps) => {
                     />
                     {interchanges.map((s, i) => (
                         <g
-                            key={`${s.lineCode}_${s.stationCode}_${i}`}
+                            key={`${s.toString()}_${i}`}
                             transform={`translate(0, ${i * singleHeight - (height - singleHeight) / 2})`}
                         >
                             <TokyoMetroBasicSvg
-                                lineCode={s.lineCode}
-                                stationCode={s.stationCode}
-                                color={s.color}
+                                lineCode={s[4]}
+                                stationCode={s[5]}
+                                color={s.slice(0, 4) as Theme}
                                 stroke={true}
                             />
                         </g>
@@ -265,12 +279,11 @@ type Importance = "default" | "middle" | "high";
 /**
  * TokyoMetroIntStation specific props.
  */
-export interface TokyoMetroIntStationAttributes extends StationAttributes {
+export interface TokyoMetroIntStationAttributes extends StationAttributes, StationAttributesWithInterchange {
     nameOffsetX: NameOffsetX;
     nameOffsetY: NameOffsetY;
     mereOffset: MereOffset;
     textVertical: boolean;
-    interchanges: TokyoMetroBasicSvgAttributes[];
     align: Align;
     importance: Importance;
 }
@@ -281,28 +294,19 @@ const defaultTokyoMetroIntStationAttributes: TokyoMetroIntStationAttributes = {
     nameOffsetY: "middle",
     mereOffset: "none",
     textVertical: false,
-    interchanges: [
-        {
-            lineCode: "G",
-            stationCode: "11",
-            color: [CityCode.Tokyo, "g", "#f9a328", MonoColour.white]
-        },
-        {
-            lineCode: "T",
-            stationCode: "10",
-            color: [CityCode.Tokyo, "t", "#00a4db", MonoColour.white]
-        },
-        {
-            lineCode: "A",
-            stationCode: "13",
-            color: [CityCode.Tokyo, "a", "#dd4231", MonoColour.white]
-        }
+    transfer: [
+        [
+            [CityCode.Tokyo, "g", "#f9a328", MonoColour.white, "G", "11"],
+            [CityCode.Tokyo, "t", "#00a4db", MonoColour.white, "T", "10"],
+            [CityCode.Tokyo, "a", "#dd4231", MonoColour.white, "A", "13"]
+        ]
     ],
     align: "horizontal",
     importance: "default"
 };
-const tokyoMetroIntStation: Station = {
-    component: TokyoMetroIntStation
+const tokyoMetroIntStation: Station<TokyoMetroIntStationAttributes> = {
+    component: TokyoMetroIntStation,
+    defaultAttrs: defaultTokyoMetroIntStationAttributes
 };
 
 export default tokyoMetroIntStation;

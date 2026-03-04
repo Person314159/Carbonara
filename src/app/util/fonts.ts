@@ -1,7 +1,6 @@
 import React from "react";
 
 export enum TextLanguage {
-    en = "en",
     jreast_ja = "jreast_ja",
     tokyo_en = "tokyo_en"
 }
@@ -45,9 +44,6 @@ export const getLangStyle = (lang: TextLanguage) => {
     return props;
 };
 const LANG_STYLE: Record<TextLanguage, FontStyle> = {
-    en: {
-        fontFamily: "Arial, sans-serif"
-    },
     /*
      * Special thanks to these blogs for recommending M+ as an alternative to 新ゴ.
      * https://google-sensei.com/it/font-shinmgo/

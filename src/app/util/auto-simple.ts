@@ -51,13 +51,7 @@ export const checkSimplePathAvailability = (
 
             if (checkKAndType(type, x1 + dx1, y1 + dy1, x2 + dx2, y2 + dy2)) {
                 // console.log(id, (rad1 * 180) / Math.PI, (rad2 * 180) / Math.PI, x1 + dx1, y1 + dy1, x2 + dx2, y2 + dy2);
-                return {
-                    x1: x1 + dx1,
-                    y1: y1 + dy1,
-                    x2: x2 + dx2,
-                    y2: y2 + dy2,
-                    offset: 0
-                };
+                return { x1: x1 + dx1, y1: y1 + dy1, x2: x2 + dx2, y2: y2 + dy2, offset: 0 };
             }
         }
     }
@@ -75,22 +69,10 @@ export const reconcileSimplePathWithParallel = (
     parallelIndex: number
 ) => {
     if (x1 === x2) {
-        return {
-            x1: x1 + 5 * parallelIndex,
-            y1,
-            x2: x2 + 5 * parallelIndex,
-            y2,
-            offset
-        };
+        return { x1: x1 + 5 * parallelIndex, y1, x2: x2 + 5 * parallelIndex, y2, offset };
     }
     if (y1 === y2) {
-        return {
-            x1,
-            y1: y1 + 5 * parallelIndex,
-            x2,
-            y2: y2 + 5 * parallelIndex,
-            offset
-        };
+        return { x1, y1: y1 + 5 * parallelIndex, x2, y2: y2 + 5 * parallelIndex, offset };
     }
     return {
         x1: x1 + 5 * Math.SQRT1_2 * parallelIndex,

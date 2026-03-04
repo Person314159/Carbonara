@@ -166,12 +166,7 @@ const makeStartingAndEndingPointsOfParallelShortPaths = (
         end[1]
     );
 
-    return {
-        mA: [mxA, myA],
-        mB: [mxB, myB],
-        endA: [endXA, endYA],
-        endB: [endXB, endYB]
-    };
+    return { mA: [mxA, myA], mB: [mxB, myB], endA: [endXA, endYA], endB: [endXB, endYB] };
 };
 /**
  * Given the coordinates of point A, B, and C,

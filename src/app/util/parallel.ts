@@ -2,7 +2,7 @@ import { MultiDirectedGraph } from "graphology";
 import { EdgeEntry } from "graphology-types";
 import { linePaths } from "../components/svgs/lines/lines";
 import { SimplePathAttributes } from "../components/svgs/lines/paths/simple";
-import { EdgeAttributes, LineId, MiscNodeId, NodeAttributes, StnId } from "../constants/constants";
+import { EdgeAttributes, GraphAttributes, LineId, NodeAttributes, NodeId } from "../constants/constants";
 import { ExternalLinePathAttributes, LinePathType, Path } from "../constants/lines";
 import { makeShortPathParallel } from "./bezier-parallel";
 
@@ -17,21 +17,22 @@ const MIN_ROUND_CORNER_FACTOR = 1;
  * into lines that should be parallel to the provided line and lines that should not.
  * Based on parallelIndex, type, and startFrom of the provided line.
  * @param graph The graph.
- * @param lineEntry The line entry.
+ * @param baseLineEntry The base line entry.
  * @returns An object containing normal and parallel lines.
  */
 export const classifyParallelLines = (
-    graph: MultiDirectedGraph<NodeAttributes, EdgeAttributes>,
-    lineEntry: EdgeEntry<NodeAttributes, EdgeAttributes>
+    graph: MultiDirectedGraph<NodeAttributes, EdgeAttributes, GraphAttributes>,
+    baseLineEntry: EdgeEntry<NodeAttributes, EdgeAttributes>
 ) => {
-    const { type, parallelIndex } = lineEntry.attributes;
+    const { type: baseType, parallelIndex: baseParallelIndex } = baseLineEntry.attributes;
 
     // safe guard for invalid cases
-    if (type === LinePathType.Simple || parallelIndex < 0) {
-        return { normal: [lineEntry], parallel: [] };
+    if (baseType === LinePathType.Simple || baseParallelIndex < 0) {
+        return { normal: [baseLineEntry], parallel: [] };
     }
 
-    const { source, target } = lineEntry;
+    const { source, target, attributes } = baseLineEntry;
+    const { startFrom: baseStartFrom } = attributes[baseType] as NonSimpleLinePathAttributes;
     const normal: EdgeEntry<NodeAttributes, EdgeAttributes>[] = [];
     const parallelLines: EdgeEntry<NodeAttributes, EdgeAttributes>[] = [];
 
@@ -43,9 +44,7 @@ export const classifyParallelLines = (
             continue;
         }
 
-        const { startFrom } = lineEntry.attributes[type] as NonSimpleLinePathAttributes;
-
-        if (checkParallels(type, source as StnId | MiscNodeId, startFrom, lineEntry)) {
+        if (checkParallels(baseType, source as NodeId, baseStartFrom, lineEntry)) {
             parallelLines.push(lineEntry);
         }
     }
@@ -85,9 +84,6 @@ export const makeParallelPaths = (parallelLines: EdgeEntry<NodeAttributes, EdgeA
         }
     }
     const type = baseLineEntry.attributes.type;
-
-    if (type === LinePathType.Simple) return {};
-
     const attr = baseLineEntry.attributes[type] as NonSimpleLinePathAttributes;
     const baseRoundCornerFactor = Math.max(MIN_ROUND_CORNER_FACTOR, attr.roundCornerFactor);
     const [x1, y1, x2, y2] = [
@@ -138,23 +134,21 @@ export const makeParallelPaths = (parallelLines: EdgeEntry<NodeAttributes, EdgeA
  */
 const checkParallels = (
     type: LinePathType,
-    source: StnId | MiscNodeId,
+    source: NodeId,
     startFrom: "from" | "to",
     lineEntry: EdgeEntry<NodeAttributes, EdgeAttributes>
 ) => {
     const lineEntryType = lineEntry.attributes.type;
 
-    if (lineEntryType === LinePathType.Simple) return false;
-
     if (
-        type === lineEntryType &&
+        type === lineEntry.attributes.type &&
         source === lineEntry.source &&
         startFrom === (lineEntry.attributes[lineEntryType] as NonSimpleLinePathAttributes).startFrom
     ) {
         return true;
     } else if (
         // edgeEntries will also return edges from target to source
-        type === lineEntryType &&
+        type === lineEntry.attributes.type &&
         source === lineEntry.target &&
         startFrom !== (lineEntry.attributes[lineEntryType] as NonSimpleLinePathAttributes).startFrom
     ) {
@@ -171,7 +165,7 @@ const checkParallels = (
  * @returns Base parallel line id.
  */
 export const getBaseParallelLineID = (
-    graph: MultiDirectedGraph<NodeAttributes, EdgeAttributes>,
+    graph: MultiDirectedGraph<NodeAttributes, EdgeAttributes, GraphAttributes>,
     type: LinePathType,
     lineID: LineId
 ): LineId => {

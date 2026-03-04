@@ -38,7 +38,7 @@ export type NameOffsetY = "top" | "middle" | "bottom";
 /**
  * The interface a customized Station should export.
  */
-export interface Station {
+export interface Station<T extends StationAttributes> {
     /**
      * The core station component.
      */
@@ -59,4 +59,10 @@ export interface Station {
      * Note it will be under other elements that have a bigger zIndex.
      */
     postComponent?: React.FC<StationComponentProps>;
+    /**
+     * Default attributes for this component.
+     */
+    defaultAttrs: T;
 }
+
+export const defaultStationAttributes: StationAttributes = { names: ["车站", "Stn"] };

@@ -2,6 +2,7 @@ import { MonoColour } from "@railmapgen/rmg-palette-resources";
 import React from "react";
 import { CityCode, Theme } from "@/app/constants/constants";
 import {
+    defaultStationAttributes,
     NameOffsetX,
     NameOffsetY,
     Station,
@@ -79,7 +80,7 @@ export const TokyoMetroBasicSvg = (props: TokyoMetroBasicSvgProps) => {
 const TokyoMetroBasicStation = (props: StationComponentProps) => {
     const { id, x, y, attrs } = props;
     const {
-        names = ["日本橋"],
+        names = defaultStationAttributes.names,
         nameOffsetX = defaultTokyoMetroBasicStationAttributes.nameOffsetX,
         nameOffsetY = defaultTokyoMetroBasicStationAttributes.nameOffsetY,
         textVertical = defaultTokyoMetroBasicStationAttributes.textVertical,
@@ -115,6 +116,7 @@ const TokyoMetroBasicStation = (props: StationComponentProps) => {
                             lineHeight={10}
                             grow={nameOffsetY === "bottom" ? "down" : "up"}
                             {...getLangStyle(TextLanguage.jreast_ja)}
+                            fill={"black"}
                         />
                     </g>
                 ) : (
@@ -154,8 +156,9 @@ const defaultTokyoMetroBasicStationAttributes: TokyoMetroBasicStationAttributes 
     stationCode: "10",
     color: [CityCode.Tokyo, "g", "#f9a328", MonoColour.white]
 };
-const tokyoMetroBasicStation: Station = {
-    component: TokyoMetroBasicStation
+const tokyoMetroBasicStation: Station<TokyoMetroBasicStationAttributes> = {
+    component: TokyoMetroBasicStation,
+    defaultAttrs: defaultTokyoMetroBasicStationAttributes
 };
 
 export default tokyoMetroBasicStation;

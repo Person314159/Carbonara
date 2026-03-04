@@ -55,7 +55,9 @@ export type LineId = `line_${string}`;
 
 export type MiscNodeId = `misc_node_${string}`;
 
-export type Id = StnId | MiscNodeId | LineId;
+export type NodeId = StnId | MiscNodeId;
+
+export type Id = NodeId | LineId;
 
 export enum CityCode {
     Beijing = "beijing",
