@@ -652,7 +652,7 @@ const networkData = {
         },
         {
             id: "N38",
-            name: "Campbell Line",
+            name: "Kitimat Extension",
             colour: "#c9c0c0",
             type: "LSR"
         },
@@ -723,6 +723,30 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "N51",
+            name: "Magloire Line",
+            colour: "#48ba2c",
+            type: "LSR"
+        },
+        {
+            id: "N52",
+            name: "High Prairie Line",
+            colour: "#a59c24",
+            type: "LSR"
+        },
+        {
+            id: "N53",
+            name: "Clairmont Line",
+            colour: "#a22b2b",
+            type: "LSR"
+        },
+        {
+            id: "N54",
+            name: "Dunvegan Line",
+            colour: "#e6e6e6",
+            type: "LSR"
+        },
+        {
             id: "O02",
             name: "Victorian Line",
             colour: "#b80b4b",
@@ -730,7 +754,7 @@ const networkData = {
         },
         {
             id: "O03",
-            name: "Okaihau Express",
+            name: "Ōkaihau Express",
             colour: "#cd4600",
             type: "LSR"
         },
@@ -998,9 +1022,6 @@ const networkData = {
             name: "Banana"
         },
         {
-            name: "Banff"
-        },
-        {
             name: "Bari"
         },
         {
@@ -1023,9 +1044,6 @@ const networkData = {
         },
         {
             name: "Belgrade"
-        },
-        {
-            name: "Bella Bella"
         },
         {
             name: "Benghazi"
@@ -1167,6 +1185,9 @@ const networkData = {
         },
         {
             name: "Copenhagen"
+        },
+        {
+            name: "Çorlu"
         },
         {
             name: "Corsica"
@@ -1313,6 +1334,9 @@ const networkData = {
             name: "Fairview"
         },
         {
+            name: "Falher-McLennan"
+        },
+        {
             name: "Faroe Islands"
         },
         {
@@ -1373,7 +1397,7 @@ const networkData = {
             name: "Glasgow"
         },
         {
-            name: "Golden"
+            name: "Goodlow"
         },
         {
             name: "Gothenburg"
@@ -1443,6 +1467,12 @@ const networkData = {
         },
         {
             name: "High Level"
+        },
+        {
+            name: "High Prairie"
+        },
+        {
+            name: "Hines Creek"
         },
         {
             name: "Hiroshima"
@@ -1796,6 +1826,12 @@ const networkData = {
             name: "Ohrid"
         },
         {
+            name: "Ōkaihau"
+        },
+        {
+            name: "Old Perlican"
+        },
+        {
             name: "Omsk"
         },
         {
@@ -1803,6 +1839,9 @@ const networkData = {
         },
         {
             name: "Orenburg"
+        },
+        {
+            name: "Ōsaka"
         },
         {
             name: "Oslo"
@@ -1974,9 +2013,6 @@ const networkData = {
         },
         {
             name: "Rennes"
-        },
-        {
-            name: "Revelstoke"
         },
         {
             name: "Reykjavík"
@@ -2399,6 +2435,9 @@ const networkData = {
             name: "World Origin"
         },
         {
+            name: "Worsley"
+        },
+        {
             name: "Yantai"
         },
         {
@@ -2430,15 +2469,6 @@ const networkData = {
         },
         {
             name: "Zugdidi"
-        },
-        {
-            name: "Çorlu"
-        },
-        {
-            name: "Ōkaihau"
-        },
-        {
-            name: "Ōsaka"
         }
     ],
     connections: [
@@ -4537,36 +4567,6 @@ const networkData = {
             time: 15
         },
         {
-            from: "Calgary",
-            to: "Banff",
-            lineID: "N32",
-            time: null
-        },
-        {
-            from: "Banff",
-            to: "Golden",
-            lineID: "N32",
-            time: null
-        },
-        {
-            from: "Golden",
-            to: "Revelstoke",
-            lineID: "N32",
-            time: null
-        },
-        {
-            from: "Revelstoke",
-            to: "Salmon Arm",
-            lineID: "N32",
-            time: null
-        },
-        {
-            from: "Salmon Arm",
-            to: "Kamloops",
-            lineID: "N32",
-            time: null
-        },
-        {
             from: "Kamloops",
             to: "Merritt",
             lineID: "N32",
@@ -4694,15 +4694,9 @@ const networkData = {
         },
         {
             from: "Terrace",
-            to: "Bella Bella",
+            to: "Kitimat",
             lineID: "N38",
-            time: null
-        },
-        {
-            from: "Bella Bella",
-            to: "Port Hardy",
-            lineID: "N38",
-            time: null
+            time: 10
         },
         {
             from: "Victoria",
@@ -5003,6 +4997,60 @@ const networkData = {
             to: "Valleyview",
             lineID: "N50",
             time: 25
+        },
+        {
+            from: "Valleyview",
+            to: "Falher-McLennan",
+            lineID: "N51",
+            time: 15
+        },
+        {
+            from: "Falher-McLennan",
+            to: "Peace River",
+            lineID: "N51",
+            time: 10
+        },
+        {
+            from: "Falher-McLennan",
+            to: "High Prairie",
+            lineID: "N52",
+            time: 15
+        },
+        {
+            from: "Grande Prairie",
+            to: "Spirit River",
+            lineID: "N53",
+            time: 15
+        },
+        {
+            from: "Spirit River",
+            to: "Hines Creek",
+            lineID: "N53",
+            time: 10
+        },
+        {
+            from: "Fairview",
+            to: "Hines Creek",
+            lineID: "N54",
+            time: 10
+        },
+        {
+            from: "Hines Creek",
+            to: "Worsley",
+            lineID: "N54",
+            time: 10
+        },
+        {
+            from: "Worsley",
+            to: "Goodlow",
+            lineID: "N54",
+            time: 15
+        },
+        {
+            from: "Goodlow",
+            to: "Fort St. John",
+            lineID: "N54",
+            time: 10
         },
         {
             from: "Melbourne",
@@ -5330,9 +5378,15 @@ const networkData = {
         },
         {
             from: "Rimouski",
+            to: "Old Perlican",
+            lineID: "T01",
+            time: 205
+        },
+        {
+            from: "Old Perlican",
             to: "Rennes",
             lineID: "T01",
-            time: 865
+            time: 660
         },
         {
             from: "Rennes",
