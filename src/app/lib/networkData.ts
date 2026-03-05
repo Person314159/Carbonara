@@ -1589,6 +1589,9 @@ const networkData = {
             name: "Kiel"
         },
         {
+            name: "Kitimat"
+        },
+        {
             name: "Knoxville"
         },
         {
