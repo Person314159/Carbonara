@@ -24,6 +24,7 @@ MapData.graph.nodes.forEach(node => {
 });
 
 const graph = new Map<string, Neighbour[]>();
+const built_stations: Set<string> = new Set();
 
 networkData.stations.forEach(station => {
     const neighbours: Neighbour[] = [];
@@ -31,10 +32,17 @@ networkData.stations.forEach(station => {
     networkData.connections.forEach(({ from, to, lineID, time }) => {
         if (from === station.name) neighbours.push({ lineID, destination: to, time });
         if (to === station.name) neighbours.push({ lineID, destination: from, time });
+
+        if (time !== null) {
+            built_stations.add(from);
+            built_stations.add(to);
+        }
     });
 
     graph.set(station.name, neighbours);
 });
+
+// console.log(Array.from(built_stations).sort((a, b) => a.localeCompare(b)));
 
 export const options = networkData.stations.map(station => station.name);
 

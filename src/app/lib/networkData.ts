@@ -801,6 +801,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "R01",
+            name: "Antarctic Line",
+            colour: "#fafaff",
+            type: "LSR"
+        },
+        {
             id: "S01",
             name: "Nordeste Line",
             colour: "#3155a4",
@@ -828,6 +834,12 @@ const networkData = {
             id: "S05",
             name: "East Line",
             colour: "#00674f",
+            type: "LSR"
+        },
+        {
+            id: "S06",
+            name: "BAC Line",
+            colour: "#49089e",
             type: "LSR"
         },
         {
@@ -980,6 +992,9 @@ const networkData = {
             name: "Antananarivo"
         },
         {
+            name: "Antarctic Ravine"
+        },
+        {
             name: "Antigua"
         },
         {
@@ -1014,6 +1029,9 @@ const networkData = {
         },
         {
             name: "Awamango"
+        },
+        {
+            name: "Bahía Blanca"
         },
         {
             name: "Baikonur"
@@ -1124,10 +1142,16 @@ const networkData = {
             name: "Cape Norvegia"
         },
         {
+            name: "Cape Null"
+        },
+        {
             name: "Cape Town"
         },
         {
             name: "Caracas"
+        },
+        {
+            name: "Carmen de Patagones"
         },
         {
             name: "Carpathia"
@@ -1568,6 +1592,9 @@ const networkData = {
             name: "Kanazawa"
         },
         {
+            name: "Karlskrona"
+        },
+        {
             name: "Kawartha Lakes"
         },
         {
@@ -1688,6 +1715,9 @@ const networkData = {
             name: "Manning"
         },
         {
+            name: "Mar del Plata"
+        },
+        {
             name: "Maracaibo"
         },
         {
@@ -1703,10 +1733,10 @@ const networkData = {
             name: "Martinique"
         },
         {
-            name: "Mazatlán"
+            name: "Matsumoto"
         },
         {
-            name: "Matsumoto"
+            name: "Mazatlán"
         },
         {
             name: "McMurdo Station"
@@ -2069,6 +2099,9 @@ const networkData = {
             name: "Samara"
         },
         {
+            name: "San Clemente del Tuyú"
+        },
+        {
             name: "San Diego"
         },
         {
@@ -2166,6 +2199,9 @@ const networkData = {
         },
         {
             name: "Socotra"
+        },
+        {
+            name: "South Pole"
         },
         {
             name: "Southampton"
@@ -3217,19 +3253,25 @@ const networkData = {
             from: "Turku",
             to: "Mariehamn",
             lineID: "E06",
-            time: null
+            time: 35
         },
         {
             from: "Mariehamn",
             to: "Stockholm",
             lineID: "E06",
-            time: null
+            time: 40
         },
         {
             from: "Stockholm",
-            to: "Copenhagen",
+            to: "Karlskrona",
             lineID: "E06",
             time: null
+        },
+        {
+            from: "Karlskrona",
+            to: "Copenhagen",
+            lineID: "E06",
+            time: 60
         },
         {
             from: "Copenhagen",
@@ -5152,6 +5194,18 @@ const networkData = {
             time: 335
         },
         {
+            from: "Cape Null",
+            to: "Antarctic Ravine",
+            lineID: "R01",
+            time: 225
+        },
+        {
+            from: "Antarctic Ravine",
+            to: "South Pole",
+            lineID: "R01",
+            time: 65
+        },
+        {
             from: "Fortaleza",
             to: "Natal",
             lineID: "S01",
@@ -5360,6 +5414,30 @@ const networkData = {
             to: "Belém",
             lineID: "S05",
             time: null
+        },
+        {
+            from: "Buenos Aires",
+            to: "San Clemente del Tuyú",
+            lineID: "S06",
+            time: 45
+        },
+        {
+            from: "San Clemente del Tuyú",
+            to: "Mar del Plata",
+            lineID: "S06",
+            time: 35
+        },
+        {
+            from: "Mar del Plata",
+            to: "Bahía Blanca",
+            lineID: "S06",
+            time: 70
+        },
+        {
+            from: "Bahía Blanca",
+            to: "Carmen de Patagones",
+            lineID: "S06",
+            time: 40
         },
         {
             from: "San Jose",
@@ -5695,7 +5773,7 @@ const networkData = {
             from: "Mafia Island",
             to: "Walvis Bay",
             lineID: "T04",
-            time: null
+            time: 525
         },
         {
             from: "Walvis Bay",
