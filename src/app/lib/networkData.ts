@@ -747,6 +747,12 @@ const networkData = {
             type: "LSR"
         },
         {
+            id: "N55",
+            name: "Thalia Line",
+            colour: "#ffc2ef",
+            type: "LSR"
+        },
+        {
             id: "O02",
             name: "Victorian Line",
             colour: "#b80b4b",
@@ -1652,9 +1658,6 @@ const networkData = {
             name: "La Paz"
         },
         {
-            name: "La Rochelle - Île d'Oléron"
-        },
-        {
             name: "Lampedusa"
         },
         {
@@ -1806,9 +1809,6 @@ const networkData = {
         },
         {
             name: "Nanjing"
-        },
-        {
-            name: "Nantes"
         },
         {
             name: "Natal"
@@ -2351,6 +2351,9 @@ const networkData = {
             name: "Tucson"
         },
         {
+            name: "Tulameen"
+        },
+        {
             name: "Tumbler Ridge"
         },
         {
@@ -2469,6 +2472,9 @@ const networkData = {
         },
         {
             name: "Winnipeg"
+        },
+        {
+            name: "World Border"
         },
         {
             name: "World Origin"
@@ -5098,6 +5104,18 @@ const networkData = {
             time: 10
         },
         {
+            from: "Princeton",
+            to: "Tulameen",
+            lineID: "N55",
+            time: 10
+        },
+        {
+            from: "Tulameen",
+            to: "Merritt",
+            lineID: "N55",
+            time: 15
+        },
+        {
             from: "Melbourne",
             to: "Sydney",
             lineID: "O02",
@@ -5542,6 +5560,18 @@ const networkData = {
             time: 325
         },
         {
+            from: "Poronaysk",
+            to: "World Border",
+            lineID: "T01",
+            time: 475
+        },
+        {
+            from: "World Border",
+            to: "Vancouver",
+            lineID: "T01",
+            time: 615
+        },
+        {
             from: "Basra",
             to: "Tel Aviv",
             lineID: "T02",
@@ -5648,24 +5678,6 @@ const networkData = {
             to: "Rennes",
             lineID: "T03",
             time: 45
-        },
-        {
-            from: "Rennes",
-            to: "Nantes",
-            lineID: "T03",
-            time: null
-        },
-        {
-            from: "Nantes",
-            to: "La Rochelle - Île d'Oléron",
-            lineID: "T03",
-            time: null
-        },
-        {
-            from: "La Rochelle - Île d'Oléron",
-            to: "Pyrenees",
-            lineID: "T03",
-            time: null
         },
         {
             from: "Rennes",
