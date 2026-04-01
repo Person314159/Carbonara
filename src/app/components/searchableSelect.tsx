@@ -2,31 +2,50 @@ import { Combobox, InputBase, useCombobox } from "@mantine/core";
 import { options } from "@/app/util/routing";
 import React, { useState } from "react";
 
+const normalizedOptions = options.map((station) => ({
+    station,
+    normalized: station
+        .toLowerCase()
+        .normalize("NFKD")
+        .replace(/[\u0300-\u036F]/g, ""),
+}));
+
 interface SearchableSelectProps {
     value: string;
     setValue: (v: string) => void;
 }
 
-export function SearchableSelect({ value, setValue }: SearchableSelectProps) {
+function SearchableSelectComponent({ value, setValue }: SearchableSelectProps) {
     const combobox = useCombobox({
         onDropdownClose: () => combobox.resetSelectedOption(),
     });
     const [search, setSearch] = useState("");
-    const shouldFilterOptions = options.every((station) => station !== search);
-    const filteredOptions = shouldFilterOptions
-        ? options.filter((station) =>
-              station
-                  .toLowerCase()
-                  .normalize("NFKD")
-                  .replace(/[\u0300-\u036F]/g, "")
-                  .includes(search.toLowerCase().trim())
-          )
-        : options;
-    const op = filteredOptions.map((station) => (
-        <Combobox.Option value={station} key={station}>
-            {station}
-        </Combobox.Option>
-    ));
+    const normalizedSearch = React.useMemo(
+        () =>
+            search
+                .toLowerCase()
+                .normalize("NFKD")
+                .replace(/[\u0300-\u036F]/g, ""),
+        [search]
+    );
+    const filteredOptions = React.useMemo(
+        () =>
+            normalizedSearch
+                ? normalizedOptions
+                      .filter(({ normalized }) => normalized.includes(normalizedSearch))
+                      .map(({ station }) => station)
+                : options,
+        [normalizedSearch]
+    );
+    const op = React.useMemo(
+        () =>
+            filteredOptions.map((station) => (
+                <Combobox.Option value={station} key={station}>
+                    {station}
+                </Combobox.Option>
+            )),
+        [filteredOptions]
+    );
 
     return (
         <Combobox
@@ -66,3 +85,5 @@ export function SearchableSelect({ value, setValue }: SearchableSelectProps) {
         </Combobox>
     );
 }
+
+export const SearchableSelect = React.memo(SearchableSelectComponent);

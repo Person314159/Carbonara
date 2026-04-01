@@ -9,6 +9,30 @@ interface Node {
     lineID: string;
 }
 
+type RMPNodeAttributeValue =
+    | string
+    | number
+    | boolean
+    | string[]
+    | null
+    | undefined
+    | { [key: string]: RMPNodeAttributeValue };
+
+type RMPGraphNodeAttributes = {
+    type?: string;
+    x?: number;
+    y?: number;
+} & Record<string, RMPNodeAttributeValue>;
+
+type RMPStyleAttr = { color?: string[] | string } & Record<string, string | string[] | undefined>;
+
+type RMPGraphEdge = {
+    source: string;
+    target: string;
+    key?: string;
+    attributes?: { style?: string } & Record<string, RMPNodeAttributeValue>;
+};
+
 networkData.stations.sort((a, b) => a.name.localeCompare(b.name));
 
 MapData.graph.nodes.forEach((node) => {
@@ -25,6 +49,13 @@ MapData.graph.nodes.forEach((node) => {
 
 const graph = new Map<string, Neighbour[]>();
 const built_stations: Set<string> = new Set();
+const dijkstraCache = new Map<
+    string,
+    {
+        distances: Map<string, [number, number]>;
+        previous: Map<string, TimedNeighbour | null>;
+    }
+>();
 
 networkData.stations.forEach((station) => {
     const neighbours: Neighbour[] = [];
@@ -47,6 +78,11 @@ networkData.stations.forEach((station) => {
 export const options = networkData.stations.map((station) => station.name);
 
 function dijkstra(start: string, metric: string) {
+    const cacheKey = `${start}:${metric}`;
+    const cached = dijkstraCache.get(cacheKey);
+
+    if (cached) return cached;
+
     const distances = new Map<string, [number, number]>();
     const previous = new Map<string, TimedNeighbour | null>();
     const pq = new PriorityQueue((a: Node, b: Node) =>
@@ -96,7 +132,11 @@ function dijkstra(start: string, metric: string) {
         });
     }
 
-    return { distances, previous };
+    const result = { distances, previous };
+
+    dijkstraCache.set(cacheKey, result);
+
+    return result;
 }
 
 interface State {
@@ -253,15 +293,17 @@ function convertPathToRoute(path: TimedConnection[]) {
 
 const stationNameToNodeKeys = new Map<string, string[]>();
 const stationKeyToAliases = new Map<string, string[]>();
-const edges = MapData.graph.edges ?? [];
+const edges = (MapData.graph.edges as RMPGraphEdge[]) ?? [];
 const stationNodes = MapData.graph.nodes ?? [];
 
 for (const node of stationNodes) {
-    const attributes = node.attributes as Record<string, unknown>;
+    const attributes = node.attributes as RMPGraphNodeAttributes;
 
     for (const value of Object.values(attributes)) {
-        if (typeof value === "object" && value !== null && Array.isArray(value.names)) {
-            for (const name of value.names as string[]) {
+        const namedValue = value as { names?: string[] };
+
+        if (typeof value === "object" && value !== null && Array.isArray(namedValue.names)) {
+            for (const name of namedValue.names as string[]) {
                 const keys = stationNameToNodeKeys.get(name) ?? [];
 
                 if (!keys.includes(node.key)) keys.push(node.key);
@@ -281,7 +323,7 @@ for (const stationNameToNodeKey of stationNameToNodeKeys) {
     }
 }
 
-const adjacency = new Map<string, unknown[]>();
+const adjacency = new Map<string, RMPGraphEdge[]>();
 
 for (const edge of edges) {
     const sourceList = adjacency.get(edge.source) ?? [];
@@ -299,19 +341,17 @@ function normalizeColor(color: string | undefined) {
     return color?.toLowerCase() ?? "";
 }
 
-function getEdgeColor(edge) {
+function getEdgeColor(edge: RMPGraphEdge | null | undefined) {
     if (!edge?.attributes || !edge.attributes.style) return "";
-    const styleAttr = edge.attributes[edge.attributes.style];
+    const styleAttr = edge.attributes[edge.attributes.style as string] as RMPStyleAttr | undefined;
 
     if (!styleAttr || typeof styleAttr !== "object") return "";
-    const color = Array.isArray(styleAttr.color)
-        ? styleAttr.color.find((value: unknown) => typeof value === "string" && /^#/.test(value))
-        : undefined;
+    const color = Array.isArray(styleAttr.color) ? styleAttr.color.find((value) => /^#/.test(value)) : undefined;
 
     return normalizeColor(color as string | undefined);
 }
 
-function isRouteEdge(edge, lineColor?: string) {
+function isRouteEdge(edge: RMPGraphEdge | null | undefined, lineColor?: string) {
     if (!edge?.attributes) return false;
     if (edge.attributes.style === "bjsubway-dotted") return false;
     const edgeColor = getEdgeColor(edge);
@@ -322,7 +362,7 @@ function isRouteEdge(edge, lineColor?: string) {
 function findRMPPathEdges(startKey: string, endKey: string, lineColor?: string) {
     const queue: string[] = [startKey];
     const visited = new Set<string>([startKey]);
-    const parent = new Map<string, { node: string; edge: unknown | null }>();
+    const parent = new Map<string, { node: string; edge: RMPGraphEdge | null }>();
 
     while (queue.length) {
         const nodeKey = queue.shift()!;
@@ -356,7 +396,7 @@ function findRMPPathEdges(startKey: string, endKey: string, lineColor?: string) 
     while (currentKey !== startKey) {
         const step = parent.get(currentKey)!;
 
-        if (step.edge) pathEdges.unshift(step.edge.key);
+        if (step.edge?.key) pathEdges.unshift(step.edge.key);
         currentKey = step.node;
     }
 

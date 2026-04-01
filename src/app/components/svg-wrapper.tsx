@@ -10,19 +10,18 @@ interface SvgWrapperProps {
     highlightStationKeys?: string[];
 }
 
+const staticGraph = MultiDirectedGraph.from((MapData as RMPSave).graph);
+const staticElements = [...getLines(staticGraph), ...getNodes(staticGraph)];
 const SvgWrapper = React.memo(({ highlightEdgeIds = [], highlightStationKeys = [] }: SvgWrapperProps) => {
-    const { graph } = MapData as unknown as RMPSave;
-    const g = MultiDirectedGraph.from(graph);
-    // These are elements that the svg draws from.
-    // They are updated by the refresh triggers in the runtime state.
-    const elements = [...getLines(g), ...getNodes(g)];
-    const highlightEdges = new Set(highlightEdgeIds);
-    const highlightStations = new Set(highlightStationKeys);
-    const highlightedLineElements = elements.filter(
-        (element) => element.type === "line" && highlightEdges.has(element.id)
+    const highlightEdges = React.useMemo(() => new Set(highlightEdgeIds), [highlightEdgeIds]);
+    const highlightStations = React.useMemo(() => new Set(highlightStationKeys), [highlightStationKeys]);
+    const highlightedLineElements = React.useMemo(
+        () => staticElements.filter((element) => element.type === "line" && highlightEdges.has(element.id)),
+        [highlightEdges]
     );
-    const highlightedStationElements = elements.filter(
-        (element) => element.type === "station" && highlightStations.has(element.id)
+    const highlightedStationElements = React.useMemo(
+        () => staticElements.filter((element) => element.type === "station" && highlightStations.has(element.id)),
+        [highlightStations]
     );
     const renderStationHighlight = (element: (typeof highlightedStationElements)[number]) => {
         const attrs = element.station!;
@@ -105,7 +104,7 @@ const SvgWrapper = React.memo(({ highlightEdgeIds = [], highlightStationKeys = [
 
     return (
         <>
-            <SvgLayer elements={elements} />
+            <SvgLayer elements={staticElements} />
             {highlightedLineElements.map((element) => (
                 <path
                     key={`highlight-${element.id}`}

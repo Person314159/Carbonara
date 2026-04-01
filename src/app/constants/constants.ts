@@ -47,7 +47,7 @@ export type GraphAttributes = {
  * @property 2 - background colour
  * @property 3 - foreground colour
  */
-export type Theme = [CityCode, string, ColourHex, MonoColour];
+export type Theme = [CityCode, string, ColourHex, MonoColour] | string[];
 
 export type StnId = `stn_${string}`;
 

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import networkData from "@/app/lib/networkData";
 import { LegProp } from "@/app/lib/interfaces";
 import NetworkMap from "@/app/components/networkMap";
@@ -11,8 +11,9 @@ import { SearchableSelect } from "@/app/components/searchableSelect";
 import { StationSelect } from "@/app/components/stationSelect";
 
 export default function Home() {
-    const [startStation, setStartStation] = useState("");
-    const [endStation, setEndStation] = useState("");
+    const defaultStation = networkData.stations[0]?.name ?? "";
+    const [startStation, setStartStation] = useState(defaultStation);
+    const [endStation, setEndStation] = useState(defaultStation);
     const [metric, setMetric] = useState("time");
     const [timeRange, setTimeRange] = useState<[number, number]>([0, 3600]);
     const [maxLinesUsed, setMaxLinesUsed] = useState(10);
@@ -25,11 +26,15 @@ export default function Home() {
     const [error, setError] = useState<string | undefined>();
     const [searchStation, setSearchStation] = useState("");
     const [isClient, setIsClient] = useState(false);
+    const stationCoordinate = useMemo(
+        () =>
+            searchStation
+                ? networkData.stations.find((station) => station.name === searchStation)?.coordinate
+                : undefined,
+        [searchStation]
+    );
 
     useEffect(() => {
-        // Set initial values after hydration
-        setStartStation(networkData.stations[0].name);
-        setEndStation(networkData.stations[0].name);
         setIsClient(true);
     }, []);
 
@@ -155,22 +160,15 @@ export default function Home() {
                                     height: 800,
                                 }}
                             >
-                                {({ width, height }) => {
-                                    const stationCoordinate = searchStation
-                                        ? networkData.stations.find((station) => station.name === searchStation)
-                                              ?.coordinate
-                                        : undefined;
-
-                                    return (
-                                        <NetworkMap
-                                            width={width}
-                                            height={height}
-                                            stationCoordinate={stationCoordinate}
-                                            highlightEdgeIds={highlightedEdges}
-                                            highlightStationKeys={highlightedStations}
-                                        />
-                                    );
-                                }}
+                                {({ width, height }) => (
+                                    <NetworkMap
+                                        width={width}
+                                        height={height}
+                                        stationCoordinate={stationCoordinate}
+                                        highlightEdgeIds={highlightedEdges}
+                                        highlightStationKeys={highlightedStations}
+                                    />
+                                )}
                             </ParentSize>
                         </div>
                     </div>
