@@ -3,29 +3,29 @@
 @import "tailwindcss/utilities.css" layer(utilities);
 
 :root {
-    /* Color System */
-    /* Primary Colors */
-    --color-primary: #588157;
-    --color-primary-light: #60a558;
-    --color-primary-dark: #3d5a3d;
+    /* Colour System */
+    /* Primary Colours */
+    --colour-primary: #588157;
+    --colour-primary-light: #60a558;
+    --colour-primary-dark: #3d5a3d;
 
-    /* Neutral Colors */
-    --color-background: #ffffff;
-    --color-background-dark: #444444;
-    --color-background-alt-dark: #555555;
+    /* Neutral Colours */
+    --colour-background: #ffffff;
+    --colour-background-dark: #444444;
+    --colour-background-alt-dark: #555555;
 
-    /* Text Colors */
-    --color-text: #2f2f2f;
-    --color-text-dark: #ffffff;
-    --color-text-muted-dark: #eeeeee;
+    /* Text Colours */
+    --colour-text: #2f2f2f;
+    --colour-text-dark: #ffffff;
+    --colour-text-muted-dark: #eeeeee;
 
-    /* UI Colors */
-    --color-border: #666666;
-    --color-button: #2f2f2f;
-    --color-button-text: #888888;
+    /* UI Colours */
+    --colour-border: #666666;
+    --colour-button: #2f2f2f;
+    --colour-button-text: #888888;
 
     /* Visual Feedback System */
-    --color-error: #f44336;
+    --colour-error: #f44336;
 
     /* Typography System */
     --font-size-sm: 0.875rem;
@@ -58,15 +58,15 @@
 
 /* Select Input Styling */
 .mantine-InputBase-input {
-    @apply w-full appearance-none rounded-lg border-2 border-solid border-(--color-border) bg-(--color-background-alt-dark) p-3 text-(length:--font-size-base)/(--line-height-normal) text-(--color-text-dark) transition-all duration-(--transition-fast) ease-(--ease-out) hover:transform-[translateY(-1px)] hover:border-(--color-primary) hover:bg-(--color-background-dark) hover:text-(--color-text-dark) focus:transform-[translateY(-1px)] focus:border-(--color-primary) focus:bg-(--color-background-dark) focus:shadow-md focus:outline-none;
+    @apply w-full appearance-none rounded-lg border-2 border-solid border-(--colour-border) bg-(--colour-background-alt-dark) p-3 text-(length:--font-size-base)/(--line-height-normal) text-(--colour-text-dark) transition-all duration-(--transition-fast) ease-out hover:transform-[translateY(-1px)] hover:border-(--colour-primary) hover:bg-(--colour-background-dark) hover:text-(--colour-text-dark) focus:transform-[translateY(-1px)] focus:border-(--colour-primary) focus:bg-(--colour-background-dark) focus:shadow-md focus:outline-none;
 }
 
 .mantine-Combobox-dropdown {
-    @apply bg-(--color-background-dark);
+    @apply bg-(--colour-background-dark);
 }
 
 .mantine-Combobox-option {
-    @apply hover:bg-(--color-background) hover:text-(--color-text);
+    @apply hover:bg-(--colour-background) hover:text-(--colour-text);
 }
 
 .sliders-details .sliders-content {
@@ -81,35 +81,35 @@
     paint-order: stroke;
     /* Do not forget to define stroke-width when using this class! */
     stroke-linejoin: round;
-    fill: var(--color-text-dark);
+    fill: var(--colour-text-dark);
 }
 
 .btn {
-    @apply m-0 border-none bg-(--color-button) text-center text-(--color-button-text) transition-all duration-(--transition-fast) ease-out hover:transform-[translateY(-1px)] hover:shadow-md active:transform-[translateY(0px)];
+    @apply m-0 border-none bg-(--colour-button) text-center text-(--colour-button-text) transition-all duration-(--transition-fast) ease-out hover:transform-[translateY(-1px)] hover:shadow-md active:transform-[translateY(0px)];
 }
 
 .route-step {
-    @apply mb-2.5 rounded-sm border-l-4 border-l-(--color-primary-light) bg-(--color-background-alt-dark) p-2.5 transition-all duration-(--transition-normal) ease-out hover:transform-[translateX(4px)] hover:shadow-md;
+    @apply mb-2.5 rounded-sm border-l-4 border-l-(--colour-primary-light) bg-(--colour-background-alt-dark) p-2.5 transition-all duration-(--transition-normal) ease-out hover:transform-[translateX(4px)] hover:shadow-md;
 }
 
 .line-badge {
-    @apply inline-block rounded-sm px-2 py-[3px] font-bold text-white;
+    @apply inline-block rounded-sm px-2 py-0.75 font-bold text-white;
 }
 
 .line-border {
-    @apply my-5 border-b-1 border-b-(--color-border);
+    @apply my-5 border-b border-b-(--colour-border);
 }
 
 .hsr-badge {
-    @apply relative after:absolute after:top-[-5px] after:right-[-5px] after:rounded-[3px] after:bg-[gold] after:px-[3px] after:py-[1px] after:text-[10px] after:text-black after:content-["★"];
+    @apply relative after:absolute after:-top-1.25 after:-right-1.25 after:rounded-[3px] after:bg-[gold] after:px-0.75 after:py-px after:text-[10px] after:text-black after:content-["★"];
 }
 
 .transfer-station {
-    @apply font-bold text-(--color-primary-light) transition-[color] duration-(--transition-fast) ease-out hover:text-(--color-primary-dark);
+    @apply font-bold text-(--colour-primary-light) transition-[color] duration-(--transition-fast) ease-out hover:text-(--colour-primary-dark);
 }
 
 .station-count {
-    @apply mt-[5px] text-(length:--font-size-sm)/(--line-height-normal) text-(--color-text-muted-dark);
+    @apply mt-1.25 text-(length:--font-size-sm)/(--line-height-normal) text-(--colour-text-muted-dark);
 }
 
 .total-time {
@@ -134,7 +134,7 @@
 
 /* Find Route Button */
 .find-route-btn {
-    @apply h-[36px] w-full cursor-pointer rounded-lg border-none bg-(--color-primary) px-2 font-bold text-white transition-all duration-(--transition-fast) ease-out hover:transform-[translateY(-1px)] hover:bg-(--color-primary-dark) hover:shadow-md active:transform-[translateY(0px)] active:shadow-none sm:w-auto;
+    @apply h-9 w-full cursor-pointer rounded-lg border-none bg-(--colour-primary) px-2 font-bold text-white transition-all duration-(--transition-fast) ease-out hover:transform-[translateY(-1px)] hover:bg-(--colour-primary-dark) hover:shadow-md active:transform-[translateY(0px)] active:shadow-none sm:w-auto;
 }
 
 /* I'm Feeling Lucky Button */
@@ -142,7 +142,7 @@
     --d: 100px;
     --angle: 120deg;
 
-    @apply h-[36px] w-full cursor-pointer rounded-lg border-none px-1 font-bold text-white transition-all duration-(--transition-fast) ease-out hover:transform-[translateY(-1px)] hover:bg-(--color-primary-dark) hover:shadow-md active:transform-[translateY(0px)] active:shadow-none sm:w-auto;
+    @apply h-9 w-full cursor-pointer rounded-lg border-none px-1 font-bold text-white transition-all duration-(--transition-fast) ease-out hover:transform-[translateY(-1px)] hover:bg-(--colour-primary-dark) hover:shadow-md active:transform-[translateY(0px)] active:shadow-none sm:w-auto;
     background: repeating-linear-gradient(
         var(--angle),
         rgba(255, 0, 0, 1),
@@ -175,6 +175,6 @@
 
 .status-message--error {
     background-color: rgba(244, 67, 54, 0.1);
-    color: var(--color-error);
-    border-left: 4px solid var(--color-error);
+    color: var(--colour-error);
+    border-left: 4px solid var(--colour-error);
 }

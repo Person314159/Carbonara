@@ -31,11 +31,11 @@ export interface SimplePathAttributes extends LinePathAttributes {
 }
 
 const defaultSimplePathAttributes = {
-    offset: 0
+    offset: 0,
 };
 const simplePath: LinePath<SimplePathAttributes> = {
     generatePath: generateSimplePath,
-    defaultAttrs: defaultSimplePathAttributes
+    defaultAttrs: defaultSimplePathAttributes,
 };
 
 export default simplePath;

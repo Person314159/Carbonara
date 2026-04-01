@@ -54,7 +54,7 @@ export enum FacilitiesType {
     AirportChengdu = "airport_chengdu",
     RailwayChengdu = "railway_chengdu",
     RailwayTaiwan = "railway_taiwan",
-    HSRTaiwan = "hsr_taiwan"
+    HSRTaiwan = "hsr_taiwan",
 }
 
 const Facilities = (props: NodeComponentProps<FacilitiesAttributes>) => {
@@ -85,11 +85,11 @@ export interface FacilitiesAttributes {
 }
 
 const defaultFacilitiesAttributes: FacilitiesAttributes = {
-    type: FacilitiesType.Airport
+    type: FacilitiesType.Airport,
 };
 const facilities: Node<FacilitiesAttributes> = {
     component: Facilities,
-    defaultAttrs: defaultFacilitiesAttributes
+    defaultAttrs: defaultFacilitiesAttributes,
 };
 
 export default facilities;

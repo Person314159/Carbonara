@@ -4,7 +4,7 @@ import tokyoMetroIntStation from "./tokyo-metro-int";
 
 const stations = {
     [StationType.TokyoMetroBasic]: tokyoMetroBasicStation,
-    [StationType.TokyoMetroInt]: tokyoMetroIntStation
+    [StationType.TokyoMetroInt]: tokyoMetroIntStation,
 };
 
 export default stations;

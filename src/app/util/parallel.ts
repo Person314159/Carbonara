@@ -90,11 +90,11 @@ export const makeParallelPaths = (parallelLines: EdgeEntry<NodeAttributes, EdgeA
         baseLineEntry.sourceAttributes.x,
         baseLineEntry.sourceAttributes.y,
         baseLineEntry.targetAttributes.x,
-        baseLineEntry.targetAttributes.y
+        baseLineEntry.targetAttributes.y,
     ];
     const basePath = linePaths[type].generatePath(x1, x2, y1, y2, {
         ...attr,
-        roundCornerFactor: baseRoundCornerFactor
+        roundCornerFactor: baseRoundCornerFactor,
     } as never);
     // console.log(basePath, x1, y1, x2, y2);
     const pathFlip = checkPathFlip(type, x1, y1, x2, y2);
@@ -112,7 +112,7 @@ export const makeParallelPaths = (parallelLines: EdgeEntry<NodeAttributes, EdgeA
         const d = parallelIndex * 5;
         const defaultSimpleParallelPath = [
             `M ${x1} ${y1 + d} L ${x2} ${y2 + d}`,
-            `M ${x1} ${y1 - d} L ${x2} ${y2 - d}`
+            `M ${x1} ${y1 - d} L ${x2} ${y2 - d}`,
         ] as [Path, Path];
         const [pathA, pathB] = makeShortPathParallel(basePath, type, d) ?? defaultSimpleParallelPath;
 

@@ -10,14 +10,14 @@ export default defineConfig([
     {
         plugins: {
             "@next/next": pluginNext,
-            "@stylistic": stylistic
-        }
+            "@stylistic": stylistic,
+        },
     },
     { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
     {
         files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
         settings: { react: { version: "detect" } },
-        languageOptions: { globals: { ...globals.browser, ...globals.node } }
+        languageOptions: { globals: { ...globals.browser, ...globals.node } },
     },
     { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"], plugins: { js }, extends: ["js/recommended"] },
     tseslint.configs.recommended,
@@ -30,9 +30,9 @@ export default defineConfig([
                 "error",
                 { blankLine: "always", prev: ["const", "let", "var"], next: "*" },
                 { blankLine: "never", prev: ["const", "let", "var"], next: ["const", "let", "var"] },
-                { blankLine: "always", prev: "*", next: "export" }
+                { blankLine: "always", prev: "*", next: "export" },
             ],
-            "@stylistic/lines-between-class-members": ["error", "never"]
-        }
-    }
+            "@stylistic/lines-between-class-members": ["error", "never"],
+        },
+    },
 ]);

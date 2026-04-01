@@ -49,7 +49,7 @@ function _roundPathCorners(pathString, radius, useFractionalRadius) {
     function moveTowardsFractional(movingPoint, targetPoint, fraction) {
         return {
             x: movingPoint.x + (targetPoint.x - movingPoint.x) * fraction,
-            y: movingPoint.y + (targetPoint.y - movingPoint.y) * fraction
+            y: movingPoint.y + (targetPoint.y - movingPoint.y) * fraction,
         };
     }
 
@@ -65,7 +65,7 @@ function _roundPathCorners(pathString, radius, useFractionalRadius) {
     function pointForCommand(cmd) {
         return {
             x: parseFloat(cmd[cmd.length - 2]),
-            y: parseFloat(cmd[cmd.length - 1])
+            y: parseFloat(cmd[cmd.length - 1]),
         };
     }
 
@@ -155,7 +155,7 @@ function _roundPathCorners(pathString, radius, useFractionalRadius) {
                     endControl.x,
                     endControl.y,
                     curveEnd.x,
-                    curveEnd.y
+                    curveEnd.y,
                 ];
 
                 // Save the original point for fractional calculations

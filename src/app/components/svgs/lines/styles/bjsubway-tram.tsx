@@ -22,11 +22,11 @@ const BjsubwayTram = (props: LineStyleComponentProps<BjsubwayTramAttributes>) =>
 export interface BjsubwayTramAttributes extends LinePathAttributes, ColorAttribute {}
 
 const defaultBjsubwayTramAttributes: BjsubwayTramAttributes = {
-    color: [CityCode.Beijing, "bj1", "#c23a30", MonoColour.white]
+    color: [CityCode.Beijing, "bj1", "#c23a30", MonoColour.white],
 };
 const bjsubwayTram: LineStyle<BjsubwayTramAttributes> = {
     component: BjsubwayTram,
-    defaultAttrs: defaultBjsubwayTramAttributes
+    defaultAttrs: defaultBjsubwayTramAttributes,
 };
 
 export default bjsubwayTram;

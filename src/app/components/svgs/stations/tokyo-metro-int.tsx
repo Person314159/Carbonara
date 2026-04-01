@@ -8,7 +8,7 @@ import {
     Station,
     StationAttributes,
     StationComponentProps,
-    StationType
+    StationType,
 } from "@/app/constants/stations";
 import { getLangStyle, TextLanguage } from "@/app/util/fonts";
 import { StationAttributesWithInterchange } from "../../panels/details/interchange-field";
@@ -26,7 +26,7 @@ const TokyoMetroIntStation = (props: StationComponentProps) => {
         transfer = defaultTokyoMetroIntStationAttributes.transfer,
         align = defaultTokyoMetroIntStationAttributes.align,
         importance = defaultTokyoMetroIntStationAttributes.importance,
-        mereOffset = defaultTokyoMetroIntStationAttributes.mereOffset
+        mereOffset = defaultTokyoMetroIntStationAttributes.mereOffset,
     } = attrs[StationType.TokyoMetroInt] ?? defaultTokyoMetroIntStationAttributes;
     const interchanges = transfer[0];
     const [textLength, setTextLength] = React.useState(0);
@@ -34,7 +34,7 @@ const TokyoMetroIntStation = (props: StationComponentProps) => {
     React.useEffect(() => {
         let len = 0;
 
-        names[0].split("\n").forEach(s => {
+        names[0].split("\n").forEach((s) => {
             len = Math.max(len, s.length);
         });
         setTextLength(len);
@@ -95,7 +95,7 @@ const TokyoMetroIntStation = (props: StationComponentProps) => {
                     ? textOffsetYVerBottom + height / 2 + textLength * 5
                     : nameOffsetY === "top"
                       ? -textOffsetYVerTop - height / 2 - textLength * 5
-                      : -5
+                      : -5,
         };
     };
     const getMiddle = (): TokyoMetroIntSvgProps => {
@@ -129,7 +129,7 @@ const TokyoMetroIntStation = (props: StationComponentProps) => {
                     ? textOffsetYVerBottom + height / 2 + textLength * 7.5
                     : nameOffsetY === "top"
                       ? -textOffsetYVerTop - height / 2 - textLength * 7.5
-                      : -5
+                      : -5,
         };
     };
     const getImportant = (): TokyoMetroIntSvgProps => {
@@ -163,7 +163,7 @@ const TokyoMetroIntStation = (props: StationComponentProps) => {
                     ? textOffsetYVerBottom + height / 2 + textLength * 10
                     : nameOffsetY === "top"
                       ? -textOffsetYVerTop - height / 2 - textLength * 10
-                      : -5
+                      : -5,
         };
     };
     const { fontSize, textXVer, textY, textYVer } =
@@ -298,15 +298,15 @@ const defaultTokyoMetroIntStationAttributes: TokyoMetroIntStationAttributes = {
         [
             [CityCode.Tokyo, "g", "#f9a328", MonoColour.white, "G", "11"],
             [CityCode.Tokyo, "t", "#00a4db", MonoColour.white, "T", "10"],
-            [CityCode.Tokyo, "a", "#dd4231", MonoColour.white, "A", "13"]
-        ]
+            [CityCode.Tokyo, "a", "#dd4231", MonoColour.white, "A", "13"],
+        ],
     ],
     align: "horizontal",
-    importance: "default"
+    importance: "default",
 };
 const tokyoMetroIntStation: Station<TokyoMetroIntStationAttributes> = {
     component: TokyoMetroIntStation,
-    defaultAttrs: defaultTokyoMetroIntStationAttributes
+    defaultAttrs: defaultTokyoMetroIntStationAttributes,
 };
 
 export default tokyoMetroIntStation;

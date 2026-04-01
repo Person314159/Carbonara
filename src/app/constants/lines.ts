@@ -10,7 +10,7 @@ import { BjsubwayTramAttributes } from "@/app/components/svgs/lines/styles/bjsub
 export enum LinePathType {
     Diagonal = "diagonal",
     Perpendicular = "perpendicular",
-    Simple = "simple"
+    Simple = "simple",
 }
 
 export interface ExternalLinePathAttributes {
@@ -22,7 +22,7 @@ export interface ExternalLinePathAttributes {
 export enum LineStyleType {
     SingleColor = "single-color",
     BjsubwayDotted = "bjsubway-dotted",
-    BjsubwayTram = "bjsubway-tram"
+    BjsubwayTram = "bjsubway-tram",
 }
 
 export interface ExternalLineStyleAttributes {
@@ -38,7 +38,7 @@ export const LINE_WIDTH = 5;
 export type Path = `M${string}`;
 
 export interface LineStyleComponentProps<
-    T extends NonNullable<ExternalLineStyleAttributes[keyof ExternalLineStyleAttributes]>
+    T extends NonNullable<ExternalLineStyleAttributes[keyof ExternalLineStyleAttributes]>,
 > {
     id: LineId;
     /**
@@ -82,8 +82,9 @@ export interface LinePath<T extends LinePathAttributes> extends LineBase<T> {
 /**
  * The type a line style should export.
  */
-export interface LineStyle<T extends NonNullable<ExternalLineStyleAttributes[keyof ExternalLineStyleAttributes]>>
-    extends LineBase<T> {
+export interface LineStyle<
+    T extends NonNullable<ExternalLineStyleAttributes[keyof ExternalLineStyleAttributes]>,
+> extends LineBase<T> {
     /**
      * The line style component.
      */

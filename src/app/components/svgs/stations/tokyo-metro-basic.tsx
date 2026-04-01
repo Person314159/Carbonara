@@ -8,7 +8,7 @@ import {
     Station,
     StationAttributes,
     StationComponentProps,
-    StationType
+    StationType,
 } from "@/app/constants/stations";
 import { getLangStyle, TextLanguage } from "@/app/util/fonts";
 import { MultilineText } from "../common/multiline-text";
@@ -86,14 +86,14 @@ const TokyoMetroBasicStation = (props: StationComponentProps) => {
         textVertical = defaultTokyoMetroBasicStationAttributes.textVertical,
         lineCode = defaultTokyoMetroBasicStationAttributes.lineCode,
         stationCode = defaultTokyoMetroBasicStationAttributes.stationCode,
-        color = defaultTokyoMetroBasicStationAttributes.color
+        color = defaultTokyoMetroBasicStationAttributes.color,
     } = attrs[StationType.TokyoMetroBasic] ?? defaultTokyoMetroBasicStationAttributes;
     const [textLength, setTextLength] = React.useState(0);
 
     React.useEffect(() => {
         let len = 0;
 
-        names[0].split("\n").forEach(s => {
+        names[0].split("\n").forEach((s) => {
             len = Math.max(len, s.length);
         });
         setTextLength(len);
@@ -154,11 +154,11 @@ const defaultTokyoMetroBasicStationAttributes: TokyoMetroBasicStationAttributes 
     textVertical: false,
     lineCode: "G",
     stationCode: "10",
-    color: [CityCode.Tokyo, "g", "#f9a328", MonoColour.white]
+    color: [CityCode.Tokyo, "g", "#f9a328", MonoColour.white],
 };
 const tokyoMetroBasicStation: Station<TokyoMetroBasicStationAttributes> = {
     component: TokyoMetroBasicStation,
-    defaultAttrs: defaultTokyoMetroBasicStationAttributes
+    defaultAttrs: defaultTokyoMetroBasicStationAttributes,
 };
 
 export default tokyoMetroBasicStation;

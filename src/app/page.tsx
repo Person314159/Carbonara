@@ -6,7 +6,8 @@ import { LegProp } from "@/app/lib/interfaces";
 import NetworkMap from "@/app/components/networkMap";
 import { ParentSize } from "@visx/responsive";
 import RoutingResult from "@/app/components/routingResult";
-import { findRoute } from "@/app/util/routing";
+import { findRoute, getRouteHighlights } from "@/app/util/routing";
+import { SearchableSelect } from "@/app/components/searchableSelect";
 import { StationSelect } from "@/app/components/stationSelect";
 
 export default function Home() {
@@ -19,7 +20,10 @@ export default function Home() {
     const [maxSteps, setMaxSteps] = useState(20);
     const [allowRepeatStations, setAllowRepeatStations] = useState(false);
     const [route, setRoute] = useState<LegProp[] | null | undefined>(undefined);
+    const [highlightedEdges, setHighlightedEdges] = useState<string[]>([]);
+    const [highlightedStations, setHighlightedStations] = useState<string[]>([]);
     const [error, setError] = useState<string | undefined>();
+    const [searchStation, setSearchStation] = useState("");
     const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
@@ -40,15 +44,21 @@ export default function Home() {
                 maxLinesUsed,
                 transferProbability,
                 maxSteps,
-                allowRepeatStations
+                allowRepeatStations,
             });
 
             if (result.length === 0) throw new Error("No route found between selected stations");
 
             setRoute(result);
+            const highlights = getRouteHighlights(result);
+
+            setHighlightedEdges(highlights.edgeIds);
+            setHighlightedStations(highlights.stationKeys);
         } catch (err) {
             setError(err instanceof Error ? err.message : "An error occurred finding the route");
             setRoute(null);
+            setHighlightedEdges([]);
+            setHighlightedStations([]);
         }
     };
 
@@ -57,7 +67,7 @@ export default function Home() {
             <main className="fade-in mx-auto mt-0 mb-0 w-full max-w-7xl rounded-lg px-4 shadow-lg" role="main">
                 <div className="grid grid-cols-2 gap-4">
                     <div className="col-span-full">
-                        <h2 className="mb-5 text-center" style={{ color: "var(--color-primary-light)" }}>
+                        <h2 className="mb-5 text-center" style={{ color: "var(--colour-primary-light)" }}>
                             Loading...
                         </h2>
                     </div>
@@ -73,13 +83,13 @@ export default function Home() {
                     <div className="col-span-full">
                         <h1
                             className="text-center font-(family-name:--font-primary) text-[2rem]/(--line-height-tight) font-bold tracking-wider"
-                            style={{ color: "var(--color-primary)" }}
+                            style={{ color: "var(--colour-primary)" }}
                         >
                             CARBONARA
                         </h1>
                         <h2
                             className="mb-5 text-center font-(family-name:--font-primary) text-[1.5rem]/(--line-height-tight) font-bold tracking-wide"
-                            style={{ color: "var(--color-primary-light)" }}
+                            style={{ color: "var(--colour-primary-light)" }}
                         >
                             A P.E.S.T.O. Train Router
                         </h2>
@@ -127,6 +137,13 @@ export default function Home() {
                         </div>
 
                         <div className="line-border" role="separator" />
+
+                        <div role="region" aria-label="Station search for map focus" className="mb-5">
+                            <p className="mb-2">Search and focus a station on the map:</p>
+                            <SearchableSelect value={searchStation} setValue={setSearchStation} />
+                        </div>
+
+                        <div className="line-border" role="separator" />
                     </div>
 
                     <div className="col-span-full transition-all">
@@ -135,10 +152,25 @@ export default function Home() {
                                 debounceTime={0}
                                 initialSize={{
                                     width: 1280 - 2 * 16,
-                                    height: 800
+                                    height: 800,
                                 }}
                             >
-                                {({ width, height }) => <NetworkMap width={width} height={height} />}
+                                {({ width, height }) => {
+                                    const stationCoordinate = searchStation
+                                        ? networkData.stations.find((station) => station.name === searchStation)
+                                              ?.coordinate
+                                        : undefined;
+
+                                    return (
+                                        <NetworkMap
+                                            width={width}
+                                            height={height}
+                                            stationCoordinate={stationCoordinate}
+                                            highlightEdgeIds={highlightedEdges}
+                                            highlightStationKeys={highlightedStations}
+                                        />
+                                    );
+                                }}
                             </ParentSize>
                         </div>
                     </div>

@@ -25,7 +25,7 @@ export function IFLConfig({
     maxSteps,
     setMaxSteps,
     allowRepeatStations,
-    setAllowRepeatStations
+    setAllowRepeatStations,
 }: IFLConfigProps) {
     return (
         <details className="sliders-details mt-2">
@@ -53,7 +53,10 @@ export function IFLConfig({
                 <Text size="sm">Max steps</Text>
                 <Slider size="xs" min={1} max={50} value={maxSteps} onChange={setMaxSteps} />
                 <Text size="sm">Allow repeat stations</Text>
-                <Switch checked={allowRepeatStations} onChange={e => setAllowRepeatStations(e.currentTarget.checked)} />
+                <Switch
+                    checked={allowRepeatStations}
+                    onChange={(e) => setAllowRepeatStations(e.currentTarget.checked)}
+                />
             </div>
         </details>
     );

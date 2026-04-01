@@ -9,16 +9,16 @@ function NavigationModeToggle({ checked, onChange }: { checked: boolean; onChang
             <Text size="sm">Min. time</Text>
             <Switch
                 checked={checked}
-                onChange={e => onChange(e.currentTarget.checked)}
+                onChange={(e) => onChange(e.currentTarget.checked)}
                 styles={{
                     track: {
                         backgroundColor: "#588157",
-                        border: "none"
+                        border: "none",
                     },
                     thumb: {
                         backgroundColor: "#ffffff",
-                        border: "none"
-                    }
+                        border: "none",
+                    },
                 }}
             />
             <Text size="sm">Min. transfers</Text>

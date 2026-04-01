@@ -55,12 +55,12 @@ export const makeShortPathParallel = (
         mA: [mxA, myA],
         mB: [mxB, myB],
         endA: [endXA, endYA],
-        endB: [endXB, endYB]
+        endB: [endXB, endYB],
     } = _;
 
     return [
         `M ${mxA} ${myA} ${bA.toSVG().replace("M", "L")} L ${endXA} ${endYA}`,
-        `M ${mxB} ${myB} ${bB.toSVG().replace("M", "L")} L ${endXB} ${endYB}`
+        `M ${mxB} ${myB} ${bB.toSVG().replace("M", "L")} L ${endXB} ${endYB}`,
     ];
 };
 
@@ -71,14 +71,14 @@ const findStartAndEnd = (path: Path) => {
         ?.at(0)
         ?.replace(/M\s*/, "")
         .split(" ")
-        .map(n => Number(n));
+        .map((n) => Number(n));
     // Find the end point of the original path.
     const end = path
         .match(/L\s*[+-]?([0-9]*[.])?[0-9]+\s*[+-]?([0-9]*[.])?[0-9]+\s*$/)
         ?.at(0)
         ?.replace(/L\s*/, "")
         .split(" ")
-        .map(n => Number(n));
+        .map((n) => Number(n));
 
     return [m as Point, end as Point];
 };
@@ -108,7 +108,7 @@ const findBezierCurve = (path: Path): [Point, [...Point, ...Point, ...Point]] =>
         ?.at(0)
         ?.replace(/L\s*/, "")
         .split(" ")
-        .map(n => Number(n));
+        .map((n) => Number(n));
     // Find the end point and control points of the Bezier curve.
     const c = path
         .match(
@@ -117,7 +117,7 @@ const findBezierCurve = (path: Path): [Point, [...Point, ...Point, ...Point]] =>
         ?.at(0)
         ?.replace(/C\s*/, "")
         .split(" ")
-        .map(n => Number(n));
+        .map((n) => Number(n));
 
     return [l as Point, c as [...Point, ...Point, ...Point]];
 };

@@ -5,7 +5,7 @@ import { FacilitiesAttributes } from "@/app/components/svgs/nodes/facilities";
 
 export enum MiscNodeType {
     Virtual = "virtual",
-    Facilities = "facilities"
+    Facilities = "facilities",
 }
 
 export interface MiscNodeAttributes {

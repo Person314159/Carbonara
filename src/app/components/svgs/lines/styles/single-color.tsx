@@ -27,11 +27,11 @@ const SingleColor = (props: LineStyleComponentProps<SingleColorAttributes>) => {
 export interface SingleColorAttributes extends LinePathAttributes, ColorAttribute {}
 
 const defaultSingleColorAttributes: SingleColorAttributes = {
-    color: [CityCode.Shanghai, "sh1", "#E4002B", MonoColour.white]
+    color: [CityCode.Shanghai, "sh1", "#E4002B", MonoColour.white],
 };
 const singleColor: LineStyle<SingleColorAttributes> = {
     component: SingleColor,
-    defaultAttrs: defaultSingleColorAttributes
+    defaultAttrs: defaultSingleColorAttributes,
 };
 
 export default singleColor;

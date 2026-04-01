@@ -9,12 +9,12 @@ interface SearchableSelectProps {
 
 export function SearchableSelect({ value, setValue }: SearchableSelectProps) {
     const combobox = useCombobox({
-        onDropdownClose: () => combobox.resetSelectedOption()
+        onDropdownClose: () => combobox.resetSelectedOption(),
     });
     const [search, setSearch] = useState("");
-    const shouldFilterOptions = options.every(station => station !== search);
+    const shouldFilterOptions = options.every((station) => station !== search);
     const filteredOptions = shouldFilterOptions
-        ? options.filter(station =>
+        ? options.filter((station) =>
               station
                   .toLowerCase()
                   .normalize("NFKD")
@@ -22,7 +22,7 @@ export function SearchableSelect({ value, setValue }: SearchableSelectProps) {
                   .includes(search.toLowerCase().trim())
           )
         : options;
-    const op = filteredOptions.map(station => (
+    const op = filteredOptions.map((station) => (
         <Combobox.Option value={station} key={station}>
             {station}
         </Combobox.Option>
@@ -32,7 +32,7 @@ export function SearchableSelect({ value, setValue }: SearchableSelectProps) {
         <Combobox
             store={combobox}
             withinPortal={false}
-            onOptionSubmit={val => {
+            onOptionSubmit={(val) => {
                 setValue(val);
                 setSearch(val);
                 combobox.closeDropdown();
@@ -42,7 +42,7 @@ export function SearchableSelect({ value, setValue }: SearchableSelectProps) {
                 <InputBase
                     rightSection={<Combobox.Chevron />}
                     value={search}
-                    onChange={event => {
+                    onChange={(event) => {
                         combobox.openDropdown();
                         combobox.updateSelectedOptionIndex();
                         setSearch(event.currentTarget.value);

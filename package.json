@@ -6,7 +6,8 @@
         "dev": "next dev --turbopack -p 8080",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "test": "node scripts/validate-rmp-data.mjs"
     },
     "dependencies": {
         "@datastructures-js/priority-queue": "^6.3.5",
@@ -21,7 +22,7 @@
         "bezier-js": "^6.1.4",
         "graphology": "^0.26.0",
         "ml-matrix": "^6.12.1",
-        "next": "16.1.6",
+        "next": "16.2.2",
         "react": "^18.3.1",
         "react-dom": "^18.3.1"
     },

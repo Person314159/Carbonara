@@ -46,7 +46,7 @@ export const checkSimplePathAvailability = (
                 Math.sin(rad1) * offset1,
                 Math.cos(rad1) * offset1,
                 Math.sin(rad2) * offset2,
-                Math.cos(rad2) * offset2
+                Math.cos(rad2) * offset2,
             ];
 
             if (checkKAndType(type, x1 + dx1, y1 + dy1, x2 + dx2, y2 + dy2)) {
@@ -79,7 +79,7 @@ export const reconcileSimplePathWithParallel = (
         y1: y1 + 5 * Math.SQRT1_2 * parallelIndex,
         x2: x2 + 5 * Math.SQRT1_2 * parallelIndex,
         y2: y2 + 5 * Math.SQRT1_2 * parallelIndex,
-        offset
+        offset,
     };
 };
 

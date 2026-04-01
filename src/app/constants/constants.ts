@@ -62,5 +62,5 @@ export type Id = NodeId | LineId;
 export enum CityCode {
     Beijing = "beijing",
     Shanghai = "shanghai",
-    Tokyo = "tokyo"
+    Tokyo = "tokyo",
 }

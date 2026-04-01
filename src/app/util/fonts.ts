@@ -2,7 +2,7 @@ import React from "react";
 
 export enum TextLanguage {
     jreast_ja = "jreast_ja",
-    tokyo_en = "tokyo_en"
+    tokyo_en = "tokyo_en",
 }
 
 /**
@@ -56,9 +56,9 @@ const LANG_STYLE: Record<TextLanguage, FontStyle> = {
      */
     jreast_ja: {
         fontFamily: "a-otf-ud-shin-go-pr6n, 'M PLUS 2', sans-serif",
-        fontSynthesis: "none"
+        fontSynthesis: "none",
     },
     tokyo_en: {
-        fontFamily: "MontaguSlab, Arial, sans-serif"
-    }
+        fontFamily: "MontaguSlab, Arial, sans-serif",
+    },
 };

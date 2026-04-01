@@ -9,11 +9,11 @@ import simplePath from "@/app/components/svgs/lines/paths/simple";
 export const linePaths = {
     [LinePathType.Diagonal]: diagonalPath,
     [LinePathType.Perpendicular]: perpendicularPath,
-    [LinePathType.Simple]: simplePath
+    [LinePathType.Simple]: simplePath,
 };
 
 export const lineStyles = {
     [LineStyleType.SingleColor]: singleColor,
     [LineStyleType.BjsubwayDotted]: bjsubwayDotted,
-    [LineStyleType.BjsubwayTram]: bjsubwayTram
+    [LineStyleType.BjsubwayTram]: bjsubwayTram,
 };

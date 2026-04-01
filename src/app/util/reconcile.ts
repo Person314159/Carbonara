@@ -19,24 +19,24 @@ export const reconcileLines = (
     const allReconciledLines: LineId[][] = [];
     const danglingLines: LineId[] = [];
 
-    Object.values(lineGroupsToReconcile).forEach(linesNeedToReconcile => {
+    Object.values(lineGroupsToReconcile).forEach((linesNeedToReconcile) => {
         // it is not possible to reconcile a single line
         if (linesNeedToReconcile.length === 1) {
-            danglingLines.push(...linesNeedToReconcile.map(_ => _.edge as LineId));
+            danglingLines.push(...linesNeedToReconcile.map((_) => _.edge as LineId));
             return;
         }
 
         // all the lines in linesNeedToReconcile should be the same type and style
         const type = graph.getEdgeAttribute(linesNeedToReconcile.at(0), "type");
 
-        if (!linesNeedToReconcile.every(line => graph.getEdgeAttribute(line, "type") === type)) {
-            danglingLines.push(...linesNeedToReconcile.map(_ => _.edge as LineId));
+        if (!linesNeedToReconcile.every((line) => graph.getEdgeAttribute(line, "type") === type)) {
+            danglingLines.push(...linesNeedToReconcile.map((_) => _.edge as LineId));
             return;
         }
         const style = graph.getEdgeAttribute(linesNeedToReconcile.at(0), "style");
 
-        if (!linesNeedToReconcile.every(line => graph.getEdgeAttribute(line, "style") === style)) {
-            danglingLines.push(...linesNeedToReconcile.map(_ => _.edge as LineId));
+        if (!linesNeedToReconcile.every((line) => graph.getEdgeAttribute(line, "style") === style)) {
+            danglingLines.push(...linesNeedToReconcile.map((_) => _.edge as LineId));
             return;
         }
 
@@ -45,7 +45,7 @@ export const reconcileLines = (
         const sources: Set<string> = new Set();
         const targets: Set<string> = new Set();
         const extremities = Object.fromEntries(
-            linesNeedToReconcile.map(line => {
+            linesNeedToReconcile.map((line) => {
                 const [source, target] = graph.extremities(line);
 
                 count[source] = (count[source] ?? 0) + 1;
@@ -57,19 +57,19 @@ export const reconcileLines = (
         );
         // source need to be the node appear only once in all sources and targets
         // and there must be only one.
-        const source_ = Array.from(sources).filter(s => count[s] === 1);
-        const target_ = Array.from(targets).filter(t => count[t] === 1);
+        const source_ = Array.from(sources).filter((s) => count[s] === 1);
+        const target_ = Array.from(targets).filter((t) => count[t] === 1);
 
         // console.log(source_, target_, count);
         if (source_.length !== 1 || target_.length !== 1) {
-            danglingLines.push(...linesNeedToReconcile.map(_ => _.edge as LineId));
+            danglingLines.push(...linesNeedToReconcile.map((_) => _.edge as LineId));
             return;
         }
         const source = source_[0];
         const target = target_[0];
 
         if (source === target) {
-            danglingLines.push(...linesNeedToReconcile.map(_ => _.edge as LineId));
+            danglingLines.push(...linesNeedToReconcile.map((_) => _.edge as LineId));
             return;
         }
 
@@ -82,7 +82,7 @@ export const reconcileLines = (
 
             // console.log(currentNode, extremities[currentNode]?.at(0), currentTarget);
             if (!currentTarget) {
-                danglingLines.push(...linesNeedToReconcile.map(_ => _.edge as LineId));
+                danglingLines.push(...linesNeedToReconcile.map((_) => _.edge as LineId));
                 return;
             }
 
@@ -91,7 +91,7 @@ export const reconcileLines = (
         }
         // console.log(currentNode, reconciledLines);
         if (currentNode !== target || reconciledLines.length !== linesNeedToReconcile.length) {
-            danglingLines.push(...linesNeedToReconcile.map(_ => _.edge as LineId));
+            danglingLines.push(...linesNeedToReconcile.map((_) => _.edge as LineId));
             return;
         }
         allReconciledLines.push(reconciledLines);
@@ -107,10 +107,10 @@ export const makeReconciledPath = (
     graph: MultiDirectedGraph<NodeAttributes, EdgeAttributes, GraphAttributes>,
     reconciledLines: LineId[]
 ): Path | undefined => {
-    if (!reconciledLines.every(line => graph.hasEdge(line))) return undefined;
+    if (!reconciledLines.every((line) => graph.hasEdge(line))) return undefined;
 
     // call each line's generatePath to generate its own path
-    const paths = reconciledLines.map(line => {
+    const paths = reconciledLines.map((line) => {
         const [source, target] = graph.extremities(line);
         const sourceAttr = graph.getNodeAttributes(source);
         const targetAttr = graph.getNodeAttributes(target);

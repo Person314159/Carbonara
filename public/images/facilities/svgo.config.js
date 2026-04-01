@@ -1,7 +1,7 @@
 export default {
     plugins: [
         {
-            name: 'preset-default',
+            name: "preset-default",
             params: {
                 overrides: {
                     // customize default plugin options

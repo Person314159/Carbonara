@@ -5,7 +5,7 @@ import React from "react";
 
 export enum StationType {
     TokyoMetroBasic = "tokyo-metro-basic",
-    TokyoMetroInt = "tokyo-metro-int"
+    TokyoMetroInt = "tokyo-metro-int",
 }
 
 export interface ExternalStationAttributes {

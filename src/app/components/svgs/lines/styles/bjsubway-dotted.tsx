@@ -23,11 +23,11 @@ const BjsubwayDotted = (props: LineStyleComponentProps<BjsubwayDottedAttributes>
 export interface BjsubwayDottedAttributes extends LinePathAttributes, ColorAttribute {}
 
 const defaultBjsubwayDottedAttributes: BjsubwayDottedAttributes = {
-    color: [CityCode.Beijing, "bj1", "#c23a30", MonoColour.white]
+    color: [CityCode.Beijing, "bj1", "#c23a30", MonoColour.white],
 };
 const bjsubwayDotted: LineStyle<BjsubwayDottedAttributes> = {
     component: BjsubwayDotted,
-    defaultAttrs: defaultBjsubwayDottedAttributes
+    defaultAttrs: defaultBjsubwayDottedAttributes,
 };
 
 export default bjsubwayDotted;

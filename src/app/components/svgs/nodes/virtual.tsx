@@ -22,7 +22,7 @@ export interface VirtualAttributes {}
 const defaultVirtualAttributes: VirtualAttributes = {};
 const virtual: Node<VirtualAttributes> = {
     component: Virtual,
-    defaultAttrs: defaultVirtualAttributes
+    defaultAttrs: defaultVirtualAttributes,
 };
 
 export default virtual;

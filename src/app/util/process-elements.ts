@@ -22,7 +22,7 @@ export interface Element {
 }
 
 export const getNodes = (graph: MultiDirectedGraph<NodeAttributes, EdgeAttributes, GraphAttributes>): Element[] =>
-    [...graph.nodeEntries()].map(_ =>
+    [...graph.nodeEntries()].map((_) =>
         _.node.startsWith("stn")
             ? { id: _.node as StnId, type: "station", station: _.attributes }
             : { id: _.node as MiscNodeId, type: "misc-node", miscNode: _.attributes }
@@ -48,7 +48,7 @@ export const getLines = (graph: MultiDirectedGraph<NodeAttributes, EdgeAttribute
             lineEntry.sourceAttributes.x,
             lineEntry.sourceAttributes.y,
             lineEntry.targetAttributes.x,
-            lineEntry.targetAttributes.y
+            lineEntry.targetAttributes.y,
         ];
         const attr = lineEntry.attributes[lineEntry.attributes.type] as NonNullableExternalLinePathAttribute;
 
@@ -100,7 +100,7 @@ export const getLines = (graph: MultiDirectedGraph<NodeAttributes, EdgeAttribute
 
             resolvedLines[lineID] = {
                 attr,
-                path: linePaths[LinePathType.Simple].generatePath(x1, x2, y1, y2, { offset })
+                path: linePaths[LinePathType.Simple].generatePath(x1, x2, y1, y2, { offset }),
             };
             continue;
         }
@@ -120,7 +120,7 @@ export const getLines = (graph: MultiDirectedGraph<NodeAttributes, EdgeAttribute
         const { parallel: parallels } = classifyParallelLines(graph, lineEntry);
 
         if (!parallels.length) continue;
-        parallels.forEach(_ => resolvedParallelLinesID.add(_.edge as LineId));
+        parallels.forEach((_) => resolvedParallelLinesID.add(_.edge as LineId));
 
         const parallelPaths = makeParallelPaths(parallels);
 
@@ -129,7 +129,7 @@ export const getLines = (graph: MultiDirectedGraph<NodeAttributes, EdgeAttribute
 
             resolvedLines[lineID] = {
                 attr: parallel.attributes,
-                path: parallelPaths[lineID]
+                path: parallelPaths[lineID],
             };
         }
     }
@@ -159,7 +159,7 @@ export const getLines = (graph: MultiDirectedGraph<NodeAttributes, EdgeAttribute
                 sourceAttr.y,
                 targetAttr.y,
                 linePaths[LinePathType.Simple].defaultAttrs
-            )
+            ),
         };
     }
 
@@ -172,7 +172,7 @@ export const getLines = (graph: MultiDirectedGraph<NodeAttributes, EdgeAttribute
             lineEntry.sourceAttributes.x,
             lineEntry.sourceAttributes.y,
             lineEntry.targetAttributes.x,
-            lineEntry.targetAttributes.y
+            lineEntry.targetAttributes.y,
         ];
 
         if (!(type in linePaths)) {

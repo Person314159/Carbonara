@@ -27,8 +27,8 @@ const SvgLayer = React.memo(
                 {
                     pre: [] as JSX.Element[],
                     main: [] as JSX.Element[],
-                    post: [] as JSX.Element[]
-                }
+                    post: [] as JSX.Element[],
+                },
             ])
         );
 
@@ -169,7 +169,7 @@ const SvgLayer = React.memo(
         }
 
         return Array.from({ length: 21 }, (_, i) => (i - 10).toString())
-            .map(zIndex => [...layers[zIndex].pre, ...layers[zIndex].main, ...layers[zIndex].post])
+            .map((zIndex) => [...layers[zIndex].pre, ...layers[zIndex].main, ...layers[zIndex].post])
             .flat();
     },
     (prevProps, nextProps) => prevProps.elements === nextProps.elements

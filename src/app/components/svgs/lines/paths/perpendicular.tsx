@@ -13,7 +13,7 @@ const generatePerpendicularPath: PathGenerator<PerpendicularPathAttributes> = (
         startFrom = defaultPerpendicularPathAttributes.startFrom,
         offsetFrom = defaultPerpendicularPathAttributes.offsetFrom,
         offsetTo = defaultPerpendicularPathAttributes.offsetTo,
-        roundCornerFactor = defaultPerpendicularPathAttributes.roundCornerFactor
+        roundCornerFactor = defaultPerpendicularPathAttributes.roundCornerFactor,
     } = attrs;
     const [offset1, offset2] = startFrom === "from" ? [offsetFrom, offsetTo] : [offsetTo, offsetFrom];
     const [dx1, dy1, dx2, dy2] =
@@ -59,11 +59,11 @@ const defaultPerpendicularPathAttributes: PerpendicularPathAttributes = {
     startFrom: "from",
     offsetFrom: 0,
     offsetTo: 0,
-    roundCornerFactor: 5
+    roundCornerFactor: 5,
 };
 const perpendicularPath: LinePath<PerpendicularPathAttributes> = {
     generatePath: generatePerpendicularPath,
-    defaultAttrs: defaultPerpendicularPathAttributes
+    defaultAttrs: defaultPerpendicularPathAttributes,
 };
 
 export default perpendicularPath;

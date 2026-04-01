@@ -5,7 +5,7 @@ import facilities from "@/app/components/svgs/nodes/facilities";
 
 const miscNodes = {
     [MiscNodeType.Virtual]: virtual,
-    [MiscNodeType.Facilities]: facilities
+    [MiscNodeType.Facilities]: facilities,
 };
 
 export default miscNodes;

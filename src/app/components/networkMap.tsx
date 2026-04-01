@@ -1,7 +1,6 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useRef } from "react";
 import { Zoom } from "@visx/zoom";
 import { RectClipPath } from "@visx/clip-path";
-import { animated, useSpring } from "@react-spring/web";
 import { useGesture } from "@use-gesture/react";
 
 const SvgWrapper = React.lazy(() => import("./svg-wrapper"));
@@ -9,6 +8,9 @@ const SvgWrapper = React.lazy(() => import("./svg-wrapper"));
 export type ZoomIProps = {
     width: number;
     height: number;
+    stationCoordinate?: number[] | null;
+    highlightEdgeIds?: string[];
+    highlightStationKeys?: string[];
 };
 
 interface ZoomToButtonProps {
@@ -24,17 +26,23 @@ function ZoomToButton({ onClick, name }: ZoomToButtonProps) {
     );
 }
 
-const NetworkMap = React.memo(function ({ width, height }: ZoomIProps) {
+const NetworkMap = React.memo(function ({
+    width,
+    height,
+    stationCoordinate,
+    highlightEdgeIds = [],
+    highlightStationKeys = [],
+}: ZoomIProps) {
     const maxHeight = 800;
     const h = Math.min(height, maxHeight);
-    const [spring, api] = useSpring(() => ({
-        transformMatrix: [0.06, 0, 0, 0.06, width / 2, maxHeight / 2],
-        config: {
-            tension: 300,
-            friction: 30,
-            clamp: true
-        }
-    }));
+    const initialTransformMatrixRef = React.useRef({
+        scaleX: 0.06,
+        scaleY: 0.06,
+        translateX: width / 2,
+        translateY: h / 2,
+        skewX: 0,
+        skewY: 0,
+    });
 
     return (
         <Zoom<SVGSVGElement>
@@ -44,21 +52,28 @@ const NetworkMap = React.memo(function ({ width, height }: ZoomIProps) {
             scaleXMax={4}
             scaleYMin={1 / 32}
             scaleYMax={4}
-            initialTransformMatrix={{
-                scaleX: 0.06,
-                scaleY: 0.06,
-                translateX: 0 * 0.06 + width / 2,
-                translateY: 0 * 0.06 + h / 2,
-                skewX: 0,
-                skewY: 0
-            }}
+            initialTransformMatrix={initialTransformMatrixRef.current}
         >
-            {zoom => {
-                React.useEffect(() => {
-                    const m = zoom.transformMatrix;
+            {(zoom) => {
+                const lastFocusedStation = useRef<string | null>(null);
+                const focusKey =
+                    stationCoordinate?.length === 2 ? `${stationCoordinate[0]},${stationCoordinate[1]}` : null;
 
-                    api.start({ transformMatrix: [m.scaleX, m.skewX, m.skewY, m.scaleY, m.translateX, m.translateY] });
-                }, [zoom.transformMatrix]);
+                React.useEffect(() => {
+                    if (!focusKey || focusKey === lastFocusedStation.current) return;
+
+                    lastFocusedStation.current = focusKey;
+                    const scale = 2;
+
+                    zoom.setTransformMatrix({
+                        scaleX: scale,
+                        scaleY: scale,
+                        translateX: width / 2 - stationCoordinate![0] * scale,
+                        translateY: h / 2 - stationCoordinate![1] * scale,
+                        skewX: 0,
+                        skewY: 0,
+                    });
+                }, [focusKey, stationCoordinate, width, h, zoom]);
 
                 useGesture(
                     {
@@ -75,24 +90,22 @@ const NetworkMap = React.memo(function ({ width, height }: ZoomIProps) {
                             if (first) {
                                 memo = {
                                     baseMatrix: zoom.transformMatrix,
-                                    startDistance: distance
+                                    startDistance: distance,
                                 };
                             }
                             const scaleFactor = distance / memo.startDistance;
                             const { scaleX, scaleY, translateX, translateY } = memo.baseMatrix;
 
-                            api.start({
-                                transformMatrix: [
-                                    scaleX * scaleFactor,
-                                    zoom.transformMatrix.skewX,
-                                    zoom.transformMatrix.skewY,
-                                    scaleY * scaleFactor,
-                                    ox - (ox - translateX) * scaleFactor,
-                                    oy - (oy - translateY) * scaleFactor
-                                ]
+                            zoom.setTransformMatrix({
+                                scaleX: scaleX * scaleFactor,
+                                scaleY: scaleY * scaleFactor,
+                                skewX: zoom.transformMatrix.skewX,
+                                skewY: zoom.transformMatrix.skewY,
+                                translateX: ox - (ox - translateX) * scaleFactor,
+                                translateY: oy - (oy - translateY) * scaleFactor,
                             });
                             return memo;
-                        }
+                        },
                     },
                     {
                         target: zoom.containerRef,
@@ -101,8 +114,8 @@ const NetworkMap = React.memo(function ({ width, height }: ZoomIProps) {
                             scaleBounds: { min: 1 / 32, max: 4 },
                             threshold: 0.1,
                             eventOptions: { passive: false },
-                            drag: { filterTaps: true }
-                        }
+                            drag: { filterTaps: true },
+                        },
                     }
                 );
 
@@ -111,20 +124,16 @@ const NetworkMap = React.memo(function ({ width, height }: ZoomIProps) {
                         <svg
                             style={{
                                 cursor: zoom.isDragging ? "grabbing" : "grab",
-                                touchAction: "none"
+                                touchAction: "none",
                             }}
                             ref={zoom.containerRef}
                             width={width}
                             height={h}
                         >
                             <RectClipPath id="zoom-clip" width={width} height={h} />
-                            <animated.g
+                            <g
                                 clipPath="url(#clip)"
-                                style={{
-                                    transform: spring.transformMatrix.to(
-                                        (a, b, c, d, e, f) => `matrix(${a},${b},${c},${d},${e},${f})`
-                                    )
-                                }}
+                                transform={`matrix(${zoom.transformMatrix.scaleX},${zoom.transformMatrix.skewX},${zoom.transformMatrix.skewY},${zoom.transformMatrix.scaleY},${zoom.transformMatrix.translateX},${zoom.transformMatrix.translateY})`}
                             >
                                 <Suspense
                                     fallback={
@@ -133,22 +142,25 @@ const NetworkMap = React.memo(function ({ width, height }: ZoomIProps) {
                                         </text>
                                     }
                                 >
-                                    <SvgWrapper />
+                                    <SvgWrapper
+                                        highlightEdgeIds={highlightEdgeIds}
+                                        highlightStationKeys={highlightStationKeys}
+                                    />
                                 </Suspense>
-                            </animated.g>
+                            </g>
                             <rect width={width} height={h} rx={14} fill="transparent" />
                         </svg>
-                        <div className="absolute top-[15px] right-[15px] flex flex-col items-end">
+                        <div className="absolute top-3.75 right-3.75 flex flex-col items-end">
                             <button
                                 type="button"
-                                className="btn w-[26px] text-[22px]"
+                                className="btn w-6.5 text-[22px]"
                                 onClick={() => zoom.scale({ scaleX: 1.2, scaleY: 1.2 })}
                             >
                                 +
                             </button>
                             <button
                                 type="button"
-                                className="btn !mb-4 w-[26px] text-[22px]"
+                                className="btn mb-4! w-6.5 text-[22px]"
                                 onClick={() => zoom.scale({ scaleX: 0.8, scaleY: 0.8 })}
                             >
                                 -
@@ -161,7 +173,7 @@ const NetworkMap = React.memo(function ({ width, height }: ZoomIProps) {
                                         translateX: 0 * 0.06 + width / 2,
                                         translateY: 0 * 0.06 + h / 2,
                                         skewX: 0,
-                                        skewY: 0
+                                        skewY: 0,
                                     })
                                 }
                                 name="Global"
@@ -174,7 +186,7 @@ const NetworkMap = React.memo(function ({ width, height }: ZoomIProps) {
                                         translateX: -700 * 0.5 + width / 2,
                                         translateY: 2658 * 0.5 + h / 2,
                                         skewX: 0,
-                                        skewY: 0
+                                        skewY: 0,
                                     })
                                 }
                                 name="Europe"
@@ -187,7 +199,7 @@ const NetworkMap = React.memo(function ({ width, height }: ZoomIProps) {
                                         translateX: 6357 * 0.3 + width / 2,
                                         translateY: 2185 * 0.3 + h / 2,
                                         skewX: 0,
-                                        skewY: 0
+                                        skewY: 0,
                                     })
                                 }
                                 name="NA West"
@@ -200,7 +212,7 @@ const NetworkMap = React.memo(function ({ width, height }: ZoomIProps) {
                                         translateX: 3900 * 0.3 + width / 2,
                                         translateY: 2482 * 0.3 + h / 2,
                                         skewX: 0,
-                                        skewY: 0
+                                        skewY: 0,
                                     })
                                 }
                                 name="NA East"
@@ -213,7 +225,7 @@ const NetworkMap = React.memo(function ({ width, height }: ZoomIProps) {
                                         translateX: 3922 * 0.6 + width / 2,
                                         translateY: 1024 * 0.6 + h / 2,
                                         skewX: 0,
-                                        skewY: 0
+                                        skewY: 0,
                                     })
                                 }
                                 name="Caribbean"
@@ -226,7 +238,7 @@ const NetworkMap = React.memo(function ({ width, height }: ZoomIProps) {
                                         translateX: 3210 * 0.2 + width / 2,
                                         translateY: -1221 * 0.2 + h / 2,
                                         skewX: 0,
-                                        skewY: 0
+                                        skewY: 0,
                                     })
                                 }
                                 name="South America"
@@ -239,7 +251,7 @@ const NetworkMap = React.memo(function ({ width, height }: ZoomIProps) {
                                         translateX: -2968 * 0.4 + width / 2,
                                         translateY: 2237 * 0.4 + h / 2,
                                         skewX: 0,
-                                        skewY: 0
+                                        skewY: 0,
                                     })
                                 }
                                 name="Asia West"
@@ -252,7 +264,7 @@ const NetworkMap = React.memo(function ({ width, height }: ZoomIProps) {
                                         translateX: -6114 * 0.25 + width / 2,
                                         translateY: 1409 * 0.25 + h / 2,
                                         skewX: 0,
-                                        skewY: 0
+                                        skewY: 0,
                                     })
                                 }
                                 name="Asia East"
@@ -265,7 +277,7 @@ const NetworkMap = React.memo(function ({ width, height }: ZoomIProps) {
                                         translateX: -8090 * 0.3 + width / 2,
                                         translateY: -1630 * 0.3 + h / 2,
                                         skewX: 0,
-                                        skewY: 0
+                                        skewY: 0,
                                     })
                                 }
                                 name="Oceania"

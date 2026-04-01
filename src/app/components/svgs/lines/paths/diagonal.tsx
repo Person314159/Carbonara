@@ -12,7 +12,7 @@ const generateDiagonalPath: PathGenerator<DiagonalPathAttributes> = (
         startFrom = defaultDiagonalPathAttributes.startFrom,
         offsetFrom = defaultDiagonalPathAttributes.offsetFrom,
         offsetTo = defaultDiagonalPathAttributes.offsetTo,
-        roundCornerFactor = defaultDiagonalPathAttributes.roundCornerFactor
+        roundCornerFactor = defaultDiagonalPathAttributes.roundCornerFactor,
     } = attrs;
     // Flip x and y if startFrom === "to" and from now on,
     // we always draw vertical or horizontal line from p1 instead of propsx1, propsy1.
@@ -65,11 +65,11 @@ const defaultDiagonalPathAttributes: DiagonalPathAttributes = {
     startFrom: "from",
     offsetFrom: 0,
     offsetTo: 0,
-    roundCornerFactor: 10
+    roundCornerFactor: 10,
 };
 const diagonalPath: LinePath<DiagonalPathAttributes> = {
     generatePath: generateDiagonalPath,
-    defaultAttrs: defaultDiagonalPathAttributes
+    defaultAttrs: defaultDiagonalPathAttributes,
 };
 
 export default diagonalPath;

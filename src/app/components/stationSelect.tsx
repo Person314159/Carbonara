@@ -42,7 +42,7 @@ export function StationSelect({
     allowRepeatStations,
     setAllowRepeatStations,
     onRouteFind,
-    error
+    error,
 }: StationSelectProps) {
     return (
         <div className="mb-5">
@@ -55,10 +55,10 @@ export function StationSelect({
                     <p>End Station:</p>
                     <SearchableSelect value={endStation} setValue={selectEnd} />
                 </div>
-                <div className="flex h-[36px] w-full justify-center sm:w-auto sm:justify-start">
+                <div className="flex h-9 w-full justify-center sm:w-auto sm:justify-start">
                     <NavigationModeToggle
                         checked={metric === "transfers"}
-                        onChange={checked => setMetric(checked ? "transfers" : "time")}
+                        onChange={(checked) => setMetric(checked ? "transfers" : "time")}
                     ></NavigationModeToggle>
                 </div>
                 <button
