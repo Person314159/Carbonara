@@ -4,4 +4,4 @@ node_modules
 .prettierignore
 .github
 .idea
-*.json
+RMP.json

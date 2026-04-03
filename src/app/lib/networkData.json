@@ -481,12 +481,6 @@
             "type": "LSR"
         },
         {
-            "id": "HBA",
-            "name": "Black HSR",
-            "colour": "#000000",
-            "type": "HSR"
-        },
-        {
             "id": "HBL",
             "name": "Blue HSR",
             "colour": "#4c90cd",
@@ -531,7 +525,7 @@
         {
             "id": "N03",
             "name": "N03",
-            "colour": "#662c91",
+            "colour": "#fca3d6",
             "type": "LSR"
         },
         {
@@ -712,12 +706,6 @@
             "id": "N45",
             "name": "Crowsnest Line",
             "colour": "#bd5719",
-            "type": "LSR"
-        },
-        {
-            "id": "N46",
-            "name": "Sea-to-Sky Line",
-            "colour": "#ffffff",
             "type": "LSR"
         },
         {
@@ -2563,7 +2551,8 @@
         {
             "from": "Tel Aviv",
             "to": "Sanaa",
-            "lineID": "A03"
+            "lineID": "A04",
+            "time": 255
         },
         {
             "from": "Rasht",
@@ -3033,27 +3022,32 @@
         {
             "from": "Tōkyō",
             "to": "Takasaki",
-            "lineID": "A21"
+            "lineID": "A21",
+            "time": 20
         },
         {
             "from": "Takasaki",
             "to": "Urasa",
-            "lineID": "A21"
+            "lineID": "A21",
+            "time": 15
         },
         {
             "from": "Urasa",
             "to": "Niigata",
-            "lineID": "A21"
+            "lineID": "A21",
+            "time": 15
         },
         {
             "from": "Ōsaka",
             "to": "Obama",
-            "lineID": "A22"
+            "lineID": "A22",
+            "time": 20
         },
         {
             "from": "Obama",
             "to": "Fukui",
-            "lineID": "A22"
+            "lineID": "A22",
+            "time": 15
         },
         {
             "from": "Fukui",
@@ -5363,11 +5357,6 @@
         },
         {
             "from": "Cayenne",
-            "to": "Amapá",
-            "lineID": "S05"
-        },
-        {
-            "from": "Amapá",
             "to": "Macapá",
             "lineID": "S05"
         },
@@ -6734,7 +6723,7 @@
         },
         {
             "from": "Beijing",
-            "to": "Tokyo",
+            "to": "Tōkyō",
             "lineID": "HMA"
         },
         {
@@ -6776,7 +6765,7 @@
         },
         {
             "from": "Cholsan",
-            "to": "Tokyo",
+            "to": "Tōkyō",
             "lineID": "HMA"
         },
         {
@@ -6813,7 +6802,7 @@
         },
         {
             "from": "Dalian",
-            "to": "Tokyo",
+            "to": "Tōkyō",
             "lineID": "HMA"
         },
         {
@@ -6844,7 +6833,7 @@
         },
         {
             "from": "Fukuoka",
-            "to": "Tokyo",
+            "to": "Tōkyō",
             "lineID": "HMA"
         },
         {
@@ -6869,7 +6858,7 @@
         },
         {
             "from": "Jinan",
-            "to": "Tokyo",
+            "to": "Tōkyō",
             "lineID": "HMA"
         },
         {
@@ -6889,7 +6878,7 @@
         },
         {
             "from": "Ōsaka",
-            "to": "Tokyo",
+            "to": "Tōkyō",
             "lineID": "HMA"
         },
         {
@@ -6904,7 +6893,7 @@
         },
         {
             "from": "Seoul-Incheon",
-            "to": "Tokyo",
+            "to": "Tōkyō",
             "lineID": "HMA"
         },
         {
@@ -6915,7 +6904,7 @@
         },
         {
             "from": "Shanghai",
-            "to": "Tokyo",
+            "to": "Tōkyō",
             "lineID": "HMA"
         },
         {
@@ -6924,7 +6913,7 @@
             "lineID": "HMA"
         },
         {
-            "from": "Tokyo",
+            "from": "Tōkyō",
             "to": "Yantai",
             "lineID": "HMA"
         },
