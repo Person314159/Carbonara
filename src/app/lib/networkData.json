@@ -133,6 +133,12 @@
             "type": "LSR"
         },
         {
+            "id": "A26",
+            "name": "Sino-Iranian Express",
+            "colour": "#ffb2f6",
+            "type": "LSR"
+        },
+        {
             "id": "E01",
             "name": "Brighton Red Line",
             "colour": "#ed1c2a",
@@ -553,6 +559,12 @@
             "type": "LSR"
         },
         {
+            "id": "N11",
+            "name": "Metro-North Railroad",
+            "colour": "#1cc4c9",
+            "type": "LSR"
+        },
+        {
             "id": "N13",
             "name": "Nova Scotia Express",
             "colour": "#cccccc",
@@ -592,6 +604,12 @@
             "id": "N19",
             "name": "Manicouagan Line",
             "colour": "#522921",
+            "type": "LSR"
+        },
+        {
+            "id": "N20",
+            "name": "NYC Subway Line A",
+            "colour": "#003884",
             "type": "LSR"
         },
         {
@@ -1119,6 +1137,9 @@
             "name": "Buenos Aires"
         },
         {
+            "name": "Buffalo"
+        },
+        {
             "name": "Burlington"
         },
         {
@@ -1204,6 +1225,9 @@
         },
         {
             "name": "Christchurch"
+        },
+        {
+            "name": "Cleveland"
         },
         {
             "name": "Columbus"
@@ -1357,6 +1381,9 @@
         },
         {
             "name": "Ensenada"
+        },
+        {
+            "name": "Erie"
         },
         {
             "name": "Eyemouth"
@@ -1567,6 +1594,9 @@
         },
         {
             "name": "Jacksonville"
+        },
+        {
+            "name": "Jamaica Center"
         },
         {
             "name": "Jane Peak"
@@ -1998,6 +2028,9 @@
             "name": "Porvoo"
         },
         {
+            "name": "Poughkeepsie"
+        },
+        {
             "name": "Powell River"
         },
         {
@@ -2086,6 +2119,9 @@
         },
         {
             "name": "Rio Verde"
+        },
+        {
+            "name": "Rochester"
         },
         {
             "name": "Rock Iron Village"
@@ -2551,8 +2587,7 @@
         {
             "from": "Tel Aviv",
             "to": "Sanaa",
-            "lineID": "A04",
-            "time": 255
+            "lineID": "A04"
         },
         {
             "from": "Rasht",
@@ -2856,6 +2891,21 @@
             "time": 55
         },
         {
+            "from": "Tianjin",
+            "to": "Beijing",
+            "lineID": "A12"
+        },
+        {
+            "from": "Beijing",
+            "to": "Shijiazhuang",
+            "lineID": "A12"
+        },
+        {
+            "from": "Shijiazhuang",
+            "to": "Jinan",
+            "lineID": "A12"
+        },
+        {
             "from": "Jinan",
             "to": "Zibo",
             "lineID": "A12",
@@ -3104,6 +3154,16 @@
             "to": "Taipei",
             "lineID": "A24",
             "time": 90
+        },
+        {
+            "from": "Rasht",
+            "to": "Qinghai",
+            "lineID": "A26"
+        },
+        {
+            "from": "Qinghai",
+            "to": "Jinan",
+            "lineID": "A26"
         },
         {
             "from": "Queen's Cross",
@@ -3918,8 +3978,7 @@
         {
             "from": "Istanbul",
             "to": "Doğanyurt",
-            "lineID": "E43",
-            "time": 25
+            "lineID": "E43"
         },
         {
             "from": "Thun",
@@ -4365,6 +4424,46 @@
             "lineID": "N10"
         },
         {
+            "from": "Jamaica Center",
+            "to": "Poughkeepsie",
+            "lineID": "N11"
+        },
+        {
+            "from": "Poughkeepsie",
+            "to": "Albany",
+            "lineID": "N11"
+        },
+        {
+            "from": "Albany",
+            "to": "Syracuse",
+            "lineID": "N11"
+        },
+        {
+            "from": "Syracuse",
+            "to": "Rochester",
+            "lineID": "N11"
+        },
+        {
+            "from": "Rochester",
+            "to": "Buffalo",
+            "lineID": "N11"
+        },
+        {
+            "from": "Buffalo",
+            "to": "Erie",
+            "lineID": "N11"
+        },
+        {
+            "from": "Erie",
+            "to": "Cleveland",
+            "lineID": "N11"
+        },
+        {
+            "from": "Cleveland",
+            "to": "Detroit",
+            "lineID": "N11"
+        },
+        {
             "from": "Montréal",
             "to": "Québec",
             "lineID": "N13"
@@ -4419,6 +4518,21 @@
         {
             "from": "Wallops Island",
             "to": "Wilmington",
+            "lineID": "N15"
+        },
+        {
+            "from": "Wilmington",
+            "to": "Savannah",
+            "lineID": "N15"
+        },
+        {
+            "from": "Savannah",
+            "to": "Jacksonville",
+            "lineID": "N15"
+        },
+        {
+            "from": "Jacksonville",
+            "to": "Miami",
             "lineID": "N15"
         },
         {
@@ -4502,6 +4616,12 @@
             "time": 80
         },
         {
+            "from": "Montclair",
+            "to": "Jamaica Center",
+            "lineID": "N20",
+            "time": 5
+        },
+        {
             "from": "Montréal",
             "to": "Burlington",
             "lineID": "N21",
@@ -4514,9 +4634,15 @@
             "time": 40
         },
         {
+            "from": "Albany",
+            "to": "Scranton",
+            "lineID": "N21"
+        },
+        {
             "from": "Toronto Union",
             "to": "Kawartha Lakes",
-            "lineID": "N22"
+            "lineID": "N22",
+            "time": 20
         },
         {
             "from": "Atlanta",
@@ -6220,7 +6346,6 @@
             "lineID": "HBL",
             "time": 60
         },
-
         {
             "from": "Apennines",
             "to": "Sfax",

@@ -87,11 +87,13 @@ function isStationType(type) {
 // --- Load data ---
 const networkData = loadJSON(networkDataPath);
 const rmpData = loadJSON(rmpPath);
-// --- Network maps ---
-const networkColourToLines = new Map();
+// --- Network maps (derived from networkData) ---
+const networkColourToLines = new Map(); // colour -> [lineID, ...]
 const networkLineIds = new Set();
-const networkLineNames = new Map();
+const networkLineNames = new Map();     // lineID -> name
 const networkStationNames = new Set();
+const lineColourMap = new Map();        // lineID -> normalised hex colour
+const lineTypeMap = new Map();          // lineID -> type string (e.g. "HSR", "LSR")
 
 for (const line of networkData.lines ?? []) {
     const colour = normalizeHex(line.colour);
@@ -104,6 +106,9 @@ for (const line of networkData.lines ?? []) {
 
     networkLineIds.add(line.id);
     networkLineNames.set(line.id, line.name);
+    lineColourMap.set(line.id, colour);
+
+    if (line.type) lineTypeMap.set(line.id, line.type);
 
     const ids = networkColourToLines.get(colour) ?? [];
 
@@ -114,6 +119,45 @@ for (const line of networkData.lines ?? []) {
 for (const station of networkData.stations ?? []) {
     if (typeof station.name === "string") {
         networkStationNames.add(station.name);
+    }
+}
+
+// stationToLines: station name -> Set<lineID> (from networkData connections)
+const stationToLines = new Map();
+
+for (const { from, to, lineID } of networkData.connections ?? []) {
+    if (!stationToLines.has(from)) stationToLines.set(from, new Set());
+    if (!stationToLines.has(to)) stationToLines.set(to, new Set());
+    stationToLines.get(from).add(lineID);
+    stationToLines.get(to).add(lineID);
+}
+
+// --- RMP maps (derived from rmpData) ---
+// stationNameToNodeKeys: station name -> list of RMP node keys
+const stationNameToNodeKeys = new Map();
+
+for (const node of rmpData.graph?.nodes ?? []) {
+    for (const value of Object.values(node.attributes ?? {})) {
+        if (value && typeof value === "object" && !Array.isArray(value) && Array.isArray(value.names)) {
+            for (const name of value.names) {
+                if (typeof name === "string" && name) {
+                    const existing = stationNameToNodeKeys.get(name) ?? [];
+
+                    if (!existing.includes(node.key)) existing.push(node.key);
+                    stationNameToNodeKeys.set(name, existing);
+                }
+            }
+        }
+    }
+}
+
+// nodeKeyToStationNames: RMP node key -> Set<station name> (reverse of above)
+const nodeKeyToStationNames = new Map();
+
+for (const [name, keys] of stationNameToNodeKeys) {
+    for (const key of keys) {
+        if (!nodeKeyToStationNames.has(key)) nodeKeyToStationNames.set(key, new Set());
+        nodeKeyToStationNames.get(key).add(name);
     }
 }
 
@@ -339,18 +383,78 @@ function checkStation(node) {
     }
 }
 
-function checkNetworkStations() {
-    const rmpStationNames = new Set();
-
+function checkStationLineCodes() {
     for (const node of rmpData.graph?.nodes ?? []) {
-        for (const value of Object.values(node.attributes ?? {})) {
-            if (value && Array.isArray(value.names)) {
-                value.names.forEach((n) => typeof n === "string" && rmpStationNames.add(n));
+        const { key, attributes } = node;
+
+        if (!attributes) continue;
+
+        const type = attributes.type;
+
+        if (type !== "tokyo-metro-basic" && type !== "tokyo-metro-int") continue;
+
+        const typeAttrs = attributes[type];
+
+        if (!typeAttrs) continue;
+
+        const names = typeAttrs.names;
+
+        if (!Array.isArray(names) || names.length === 0) continue;
+
+        // Extract line IDs from the RMP node
+        const rmpLineIds = new Set();
+
+        if (type === "tokyo-metro-basic") {
+            const { lineCode, stationCode } = typeAttrs;
+
+            if (typeof lineCode === "string" && typeof stationCode === "string") {
+                rmpLineIds.add(lineCode + stationCode);
+            } else {
+                reportWarning(`Node ${key} (${names[0]}) missing lineCode or stationCode`);
+            }
+        } else {
+            // tokyo-metro-int: transfer is an array of rows, each row is an array of items,
+            // each item is an array where index 4 = lineCode, index 5 = stationCode
+            for (const row of typeAttrs.transfer ?? []) {
+                if (!Array.isArray(row)) continue;
+
+                for (const item of row) {
+                    if (!Array.isArray(item)) continue;
+
+                    const lineCode = item[4];
+                    const stationCode = item[5];
+
+                    if (typeof lineCode === "string" && typeof stationCode === "string") {
+                        rmpLineIds.add(lineCode + stationCode);
+                    }
+                }
+            }
+        }
+
+        for (const name of names) {
+            if (typeof name !== "string" || !name) continue;
+
+            const expectedLines = stationToLines.get(name);
+
+            if (!expectedLines) continue; // Unknown station — already caught by checkNetworkStations
+
+            for (const lineId of expectedLines) {
+                if (!rmpLineIds.has(lineId))
+                    reportError(`Node ${key} station "${name}" is missing line ${lineId} from networkData`);
+            }
+
+            for (const lineId of rmpLineIds) {
+                if (!networkLineIds.has(lineId)) continue; // Unknown line — already reported elsewhere
+
+                if (!expectedLines.has(lineId))
+                    reportError(`Node ${key} station "${name}" has extra line ${lineId} not in networkData`);
             }
         }
     }
+}
 
-    const missing = [...networkStationNames].filter((name) => !rmpStationNames.has(name));
+function checkNetworkStations() {
+    const missing = [...networkStationNames].filter((name) => !stationNameToNodeKeys.has(name));
 
     if (missing.length) {
         reportError(`Missing stations: ${missing.join(", ")}`);
@@ -402,24 +506,6 @@ function checkVirtualNodeDegreePerColour() {
 }
 
 function checkLineConnectivity() {
-    // Map station name -> list of RMP node keys (from nodes with a "names" attribute)
-    const stationNameToNodeKeys = new Map();
-
-    for (const node of rmpData.graph?.nodes ?? []) {
-        for (const value of Object.values(node.attributes ?? {})) {
-            if (value && typeof value === "object" && !Array.isArray(value) && Array.isArray(value.names)) {
-                for (const name of value.names) {
-                    if (typeof name === "string" && name) {
-                        const existing = stationNameToNodeKeys.get(name) ?? [];
-
-                        if (!existing.includes(node.key)) existing.push(node.key);
-                        stationNameToNodeKeys.set(name, existing);
-                    }
-                }
-            }
-        }
-    }
-
     for (const line of networkData.lines ?? []) {
         const lineConns = (networkData.connections ?? []).filter((c) => c.lineID === line.id);
 
@@ -483,7 +569,7 @@ function checkLineConnectivity() {
         // Compression: collapse all virtual nodes and other-line station nodes into edges,
         // so only this line's station nodes remain as vertices.
         // Alias keys (multiple RMP keys for the same station name) are transparent too.
-        const lineColour = normalizeHex(line.colour);
+        const lineColour = lineColourMap.get(line.id);
 
         if (!lineColour) continue;
 
@@ -537,11 +623,16 @@ function checkLineConnectivity() {
 
         // Verify the RMP compressed graph is a single component
         const rmpComponents = getGraphComponents(rmpCompressed);
+        const fmtStation = (name) => {
+            const keys = stationNameToNodeKeys.get(name) ?? [];
+
+            return keys.length ? `"${name}" (${keys.join("/")})` : `"${name}"`;
+        };
 
         if (rmpComponents.length > 1) {
             reportError(
                 `Line ${line.id} (${line.name}) RMP stations form ${rmpComponents.length} disconnected components (colour ${lineColour}): ` +
-                    rmpComponents.map((c) => `[${c.join(", ")}]`).join(" | ")
+                    rmpComponents.map((c) => `[${c.map(fmtStation).join(", ")}]`).join(" | ")
             );
         }
 
@@ -552,7 +643,7 @@ function checkLineConnectivity() {
 
                 if (!rmpCompressed.get(nameA)?.has(nameB))
                     reportError(
-                        `Line ${line.id} (${line.name}): RMP missing edge between "${nameA}" and "${nameB}" (colour ${lineColour})`
+                        `Line ${line.id} (${line.name}): RMP missing edge between ${fmtStation(nameA)} and ${fmtStation(nameB)} (colour ${lineColour})`
                     );
             }
         }
@@ -564,8 +655,192 @@ function checkLineConnectivity() {
 
                 if (!ndGraph.get(nameA)?.has(nameB))
                     reportError(
-                        `Line ${line.id} (${line.name}): RMP has extra edge between "${nameA}" and "${nameB}" not in networkData (colour ${lineColour})`
+                        `Line ${line.id} (${line.name}): RMP has extra edge between ${fmtStation(nameA)} and ${fmtStation(nameB)} not in networkData (colour ${lineColour})`
                     );
+            }
+        }
+    }
+}
+
+function checkConnectionEdgeStyles() {
+    for (const line of networkData.lines ?? []) {
+        const lineColour = lineColourMap.get(line.id);
+
+        if (!lineColour) continue;
+
+        const lineConns = (networkData.connections ?? []).filter((c) => c.lineID === line.id);
+
+        if (lineConns.length === 0) continue;
+
+        const lineStationNames = new Set();
+
+        for (const { from, to } of lineConns) {
+            lineStationNames.add(from);
+            lineStationNames.add(to);
+        }
+
+        // connectionMap: sorted "A|||B" -> connection object
+        const connectionMap = new Map();
+
+        for (const conn of lineConns) {
+            connectionMap.set([conn.from, conn.to].sort().join("|||"), conn);
+        }
+
+        const colourGraph = colourGraphs.get(lineColour);
+
+        if (!colourGraph) continue;
+
+        // BFS from startNode (not traversing through excludedNode), collecting ALL line-station
+        // names reachable in that sub-graph. Stations from other lines are traversed through
+        // transparently (treated like virtual nodes for this line's purposes).
+        const findStationsInComponent = (startNode, excludedNode) => {
+            const stations = new Set();
+            const startNames = nodeKeyToStationNames.get(startNode);
+
+            if (startNames) {
+                for (const name of startNames) {
+                    if (lineStationNames.has(name)) stations.add(name);
+                }
+            }
+
+            const visited = new Set([excludedNode, startNode]);
+            const queue = [startNode];
+
+            while (queue.length) {
+                const curr = queue.shift();
+
+                for (const neighbour of colourGraph.get(curr) ?? []) {
+                    if (visited.has(neighbour)) continue;
+
+                    visited.add(neighbour);
+
+                    const names = nodeKeyToStationNames.get(neighbour);
+
+                    if (names) {
+                        for (const name of names) {
+                            if (lineStationNames.has(name)) stations.add(name);
+                        }
+                    }
+
+                    queue.push(neighbour);
+                }
+            }
+
+            return stations;
+        };
+
+        // BFS from startNode (not traversing through excludedNode), returning the FIRST
+        // line-station name encountered. Used for non-bridge edges (cycles / loop lines)
+        // where the component approach would flood to all stations via the bypass path.
+        const findNearestStation = (startNode, excludedNode) => {
+            const startNames = nodeKeyToStationNames.get(startNode);
+
+            if (startNames) {
+                for (const name of startNames) {
+                    if (lineStationNames.has(name)) return name;
+                }
+            }
+
+            const visited = new Set([excludedNode, startNode]);
+            const queue = [startNode];
+
+            while (queue.length) {
+                const curr = queue.shift();
+
+                for (const neighbour of colourGraph.get(curr) ?? []) {
+                    if (visited.has(neighbour)) continue;
+
+                    visited.add(neighbour);
+
+                    const names = nodeKeyToStationNames.get(neighbour);
+
+                    if (names) {
+                        for (const name of names) {
+                            if (lineStationNames.has(name)) return name;
+                        }
+                    }
+
+                    queue.push(neighbour);
+                }
+            }
+
+            return null;
+        };
+
+        for (const edge of rmpData.graph?.edges ?? []) {
+            const { source, target, attributes, key: edgeKey } = edge;
+
+            if (!attributes?.style) continue;
+
+            const styleAttrs = attributes[attributes.style];
+
+            if (!styleAttrs) continue;
+
+            const edgeColour = extractLineColour(styleAttrs);
+
+            if (edgeColour !== lineColour) continue;
+
+            const sourceSideStations = findStationsInComponent(source, target);
+            const targetSideStations = findStationsInComponent(target, source);
+
+            if (sourceSideStations.size === 0 || targetSideStations.size === 0) continue;
+
+            // Determine whether this edge is a bridge in the colour graph (for this line).
+            //
+            // Bridge: removing the edge disconnects the graph → the two side-station sets are
+            // disjoint. Every connection crossing this cut relies exclusively on this segment.
+            // Use the component approach: check ALL cross-side pairs.
+            //
+            // Non-bridge (edge on a cycle, e.g. a loop line): the graph stays connected via a
+            // bypass path, so BOTH sides flood to every reachable station via the bypass. The
+            // component approach would spuriously include distant connections. Instead use the
+            // nearest-station approach, which returns only the immediately adjacent pair.
+            const isBridge = ![...sourceSideStations].some((name) => targetSideStations.has(name));
+
+            let anyHasTime = false;
+            let hasCrossConnection = false;
+            const crossConns = [];
+
+            if (isBridge) {
+                for (const nameA of sourceSideStations) {
+                    for (const nameB of targetSideStations) {
+                        const pairKey = [nameA, nameB].sort().join("|||");
+                        const conn = connectionMap.get(pairKey);
+
+                        if (!conn) continue;
+
+                        hasCrossConnection = true;
+                        crossConns.push(`"${nameA}"↔"${nameB}"`);
+                        if (conn.time !== undefined && conn.time !== null) anyHasTime = true;
+                    }
+                }
+            } else {
+                const nearestA = findNearestStation(source, target);
+                const nearestB = findNearestStation(target, source);
+
+                if (!nearestA || !nearestB || nearestA === nearestB) continue;
+
+                const pairKey = [nearestA, nearestB].sort().join("|||");
+                const conn = connectionMap.get(pairKey);
+
+                if (conn) {
+                    hasCrossConnection = true;
+                    crossConns.push(`"${nearestA}"↔"${nearestB}"`);
+                    if (conn.time !== undefined && conn.time !== null) anyHasTime = true;
+                }
+            }
+
+            if (!hasCrossConnection) continue;
+
+            const isHSR = line.type === "HSR";
+            const expectedStyle = anyHasTime ? (isHSR ? "bjsubway-tram" : "single-color") : "bjsubway-dotted";
+
+            if (attributes.style !== expectedStyle) {
+                reportError(
+                    `Edge ${edgeKey} (line ${line.id}, serves ${crossConns.join(", ")}): ` +
+                        `style "${attributes.style}" expected "${expectedStyle}" ` +
+                        `(${isHSR ? "HSR" : "non-HSR"}, ${anyHasTime ? "at least one connection has time" : "no connections have time"})`
+                );
             }
         }
     }
@@ -579,6 +854,8 @@ function main() {
     checkUnusedNodes();
     checkVirtualNodeDegreePerColour();
     checkLineConnectivity();
+    checkConnectionEdgeStyles();
+    checkStationLineCodes();
     checkNetworkStations();
     checkUnusedNetworkColours();
 
