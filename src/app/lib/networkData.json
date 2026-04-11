@@ -3158,12 +3158,14 @@
         {
             "from": "Rasht",
             "to": "Qinghai",
-            "lineID": "A26"
+            "lineID": "A26",
+            "time": 685
         },
         {
             "from": "Qinghai",
             "to": "Jinan",
-            "lineID": "A26"
+            "lineID": "A26",
+            "time": 245
         },
         {
             "from": "Queen's Cross",
@@ -4791,7 +4793,8 @@
         {
             "from": "Prince Rupert",
             "to": "Haida Gwaii",
-            "lineID": "N33"
+            "lineID": "N33",
+            "time": 45
         },
         {
             "from": "Osoyoos",
@@ -5321,7 +5324,8 @@
         {
             "from": "Fortaleza",
             "to": "Natal",
-            "lineID": "S01"
+            "lineID": "S01",
+            "time": 70
         },
         {
             "from": "Natal",

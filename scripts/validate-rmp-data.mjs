@@ -90,10 +90,10 @@ const rmpData = loadJSON(rmpPath);
 // --- Network maps (derived from networkData) ---
 const networkColourToLines = new Map(); // colour -> [lineID, ...]
 const networkLineIds = new Set();
-const networkLineNames = new Map();     // lineID -> name
+const networkLineNames = new Map(); // lineID -> name
 const networkStationNames = new Set();
-const lineColourMap = new Map();        // lineID -> normalised hex colour
-const lineTypeMap = new Map();          // lineID -> type string (e.g. "HSR", "LSR")
+const lineColourMap = new Map(); // lineID -> normalised hex colour
+const lineTypeMap = new Map(); // lineID -> type string (e.g. "HSR", "LSR")
 
 for (const line of networkData.lines ?? []) {
     const colour = normalizeHex(line.colour);
@@ -728,7 +728,6 @@ function checkConnectionEdgeStyles() {
 
             return stations;
         };
-
         // BFS from startNode (not traversing through excludedNode), returning the FIRST
         // line-station name encountered. Used for non-bridge edges (cycles / loop lines)
         // where the component approach would flood to all stations via the bypass path.
@@ -796,7 +795,6 @@ function checkConnectionEdgeStyles() {
             // component approach would spuriously include distant connections. Instead use the
             // nearest-station approach, which returns only the immediately adjacent pair.
             const isBridge = ![...sourceSideStations].some((name) => targetSideStations.has(name));
-
             let anyHasTime = false;
             let hasCrossConnection = false;
             const crossConns = [];
