@@ -403,7 +403,7 @@ function findRMPPathEdges(startKey: string, endKey: string, lineColor?: string) 
     return pathEdges;
 }
 
-function getStationKeysForName(name: string) {
+export function getStationKeysForName(name: string) {
     return stationNameToNodeKeys.get(name) ?? [];
 }
 

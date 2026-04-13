@@ -6,7 +6,7 @@ import { LegProp } from "@/app/lib/interfaces";
 import NetworkMap from "@/app/components/networkMap";
 import { ParentSize } from "@visx/responsive";
 import RoutingResult from "@/app/components/routingResult";
-import { findRoute, getRouteHighlights } from "@/app/util/routing";
+import { findRoute, getRouteHighlights, getStationKeysForName } from "@/app/util/routing";
 import { SearchableSelect } from "@/app/components/searchableSelect";
 import { StationSelect } from "@/app/components/stationSelect";
 
@@ -32,6 +32,14 @@ export default function Home() {
                 ? networkData.stations.find((station) => station.name === searchStation)?.coordinate
                 : undefined,
         [searchStation]
+    );
+    const searchedStationKeys = useMemo(
+        () => (searchStation ? getStationKeysForName(searchStation) : []),
+        [searchStation]
+    );
+    const allHighlightStationKeys = useMemo(
+        () => [...highlightedStations, ...searchedStationKeys],
+        [highlightedStations, searchedStationKeys]
     );
 
     useEffect(() => {
@@ -166,7 +174,7 @@ export default function Home() {
                                         height={height}
                                         stationCoordinate={stationCoordinate}
                                         highlightEdgeIds={highlightedEdges}
-                                        highlightStationKeys={highlightedStations}
+                                        highlightStationKeys={allHighlightStationKeys}
                                     />
                                 )}
                             </ParentSize>

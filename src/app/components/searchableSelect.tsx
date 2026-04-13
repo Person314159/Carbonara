@@ -62,15 +62,23 @@ function SearchableSelectComponent({ value, setValue }: SearchableSelectProps) {
                     rightSection={<Combobox.Chevron />}
                     value={search}
                     onChange={(event) => {
+                        const v = event.currentTarget.value;
+
                         combobox.openDropdown();
                         combobox.updateSelectedOptionIndex();
-                        setSearch(event.currentTarget.value);
+                        setSearch(v);
+
+                        if (v === "") {
+                            setValue("");
+                        }
                     }}
                     onClick={() => combobox.openDropdown()}
                     onFocus={() => combobox.openDropdown()}
                     onBlur={() => {
                         combobox.closeDropdown();
-                        setSearch(value || "");
+                        if (search !== "") {
+                            setSearch(value || "");
+                        }
                     }}
                     placeholder="Search station"
                     rightSectionPointerEvents="none"
