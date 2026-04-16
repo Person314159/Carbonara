@@ -1,5 +1,7 @@
 import { LinePath, LinePathAttributes, PathGenerator } from "@/app/constants/lines";
+import { makePoint, makeSharpTurnPath } from "@/app/constants/path";
 import { roundPathCorners } from "@/app/util/pathRounding";
+import { parseRoundedTurnPath } from "@/app/util/path";
 
 const generateDiagonalPath: PathGenerator<DiagonalPathAttributes> = (
     propsx1: number,
@@ -14,7 +16,7 @@ const generateDiagonalPath: PathGenerator<DiagonalPathAttributes> = (
         offsetTo = defaultDiagonalPathAttributes.offsetTo,
         roundCornerFactor = defaultDiagonalPathAttributes.roundCornerFactor,
     } = attrs;
-    // Flip x and y if startFrom === "to" and from now on,
+    // Flip x and y if startFrom === 'to' and from now on,
     // we always draw vertical or horizontal line from p1 instead of propsx1, propsy1.
     const [x1a, y1a, x2a, y2a] =
         startFrom === "from" ? [propsx1, propsy1, propsx2, propsy2] : [propsx2, propsy2, propsx1, propsy1];
@@ -32,12 +34,13 @@ const generateDiagonalPath: PathGenerator<DiagonalPathAttributes> = (
     // Now calculate the middle point where line turn from vertical or horizontal to diagonal.
     const x = horizontalOrVertical === "horizontal" ? x2b + Math.abs(y2b - y1b) * (x2b - x1b > 0 ? -1 : 1) : x1b;
     const y = horizontalOrVertical === "horizontal" ? y1b : y2b + Math.abs(x2b - x1b) * (y2b - y1b > 0 ? -1 : 1);
-    // Flip back x and y if startFrom === "to", so the final line will always start from p1 and ends at p2
+    // Flip back x and y if startFrom === 'to', so the final line will always start from p1 and ends at p2
     // This is crucial in reconcile process where we need line segments from the whole start to end.
     const [x1, y1, x2, y2] = startFrom === "from" ? [x1b, y1b, x2b, y2b] : [x2b, y2b, x1b, y1b];
-
     // Round the path with corners.
-    return roundPathCorners(`M ${x1} ${y1} L ${x} ${y} L ${x2} ${y2}`, roundCornerFactor, false) as `M ${string}`;
+    const path = makeSharpTurnPath(makePoint(x1, y1), makePoint(x, y), makePoint(x2, y2));
+
+    return roundCornerFactor === 0 ? path : parseRoundedTurnPath(roundPathCorners(path.d, roundCornerFactor, false));
 };
 
 /**
@@ -65,7 +68,7 @@ const defaultDiagonalPathAttributes: DiagonalPathAttributes = {
     startFrom: "from",
     offsetFrom: 0,
     offsetTo: 0,
-    roundCornerFactor: 10,
+    roundCornerFactor: 2.5,
 };
 const diagonalPath: LinePath<DiagonalPathAttributes> = {
     generatePath: generateDiagonalPath,

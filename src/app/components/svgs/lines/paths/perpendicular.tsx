@@ -1,5 +1,7 @@
 import { LinePath, LinePathAttributes, PathGenerator } from "@/app/constants/lines";
+import { makePoint, makeSharpTurnPath } from "@/app/constants/path";
 import { roundPathCorners } from "@/app/util/pathRounding";
+import { parseRoundedTurnPath } from "@/app/util/path";
 
 const generatePerpendicularPath: PathGenerator<PerpendicularPathAttributes> = (
     x1: number,
@@ -16,22 +18,12 @@ const generatePerpendicularPath: PathGenerator<PerpendicularPathAttributes> = (
         roundCornerFactor = defaultPerpendicularPathAttributes.roundCornerFactor,
     } = attrs;
     const [offset1, offset2] = startFrom === "from" ? [offsetFrom, offsetTo] : [offsetTo, offsetFrom];
-    const [dx1, dy1, dx2, dy2] =
-        x1 !== x2 && y1 !== y2
-            ? startFrom === "from"
-                ? [0, offset1, offset2, 0]
-                : [offset1, 0, 0, offset2]
-            : x1 === x2
-              ? [offset1, 0, offset1, 0]
-              : [0, offset1, 0, offset1];
+    const [dx1, dy1, dx2, dy2] = startFrom === "from" ? [0, offset1, offset2, 0] : [offset1, 0, 0, offset2];
     const x = startFrom === "from" ? x2 + dx2 : x1 + dx1;
     const y = startFrom === "from" ? y1 + dy1 : y2 + dy2;
+    const path = makeSharpTurnPath(makePoint(x1 + dx1, y1 + dy1), makePoint(x, y), makePoint(x2 + dx2, y2 + dy2));
 
-    return roundPathCorners(
-        `M ${x1 + dx1} ${y1 + dy1} L ${x} ${y} L ${x2 + dx2} ${y2 + dy2}`,
-        roundCornerFactor,
-        false
-    ) as `M ${string}`;
+    return roundCornerFactor === 0 ? path : parseRoundedTurnPath(roundPathCorners(path.d, roundCornerFactor, false));
 };
 
 /**

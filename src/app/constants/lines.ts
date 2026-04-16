@@ -1,15 +1,20 @@
 import React from "react";
 import { LineId } from "./constants";
-import { SimplePathAttributes } from "../components/svgs/lines/paths/simple";
-import { DiagonalPathAttributes } from "../components/svgs/lines/paths/diagonal";
-import { PerpendicularPathAttributes } from "../components/svgs/lines/paths/perpendicular";
-import { SingleColorAttributes } from "../components/svgs/lines/styles/single-color";
-import { BjsubwayDottedAttributes } from "../components/svgs/lines/styles/bjsubway-dotted";
-import { BjsubwayTramAttributes } from "@/app/components/svgs/lines/styles/bjsubway-tram";
+import type { SimplePathAttributes } from "../components/svgs/lines/paths/simple";
+import type { DiagonalPathAttributes } from "../components/svgs/lines/paths/diagonal";
+import type { PerpendicularPathAttributes } from "../components/svgs/lines/paths/perpendicular";
+import type { RotatePerpendicularPathAttributes } from "../components/svgs/lines/paths/rotate-perpendicular";
+import type { RayGuidedPathAttributes } from "../components/svgs/lines/paths/ray-guided";
+import type { SingleColorAttributes } from "../components/svgs/lines/styles/single-color";
+import type { BjsubwayDottedAttributes } from "../components/svgs/lines/styles/bjsubway-dotted";
+import type { BjsubwayTramAttributes } from "@/app/components/svgs/lines/styles/bjsubway-tram";
+import type { ClosedAreaPath, OpenPath } from "./path";
 
 export enum LinePathType {
     Diagonal = "diagonal",
     Perpendicular = "perpendicular",
+    RotatePerpendicular = "ro-perp",
+    RayGuided = "ray-guided",
     Simple = "simple",
 }
 
@@ -17,6 +22,8 @@ export interface ExternalLinePathAttributes {
     [LinePathType.Simple]?: SimplePathAttributes;
     [LinePathType.Diagonal]?: DiagonalPathAttributes;
     [LinePathType.Perpendicular]?: PerpendicularPathAttributes;
+    [LinePathType.RotatePerpendicular]?: RotatePerpendicularPathAttributes;
+    [LinePathType.RayGuided]?: RayGuidedPathAttributes;
 }
 
 export enum LineStyleType {
@@ -35,8 +42,6 @@ export interface ExternalLineStyleAttributes {
 
 export const LINE_WIDTH = 5;
 
-export type Path = `M${string}`;
-
 export interface LineStyleComponentProps<
     T extends NonNullable<ExternalLineStyleAttributes[keyof ExternalLineStyleAttributes]>,
 > {
@@ -45,7 +50,7 @@ export interface LineStyleComponentProps<
      * Sometimes you might need to know the path type and call different generating algorithms.
      */
     type: LinePathType;
-    path: Path;
+    path: OpenPath;
     styleAttrs: T;
     /**
      * ONLY NEEDED IN SINGLE-COLOR AS USERS WILL ONLY DRAW LINES IN THIS STYLE.
@@ -110,4 +115,15 @@ export interface LineStyle<
 /**
  * The generator type of a line path.
  */
-export type PathGenerator<T> = (x1: number, x2: number, y1: number, y2: number, attrs?: T) => Path;
+export type PathGenerator<T> = (x1: number, x2: number, y1: number, y2: number, attrs?: T) => OpenPath;
+
+/**
+ * The generator type of a line style.
+ * This is used when a line style needs to generate complex paths based on the original path.
+ * It takes the original path and return a record of paths with different keys.
+ */
+export type StylePathGenerator<T> = (
+    path: OpenPath,
+    type: LinePathType,
+    attrs: T
+) => Record<string, OpenPath | ClosedAreaPath>;

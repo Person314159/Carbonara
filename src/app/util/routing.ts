@@ -39,7 +39,7 @@ MapData.graph.nodes.forEach((node) => {
     const nodeType = node.attributes.type as keyof typeof node.attributes;
 
     if (nodeType !== "virtual" && nodeType !== "facilities") {
-        // @ts-expect-error simple
+        // @ts-expect-error TS can't narrow node.attributes[nodeType] to a station-typed value after excluding "virtual"/"facilities"
         const station = networkData.stations.find((s) => s.name == node.attributes[nodeType]!.names[0]);
 
         if (station === undefined) console.log("Station not defined in network data:", JSON.stringify(node));

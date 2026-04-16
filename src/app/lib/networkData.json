@@ -7,6 +7,12 @@
             "type": "LSR"
         },
         {
+            "id": "A02",
+            "name": "Sino-Iranian Express",
+            "colour": "#ffb2f6",
+            "type": "LSR"
+        },
+        {
             "id": "A03",
             "name": "Warzone Express",
             "colour": "#662c91",
@@ -130,12 +136,6 @@
             "id": "A24",
             "name": "Hu Line",
             "colour": "#ff0802",
-            "type": "LSR"
-        },
-        {
-            "id": "A26",
-            "name": "Sino-Iranian Express",
-            "colour": "#ffb2f6",
             "type": "LSR"
         },
         {
@@ -2570,7 +2570,7 @@
             "from": "Rasht",
             "to": "Ureki",
             "lineID": "A01",
-            "time": 185
+            "time": 180
         },
         {
             "from": "Ureki",
@@ -2580,9 +2580,21 @@
         },
         {
             "from": "Rasht",
+            "to": "Qinghai",
+            "lineID": "A02",
+            "time": 685
+        },
+        {
+            "from": "Qinghai",
+            "to": "Jinan",
+            "lineID": "A02",
+            "time": 245
+        },
+        {
+            "from": "Rasht",
             "to": "Tel Aviv",
             "lineID": "A03",
-            "time": 255
+            "time": 260
         },
         {
             "from": "Tel Aviv",
@@ -2599,7 +2611,7 @@
             "from": "Rasht",
             "to": "Amol",
             "lineID": "A06",
-            "time": 65
+            "time": 70
         },
         {
             "from": "Amol",
@@ -3154,18 +3166,6 @@
             "to": "Taipei",
             "lineID": "A24",
             "time": 90
-        },
-        {
-            "from": "Rasht",
-            "to": "Qinghai",
-            "lineID": "A26",
-            "time": 685
-        },
-        {
-            "from": "Qinghai",
-            "to": "Jinan",
-            "lineID": "A26",
-            "time": 245
         },
         {
             "from": "Queen's Cross",
@@ -5805,7 +5805,7 @@
             "from": "Ureki",
             "to": "Rasht",
             "lineID": "T04",
-            "time": 165
+            "time": 160
         },
         {
             "from": "Rasht",

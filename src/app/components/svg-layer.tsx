@@ -95,12 +95,7 @@ const SvgLayer = React.memo(
                 if (PreStationComponent) {
                     layers[element.station!.zIndex].pre.push(
                         <g key={`${element.id}.pre`} className={glowClass}>
-                            <PreStationComponent
-                                id={element.id as StnId}
-                                x={attr.x}
-                                y={attr.y}
-                                attrs={attr}
-                            />
+                            <PreStationComponent id={element.id as StnId} x={attr.x} y={attr.y} attrs={attr} />
                         </g>
                     );
                 }
@@ -118,12 +113,7 @@ const SvgLayer = React.memo(
                 if (PostStationComponent) {
                     layers[element.station!.zIndex].post.push(
                         <g key={`${element.id}.post`} className={glowClass}>
-                            <PostStationComponent
-                                id={element.id as StnId}
-                                x={attr.x}
-                                y={attr.y}
-                                attrs={attr}
-                            />
+                            <PostStationComponent id={element.id as StnId} x={attr.x} y={attr.y} attrs={attr} />
                         </g>
                     );
                 }
@@ -142,7 +132,7 @@ const SvgLayer = React.memo(
                                 id={element.id as MiscNodeId}
                                 x={attr.x}
                                 y={attr.y}
-                                // @ts-expect-error simple
+                                // @ts-expect-error attr[type] is a union of all misc-node attr types; TS can't narrow it to the specific attrs prop type for this component
                                 attrs={attr[type]}
                             />
                         </g>
@@ -157,7 +147,7 @@ const SvgLayer = React.memo(
                             id={element.id as MiscNodeId}
                             x={attr.x}
                             y={attr.y}
-                            // @ts-expect-error simple
+                            // @ts-expect-error attr[type] is a union of all misc-node attr types; TS can't narrow it to the specific attrs prop type for this component
                             attrs={attr[type]}
                         />
                     </g>
@@ -172,7 +162,7 @@ const SvgLayer = React.memo(
                                 id={element.id as MiscNodeId}
                                 x={attr.x}
                                 y={attr.y}
-                                // @ts-expect-error simple
+                                // @ts-expect-error attr[type] is a union of all misc-node attr types; TS can't narrow it to the specific attrs prop type for this component
                                 attrs={attr[type]}
                             />
                         </g>

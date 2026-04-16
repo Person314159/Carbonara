@@ -11,8 +11,8 @@ const BjsubwayDotted = (props: LineStyleComponentProps<BjsubwayDottedAttributes>
 
     return (
         <g id={id} cursor="pointer">
-            <path d={path} fill="none" stroke={color[2]} strokeWidth={LINE_WIDTH} strokeDasharray="2 2" />
-            <path d={path} fill="none" stroke={bgColor} strokeWidth="3.4" />
+            <path d={path.d} fill="none" stroke={color[2]} strokeWidth={LINE_WIDTH} strokeDasharray="2 2" />
+            <path d={path.d} fill="none" stroke={bgColor} strokeWidth="3.4" />
         </g>
     );
 };

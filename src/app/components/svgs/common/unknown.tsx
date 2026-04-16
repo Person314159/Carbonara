@@ -28,5 +28,5 @@ export const UnknownLineStyle = (
 ) => {
     const { id, path } = props;
 
-    return <path id={id} d={path} fill="none" stroke="grey" strokeWidth="5" strokeLinecap="round" cursor="pointer" />;
+    return <path id={id} d={path.d} fill="none" stroke="grey" strokeWidth="5" strokeLinecap="round" cursor="pointer" />;
 };
