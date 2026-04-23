@@ -20,7 +20,7 @@
         },
         {
             "id": "A04",
-            "name": "A04",
+            "name": "Warzone Express 2",
             "colour": "#fca3d6",
             "type": "LSR"
         },
@@ -434,7 +434,7 @@
         },
         {
             "id": "F04",
-            "name": "Sahara Line",
+            "name": "Socotra Line",
             "colour": "#ffda80",
             "type": "LSR"
         },
@@ -1722,9 +1722,6 @@
             "name": "Lausanne"
         },
         {
-            "name": "Le Mont-Saint-Michel"
-        },
-        {
             "name": "Liepāja"
         },
         {
@@ -2599,7 +2596,8 @@
         {
             "from": "Tel Aviv",
             "to": "Sanaa",
-            "lineID": "A04"
+            "lineID": "A04",
+            "time": 350
         },
         {
             "from": "Rasht",
@@ -4234,7 +4232,8 @@
         {
             "from": "Sanaa",
             "to": "Socotra",
-            "lineID": "F04"
+            "lineID": "F04",
+            "time": 165
         },
         {
             "from": "Antananarivo",
@@ -4394,14 +4393,12 @@
         {
             "from": "Montclair",
             "to": "Ithaca",
-            "lineID": "N06",
-            "time": 50
+            "lineID": "N06"
         },
         {
             "from": "Ithaca",
             "to": "Ottawa",
-            "lineID": "N06",
-            "time": 55
+            "lineID": "N06"
         },
         {
             "from": "Montréal",
@@ -5720,15 +5717,9 @@
         },
         {
             "from": "Cherbourg",
-            "to": "Le Mont-Saint-Michel",
-            "lineID": "T03",
-            "time": 15
-        },
-        {
-            "from": "Le Mont-Saint-Michel",
             "to": "Rennes",
             "lineID": "T03",
-            "time": 15
+            "time": 25
         },
         {
             "from": "Southampton",
