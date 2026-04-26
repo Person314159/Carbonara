@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import networkData from "@/app/lib/networkData";
 import { LegProp } from "@/app/lib/interfaces";
 import NetworkMap from "@/app/components/networkMap";
@@ -25,7 +25,7 @@ export default function Home() {
     const [highlightedStations, setHighlightedStations] = useState<string[]>([]);
     const [error, setError] = useState<string | undefined>();
     const [searchStation, setSearchStation] = useState("");
-    const [isClient, setIsClient] = useState(false);
+
     const stationCoordinate = useMemo(
         () =>
             searchStation
@@ -42,11 +42,7 @@ export default function Home() {
         [highlightedStations, searchedStationKeys]
     );
 
-    useEffect(() => {
-        setIsClient(true);
-    }, []);
-
-    const handleRouteFind = async (kind: string) => {
+    const handleRouteFind = useCallback(async (kind: string) => {
         setError(undefined);
 
         try {
@@ -73,21 +69,7 @@ export default function Home() {
             setHighlightedEdges([]);
             setHighlightedStations([]);
         }
-    };
-
-    if (!isClient) {
-        return (
-            <main className="fade-in mx-auto mt-0 mb-0 w-full max-w-7xl rounded-lg px-4 shadow-lg" role="main">
-                <div className="grid grid-cols-2 gap-4">
-                    <div className="col-span-full">
-                        <h2 className="mb-5 text-center" style={{ color: "var(--colour-primary-light)" }}>
-                            Loading...
-                        </h2>
-                    </div>
-                </div>
-            </main>
-        );
-    }
+    }, [startStation, endStation, metric, timeRange, maxLinesUsed, transferProbability, maxSteps, allowRepeatStations]);
 
     return (
         <>
@@ -125,27 +107,27 @@ export default function Home() {
                         <div role="region" aria-label="Route Planning Section">
                             <StationSelect
                                 startStation={startStation}
-                                selectStart={(val: string) => setStartStation(val)}
+                                selectStart={setStartStation}
                                 endStation={endStation}
-                                selectEnd={(val: string) => setEndStation(val)}
+                                selectEnd={setEndStation}
                                 metric={metric}
-                                setMetric={(val: string) => setMetric(val)}
+                                setMetric={setMetric}
                                 timeRange={timeRange}
-                                setTimeRange={(val: [number, number]) => setTimeRange(val)}
+                                setTimeRange={setTimeRange}
                                 maxLinesUsed={maxLinesUsed}
-                                setMaxLinesUsed={(val: number) => setMaxLinesUsed(val)}
+                                setMaxLinesUsed={setMaxLinesUsed}
                                 transferProbability={transferProbability}
-                                setTransferProbability={(val: number) => setTransferProbability(val)}
+                                setTransferProbability={setTransferProbability}
                                 maxSteps={maxSteps}
-                                setMaxSteps={(val: number) => setMaxSteps(val)}
+                                setMaxSteps={setMaxSteps}
                                 allowRepeatStations={allowRepeatStations}
-                                setAllowRepeatStations={(val: boolean) => setAllowRepeatStations(val)}
+                                setAllowRepeatStations={setAllowRepeatStations}
                                 onRouteFind={handleRouteFind}
                                 error={error}
                             />
 
                             <div role="region" aria-label="Route Results" aria-live="polite">
-                                {RoutingResult({ route })}
+                                <RoutingResult route={route} />
                             </div>
                         </div>
 

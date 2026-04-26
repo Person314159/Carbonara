@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { LegProp } from "@/app/lib/interfaces";
 import Leg from "@/app/components/leg";
 import { formatTime } from "@/app/lib/util";
@@ -19,11 +18,11 @@ export default function RoutingResult({ route }: RoutingResultProps) {
             <div id="result">
                 {route.length > 0 ? (
                     <>
-                        {route.map((l, i) => (
-                            <Leg key={`${l.line.name}-${l.from}-${l.to}-${i}`} {...l} />
+                        {route.map((leg) => (
+                            <Leg key={`${leg.line.id}-${leg.from}-${leg.to}`} {...leg} />
                         ))}
                         <div className="total-time">
-                            Total journey time: {formatTime(route.map((l) => l.time).reduce((a, b) => a + b, 0))}
+                            Total journey time: {formatTime(route.map((leg) => leg.time).reduce((a, b) => a + b, 0))}
                         </div>
                     </>
                 ) : (

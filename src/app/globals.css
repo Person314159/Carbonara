@@ -69,13 +69,6 @@
     @apply hover:bg-(--colour-background) hover:text-(--colour-text);
 }
 
-.sliders-details .sliders-content {
-    max-height: 0;
-}
-
-.sliders-details[open] .sliders-content {
-    max-height: 500px;
-}
 
 .rmp-selected-glow {
     filter: drop-shadow(0 0 2px rgba(255, 255, 0, 1)) drop-shadow(0 0 4px rgba(255, 255, 0, 0.7));

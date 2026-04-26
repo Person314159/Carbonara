@@ -1,4 +1,4 @@
-import { Combobox, InputBase, useCombobox } from "@mantine/core";
+﻿import { Combobox, InputBase, useCombobox } from "@mantine/core";
 import { options } from "@/app/util/routing";
 import React, { useState } from "react";
 
@@ -7,7 +7,7 @@ const normalizedOptions = options.map((station) => ({
     normalized: station
         .toLowerCase()
         .normalize("NFKD")
-        .replace(/[\u0300-\u036F]/g, ""),
+        .replace(/[̀-ͯ]/g, ""),
 }));
 
 interface SearchableSelectProps {
@@ -25,7 +25,7 @@ function SearchableSelectComponent({ value, setValue }: SearchableSelectProps) {
             search
                 .toLowerCase()
                 .normalize("NFKD")
-                .replace(/[\u0300-\u036F]/g, ""),
+                .replace(/[̀-ͯ]/g, ""),
         [search]
     );
     const filteredOptions = React.useMemo(
@@ -37,7 +37,7 @@ function SearchableSelectComponent({ value, setValue }: SearchableSelectProps) {
                 : options,
         [normalizedSearch]
     );
-    const op = React.useMemo(
+    const optionElements = React.useMemo(
         () =>
             filteredOptions.map((station) => (
                 <Combobox.Option value={station} key={station}>
@@ -87,7 +87,7 @@ function SearchableSelectComponent({ value, setValue }: SearchableSelectProps) {
 
             <Combobox.Dropdown>
                 <Combobox.Options mah={400} style={{ overflowY: "auto" }}>
-                    {op.length > 0 ? op : <Combobox.Empty>Nothing found</Combobox.Empty>}
+                    {optionElements.length > 0 ? optionElements : <Combobox.Empty>Nothing found</Combobox.Empty>}
                 </Combobox.Options>
             </Combobox.Dropdown>
         </Combobox>

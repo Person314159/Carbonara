@@ -24,7 +24,7 @@ interface StationSelectProps {
     error?: string;
 }
 
-export function StationSelect({
+export const StationSelect = React.memo(function StationSelect({
     startStation,
     selectStart,
     endStation,
@@ -88,4 +88,4 @@ export function StationSelect({
             {error && <div className="status-message status-message--error">{error}</div>}
         </div>
     );
-}
+});
