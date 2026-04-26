@@ -139,6 +139,12 @@
             "type": "LSR"
         },
         {
+            "id": "A26",
+            "name": "Senzan Line",
+            "colour": "#77c696",
+            "type": "LSR"
+        },
+        {
             "id": "E01",
             "name": "Brighton Red Line",
             "colour": "#ed1c2a",
@@ -1120,6 +1126,9 @@
         },
         {
             "name": "Boston"
+        },
+        {
+            "name": "Bourem"
         },
         {
             "name": "Brest"
@@ -2529,6 +2538,9 @@
             "name": "Worsley"
         },
         {
+            "name": "Yamadera"
+        },
+        {
             "name": "Yantai"
         },
         {
@@ -3006,7 +3018,8 @@
         {
             "from": "Pohang",
             "to": "Donghae",
-            "lineID": "A16"
+            "lineID": "A16",
+            "time": 25
         },
         {
             "from": "Donghae",
@@ -3164,6 +3177,12 @@
             "to": "Taipei",
             "lineID": "A24",
             "time": 90
+        },
+        {
+            "from": "Sendai",
+            "to": "Yamadera",
+            "lineID": "A26",
+            "time": 10
         },
         {
             "from": "Queen's Cross",
@@ -5747,11 +5766,18 @@
         },
         {
             "from": "Yellel",
-            "to": "Accra",
-            "lineID": "T03"
+            "to": "Bourem",
+            "lineID": "T03",
+            "time": 245
         },
         {
-            "from": "Accra",
+            "from": "Bourem",
+            "to": "Ho",
+            "lineID": "T03",
+            "time": 135
+        },
+        {
+            "from": "Ho",
             "to": "World Origin",
             "lineID": "T03"
         },
