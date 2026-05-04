@@ -3343,7 +3343,8 @@
         {
             "from": "Stockholm",
             "to": "Karlskrona",
-            "lineID": "E06"
+            "lineID": "E06",
+            "time": 75
         },
         {
             "from": "Karlskrona",
