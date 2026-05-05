@@ -76,9 +76,9 @@
 
 .rmp-name-outline text {
     paint-order: stroke;
+    stroke: #ffffff;
     /* Do not forget to define stroke-width when using this class! */
     stroke-linejoin: round;
-    fill: var(--colour-text-dark);
 }
 
 .btn {

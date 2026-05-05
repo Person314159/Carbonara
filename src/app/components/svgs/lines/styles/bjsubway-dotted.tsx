@@ -7,12 +7,10 @@ import { ColorAttribute } from "../../../panels/details/color-field";
 const BjsubwayDotted = (props: LineStyleComponentProps<BjsubwayDottedAttributes>) => {
     const { id, path, styleAttrs } = props;
     const { color = defaultBjsubwayDottedAttributes.color } = styleAttrs ?? defaultBjsubwayDottedAttributes;
-    const bgColor = "#333";
 
     return (
         <g id={id} cursor="pointer">
             <path d={path.d} fill="none" stroke={color[2]} strokeWidth={LINE_WIDTH} strokeDasharray="2 2" />
-            <path d={path.d} fill="none" stroke={bgColor} strokeWidth="3.4" />
         </g>
     );
 };
