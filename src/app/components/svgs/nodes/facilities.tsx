@@ -12,6 +12,7 @@ import { Node, NodeComponentProps } from "@/app/constants/nodes";
 export enum FacilitiesType {
     Airport = "airport",
     Endportal = "ender_eye",
+    Trialchamber = "trial_key",
     Airport2024 = "airport_2024",
     Maglev = "maglev",
     Disney = "disney",
