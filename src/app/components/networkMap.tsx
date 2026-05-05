@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useRef } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Zoom } from "@visx/zoom";
 import { RectClipPath } from "@visx/clip-path";
 import { useGesture } from "@use-gesture/react";
@@ -28,6 +28,8 @@ function ZoomToButton({ onClick, name }: ZoomToButtonProps) {
 
 type ZoomState = Parameters<NonNullable<React.ComponentProps<typeof Zoom<SVGSVGElement>>["children"]>>[0];
 
+const HS = 73728 / 20000; // SVG units → Minecraft blocks
+
 interface ZoomContentProps {
     zoom: ZoomState;
     width: number;
@@ -37,8 +39,17 @@ interface ZoomContentProps {
     highlightStationKeys: string[];
 }
 
-function ZoomContent({ zoom, width, height, stationCoordinate, highlightEdgeIds, highlightStationKeys }: ZoomContentProps) {
+function ZoomContent({
+    zoom,
+    width,
+    height,
+    stationCoordinate,
+    highlightEdgeIds,
+    highlightStationKeys,
+}: ZoomContentProps) {
     const lastFocusKey = useRef<string | null>(null);
+    const [underlayOpacity, setUnderlayOpacity] = useState(0.5);
+    const [mouseCoords, setMouseCoords] = useState<{ x: number; z: number } | null>(null);
     const focusKey = stationCoordinate?.length === 2 ? `${stationCoordinate[0]},${stationCoordinate[1]}` : null;
 
     useEffect(() => {
@@ -101,6 +112,15 @@ function ZoomContent({ zoom, width, height, stationCoordinate, highlightEdgeIds,
         }
     );
 
+    const handleMouseMove = (e: React.MouseEvent<SVGSVGElement>) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const { scaleX, scaleY, translateX, translateY } = zoom.transformMatrix;
+        const svgX = (e.clientX - rect.left - translateX) / scaleX;
+        const svgY = (e.clientY - rect.top - translateY) / scaleY;
+
+        setMouseCoords({ x: Math.round(svgX * HS), z: Math.round(svgY * HS) });
+    };
+
     return (
         <div className="relative">
             <svg
@@ -111,6 +131,8 @@ function ZoomContent({ zoom, width, height, stationCoordinate, highlightEdgeIds,
                 ref={zoom.containerRef}
                 width={width}
                 height={height}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={() => setMouseCoords(null)}
             >
                 <RectClipPath id="zoom-clip" width={width} height={height} />
                 <g
@@ -127,12 +149,30 @@ function ZoomContent({ zoom, width, height, stationCoordinate, highlightEdgeIds,
                         <SvgWrapper
                             highlightEdgeIds={highlightEdgeIds}
                             highlightStationKeys={highlightStationKeys}
+                            underlayOpacity={underlayOpacity}
                         />
                     </Suspense>
                 </g>
                 <rect width={width} height={height} rx={14} fill="transparent" />
             </svg>
+            {mouseCoords && (
+                <div className="btn absolute right-3.75 bottom-3.75 px-2 py-1 font-mono text-xs">
+                    X: {mouseCoords.x}&ensp;Z: {mouseCoords.z}
+                </div>
+            )}
             <div className="absolute top-3.75 right-3.75 flex flex-col items-end">
+                <div className="btn mb-1 flex items-center gap-1.5 px-2 py-1">
+                    <span className="text-xs">Underlay</span>
+                    <input
+                        type="range"
+                        min={0}
+                        max={1}
+                        step={0.05}
+                        value={underlayOpacity}
+                        onChange={(e) => setUnderlayOpacity(parseFloat(e.target.value))}
+                        className="w-20"
+                    />
+                </div>
                 <button
                     type="button"
                     className="btn w-6.5 text-[22px]"

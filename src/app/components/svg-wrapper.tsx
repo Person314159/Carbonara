@@ -9,11 +9,12 @@ import naturalEarthSrc from "../../../public/natural-earth.webp";
 interface SvgWrapperProps {
     highlightEdgeIds?: string[];
     highlightStationKeys?: string[];
+    underlayOpacity?: number;
 }
 
 const staticGraph = MultiDirectedGraph.from((MapData as RMPSave).graph);
 const staticElements = [...getLines(staticGraph), ...getNodes(staticGraph)];
-const SvgWrapper = React.memo(({ highlightEdgeIds = [], highlightStationKeys = [] }: SvgWrapperProps) => {
+const SvgWrapper = React.memo(({ highlightEdgeIds = [], highlightStationKeys = [], underlayOpacity = 0.5 }: SvgWrapperProps) => {
     const highlightedIds = React.useMemo(
         () => new Set([...highlightEdgeIds, ...highlightStationKeys]),
         [highlightEdgeIds, highlightStationKeys]
@@ -21,7 +22,7 @@ const SvgWrapper = React.memo(({ highlightEdgeIds = [], highlightStationKeys = [
 
     return (
         <>
-            <image href={naturalEarthSrc.src} x={-10000} y={-5000} width={20000} height={10000} />
+            <image href={naturalEarthSrc.src} x={-10000} y={-5000} width={20000} height={10000} opacity={underlayOpacity} />
             <SvgLayer elements={staticElements} highlightedIds={highlightedIds} />
         </>
     );
