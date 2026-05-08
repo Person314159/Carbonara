@@ -6905,7 +6905,8 @@
         {
             "from": "Cholsan",
             "to": "Jinan",
-            "lineID": "HMA"
+            "lineID": "HMA",
+            "time": 80
         },
         {
             "from": "Cholsan",
@@ -6942,7 +6943,8 @@
         {
             "from": "Dalian",
             "to": "Jinan",
-            "lineID": "HMA"
+            "lineID": "HMA",
+            "time": 55
         },
         {
             "from": "Dalian",
@@ -7009,7 +7011,8 @@
         {
             "from": "Jinan",
             "to": "Seoul-Incheon",
-            "lineID": "HMA"
+            "lineID": "HMA",
+            "time": 100
         },
         {
             "from": "Jinan",
@@ -7024,7 +7027,8 @@
         {
             "from": "Jinan",
             "to": "Yantai",
-            "lineID": "HMA"
+            "lineID": "HMA",
+            "time": 65
         },
         {
             "from": "Ōsaka",
