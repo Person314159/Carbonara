@@ -4,10 +4,7 @@ import React, { useState } from "react";
 
 const normalizedOptions = options.map((station) => ({
     station,
-    normalized: station
-        .toLowerCase()
-        .normalize("NFKD")
-        .replace(/[̀-ͯ]/g, ""),
+    normalized: station.toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, ""),
 }));
 
 interface SearchableSelectProps {
@@ -20,14 +17,7 @@ function SearchableSelectComponent({ value, setValue }: SearchableSelectProps) {
         onDropdownClose: () => combobox.resetSelectedOption(),
     });
     const [search, setSearch] = useState("");
-    const normalizedSearch = React.useMemo(
-        () =>
-            search
-                .toLowerCase()
-                .normalize("NFKD")
-                .replace(/[̀-ͯ]/g, ""),
-        [search]
-    );
+    const normalizedSearch = React.useMemo(() => search.toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, ""), [search]);
     const filteredOptions = React.useMemo(
         () =>
             normalizedSearch

@@ -28,8 +28,9 @@ export default defineConfig([
             "@stylistic/brace-style": ["error", "1tbs", { allowSingleLine: true }],
             "@stylistic/padding-line-between-statements": [
                 "error",
+                { blankLine: "always", prev: "*", next: ["const", "let", "var"] },
                 { blankLine: "always", prev: ["const", "let", "var"], next: "*" },
-                { blankLine: "never", prev: ["const", "let", "var"], next: ["const", "let", "var"] },
+                { blankLine: "any", prev: ["const", "let", "var"], next: ["const", "let", "var"] },
                 { blankLine: "always", prev: "*", next: "export" },
             ],
             "@stylistic/lines-between-class-members": ["error", "never"],

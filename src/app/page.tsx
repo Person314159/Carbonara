@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { useCallback, useMemo, useState } from "react";
 import networkData from "@/app/lib/networkData";
 import { LegProp } from "@/app/lib/interfaces";
@@ -25,7 +26,6 @@ export default function Home() {
     const [highlightedStations, setHighlightedStations] = useState<string[]>([]);
     const [error, setError] = useState<string | undefined>();
     const [searchStation, setSearchStation] = useState("");
-
     const stationCoordinate = useMemo(
         () =>
             searchStation
@@ -41,35 +41,38 @@ export default function Home() {
         () => [...highlightedStations, ...searchedStationKeys],
         [highlightedStations, searchedStationKeys]
     );
+    const handleRouteFind = useCallback(
+        async (kind: string) => {
+            setError(undefined);
 
-    const handleRouteFind = useCallback(async (kind: string) => {
-        setError(undefined);
+            try {
+                if (startStation === endStation) throw new Error("Start and end stations must be different");
 
-        try {
-            if (startStation === endStation) throw new Error("Start and end stations must be different");
+                const result = findRoute(startStation, endStation, kind, metric, {
+                    timeRange,
+                    maxLinesUsed,
+                    transferProbability,
+                    maxSteps,
+                    allowRepeatStations,
+                });
 
-            const result = findRoute(startStation, endStation, kind, metric, {
-                timeRange,
-                maxLinesUsed,
-                transferProbability,
-                maxSteps,
-                allowRepeatStations,
-            });
+                if (result.length === 0) throw new Error("No route found between selected stations");
 
-            if (result.length === 0) throw new Error("No route found between selected stations");
+                setRoute(result);
 
-            setRoute(result);
-            const highlights = getRouteHighlights(result);
+                const highlights = getRouteHighlights(result);
 
-            setHighlightedEdges(highlights.edgeIds);
-            setHighlightedStations(highlights.stationKeys);
-        } catch (err) {
-            setError(err instanceof Error ? err.message : "An error occurred finding the route");
-            setRoute(null);
-            setHighlightedEdges([]);
-            setHighlightedStations([]);
-        }
-    }, [startStation, endStation, metric, timeRange, maxLinesUsed, transferProbability, maxSteps, allowRepeatStations]);
+                setHighlightedEdges(highlights.edgeIds);
+                setHighlightedStations(highlights.stationKeys);
+            } catch (err) {
+                setError(err instanceof Error ? err.message : "An error occurred finding the route");
+                setRoute(null);
+                setHighlightedEdges([]);
+                setHighlightedStations([]);
+            }
+        },
+        [startStation, endStation, metric, timeRange, maxLinesUsed, transferProbability, maxSteps, allowRepeatStations]
+    );
 
     return (
         <>

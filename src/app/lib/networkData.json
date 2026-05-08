@@ -6394,12 +6394,14 @@
         {
             "from": "Apennines",
             "to": "Mallorca",
-            "lineID": "HCY"
+            "lineID": "HCY",
+            "time": 120
         },
         {
             "from": "Apennines",
             "to": "Mequinenza",
-            "lineID": "HCY"
+            "lineID": "HCY",
+            "time": 155
         },
         {
             "from": "Apennines",
@@ -6448,12 +6450,14 @@
         {
             "from": "Charleville-Mézières",
             "to": "Mallorca",
-            "lineID": "HCY"
+            "lineID": "HCY",
+            "time": 155
         },
         {
             "from": "Charleville-Mézières",
             "to": "Mequinenza",
-            "lineID": "HCY"
+            "lineID": "HCY",
+            "time": 185
         },
         {
             "from": "Charleville-Mézières",
@@ -6501,12 +6505,14 @@
         {
             "from": "Corsica",
             "to": "Mallorca",
-            "lineID": "HCY"
+            "lineID": "HCY",
+            "time": 75
         },
         {
             "from": "Corsica",
             "to": "Mequinenza",
-            "lineID": "HCY"
+            "lineID": "HCY",
+            "time": 100
         },
         {
             "from": "Corsica",
@@ -6548,12 +6554,14 @@
         {
             "from": "Lausanne",
             "to": "Mallorca",
-            "lineID": "HCY"
+            "lineID": "HCY",
+            "time": 130
         },
         {
             "from": "Lausanne",
             "to": "Mequinenza",
-            "lineID": "HCY"
+            "lineID": "HCY",
+            "time": 155
         },
         {
             "from": "Lausanne",
@@ -6595,12 +6603,14 @@
         {
             "from": "Mallorca",
             "to": "Mequinenza",
-            "lineID": "HCY"
+            "lineID": "HCY",
+            "time": 35
         },
         {
             "from": "Mallorca",
             "to": "Milan",
-            "lineID": "HCY"
+            "lineID": "HCY",
+            "time": 110
         },
         {
             "from": "Mallorca",
@@ -6610,7 +6620,8 @@
         {
             "from": "Mallorca",
             "to": "Sardinia",
-            "lineID": "HCY"
+            "lineID": "HCY",
+            "time": 70
         },
         {
             "from": "Mallorca",
@@ -6635,7 +6646,8 @@
         {
             "from": "Mequinenza",
             "to": "Milan",
-            "lineID": "HCY"
+            "lineID": "HCY",
+            "time": 140
         },
         {
             "from": "Mequinenza",
@@ -6645,7 +6657,8 @@
         {
             "from": "Mequinenza",
             "to": "Sardinia",
-            "lineID": "HCY"
+            "lineID": "HCY",
+            "time": 100
         },
         {
             "from": "Mequinenza",

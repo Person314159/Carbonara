@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { LegProp } from "@/app/lib/interfaces";
 import { formatTime } from "@/app/lib/util";

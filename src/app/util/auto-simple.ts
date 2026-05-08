@@ -96,7 +96,8 @@ export const reconcileSimplePathWithParallel = (
  */
 const checkKAndType = (type: LinePathType, x1: number, y1: number, x2: number, y2: number) => {
     if ((x1 === x2 || y1 === y2) && [LinePathType.Diagonal, LinePathType.Perpendicular].includes(type)) return true;
-    return Math.abs((y2 - y1) / (x2 - x1)) === 1 &&
-        [LinePathType.Diagonal, LinePathType.RotatePerpendicular].includes(type);
-
+    return (
+        Math.abs((y2 - y1) / (x2 - x1)) === 1 &&
+        [LinePathType.Diagonal, LinePathType.RotatePerpendicular].includes(type)
+    );
 };
