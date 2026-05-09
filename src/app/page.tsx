@@ -1,11 +1,10 @@
 "use client";
 
 import React from "react";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import networkData from "@/app/lib/networkData";
 import { LegProp } from "@/app/lib/interfaces";
 import NetworkMap from "@/app/components/networkMap";
-import { ParentSize } from "@visx/responsive";
 import RoutingResult from "@/app/components/routingResult";
 import { findRoute, getRouteHighlights, getStationKeysForName } from "@/app/util/routing";
 import { SearchableSelect } from "@/app/components/searchableSelect";
@@ -26,6 +25,22 @@ export default function Home() {
     const [highlightedStations, setHighlightedStations] = useState<string[]>([]);
     const [error, setError] = useState<string | undefined>();
     const [searchStation, setSearchStation] = useState("");
+    const mapContainerRef = useRef<HTMLDivElement>(null);
+    const [mapSize, setMapSize] = useState({ width: 1280 - 2 * 16, height: 800 });
+
+    useEffect(() => {
+        const el = mapContainerRef.current;
+
+        if (!el) return;
+
+        const observer = new ResizeObserver(([entry]) => {
+            setMapSize({ width: entry.contentRect.width, height: entry.contentRect.height });
+        });
+
+        observer.observe(el);
+        return () => observer.disconnect();
+    }, []);
+
     const stationCoordinate = useMemo(
         () =>
             searchStation
@@ -146,23 +161,15 @@ export default function Home() {
 
                     <div className="col-span-full transition-all">
                         <div role="region" aria-label="Network Map">
-                            <ParentSize
-                                debounceTime={0}
-                                initialSize={{
-                                    width: 1280 - 2 * 16,
-                                    height: 800,
-                                }}
-                            >
-                                {({ width, height }) => (
-                                    <NetworkMap
-                                        width={width}
-                                        height={height}
-                                        stationCoordinate={stationCoordinate}
-                                        highlightEdgeIds={highlightedEdges}
-                                        highlightStationKeys={allHighlightStationKeys}
-                                    />
-                                )}
-                            </ParentSize>
+                            <div ref={mapContainerRef} style={{ width: "100%", height: 800 }}>
+                                <NetworkMap
+                                    width={mapSize.width}
+                                    height={mapSize.height}
+                                    stationCoordinate={stationCoordinate}
+                                    highlightEdgeIds={highlightedEdges}
+                                    highlightStationKeys={allHighlightStationKeys}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>

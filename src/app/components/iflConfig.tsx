@@ -37,7 +37,7 @@ export function IFLConfig({
                     Options
                 </UnstyledButton>
             </div>
-            <Collapse in={open}>
+            <Collapse expanded={open}>
                 <div>
                     <Text size="sm">Total Time</Text>
                     <RangeSlider size="xs" min={0} max={3600} step={25} value={timeRange} onChange={setTimeRange} />
