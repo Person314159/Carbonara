@@ -12,16 +12,14 @@ interface SvgWrapperProps {
 
 const staticGraph = MultiDirectedGraph.from((MapData as RMPSave).graph);
 const staticElements = [...getLines(staticGraph), ...getNodes(staticGraph)];
-const SvgWrapper = React.memo(
-    ({ highlightEdgeIds = [], highlightStationKeys = [] }: SvgWrapperProps) => {
-        const highlightedIds = React.useMemo(
-            () => new Set([...highlightEdgeIds, ...highlightStationKeys]),
-            [highlightEdgeIds, highlightStationKeys]
-        );
+const SvgWrapper = React.memo(({ highlightEdgeIds = [], highlightStationKeys = [] }: SvgWrapperProps) => {
+    const highlightedIds = React.useMemo(
+        () => new Set([...highlightEdgeIds, ...highlightStationKeys]),
+        [highlightEdgeIds, highlightStationKeys]
+    );
 
-        return <SvgLayer elements={staticElements} highlightedIds={highlightedIds} />;
-    }
-);
+    return <SvgLayer elements={staticElements} highlightedIds={highlightedIds} />;
+});
 
 SvgWrapper.displayName = "SvgWrapper";
 

@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useGesture } from "@use-gesture/react";
-import naturalEarthSrc from "../../../public/natural-earth.webp";
+import underlaySrc from "../../../public/NE2_HR_LC_SR_W_DR.webp";
 
 const SvgWrapper = React.lazy(() => import("./svg-wrapper"));
 
@@ -66,8 +66,10 @@ const NetworkMap = React.memo(function NetworkMap({
         }
 
         if (underlayRef.current) {
-            const sx = t.scale * (20000 / naturalEarthSrc.width);
-            const sy = t.scale * (10000 / naturalEarthSrc.height);
+            const iw = underlaySrc.width;
+            const ih = underlaySrc.height;
+            const sx = t.scale * (20000 / iw);
+            const sy = t.scale * (10000 / ih);
 
             underlayRef.current.style.transform = `matrix(${sx},0,0,${sy},${contentTx},${contentTy})`;
         }
@@ -225,9 +227,9 @@ const NetworkMap = React.memo(function NetworkMap({
             <div style={{ position: "relative", width, height: clampedHeight, overflow: "hidden", borderRadius: 14 }}>
                 <img
                     ref={underlayRef}
-                    src={naturalEarthSrc.src}
-                    width={naturalEarthSrc.width}
-                    height={naturalEarthSrc.height}
+                    src={underlaySrc.src}
+                    width={underlaySrc.width}
+                    height={underlaySrc.height}
                     alt=""
                     style={{
                         position: "absolute",

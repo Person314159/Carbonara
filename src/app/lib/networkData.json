@@ -307,6 +307,12 @@
             "type": "LSR"
         },
         {
+            "id": "E31",
+            "name": "Pannonia Line",
+            "colour": "#477050",
+            "type": "LSR"
+        },
+        {
             "id": "E32",
             "name": "Rock Iron Line",
             "colour": "#2596be",
@@ -490,6 +496,18 @@
             "id": "F12",
             "name": "Plateaux Line",
             "colour": "#e38e51",
+            "type": "LSR"
+        },
+        {
+            "id": "F13",
+            "name": "Senegambia Line",
+            "colour": "#a8af11",
+            "type": "LSR"
+        },
+        {
+            "id": "F14",
+            "name": "Cape Verde Line",
+            "colour": "#f3ff00",
             "type": "LSR"
         },
         {
@@ -1143,6 +1161,9 @@
             "name": "Brno"
         },
         {
+            "name": "Budapest"
+        },
+        {
             "name": "Buenos Aires"
         },
         {
@@ -1276,6 +1297,9 @@
         },
         {
             "name": "Daegu"
+        },
+        {
+            "name": "Dakar"
         },
         {
             "name": "Dalian"
@@ -1507,6 +1531,9 @@
         },
         {
             "name": "Gwangju"
+        },
+        {
+            "name": "Győr"
         },
         {
             "name": "Haida Gwaii"
@@ -1824,7 +1851,7 @@
             "name": "Milan"
         },
         {
-            "name": "Moscow"
+            "name": "Miskolc"
         },
         {
             "name": "Monaco"
@@ -1837,6 +1864,9 @@
         },
         {
             "name": "Montréal"
+        },
+        {
+            "name": "Moscow"
         },
         {
             "name": "Mt. Damavand"
@@ -1872,6 +1902,9 @@
             "name": "National Park"
         },
         {
+            "name": "Ndiom Gaye"
+        },
+        {
             "name": "New Haven"
         },
         {
@@ -1894,6 +1927,12 @@
         },
         {
             "name": "Notsé"
+        },
+        {
+            "name": "Nouadhibou"
+        },
+        {
+            "name": "Nouakchott"
         },
         {
             "name": "Nuremberg"
@@ -2031,6 +2070,9 @@
             "name": "Porto"
         },
         {
+            "name": "Porto Novo"
+        },
+        {
             "name": "Porvoo"
         },
         {
@@ -2041,6 +2083,9 @@
         },
         {
             "name": "Prague"
+        },
+        {
+            "name": "Praia"
         },
         {
             "name": "Prilep"
@@ -2253,6 +2298,9 @@
             "name": "Siping"
         },
         {
+            "name": "Sittanunku"
+        },
+        {
             "name": "Skrunda"
         },
         {
@@ -2275,6 +2323,9 @@
         },
         {
             "name": "Spirit River"
+        },
+        {
+            "name": "St Louis"
         },
         {
             "name": "St. Kitts"
@@ -2377,9 +2428,6 @@
         },
         {
             "name": "Timaru"
-        },
-        {
-            "name": "Timbuktu"
         },
         {
             "name": "Timișoara"
@@ -2569,6 +2617,9 @@
         },
         {
             "name": "Zibo"
+        },
+        {
+            "name": "Ziguinchor"
         },
         {
             "name": "Zugdidi"
@@ -3770,6 +3821,29 @@
             "lineID": "E30"
         },
         {
+            "from": "Košice",
+            "to": "Miskolc",
+            "lineID": "E31",
+            "time": 15
+        },
+        {
+            "from": "Miskolc",
+            "to": "Budapest",
+            "lineID": "E31",
+            "time": 30
+        },
+        {
+            "from": "Budapest",
+            "to": "Győr",
+            "lineID": "E31",
+            "time": 25
+        },
+        {
+            "from": "Győr",
+            "to": "Vienna",
+            "lineID": "E31"
+        },
+        {
             "from": "Rock Iron Village",
             "to": "Folldal",
             "lineID": "E32",
@@ -4246,7 +4320,12 @@
         },
         {
             "from": "Tamanrasset",
-            "to": "Timbuktu",
+            "to": "Bourem",
+            "lineID": "F03"
+        },
+        {
+            "from": "Bourem",
+            "to": "Bissau",
             "lineID": "F03"
         },
         {
@@ -4362,6 +4441,57 @@
             "to": "Ho",
             "lineID": "F12",
             "time": 15
+        },
+        {
+            "from": "Bissau",
+            "to": "Ziguinchor",
+            "lineID": "F13",
+            "time": 20
+        },
+        {
+            "from": "Ziguinchor",
+            "to": "Sittanunku",
+            "lineID": "F13"
+        },
+        {
+            "from": "Sittanunku",
+            "to": "Ndiom Gaye",
+            "lineID": "F13"
+        },
+        {
+            "from": "Ndiom Gaye",
+            "to": "St Louis",
+            "lineID": "F13"
+        },
+        {
+            "from": "St Louis",
+            "to": "Nouakchott",
+            "lineID": "F13"
+        },
+        {
+            "from": "Nouakchott",
+            "to": "Nouadhibou",
+            "lineID": "F13"
+        },
+        {
+            "from": "Nouadhibou",
+            "to": "Marrakesh",
+            "lineID": "F13"
+        },
+        {
+            "from": "Ndiom Gaye",
+            "to": "Dakar",
+            "lineID": "F14"
+        },
+        {
+            "from": "Dakar",
+            "to": "Praia",
+            "lineID": "F14"
+        },
+        {
+            "from": "Praia",
+            "to": "Porto Novo",
+            "lineID": "F14"
         },
         {
             "from": "San Francisco",
