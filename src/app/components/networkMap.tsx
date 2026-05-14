@@ -31,6 +31,18 @@ function ZoomToButton({ onClick, name }: ZoomToButtonProps) {
 
 type Transform = { x: number; y: number; scale: number };
 
+const ZOOM_TARGETS: [string, number, number, number][] = [
+    ["Global",        0,     0,     0.06],
+    ["Europe",       -700,   2800,  0.45],
+    ["NA West",       6200,  2500,  0.5 ],
+    ["NA East",       3900,  2200,  0.5 ],
+    ["Caribbean",     3900,  1000,  0.6 ],
+    ["South America", 3200, -1200,  0.2 ],
+    ["Asia West",    -3500,  2000,  0.3 ],
+    ["Asia East",    -6100,  1400,  0.25],
+    ["Oceania",      -8100, -1600,  0.3 ],
+];
+
 const NetworkMap = React.memo(function NetworkMap({
     width,
     height,
@@ -83,6 +95,14 @@ const NetworkMap = React.memo(function NetworkMap({
     const setInstant = (t: Transform) => {
         transformRef.current = t;
         applyDOM(t);
+    };
+
+    const zoomAt = (cx: number, cy: number, multiplier: number) => {
+        const { x: tx, y: ty, scale: ts } = transformRef.current;
+        const newScale = clampScale(ts * multiplier);
+        const factor = newScale / ts;
+
+        setInstant({ x: cx - (cx - tx) * factor, y: cy - (cy - ty) * factor, scale: newScale });
     };
 
     useEffect(() => {
@@ -165,19 +185,11 @@ const NetworkMap = React.memo(function NetworkMap({
             onWheel: ({ event, delta: [, dy] }) => {
                 event.preventDefault();
 
-                const left = rectRef.current?.left ?? 0;
-                const top = rectRef.current?.top ?? 0;
-                const cursorX = event.clientX - left;
-                const cursorY = event.clientY - top;
-                const { x: tx, y: ty, scale: ts } = transformRef.current;
-                const newScale = clampScale(ts * Math.exp(-dy * 0.003));
-                const factor = newScale / ts;
+                const rect = rectRef.current;
+                const cursorX = event.clientX - (rect?.left ?? 0);
+                const cursorY = event.clientY - (rect?.top ?? 0);
 
-                setInstant({
-                    x: cursorX - (cursorX - tx) * factor,
-                    y: cursorY - (cursorY - ty) * factor,
-                    scale: newScale,
-                });
+                zoomAt(cursorX, cursorY, Math.exp(-dy * 0.003));
             },
         },
         {
@@ -188,23 +200,7 @@ const NetworkMap = React.memo(function NetworkMap({
         }
     );
 
-    const zoomStep = (factor: number) => {
-        const { x: tx, y: ty, scale: ts } = transformRef.current;
-        const newScale = clampScale(ts * factor);
-        const delta = newScale / ts;
-        const cx = width / 2;
-        const cy = clampedHeight / 2;
-
-        setInstant({
-            x: cx - (cx - tx) * delta,
-            y: cy - (cy - ty) * delta,
-            scale: newScale,
-        });
-    };
-
-    const jumpTo = (targetX: number, targetY: number, targetScale: number) => {
-        setInstant({ x: targetX, y: targetY, scale: targetScale });
-    };
+    const zoomStep = (multiplier: number) => zoomAt(width / 2, clampedHeight / 2, multiplier);
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
         const rect = rectRef.current ?? e.currentTarget.getBoundingClientRect();
@@ -284,6 +280,13 @@ const NetworkMap = React.memo(function NetworkMap({
                     }}
                     onMouseMove={handleMouseMove}
                     onMouseLeave={handleMouseLeave}
+                    onDoubleClick={(e) => {
+                        const rect = rectRef.current;
+                        const cursorX = e.clientX - (rect?.left ?? 0);
+                        const cursorY = e.clientY - (rect?.top ?? 0);
+
+                        zoomAt(cursorX, cursorY, 2);
+                    }}
                 />
             </div>
             <div
@@ -310,39 +313,13 @@ const NetworkMap = React.memo(function NetworkMap({
                 <button type="button" className="btn mb-4! w-6.5 text-[22px]" onClick={() => zoomStep(0.8)}>
                     -
                 </button>
-                <ZoomToButton onClick={() => jumpTo(width / 2, clampedHeight / 2, 0.06)} name="Global" />
-                <ZoomToButton
-                    onClick={() => jumpTo(-700 * 0.45 + width / 2, 2800 * 0.45 + clampedHeight / 2, 0.45)}
-                    name="Europe"
-                />
-                <ZoomToButton
-                    onClick={() => jumpTo(6200 * 0.5 + width / 2, 2500 * 0.5 + clampedHeight / 2, 0.5)}
-                    name="NA West"
-                />
-                <ZoomToButton
-                    onClick={() => jumpTo(3900 * 0.5 + width / 2, 2200 * 0.5 + clampedHeight / 2, 0.5)}
-                    name="NA East"
-                />
-                <ZoomToButton
-                    onClick={() => jumpTo(3900 * 0.6 + width / 2, 1000 * 0.6 + clampedHeight / 2, 0.6)}
-                    name="Caribbean"
-                />
-                <ZoomToButton
-                    onClick={() => jumpTo(3200 * 0.2 + width / 2, -1200 * 0.2 + clampedHeight / 2, 0.2)}
-                    name="South America"
-                />
-                <ZoomToButton
-                    onClick={() => jumpTo(-3500 * 0.3 + width / 2, 2000 * 0.3 + clampedHeight / 2, 0.3)}
-                    name="Asia West"
-                />
-                <ZoomToButton
-                    onClick={() => jumpTo(-6100 * 0.25 + width / 2, 1400 * 0.25 + clampedHeight / 2, 0.25)}
-                    name="Asia East"
-                />
-                <ZoomToButton
-                    onClick={() => jumpTo(-8100 * 0.3 + width / 2, -1600 * 0.3 + clampedHeight / 2, 0.3)}
-                    name="Oceania"
-                />
+                {ZOOM_TARGETS.map(([name, dx, dy, scale]) => (
+                    <ZoomToButton
+                        key={name}
+                        name={name}
+                        onClick={() => setInstant({ x: dx * scale + width / 2, y: dy * scale + clampedHeight / 2, scale })}
+                    />
+                ))}
             </div>
         </div>
     );
