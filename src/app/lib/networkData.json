@@ -4451,17 +4451,20 @@
         {
             "from": "Ziguinchor",
             "to": "Sittanunku",
-            "lineID": "F13"
+            "lineID": "F13",
+            "time": 15
         },
         {
             "from": "Sittanunku",
             "to": "Ndiom Gaye",
-            "lineID": "F13"
+            "lineID": "F13",
+            "time": 15
         },
         {
             "from": "Ndiom Gaye",
             "to": "St Louis",
-            "lineID": "F13"
+            "lineID": "F13",
+            "time": 25
         },
         {
             "from": "St Louis",
