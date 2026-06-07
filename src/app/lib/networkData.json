@@ -4319,7 +4319,8 @@
         {
             "from": "Tamanrasset",
             "to": "Bourem",
-            "lineID": "F03"
+            "lineID": "F03",
+            "time": 160
         },
         {
             "from": "Bourem",
