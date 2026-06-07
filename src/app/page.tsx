@@ -161,7 +161,7 @@ export default function Home() {
 
                     <div className="col-span-full transition-all">
                         <div role="region" aria-label="Network Map">
-                            <div ref={mapContainerRef} style={{ width: "100%", height: 800 }}>
+                            <div ref={mapContainerRef} style={{ width: "100%", height: "min(800px, 80vh)" }}>
                                 <NetworkMap
                                     width={mapSize.width}
                                     height={mapSize.height}

@@ -50,14 +50,13 @@ const NetworkMap = React.memo(function NetworkMap({
     highlightEdgeIds = [],
     highlightStationKeys = [],
 }: NetworkMapProps) {
-    const clampedHeight = Math.min(height, 800);
     // Gesture capture overlay — a plain div so @use-gesture binds to an HTML element
     const containerRef = useRef<HTMLDivElement>(null);
     // Content wrapper — an HTML div so CSS transform gets a proper GPU compositing layer
     const gRef = useRef<HTMLDivElement>(null);
     const coordsRef = useRef<HTMLDivElement>(null);
     const lastFocusKey = useRef<string | null>(null);
-    const transformRef = useRef<Transform>({ x: width / 2, y: clampedHeight / 2, scale: 0.06 });
+    const transformRef = useRef<Transform>({ x: width / 2, y: height / 2, scale: 0.06 });
     const rectRef = useRef<DOMRect | null>(null);
     const isPinchingRef = useRef(false);
     const underlayRef = useRef<HTMLImageElement>(null);
@@ -111,24 +110,31 @@ const NetworkMap = React.memo(function NetworkMap({
 
         setInstant({
             x: width / 2 - stationCoordinate![0] * 2,
-            y: clampedHeight / 2 - stationCoordinate![1] * 2,
+            y: height / 2 - stationCoordinate![1] * 2,
             scale: 2,
         });
-    }, [focusKey, stationCoordinate, width, clampedHeight]);
+    }, [focusKey, stationCoordinate, width, height]);
 
     useEffect(() => {
         const el = containerRef.current;
 
         if (!el) return;
-        rectRef.current = el.getBoundingClientRect();
 
-        const observer = new ResizeObserver(() => {
-            rectRef.current = el.getBoundingClientRect();
-        });
+        const updateRect = () => { rectRef.current = el.getBoundingClientRect(); };
+
+        updateRect();
+
+        const observer = new ResizeObserver(updateRect);
 
         observer.observe(el);
+        window.addEventListener("scroll", updateRect, { passive: true });
+        window.addEventListener("resize", updateRect, { passive: true });
 
-        return () => observer.disconnect();
+        return () => {
+            observer.disconnect();
+            window.removeEventListener("scroll", updateRect);
+            window.removeEventListener("resize", updateRect);
+        };
     }, []);
 
     useGesture(
@@ -200,7 +206,7 @@ const NetworkMap = React.memo(function NetworkMap({
         }
     );
 
-    const zoomStep = (multiplier: number) => zoomAt(width / 2, clampedHeight / 2, multiplier);
+    const zoomStep = (multiplier: number) => zoomAt(width / 2, height / 2, multiplier);
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
         const rect = rectRef.current ?? e.currentTarget.getBoundingClientRect();
@@ -220,7 +226,7 @@ const NetworkMap = React.memo(function NetworkMap({
 
     return (
         <div className="relative">
-            <div style={{ position: "relative", width, height: clampedHeight, overflow: "hidden", borderRadius: 14 }}>
+            <div style={{ position: "relative", width, height: height, overflow: "hidden", borderRadius: 14 }}>
                 <img
                     ref={underlayRef}
                     src={underlaySrc.src}
@@ -317,7 +323,7 @@ const NetworkMap = React.memo(function NetworkMap({
                     <ZoomToButton
                         key={name}
                         name={name}
-                        onClick={() => setInstant({ x: dx * scale + width / 2, y: dy * scale + clampedHeight / 2, scale })}
+                        onClick={() => setInstant({ x: dx * scale + width / 2, y: dy * scale + height / 2, scale })}
                     />
                 ))}
             </div>
