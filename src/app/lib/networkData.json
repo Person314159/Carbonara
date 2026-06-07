@@ -1419,6 +1419,9 @@
             "name": "Erie"
         },
         {
+            "name": "Essaouira"
+        },
+        {
             "name": "Eyemouth"
         },
         {
@@ -1492,6 +1495,9 @@
         },
         {
             "name": "Gothenburg"
+        },
+        {
+            "name": "Gran Canaria"
         },
         {
             "name": "Grand Bahama"
@@ -1927,9 +1933,6 @@
         },
         {
             "name": "Notsé"
-        },
-        {
-            "name": "Nouadhibou"
         },
         {
             "name": "Nouakchott"
@@ -4262,11 +4265,6 @@
             "time": 40
         },
         {
-            "from": "Marrakesh",
-            "to": "Casablanca",
-            "lineID": "F02"
-        },
-        {
             "from": "Casablanca",
             "to": "Oran",
             "lineID": "F02",
@@ -4469,17 +4467,32 @@
         {
             "from": "St Louis",
             "to": "Nouakchott",
-            "lineID": "F13"
+            "lineID": "F13",
+            "time": 30
         },
         {
             "from": "Nouakchott",
-            "to": "Nouadhibou",
-            "lineID": "F13"
+            "to": "Gran Canaria",
+            "lineID": "F13",
+            "time": 140
         },
         {
-            "from": "Nouadhibou",
+            "from": "Gran Canaria",
+            "to": "Essaouira",
+            "lineID": "F13",
+            "time": 125
+        },
+        {
+            "from": "Essaouira",
             "to": "Marrakesh",
-            "lineID": "F13"
+            "lineID": "F13",
+            "time": 35
+        },
+        {
+            "from": "Marrakesh",
+            "to": "Casablanca",
+            "lineID": "F13",
+            "time": 30
         },
         {
             "from": "Ndiom Gaye",
@@ -4578,12 +4591,14 @@
         {
             "from": "Jamaica Center",
             "to": "Poughkeepsie",
-            "lineID": "N11"
+            "lineID": "N11",
+            "time": 20
         },
         {
             "from": "Poughkeepsie",
             "to": "Albany",
-            "lineID": "N11"
+            "lineID": "N11",
+            "time": 15
         },
         {
             "from": "Albany",
