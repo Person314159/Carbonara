@@ -757,6 +757,12 @@
             "type": "LSR"
         },
         {
+            "id": "N48",
+            "name": "Florida East Coast Railway",
+            "colour": "#ff7030",
+            "type": "LSR"
+        },
+        {
             "id": "N49",
             "name": "SPAMTRAK New Mexico",
             "colour": "#b22222",
@@ -1194,6 +1200,9 @@
             "name": "Campbell River"
         },
         {
+            "name": "Cape Canaveral"
+        },
+        {
             "name": "Cape Norvegia"
         },
         {
@@ -1318,6 +1327,9 @@
         },
         {
             "name": "Dawson Creek"
+        },
+        {
+            "name": "Daytona"
         },
         {
             "name": "Del Norte"
@@ -2566,6 +2578,9 @@
         },
         {
             "name": "West Mediterranean"
+        },
+        {
+            "name": "West Palm Beach"
         },
         {
             "name": "Whanganui"
@@ -4498,12 +4513,14 @@
         {
             "from": "Ndiom Gaye",
             "to": "Dakar",
-            "lineID": "F14"
+            "lineID": "F14",
+            "time": 15
         },
         {
             "from": "Dakar",
             "to": "Praia",
-            "lineID": "F14"
+            "lineID": "F14",
+            "time": 85
         },
         {
             "from": "Praia",
@@ -5269,6 +5286,26 @@
             "from": "Columbus",
             "to": "Savannah",
             "lineID": "N47"
+        },
+        {
+            "from": "Jacksonville",
+            "to": "Daytona",
+            "lineID": "N48"
+        },
+        {
+            "from": "Daytona",
+            "to": "Cape Canaveral",
+            "lineID": "N48"
+        },
+        {
+            "from": "Cape Canaveral",
+            "to": "West Palm Beach",
+            "lineID": "N48"
+        },
+        {
+            "from": "West Palm Beach",
+            "to": "Miami",
+            "lineID": "N48"
         },
         {
             "from": "T.R.A.S.D.",
