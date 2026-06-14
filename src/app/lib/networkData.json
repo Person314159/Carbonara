@@ -511,6 +511,12 @@
             "type": "LSR"
         },
         {
+            "id": "F15",
+            "name": "Guinea Line",
+            "colour": "#d48b35",
+            "type": "LSR"
+        },
+        {
             "id": "HBL",
             "name": "Blue HSR",
             "colour": "#4c90cd",
@@ -1140,6 +1146,9 @@
             "name": "Bloomington"
         },
         {
+            "name": "Boffa"
+        },
+        {
             "name": "Bogotá"
         },
         {
@@ -1230,6 +1239,9 @@
             "name": "Catania"
         },
         {
+            "name": "Catió"
+        },
+        {
             "name": "Cayenne"
         },
         {
@@ -1273,6 +1285,9 @@
         },
         {
             "name": "Comox-Courtenay"
+        },
+        {
+            "name": "Conakry"
         },
         {
             "name": "Copenhagen"
@@ -1462,6 +1477,9 @@
         },
         {
             "name": "Frankfurt"
+        },
+        {
+            "name": "Freetown"
         },
         {
             "name": "Fuji"
@@ -1681,6 +1699,9 @@
         },
         {
             "name": "Kamloops"
+        },
+        {
+            "name": "Kamsar"
         },
         {
             "name": "Kanazawa"
@@ -2296,6 +2317,9 @@
         },
         {
             "name": "Shantou"
+        },
+        {
+            "name": "Sherbro Island"
         },
         {
             "name": "Shijiazhuang"
@@ -4525,7 +4549,40 @@
         {
             "from": "Praia",
             "to": "Porto Novo",
-            "lineID": "F14"
+            "lineID": "F14",
+            "time": 50
+        },
+        {
+            "from": "Bissau",
+            "to": "Catió",
+            "lineID": "F15",
+            "time": 15
+        },
+        {
+            "from": "Catió",
+            "to": "Kamsar",
+            "lineID": "F15",
+            "time": 20
+        },
+        {
+            "from": "Kamsar",
+            "to": "Boffa",
+            "lineID": "F15"
+        },
+        {
+            "from": "Boffa",
+            "to": "Conakry",
+            "lineID": "F15"
+        },
+        {
+            "from": "Conakry",
+            "to": "Freetown",
+            "lineID": "F15"
+        },
+        {
+            "from": "Freetown",
+            "to": "Sherbro Island",
+            "lineID": "F15"
         },
         {
             "from": "San Francisco",
