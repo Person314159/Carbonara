@@ -500,7 +500,7 @@
         },
         {
             "id": "F13",
-            "name": "Senegambia Line",
+            "name": "West Maghreb Line",
             "colour": "#a8af11",
             "type": "LSR"
         },
@@ -1068,6 +1068,9 @@
             "name": "Apennines"
         },
         {
+            "name": "Aracaju"
+        },
+        {
             "name": "Arriaga"
         },
         {
@@ -1123,6 +1126,9 @@
         },
         {
             "name": "Belgrade"
+        },
+        {
+            "name": "Belo Horizonte"
         },
         {
             "name": "Benghazi"
@@ -1818,6 +1824,9 @@
             "name": "Macapá"
         },
         {
+            "name": "Maceió"
+        },
+        {
             "name": "Mackenzie"
         },
         {
@@ -2203,6 +2212,9 @@
         },
         {
             "name": "Rimouski"
+        },
+        {
+            "name": "Rio de Janeiro"
         },
         {
             "name": "Rio Verde"
@@ -5605,6 +5617,27 @@
             "to": "Recife",
             "lineID": "S01",
             "time": 35
+        },
+        {
+            "from": "Recife",
+            "to": "Maceió",
+            "lineID": "S01",
+            "time": 30
+        },
+        {
+            "from": "Maceió",
+            "to": "Aracaju",
+            "lineID": "S01"
+        },
+        {
+            "from": "Aracaju",
+            "to": "Belo Horizonte",
+            "lineID": "S01"
+        },
+        {
+            "from": "Belo Horizonte",
+            "to": "Rio de Janeiro",
+            "lineID": "S01"
         },
         {
             "from": "Asunción",
