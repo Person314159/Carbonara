@@ -2253,6 +2253,9 @@
             "name": "Salt Lake City"
         },
         {
+            "name": "Salvador"
+        },
+        {
             "name": "Samara"
         },
         {
@@ -3898,7 +3901,8 @@
         {
             "from": "Győr",
             "to": "Vienna",
-            "lineID": "E31"
+            "lineID": "E31",
+            "time": 25
         },
         {
             "from": "Rock Iron Village",
@@ -4272,12 +4276,14 @@
         {
             "from": "Venice",
             "to": "Verona",
-            "lineID": "E51"
+            "lineID": "E51",
+            "time": 20
         },
         {
             "from": "Verona",
             "to": "Innsbruck",
-            "lineID": "E51"
+            "lineID": "E51",
+            "time": 30
         },
         {
             "from": "Innsbruck",
@@ -4779,7 +4785,8 @@
         {
             "from": "Wallops Island",
             "to": "Wilmington",
-            "lineID": "N15"
+            "lineID": "N15",
+            "time": 85
         },
         {
             "from": "Wilmington",
@@ -5631,6 +5638,11 @@
         },
         {
             "from": "Aracaju",
+            "to": "Salvador",
+            "lineID": "S01"
+        },
+        {
+            "from": "Salvador",
             "to": "Belo Horizonte",
             "lineID": "S01"
         },
