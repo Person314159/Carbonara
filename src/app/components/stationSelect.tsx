@@ -1,89 +1,134 @@
 import React from "react";
 import { SearchableSelect } from "@/app/components/searchableSelect";
 import NavigationModeToggle from "@/app/components/navigationModeToggle";
-import { IFLConfig } from "@/app/components/iflConfig";
+import { RouteOptions } from "@/app/components/routeOptions";
 
 interface StationSelectProps {
-    startStation: string;
-    selectStart: (val: string) => void;
-    endStation: string;
-    selectEnd: (val: string) => void;
+    stations: string[];
+    setStations: (stations: string[]) => void;
     metric: string;
     setMetric: (value: string) => void;
-    timeRange: [number, number];
-    setTimeRange: (value: [number, number]) => void;
-    maxLinesUsed: number;
-    setMaxLinesUsed: (value: number) => void;
-    transferProbability: number;
-    setTransferProbability: (value: number) => void;
-    maxSteps: number;
-    setMaxSteps: (value: number) => void;
-    allowRepeatStations: boolean;
-    setAllowRepeatStations: (value: boolean) => void;
-    onRouteFind: (kind: string) => void;
+    excludedLines: string[];
+    setExcludedLines: (value: string[]) => void;
+    excludedStations: string[];
+    setExcludedStations: (value: string[]) => void;
+    onRouteFind: () => void;
     error?: string;
+    isSearching?: boolean;
 }
 
 export const StationSelect = React.memo(function StationSelect({
-    startStation,
-    selectStart,
-    endStation,
-    selectEnd,
+    stations,
+    setStations,
     metric,
     setMetric,
-    timeRange,
-    setTimeRange,
-    maxLinesUsed,
-    setMaxLinesUsed,
-    transferProbability,
-    setTransferProbability,
-    maxSteps,
-    setMaxSteps,
-    allowRepeatStations,
-    setAllowRepeatStations,
+    excludedLines,
+    setExcludedLines,
+    excludedStations,
+    setExcludedStations,
     onRouteFind,
     error,
+    isSearching = false,
 }: StationSelectProps) {
+    const lastIndex = stations.length - 1;
+    const usedStations = React.useMemo(() => new Set(stations.filter(Boolean)), [stations]);
+
+    const updateStation = (index: number, value: string) => {
+        const next = [...stations];
+
+        next[index] = value;
+        setStations(next);
+    };
+
+    const addStop = () => {
+        const next = [...stations];
+
+        next.splice(lastIndex, 0, "");
+        setStations(next);
+    };
+
+    const removeStop = (index: number) => {
+        const next = [...stations];
+
+        next.splice(index, 1);
+        setStations(next);
+    };
+
     return (
         <div className="mb-5">
             <div className="flex flex-wrap gap-2 sm:items-end">
                 <div className="flex-1">
                     <p>Start Station:</p>
-                    <SearchableSelect value={startStation} setValue={selectStart} />
+                    <SearchableSelect
+                        value={stations[0]}
+                        setValue={(v) => updateStation(0, v)}
+                        excluded={usedStations}
+                    />
+                </div>
+                {stations.slice(1, lastIndex).map((station, i) => {
+                    const index = i + 1;
+
+                    return (
+                        <div className="flex-1" key={index}>
+                            <p className="flex items-center justify-between gap-2">
+                                <span>Via Station {index}:</span>
+                                <button
+                                    type="button"
+                                    className="btn h-5 w-5 cursor-pointer rounded text-xs"
+                                    aria-label={`Remove via station ${index}`}
+                                    onClick={() => removeStop(index)}
+                                >
+                                    ✕
+                                </button>
+                            </p>
+                            <SearchableSelect
+                                value={station}
+                                setValue={(v) => updateStation(index, v)}
+                                excluded={usedStations}
+                            />
+                        </div>
+                    );
+                })}
+                <div className="flex-none">
+                    <button
+                        type="button"
+                        className="btn h-9 cursor-pointer rounded-lg px-3 text-(length:--font-size-sm)"
+                        aria-label="Add a stop"
+                        onClick={addStop}
+                    >
+                        + Add stop
+                    </button>
                 </div>
                 <div className="flex-1">
                     <p>End Station:</p>
-                    <SearchableSelect value={endStation} setValue={selectEnd} />
+                    <SearchableSelect
+                        value={stations[lastIndex]}
+                        setValue={(v) => updateStation(lastIndex, v)}
+                        excluded={usedStations}
+                    />
                 </div>
-                <div className="flex h-9 w-full justify-center sm:w-auto sm:justify-start">
-                    <NavigationModeToggle
-                        checked={metric === "transfers"}
-                        onChange={(checked) => setMetric(checked ? "transfers" : "time")}
-                    ></NavigationModeToggle>
-                </div>
+            </div>
+
+            <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
+                <NavigationModeToggle
+                    checked={metric === "transfers"}
+                    onChange={(checked) => setMetric(checked ? "transfers" : "time")}
+                ></NavigationModeToggle>
                 <button
                     className="find-route-btn"
                     aria-label="Find route between selected stations"
-                    onClick={() => onRouteFind("f")}
+                    onClick={onRouteFind}
+                    disabled={isSearching}
                 >
-                    Find Route
-                </button>
-                <button className="feeling-lucky-btn" aria-label="I'm Feeling Lucky" onClick={() => onRouteFind("r")}>
-                    I&apos;m Feeling Lucky
+                    {isSearching ? "Finding…" : "Find Route"}
                 </button>
             </div>
 
-            <IFLConfig
-                timeRange={timeRange}
-                setTimeRange={setTimeRange}
-                maxLinesUsed={maxLinesUsed}
-                setMaxLinesUsed={setMaxLinesUsed}
-                transferProbability={transferProbability}
-                setTransferProbability={setTransferProbability}
-                maxSteps={maxSteps}
-                setMaxSteps={setMaxSteps}
-                allowRepeatStations={allowRepeatStations}
-                setAllowRepeatStations={setAllowRepeatStations}
+            <RouteOptions
+                excludedLines={excludedLines}
+                setExcludedLines={setExcludedLines}
+                excludedStations={excludedStations}
+                setExcludedStations={setExcludedStations}
             />
             {error && <div className="status-message status-message--error">{error}</div>}
         </div>

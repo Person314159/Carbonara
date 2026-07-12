@@ -10,13 +10,16 @@ export function tupleCmp([a1, a2]: [number, number], [b1, b2]: [number, number])
     return a1 != b1 ? a1 - b1 : a2 - b2;
 }
 
-export function shuffle<T>(arr: T[]): T[] {
-    const copy = arr.slice();
+export function normalizeForSearch(s: string): string {
+    return s.toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, "");
+}
 
-    for (let i = copy.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
+export function getContrastTextColor(bgColor: string) {
+    const color = bgColor.charAt(0) === "#" ? bgColor.substring(1) : bgColor;
+    const r = parseInt(color.substring(0, 2), 16);
+    const g = parseInt(color.substring(2, 4), 16);
+    const b = parseInt(color.substring(4, 6), 16);
+    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
 
-        [copy[i], copy[j]] = [copy[j], copy[i]];
-    }
-    return copy;
+    return luminance > 0.5 ? "#333333" : "#ffffff";
 }

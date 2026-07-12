@@ -57,16 +57,27 @@
 }
 
 /* Select Input Styling */
-.mantine-InputBase-input {
+.mantine-InputBase-input,
+.mantine-MultiSelect-input {
     @apply w-full appearance-none rounded-lg border-2 border-solid border-(--colour-border) bg-(--colour-background-alt-dark) p-3 text-(length:--font-size-base)/(--line-height-normal) text-(--colour-text-dark) transition-all duration-(--transition-fast) ease-out hover:transform-[translateY(-1px)] hover:border-(--colour-primary) hover:bg-(--colour-background-dark) hover:text-(--colour-text-dark) focus:transform-[translateY(-1px)] focus:border-(--colour-primary) focus:bg-(--colour-background-dark) focus:shadow-md focus:outline-none;
 }
 
-.mantine-Combobox-dropdown {
+.mantine-MultiSelect-inputField {
+    @apply text-(--colour-text-dark);
+}
+
+.mantine-MultiSelect-pill {
+    @apply bg-(--colour-background) text-(--colour-text);
+}
+
+.mantine-Combobox-dropdown,
+.mantine-MultiSelect-dropdown {
     @apply bg-(--colour-background-dark);
 }
 
-.mantine-Combobox-option {
-    @apply hover:bg-(--colour-background) hover:text-(--colour-text);
+.mantine-Combobox-option,
+.mantine-MultiSelect-option {
+    @apply text-(--colour-text-dark) hover:bg-(--colour-background) hover:text-(--colour-text);
 }
 
 .rmp-selected-glow {
@@ -88,6 +99,10 @@
     @apply mb-2.5 rounded-sm border-l-4 border-l-(--colour-primary-light) bg-(--colour-background-alt-dark) p-2.5 transition-all duration-(--transition-normal) ease-out hover:transform-[translateX(4px)] hover:shadow-md;
 }
 
+.route-step-toggle {
+    @apply flex w-full cursor-pointer items-center justify-between border-none bg-transparent p-0 text-left text-white;
+}
+
 .line-badge {
     @apply inline-block rounded-sm px-2 py-0.75 font-bold text-white;
 }
@@ -101,7 +116,8 @@
 }
 
 .transfer-station {
-    @apply font-bold text-(--colour-primary-light) transition-[color] duration-(--transition-fast) ease-out hover:text-(--colour-primary-dark);
+    font: inherit;
+    @apply cursor-pointer border-none bg-transparent p-0 font-bold text-(--colour-primary-light) underline decoration-dotted underline-offset-2 transition-[color] duration-(--transition-fast) ease-out hover:text-(--colour-primary-dark);
 }
 
 .station-count {
@@ -110,6 +126,10 @@
 
 .total-time {
     @apply mt-2.5 text-(length:--font-size-lg)/(--line-height-tight) font-bold;
+}
+
+.hop-divider {
+    @apply mt-3 mb-1 text-(length:--font-size-sm)/(--line-height-normal) font-bold tracking-wide text-(--colour-text-muted-dark) uppercase;
 }
 
 /* Fade In Animation */
@@ -133,36 +153,6 @@
     @apply h-9 w-full cursor-pointer rounded-lg border-none bg-(--colour-primary) px-2 font-bold text-white transition-all duration-(--transition-fast) ease-out hover:transform-[translateY(-1px)] hover:bg-(--colour-primary-dark) hover:shadow-md active:transform-[translateY(0px)] active:shadow-none sm:w-auto;
 }
 
-/* I'm Feeling Lucky Button */
-.feeling-lucky-btn {
-    --d: 100px;
-    --angle: 120deg;
-
-    @apply h-9 w-full cursor-pointer rounded-lg border-none px-1 font-bold text-white transition-all duration-(--transition-fast) ease-out hover:transform-[translateY(-1px)] hover:bg-(--colour-primary-dark) hover:shadow-md active:transform-[translateY(0px)] active:shadow-none sm:w-auto;
-    background: repeating-linear-gradient(
-        var(--angle),
-        rgba(255, 0, 0, 1),
-        rgba(255, 154, 0, 1),
-        rgba(208, 222, 33, 1),
-        rgba(79, 220, 74, 1),
-        rgba(63, 218, 216, 1),
-        rgba(47, 201, 226, 1),
-        rgba(28, 127, 238, 1),
-        rgba(95, 21, 242, 1),
-        rgba(186, 12, 248, 1),
-        rgba(251, 7, 217, 1),
-        rgba(255, 0, 0, 1) var(--d)
-    );
-    background-size: calc(var(--d) / sin(var(--angle))) 100%;
-    animation: rainbowGradient 2s linear infinite reverse;
-}
-
-@keyframes rainbowGradient {
-    0% {
-        background-position: calc(var(--d) / sin(var(--angle))) 0;
-    }
-}
-
 /* Status Messages */
 .status-message {
     @apply mb-4 rounded-sm p-3;
@@ -173,4 +163,17 @@
     background-color: rgba(244, 67, 54, 0.1);
     color: var(--colour-error);
     border-left: 4px solid var(--colour-error);
+}
+
+/* Disabled state for the route search buttons while a search is in progress */
+.find-route-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    transform: none !important;
+    animation-play-state: paused;
+}
+
+/* Copy Shareable Link Button */
+.copy-link-btn {
+    @apply mt-2.5 cursor-pointer rounded-lg px-3 py-1.5 text-(length:--font-size-sm)/(--line-height-normal);
 }

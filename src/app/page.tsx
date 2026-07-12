@@ -2,28 +2,31 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import networkData from "@/app/lib/networkData";
-import { LegProp } from "@/app/lib/interfaces";
+import { LegProp, RouteExclusions } from "@/app/lib/interfaces";
 import NetworkMap from "@/app/components/networkMap";
 import RoutingResult from "@/app/components/routingResult";
-import { findRoute, getRouteHighlights, getStationKeysForName } from "@/app/util/routing";
+import { findMultiStopRoute, getRouteHighlights, getStationKeysForName } from "@/app/util/routing";
 import { SearchableSelect } from "@/app/components/searchableSelect";
 import { StationSelect } from "@/app/components/stationSelect";
+import { buildShareQuery, parseShareQuery } from "@/app/lib/shareLink";
+
+interface SearchExclusions {
+    excludedLines: string[];
+    excludedStations: string[];
+}
 
 export default function Home() {
-    const defaultStation = networkData.stations[0]?.name ?? "";
-    const [startStation, setStartStation] = useState(defaultStation);
-    const [endStation, setEndStation] = useState(defaultStation);
+    const [stations, setStations] = useState<string[]>(["", ""]);
     const [metric, setMetric] = useState("time");
-    const [timeRange, setTimeRange] = useState<[number, number]>([0, 3600]);
-    const [maxLinesUsed, setMaxLinesUsed] = useState(10);
-    const [transferProbability, setTransferProbability] = useState(0.2);
-    const [maxSteps, setMaxSteps] = useState(20);
-    const [allowRepeatStations, setAllowRepeatStations] = useState(false);
-    const [route, setRoute] = useState<LegProp[] | null | undefined>(undefined);
+    const [excludedLines, setExcludedLines] = useState<string[]>([]);
+    const [excludedStations, setExcludedStations] = useState<string[]>([]);
+    const [route, setRoute] = useState<LegProp[][] | null | undefined>(undefined);
     const [highlightedEdges, setHighlightedEdges] = useState<string[]>([]);
     const [highlightedStations, setHighlightedStations] = useState<string[]>([]);
     const [error, setError] = useState<string | undefined>();
     const [searchStation, setSearchStation] = useState("");
+    const [isSearching, setIsSearching] = useState(false);
+    const [shareUrl, setShareUrl] = useState<string | null>(null);
     const mapContainerRef = useRef<HTMLDivElement>(null);
     const [mapSize, setMapSize] = useState({ width: 1280 - 2 * 16, height: 800 });
 
@@ -55,38 +58,110 @@ export default function Home() {
         () => [...highlightedStations, ...searchedStationKeys],
         [highlightedStations, searchedStationKeys]
     );
-    const handleRouteFind = useCallback(
-        async (kind: string) => {
+    const runSearch = useCallback(
+        (searchStations: string[], searchMetric: string, exclusions: SearchExclusions, updateUrl = true) => {
             setError(undefined);
+            setIsSearching(true);
 
-            try {
-                if (startStation === endStation) throw new Error("Start and end stations must be different");
+            // Defer the (synchronous, occasionally slow) route search a tick so the "searching" state
+            // actually gets painted before the main thread blocks on it.
+            setTimeout(() => {
+                try {
+                    if (searchStations.some((s) => !s)) throw new Error("All stations must be selected");
+                    if (new Set(searchStations).size !== searchStations.length)
+                        throw new Error("Stations must be distinct");
 
-                const result = findRoute(startStation, endStation, kind, metric, {
-                    timeRange,
-                    maxLinesUsed,
-                    transferProbability,
-                    maxSteps,
-                    allowRepeatStations,
-                });
+                    // A station can't exclude itself out of a route it's actually part of.
+                    const routeExclusions: RouteExclusions = {
+                        excludedLines: new Set(exclusions.excludedLines),
+                        excludedStations: new Set(
+                            exclusions.excludedStations.filter((s) => !searchStations.includes(s))
+                        ),
+                    };
+                    const result = findMultiStopRoute(searchStations, searchMetric, routeExclusions);
 
-                if (result.length === 0) throw new Error("No route found between selected stations");
+                    if (!result || result.length === 0) throw new Error("No route found between selected stations");
 
-                setRoute(result);
+                    setRoute(result);
 
-                const highlights = getRouteHighlights(result);
+                    const highlights = getRouteHighlights(result.flat());
 
-                setHighlightedEdges(highlights.edgeIds);
-                setHighlightedStations(highlights.stationKeys);
-            } catch (err) {
-                setError(err instanceof Error ? err.message : "An error occurred finding the route");
-                setRoute(null);
-                setHighlightedEdges([]);
-                setHighlightedStations([]);
-            }
+                    setHighlightedEdges(highlights.edgeIds);
+                    setHighlightedStations(highlights.stationKeys);
+
+                    const query = buildShareQuery({
+                        stations: searchStations,
+                        metric: searchMetric,
+                        excludedLines: exclusions.excludedLines,
+                        excludedStations: exclusions.excludedStations,
+                    });
+                    const url = `${window.location.pathname}?${query}`;
+
+                    if (updateUrl) window.history.replaceState(null, "", url);
+                    setShareUrl(`${window.location.origin}${url}`);
+                } catch (err) {
+                    setError(err instanceof Error ? err.message : "An error occurred finding the route");
+                    setRoute(null);
+                    setHighlightedEdges([]);
+                    setHighlightedStations([]);
+                    setShareUrl(null);
+                } finally {
+                    setIsSearching(false);
+                }
+            }, 0);
         },
-        [startStation, endStation, metric, timeRange, maxLinesUsed, transferProbability, maxSteps, allowRepeatStations]
+        []
     );
+
+    const handleRouteFind = useCallback(() => {
+        if (isSearching) return;
+
+        runSearch(stations, metric, { excludedLines, excludedStations });
+    }, [isSearching, runSearch, stations, metric, excludedLines, excludedStations]);
+
+    // Fill the next empty station slot (start, then waypoints, then end) with a clicked map
+    // station; once every slot is filled, append a new waypoint just before the end.
+    const handleStationClick = useCallback((name: string) => {
+        setStations((prev) => {
+            const emptyIdx = prev.findIndex((s) => s === "");
+
+            if (emptyIdx !== -1) {
+                const next = [...prev];
+
+                next[emptyIdx] = name;
+                return next;
+            }
+
+            return [...prev.slice(0, -1), name, prev[prev.length - 1]];
+        });
+    }, []);
+
+    // Restore a shared route from the URL on first load. This has to be an effect:
+    // the URL is a browser-only external system, unavailable during the static export build,
+    // so it can't be read during the initial render without breaking that build.
+    useEffect(() => {
+        const parsed = parseShareQuery(window.location.search);
+
+        if (!parsed) return;
+
+        const isValidStation = (name: string) => networkData.stations.some((station) => station.name === name);
+
+        if (!parsed.stations.every(isValidStation)) return;
+
+        const restoredExclusions: SearchExclusions = {
+            excludedLines: parsed.excludedLines ?? [],
+            excludedStations: parsed.excludedStations ?? [],
+        };
+
+        // eslint-disable-next-line react-hooks/set-state-in-effect -- syncing from the URL on mount, not derived render state
+        setStations(parsed.stations);
+        setMetric(parsed.metric);
+        setExcludedLines(restoredExclusions.excludedLines);
+        setExcludedStations(restoredExclusions.excludedStations);
+        runSearch(parsed.stations, parsed.metric, restoredExclusions, false);
+        // Intentionally run only once, to restore state from the URL the page was opened with.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <>
@@ -123,28 +198,21 @@ export default function Home() {
 
                         <div role="region" aria-label="Route Planning Section">
                             <StationSelect
-                                startStation={startStation}
-                                selectStart={setStartStation}
-                                endStation={endStation}
-                                selectEnd={setEndStation}
+                                stations={stations}
+                                setStations={setStations}
                                 metric={metric}
                                 setMetric={setMetric}
-                                timeRange={timeRange}
-                                setTimeRange={setTimeRange}
-                                maxLinesUsed={maxLinesUsed}
-                                setMaxLinesUsed={setMaxLinesUsed}
-                                transferProbability={transferProbability}
-                                setTransferProbability={setTransferProbability}
-                                maxSteps={maxSteps}
-                                setMaxSteps={setMaxSteps}
-                                allowRepeatStations={allowRepeatStations}
-                                setAllowRepeatStations={setAllowRepeatStations}
+                                excludedLines={excludedLines}
+                                setExcludedLines={setExcludedLines}
+                                excludedStations={excludedStations}
+                                setExcludedStations={setExcludedStations}
                                 onRouteFind={handleRouteFind}
                                 error={error}
+                                isSearching={isSearching}
                             />
 
                             <div role="region" aria-label="Route Results" aria-live="polite">
-                                <RoutingResult route={route} />
+                                <RoutingResult route={route} shareUrl={shareUrl} onStationFocus={setSearchStation} />
                             </div>
                         </div>
 
@@ -167,6 +235,7 @@ export default function Home() {
                                     stationCoordinate={stationCoordinate}
                                     highlightEdgeIds={highlightedEdges}
                                     highlightStationKeys={allHighlightStationKeys}
+                                    onStationClick={handleStationClick}
                                 />
                             </div>
                         </div>

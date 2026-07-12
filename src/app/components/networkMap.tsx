@@ -1,5 +1,6 @@
 import React, { Suspense, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useGesture } from "@use-gesture/react";
+import networkData from "@/app/lib/networkData";
 import underlaySrc from "../../../public/NE2_HR_LC_SR_W_DR.webp";
 
 const SvgWrapper = React.lazy(() => import("../vendor/rmp/components/svg-wrapper"));
@@ -7,6 +8,8 @@ const SvgWrapper = React.lazy(() => import("../vendor/rmp/components/svg-wrapper
 const MIN_SCALE = 1 / 32;
 const MAX_SCALE = 4;
 const HS = 73728 / 20000;
+// A tap within this many screen pixels of a station's coordinate counts as clicking it.
+const STATION_TAP_RADIUS_PX = 14;
 
 export type NetworkMapProps = {
     width: number;
@@ -14,6 +17,7 @@ export type NetworkMapProps = {
     stationCoordinate?: number[] | null;
     highlightEdgeIds?: string[];
     highlightStationKeys?: string[];
+    onStationClick?: (stationName: string) => void;
 };
 
 interface ZoomToButtonProps {
@@ -32,15 +36,15 @@ function ZoomToButton({ onClick, name }: ZoomToButtonProps) {
 type Transform = { x: number; y: number; scale: number };
 
 const ZOOM_TARGETS: [string, number, number, number][] = [
-    ["Global",        0,     0,     0.06],
-    ["Europe",       -700,   2800,  0.45],
-    ["NA West",       6200,  2500,  0.5 ],
-    ["NA East",       3900,  2200,  0.5 ],
-    ["Caribbean",     3900,  1000,  0.6 ],
-    ["South America", 3200, -1200,  0.2 ],
-    ["Asia West",    -3500,  2000,  0.3 ],
-    ["Asia East",    -6100,  1400,  0.25],
-    ["Oceania",      -8100, -1600,  0.3 ],
+    ["Global", 0, 0, 0.06],
+    ["Europe", -700, 2800, 0.45],
+    ["NA West", 6200, 2500, 0.5],
+    ["NA East", 3900, 2200, 0.5],
+    ["Caribbean", 3900, 1000, 0.6],
+    ["South America", 3200, -1200, 0.2],
+    ["Asia West", -3500, 2000, 0.3],
+    ["Asia East", -6100, 1400, 0.25],
+    ["Oceania", -8100, -1600, 0.3],
 ];
 
 const NetworkMap = React.memo(function NetworkMap({
@@ -49,6 +53,7 @@ const NetworkMap = React.memo(function NetworkMap({
     stationCoordinate,
     highlightEdgeIds = [],
     highlightStationKeys = [],
+    onStationClick,
 }: NetworkMapProps) {
     // Gesture capture overlay — a plain div so @use-gesture binds to an HTML element
     const containerRef = useRef<HTMLDivElement>(null);
@@ -123,7 +128,9 @@ const NetworkMap = React.memo(function NetworkMap({
 
         if (!el) return;
 
-        const updateRect = () => { rectRef.current = el.getBoundingClientRect(); };
+        const updateRect = () => {
+            rectRef.current = el.getBoundingClientRect();
+        };
 
         updateRect();
 
@@ -140,9 +147,41 @@ const NetworkMap = React.memo(function NetworkMap({
         };
     }, []);
 
+    const handleStationTap = useCallback(
+        (clientX: number, clientY: number) => {
+            if (!onStationClick) return;
+
+            const rect = rectRef.current;
+            const { x: tx, y: ty, scale: ts } = transformRef.current;
+            const svgX = (clientX - (rect?.left ?? 0) - tx) / ts;
+            const svgY = (clientY - (rect?.top ?? 0) - ty) / ts;
+            const thresholdSvg = STATION_TAP_RADIUS_PX / ts;
+
+            let closestName: string | null = null;
+            let closestDistSq = Infinity;
+
+            for (const station of networkData.stations) {
+                if (!station.coordinate) continue;
+
+                const [sx, sy] = station.coordinate;
+                const distSq = (sx - svgX) ** 2 + (sy - svgY) ** 2;
+
+                if (distSq < closestDistSq) {
+                    closestDistSq = distSq;
+                    closestName = station.name;
+                }
+            }
+
+            if (closestName && closestDistSq <= thresholdSvg * thresholdSvg) {
+                onStationClick(closestName);
+            }
+        },
+        [onStationClick]
+    );
+
     useGesture(
         {
-            onDrag: ({ active, delta: [dx, dy], cancel }) => {
+            onDrag: ({ active, last, tap, delta: [dx, dy], xy: [px, py], cancel }) => {
                 if (isPinchingRef.current) {
                     cancel();
                     return;
@@ -150,6 +189,11 @@ const NetworkMap = React.memo(function NetworkMap({
 
                 if (containerRef.current) {
                     containerRef.current.style.cursor = active ? "grabbing" : "grab";
+                }
+
+                if (last && tap) {
+                    handleStationTap(px, py);
+                    return;
                 }
 
                 const { x, y, scale } = transformRef.current;

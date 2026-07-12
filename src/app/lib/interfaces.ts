@@ -42,10 +42,7 @@ export interface LegProp {
     time: number;
 }
 
-export interface RandomPathOptions {
-    timeRange: [number, number];
-    maxLinesUsed: number;
-    transferProbability: number;
-    maxSteps: number;
-    allowRepeatStations: boolean;
+export interface RouteExclusions {
+    excludedLines?: Set<string>;
+    excludedStations?: Set<string>;
 }
