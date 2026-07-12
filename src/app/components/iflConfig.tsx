@@ -1,4 +1,3 @@
-import React from "react";
 import { Collapse, RangeSlider, Slider, Switch, Text, UnstyledButton } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import networkData from "@/app/lib/networkData";

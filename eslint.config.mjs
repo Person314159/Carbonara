@@ -3,10 +3,12 @@ import globals from "globals";
 import js from "@eslint/js";
 import tseslint from "typescript-eslint";
 import pluginReact from "eslint-plugin-react";
+import pluginReactHooks from "eslint-plugin-react-hooks";
 import pluginNext from "@next/eslint-plugin-next";
 import stylistic from "@stylistic/eslint-plugin";
 
 export default defineConfig([
+    { ignores: [".next/**", "out/**", "next-env.d.ts", "tsconfig.tsbuildinfo", "src/app/vendor/**"] },
     {
         plugins: {
             "@next/next": pluginNext,
@@ -22,6 +24,8 @@ export default defineConfig([
     { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"], plugins: { js }, extends: ["js/recommended"] },
     tseslint.configs.recommended,
     pluginReact.configs.flat.recommended,
+    pluginReact.configs.flat["jsx-runtime"],
+    pluginReactHooks.configs.flat.recommended,
     {
         files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
         rules: {

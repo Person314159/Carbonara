@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { Group, Switch, Text } from "@mantine/core";
 
 function NavigationModeToggle({ checked, onChange }: { checked: boolean; onChange: (checked: boolean) => void }) {

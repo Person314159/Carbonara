@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import networkData from "@/app/lib/networkData";
 import { LegProp } from "@/app/lib/interfaces";

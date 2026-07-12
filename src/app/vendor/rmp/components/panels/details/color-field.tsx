@@ -1,0 +1,12 @@
+import { Theme } from "@/app/vendor/rmp/constants/constants";
+
+/**
+ * An Attribute that have a color field.
+ * Extend this interface in your component's attributes if you want to use ColorField.
+ *
+ * NOTE: Attribute with `color` key will be populated with user defined theme from
+ * the _runtime_ redux store. See `handleBackgroundDown` in `SvgWrapper` for more info.
+ */
+export interface ColorAttribute {
+    color: Theme;
+}

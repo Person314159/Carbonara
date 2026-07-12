@@ -6,7 +6,7 @@
         "dev": "next dev --turbopack -p 8080",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint",
+        "lint": "eslint .",
         "test": "node scripts/validate-rmp-data.mjs"
     },
     "dependencies": {
@@ -36,6 +36,7 @@
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-prettier": "^5.5.5",
         "eslint-plugin-react": "^7.37.5",
+        "eslint-plugin-react-hooks": "^7.1.1",
         "globals": "^17.6.0",
         "graphology-types": "^0.24.8",
         "postcss": "^8.5.14",

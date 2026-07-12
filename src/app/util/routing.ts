@@ -343,9 +343,11 @@ function normalizeColor(color: string | undefined) {
 
 function getEdgeColor(edge: RMPGraphEdge | null | undefined) {
     if (!edge?.attributes || !edge.attributes.style) return "";
+
     const styleAttr = edge.attributes[edge.attributes.style as string] as RMPStyleAttr | undefined;
 
     if (!styleAttr || typeof styleAttr !== "object") return "";
+
     const color = Array.isArray(styleAttr.color) ? styleAttr.color.find((value) => /^#/.test(value)) : undefined;
 
     return normalizeColor(color as string | undefined);
@@ -354,6 +356,7 @@ function getEdgeColor(edge: RMPGraphEdge | null | undefined) {
 function isRouteEdge(edge: RMPGraphEdge | null | undefined, lineColor?: string) {
     if (!edge?.attributes) return false;
     if (edge.attributes.style === "bjsubway-dotted") return false;
+
     const edgeColor = getEdgeColor(edge);
 
     return lineColor ? edgeColor === lineColor : false;

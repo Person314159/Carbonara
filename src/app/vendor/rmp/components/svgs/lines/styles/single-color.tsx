@@ -1,0 +1,37 @@
+import { MonoColour } from "@railmapgen/rmg-palette-resources";
+import React from "react";
+import { CityCode } from "@/app/vendor/rmp/constants/constants";
+import { LINE_WIDTH, LinePathAttributes, LineStyle, LineStyleComponentProps } from "@/app/vendor/rmp/constants/lines";
+import { ColorAttribute } from "../../../panels/details/color-field";
+
+const SingleColor = (props: LineStyleComponentProps<SingleColorAttributes>) => {
+    const { id, path, styleAttrs } = props;
+    const { color = defaultSingleColorAttributes.color } = styleAttrs ?? defaultSingleColorAttributes;
+
+    return (
+        <path
+            id={id}
+            d={path.d}
+            fill="none"
+            stroke={color[2]}
+            strokeWidth={LINE_WIDTH}
+            strokeLinecap="round"
+            cursor="pointer"
+        />
+    );
+};
+
+/**
+ * SingleColor specific props.
+ */
+export interface SingleColorAttributes extends LinePathAttributes, ColorAttribute {}
+
+const defaultSingleColorAttributes: SingleColorAttributes = {
+    color: [CityCode.Shanghai, "sh1", "#E4002B", MonoColour.white],
+};
+const singleColor: LineStyle<SingleColorAttributes> = {
+    component: SingleColor,
+    defaultAttrs: defaultSingleColorAttributes,
+};
+
+export default singleColor;

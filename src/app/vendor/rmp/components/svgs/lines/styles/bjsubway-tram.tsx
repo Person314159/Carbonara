@@ -1,0 +1,32 @@
+import { MonoColour } from "@railmapgen/rmg-palette-resources";
+import React from "react";
+import { CityCode } from "@/app/vendor/rmp/constants/constants";
+import { LINE_WIDTH, LinePathAttributes, LineStyle, LineStyleComponentProps } from "@/app/vendor/rmp/constants/lines";
+import { ColorAttribute } from "../../../panels/details/color-field";
+
+const BjsubwayTram = (props: LineStyleComponentProps<BjsubwayTramAttributes>) => {
+    const { id, path, styleAttrs } = props;
+    const { color = defaultBjsubwayTramAttributes.color } = styleAttrs ?? defaultBjsubwayTramAttributes;
+
+    return (
+        <g id={id} cursor="pointer">
+            <path d={path.d} fill="none" stroke={color[2]} strokeWidth={LINE_WIDTH} />
+            <path d={path.d} fill="none" stroke="white" strokeWidth={LINE_WIDTH / 3} />
+        </g>
+    );
+};
+
+/**
+ * BjsubwayTram specific props.
+ */
+export interface BjsubwayTramAttributes extends LinePathAttributes, ColorAttribute {}
+
+const defaultBjsubwayTramAttributes: BjsubwayTramAttributes = {
+    color: [CityCode.Beijing, "bj1", "#c23a30", MonoColour.white],
+};
+const bjsubwayTram: LineStyle<BjsubwayTramAttributes> = {
+    component: BjsubwayTram,
+    defaultAttrs: defaultBjsubwayTramAttributes,
+};
+
+export default bjsubwayTram;

@@ -1,8 +1,8 @@
-import React, { Suspense, useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { Suspense, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useGesture } from "@use-gesture/react";
 import underlaySrc from "../../../public/NE2_HR_LC_SR_W_DR.webp";
 
-const SvgWrapper = React.lazy(() => import("./svg-wrapper"));
+const SvgWrapper = React.lazy(() => import("../vendor/rmp/components/svg-wrapper"));
 
 const MIN_SCALE = 1 / 32;
 const MAX_SCALE = 4;
@@ -66,7 +66,7 @@ const NetworkMap = React.memo(function NetworkMap({
 
     const clampScale = (s: number) => Math.min(Math.max(s, MIN_SCALE), MAX_SCALE);
 
-    const applyDOM = (t: Transform) => {
+    const applyDOM = useCallback((t: Transform) => {
         // Both the SVG layer and the underlay image have their content origin at SVG coord (-10000, -5000),
         // so both transforms share the same tx/ty offset formula.
         const contentTx = t.x - 10000 * t.scale;
@@ -84,17 +84,20 @@ const NetworkMap = React.memo(function NetworkMap({
 
             underlayRef.current.style.transform = `matrix(${sx},0,0,${sy},${contentTx},${contentTy})`;
         }
-    };
+    }, []);
 
     // Runs after every render — React can never "win" the DOM transform value.
     useLayoutEffect(() => {
         applyDOM(transformRef.current);
     });
 
-    const setInstant = (t: Transform) => {
-        transformRef.current = t;
-        applyDOM(t);
-    };
+    const setInstant = useCallback(
+        (t: Transform) => {
+            transformRef.current = t;
+            applyDOM(t);
+        },
+        [applyDOM]
+    );
 
     const zoomAt = (cx: number, cy: number, multiplier: number) => {
         const { x: tx, y: ty, scale: ts } = transformRef.current;
@@ -113,7 +116,7 @@ const NetworkMap = React.memo(function NetworkMap({
             y: height / 2 - stationCoordinate![1] * 2,
             scale: 2,
         });
-    }, [focusKey, stationCoordinate, width, height]);
+    }, [focusKey, stationCoordinate, width, height, setInstant]);
 
     useEffect(() => {
         const el = containerRef.current;
