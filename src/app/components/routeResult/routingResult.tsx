@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { LegProp } from "@/app/lib/interfaces";
-import Leg from "@/app/components/leg";
+import Leg from "@/app/components/routeResult/leg";
 import { formatTime } from "@/app/lib/util";
 
 interface RoutingResultProps {

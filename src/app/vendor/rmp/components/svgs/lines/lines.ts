@@ -1,4 +1,4 @@
-import { LinePathType, LineStyleType } from "@/app/vendor/rmp/constants/lines";
+import { LinePathType, LineStyle, LineStyleType } from "@/app/vendor/rmp/constants/lines";
 import diagonalPath from "./paths/diagonal";
 import perpendicularPath from "./paths/perpendicular";
 import rotatePerpendicularPath from "./paths/rotate-perpendicular";
@@ -16,7 +16,7 @@ export const linePaths = {
     [LinePathType.Simple]: simplePath,
 };
 
-export const lineStyles = {
+export const lineStyles: Partial<Record<LineStyleType, LineStyle<any>>> = {
     [LineStyleType.SingleColor]: singleColor,
     [LineStyleType.BjsubwayDotted]: bjsubwayDotted,
     [LineStyleType.BjsubwayTram]: bjsubwayTram,

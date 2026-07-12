@@ -1,5 +1,5 @@
 import { SerializedGraph } from "graphology-types";
-import { EdgeAttributes, NodeAttributes } from "../constants/constants";
+import { EdgeAttributes, GraphAttributes, NodeAttributes } from "../constants/constants";
 
 /**
  * The save format of the project.
@@ -10,7 +10,7 @@ export interface RMPSave {
      * The version of the current save. May be upgraded on first launch via `upgrade`.
      */
     version: number;
-    graph: SerializedGraph<NodeAttributes, EdgeAttributes>;
+    graph: SerializedGraph<NodeAttributes, EdgeAttributes, GraphAttributes>;
     svgViewBoxZoom: number;
     svgViewBoxMin: { x: number; y: number };
     images?: { id: string; base64: string }[];

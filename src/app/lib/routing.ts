@@ -1,5 +1,5 @@
 import networkData from "@/app/lib/networkData";
-import MapData from "../lib/RMP.json";
+import MapData from "./RMP.json";
 import { LegProp, Neighbour, RouteExclusions, TimedConnection, TimedNeighbour } from "@/app/lib/interfaces";
 import { PriorityQueue } from "@datastructures-js/priority-queue";
 import { tupleCmp } from "@/app/lib/util";

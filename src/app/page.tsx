@@ -3,11 +3,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import networkData from "@/app/lib/networkData";
 import { LegProp, RouteExclusions } from "@/app/lib/interfaces";
-import NetworkMap from "@/app/components/networkMap";
-import RoutingResult from "@/app/components/routingResult";
-import { findMultiStopRoute, getRouteHighlights, getStationKeysForName } from "@/app/util/routing";
-import { SearchableSelect } from "@/app/components/searchableSelect";
-import { StationSelect } from "@/app/components/stationSelect";
+import NetworkMap from "@/app/components/map/networkMap";
+import RoutingResult from "@/app/components/routeResult/routingResult";
+import { findMultiStopRoute, getRouteHighlights, getStationKeysForName } from "@/app/lib/routing";
+import { SearchableSelect } from "@/app/components/stationSelect/searchableSelect";
+import { StationSelect } from "@/app/components/stationSelect/stationSelect";
 import { buildShareQuery, parseShareQuery } from "@/app/lib/shareLink";
 
 interface SearchExclusions {

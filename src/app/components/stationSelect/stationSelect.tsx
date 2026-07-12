@@ -1,7 +1,7 @@
 import React from "react";
-import { SearchableSelect } from "@/app/components/searchableSelect";
-import NavigationModeToggle from "@/app/components/navigationModeToggle";
-import { RouteOptions } from "@/app/components/routeOptions";
+import { SearchableSelect } from "@/app/components/stationSelect/searchableSelect";
+import NavigationModeToggle from "@/app/components/stationSelect/navigationModeToggle";
+import { RouteOptions } from "@/app/components/stationSelect/routeOptions";
 
 interface StationSelectProps {
     stations: string[];

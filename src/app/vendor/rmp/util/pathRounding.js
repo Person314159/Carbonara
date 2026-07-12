@@ -69,22 +69,12 @@ function _roundPathCorners(pathString, radius, useFractionalRadius) {
         };
     }
 
-    // Split apart the path, handing concatonated letters and numbers
-    const pathParts = pathString.split(/[,\s]/).reduce(function (parts, part) {
-        const match = part.match("([a-zA-Z])(.+)");
-
-        if (match) {
-            parts.push(match[1]);
-            parts.push(match[2]);
-        } else {
-            parts.push(part);
-        }
-
-        return parts;
-    }, []);
+    // Split apart the path, handling concatenated commands and scientific notation numbers.
+    const numberTokenPattern = /^[-+]?(?:(?:\d+\.?\d*)|(?:\.\d+))(?:e[-+]?\d+)?$/i;
+    const pathParts = pathString.match(/[a-zA-Z]|[-+]?(?:(?:\d+\.?\d*)|(?:\.\d+))(?:e[-+]?\d+)?/gi) || [];
     // Group the commands with their arguments for easier handling
     const commands = pathParts.reduce(function (commands, part) {
-        if (parseFloat(part) == part && commands.length) {
+        if (numberTokenPattern.test(part) && commands.length) {
             commands[commands.length - 1].push(part);
         } else {
             commands.push([part]);

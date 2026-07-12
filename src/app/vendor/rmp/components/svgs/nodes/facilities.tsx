@@ -56,6 +56,11 @@ export enum FacilitiesType {
     RailwayChengdu = "railway_chengdu",
     RailwayTaiwan = "railway_taiwan",
     HSRTaiwan = "hsr_taiwan",
+    RailwayShenzhen = "railway_shenzhen",
+    IntercityShenzhen = "intercity_shenzhen",
+    FerryShenzhen = "ferry_shenzhen",
+    TramShenzhen = "tram_shenzhen",
+    AirportShenzhen = "airport_shenzhen",
 }
 
 const Facilities = (props: NodeComponentProps<FacilitiesAttributes>) => {

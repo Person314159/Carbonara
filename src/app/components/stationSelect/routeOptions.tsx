@@ -1,8 +1,8 @@
 import { Collapse, Text, UnstyledButton } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import networkData from "@/app/lib/networkData";
-import { options } from "@/app/util/routing";
-import { MultiSelectSearch } from "@/app/components/multiSelectSearch";
+import { options } from "@/app/lib/routing";
+import { MultiSelectSearch } from "@/app/components/stationSelect/multiSelectSearch";
 
 const lineOptions = networkData.lines.map((line) => ({ value: line.id, label: `${line.id} (${line.name})` }));
 const stationOptions = options.map((name) => ({ value: name, label: name }));

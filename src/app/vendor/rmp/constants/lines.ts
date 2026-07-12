@@ -8,7 +8,7 @@ import type { RayGuidedPathAttributes } from "../components/svgs/lines/paths/ray
 import type { SingleColorAttributes } from "../components/svgs/lines/styles/single-color";
 import type { BjsubwayDottedAttributes } from "../components/svgs/lines/styles/bjsubway-dotted";
 import type { BjsubwayTramAttributes } from "@/app/vendor/rmp/components/svgs/lines/styles/bjsubway-tram";
-import type { ClosedAreaPath, OpenPath } from "./path";
+import type { OpenPath, Path } from "./path";
 
 export enum LinePathType {
     Diagonal = "diagonal",
@@ -30,12 +30,17 @@ export enum LineStyleType {
     SingleColor = "single-color",
     BjsubwayDotted = "bjsubway-dotted",
     BjsubwayTram = "bjsubway-tram",
+    Unknown = "unknown",
 }
+
+/** Placeholder attrs for lines that fall back to the generic "unknown style" renderer. */
+export interface UnknownLineAttributes {}
 
 export interface ExternalLineStyleAttributes {
     [LineStyleType.SingleColor]?: SingleColorAttributes;
     [LineStyleType.BjsubwayDotted]?: BjsubwayDottedAttributes;
     [LineStyleType.BjsubwayTram]?: BjsubwayTramAttributes;
+    [LineStyleType.Unknown]?: UnknownLineAttributes;
 }
 
 /* ----- Below are core types for all lines, DO NOT TOUCH. ----- */
@@ -122,8 +127,4 @@ export type PathGenerator<T> = (x1: number, x2: number, y1: number, y2: number, 
  * This is used when a line style needs to generate complex paths based on the original path.
  * It takes the original path and return a record of paths with different keys.
  */
-export type StylePathGenerator<T> = (
-    path: OpenPath,
-    type: LinePathType,
-    attrs: T
-) => Record<string, OpenPath | ClosedAreaPath>;
+export type StylePathGenerator<T> = (path: OpenPath, type: LinePathType, attrs: T) => Record<string, Path>;

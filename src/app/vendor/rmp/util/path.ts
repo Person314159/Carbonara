@@ -2,29 +2,29 @@ import {
     ClosePath,
     CubicTo,
     LineTo,
-    LinearPath,
+    makeComplexOpenPath,
+    makeLinearPath,
+    makePoint,
+    makeRoundedTurnPath,
+    makeSharpTurnPath,
     MoveTo,
+    MultiSegmentOpenPathCommands,
     OpenPath,
+    OpenPathCommands,
     OpenPathDrawCommand,
     Path,
     PathCommand,
     PathPoint,
     RoundedTurnPath,
     ShortOpenPath,
-    makeComplexOpenPath,
-    makeLinearPath,
-    makePoint,
-    makeRoundedTurnPath,
-    makeSharpTurnPath,
 } from "../constants/path";
 
 /** Narrow raw commands back to the small SVG subset used by the structured path model. */
 const isLineTo = (command: PathCommand): command is LineTo => command.cmd === "L";
 const isCubicTo = (command: PathCommand): command is CubicTo => command.cmd === "C";
 const isClosePath = (command: PathCommand): command is ClosePath => command.cmd === "Z";
-const isLineOnlyOpenPath = (
-    commands: readonly [MoveTo, OpenPathDrawCommand, ...OpenPathDrawCommand[]]
-): commands is readonly [MoveTo, LineTo, ...LineTo[]] => commands.slice(1).every(isLineTo);
+const isLineOnlyOpenPath = (commands: OpenPathCommands): commands is readonly [MoveTo, LineTo, ...LineTo[]] =>
+    commands.slice(1).every(isLineTo);
 /**
  * Reconstruct the narrowest path kind from a command list.
  *
@@ -32,9 +32,7 @@ const isLineOnlyOpenPath = (
  * For example, concatenating collinear `M L` segments should still produce a single `ml` path,
  * not a synthetic `mll` corner.
  */
-const makeOpenPathFromCommands = (
-    commands: readonly [MoveTo, OpenPathDrawCommand, ...OpenPathDrawCommand[]]
-): OpenPath => {
+export const makeOpenPathFromCommands = (commands: OpenPathCommands): OpenPath => {
     if (commands.length === 2 && isLineTo(commands[1])) {
         return makeLinearPath(commands[0].to, commands[1].to);
     }
@@ -62,9 +60,13 @@ const makeOpenPathFromCommands = (
     }
 
     if (commands.length >= 3) {
-        return makeComplexOpenPath(
-            commands as readonly [MoveTo, OpenPathDrawCommand, OpenPathDrawCommand, ...OpenPathDrawCommand[]]
-        );
+        const complexCommands = [
+            commands[0],
+            commands[1]!,
+            commands[2]!,
+            ...commands.slice(3),
+        ] as MultiSegmentOpenPathCommands;
+        return makeComplexOpenPath(complexCommands);
     }
 
     throw new Error("Open path must contain at least one draw command.");
@@ -113,11 +115,23 @@ export const parseRoundedTurnPath = (pathD: string): RoundedTurnPath => {
 };
 
 /** Every supported path starts with `M`, so the first command endpoint is always the start point. */
-export const getStartPoint = (path: Path): PathPoint => path.commands[0].to;
+export const getStartPoint = (path: Path): PathPoint => {
+    if (path.kind === "empty-open") {
+        throw new Error("Empty path does not have a start point.");
+    }
+    return path.commands[0].to;
+};
 
 /** For closed areas, ignore the trailing `Z` and return the last drawable endpoint instead. */
 export const getEndPoint = (path: Path): PathPoint => {
-    const lastCommand = path.kind === "closed-area" ? path.commands.at(-2) : path.commands.at(-1);
+    if (path.kind === "empty-open") {
+        throw new Error("Empty path does not have an endpoint.");
+    }
+
+    const lastCommand =
+        path.kind === "closed-area" || path.kind === "compound-closed-area"
+            ? path.commands.at(-2)
+            : path.commands.at(-1);
 
     if (!lastCommand || isClosePath(lastCommand)) {
         throw new Error("Path does not have a drawable endpoint.");
@@ -146,19 +160,9 @@ export const concatOpenPaths = (paths: readonly [OpenPath, ...OpenPath[]] | read
         commands.push(...dropInitialMoveTo(paths[i]));
     }
 
-    return makeOpenPathFromCommands(commands as [MoveTo, OpenPathDrawCommand, ...OpenPathDrawCommand[]]);
+    const normalizedCommands = [commands[0], commands[1]!, ...commands.slice(2)] as OpenPathCommands;
+    return makeOpenPathFromCommands(normalizedCommands);
 };
-
-/** Split a straight segment at its midpoint for styles that render each half independently. */
-export const splitLinearPath = (path: LinearPath): [LinearPath, LinearPath] => {
-    const [start, end] = [path.commands[0].to, path.commands[1].to];
-    const middle = makePoint((start.x + end.x) / 2, (start.y + end.y) / 2);
-
-    return [makeLinearPath(start, middle), makeLinearPath(middle, end)];
-};
-
-/** Small helper for style code that only handles straight segments. */
-export const isLinearPath = (path: OpenPath): path is LinearPath => path.kind === "ml";
 
 /** Short open paths have dedicated render/offset logic and are worth detecting explicitly. */
 export const isShortOpenPath = (path: OpenPath): path is ShortOpenPath =>

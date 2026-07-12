@@ -1,9 +1,9 @@
 import React, { Suspense, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useGesture } from "@use-gesture/react";
 import networkData from "@/app/lib/networkData";
-import underlaySrc from "../../../public/NE2_HR_LC_SR_W_DR.webp";
+import underlaySrc from "../../../../public/NE2_HR_LC_SR_W_DR.webp";
 
-const SvgWrapper = React.lazy(() => import("../vendor/rmp/components/svg-wrapper"));
+const SvgWrapper = React.lazy(() => import("../../vendor/rmp/components/svg-wrapper"));
 
 const MIN_SCALE = 1 / 32;
 const MAX_SCALE = 4;
