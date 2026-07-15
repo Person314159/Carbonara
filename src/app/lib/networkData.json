@@ -427,6 +427,12 @@
             "type": "LSR"
         },
         {
+            "id": "E53",
+            "name": "Gotland Line",
+            "colour": "#c8228a",
+            "type": "LSR"
+        },
+        {
             "id": "F01",
             "name": "Lampedusa Line",
             "colour": "#ffcd02",
@@ -1062,10 +1068,10 @@
             "name": "Aomori"
         },
         {
-            "name": "Apia"
+            "name": "Apennines"
         },
         {
-            "name": "Apennines"
+            "name": "Apia"
         },
         {
             "name": "Aracaju"
@@ -1533,6 +1539,9 @@
             "name": "Gothenburg"
         },
         {
+            "name": "Gotland"
+        },
+        {
             "name": "Gran Canaria"
         },
         {
@@ -1752,10 +1761,10 @@
             "name": "Kolkasrags"
         },
         {
-            "name": "Kotka"
+            "name": "Košice"
         },
         {
-            "name": "Košice"
+            "name": "Kotka"
         },
         {
             "name": "Kpalimé"
@@ -2007,6 +2016,9 @@
             "name": "Ōkaihau"
         },
         {
+            "name": "Öland"
+        },
+        {
             "name": "Old Perlican"
         },
         {
@@ -2017,6 +2029,9 @@
         },
         {
             "name": "Orenburg"
+        },
+        {
+            "name": "Orlando"
         },
         {
             "name": "Ōsaka"
@@ -2079,6 +2094,9 @@
             "name": "Phuket"
         },
         {
+            "name": "Płock"
+        },
+        {
             "name": "Plymouth"
         },
         {
@@ -2103,13 +2121,13 @@
             "name": "Poronaysk"
         },
         {
-            "name": "Port-au-Prince"
-        },
-        {
             "name": "Port Alberni"
         },
         {
             "name": "Port Hardy"
+        },
+        {
+            "name": "Port-au-Prince"
         },
         {
             "name": "Porto"
@@ -2163,13 +2181,16 @@
             "name": "Pyrenees"
         },
         {
-            "name": "Płock"
-        },
-        {
             "name": "Qinghai"
         },
         {
+            "name": "Québec"
+        },
+        {
             "name": "Queen's Cross"
+        },
+        {
+            "name": "Quesnel"
         },
         {
             "name": "Quetzaltenango"
@@ -2179,12 +2200,6 @@
         },
         {
             "name": "Quito"
-        },
-        {
-            "name": "Québec"
-        },
-        {
-            "name": "Quesnel"
         },
         {
             "name": "Rabat"
@@ -2418,6 +2433,9 @@
             "name": "Szczecin"
         },
         {
+            "name": "T.R.A.S.D."
+        },
+        {
             "name": "Taipei"
         },
         {
@@ -2490,6 +2508,9 @@
             "name": "Tirana"
         },
         {
+            "name": "Tōkyō"
+        },
+        {
             "name": "Topeka"
         },
         {
@@ -2503,9 +2524,6 @@
         },
         {
             "name": "Trail"
-        },
-        {
-            "name": "T.R.A.S.D."
         },
         {
             "name": "Trinidad"
@@ -2527,9 +2545,6 @@
         },
         {
             "name": "Turku"
-        },
-        {
-            "name": "Tōkyō"
         },
         {
             "name": "Udine"
@@ -2595,6 +2610,9 @@
             "name": "Volgograd"
         },
         {
+            "name": "Waco"
+        },
+        {
             "name": "Wakkanai"
         },
         {
@@ -2602,9 +2620,6 @@
         },
         {
             "name": "Wallsocket"
-        },
-        {
-            "name": "Waco"
         },
         {
             "name": "Walvis Bay"
@@ -4313,6 +4328,17 @@
             "lineID": "E52"
         },
         {
+            "from": "Karlskrona",
+            "to": "Öland",
+            "lineID": "E53",
+            "time": 20
+        },
+        {
+            "from": "Öland",
+            "to": "Gotland",
+            "lineID": "E53"
+        },
+        {
             "from": "Central Mediterranean",
             "to": "Lampedusa",
             "lineID": "F01",
@@ -4800,6 +4826,11 @@
         },
         {
             "from": "Jacksonville",
+            "to": "Orlando",
+            "lineID": "N15"
+        },
+        {
+            "from": "Orlando",
             "to": "Miami",
             "lineID": "N15"
         },
