@@ -321,7 +321,6 @@ const NetworkMap = React.memo(function NetworkMap({
                         </Suspense>
                     </svg>
                 </div>
-                {/* Transparent overlay for gesture capture */}
                 <div
                     ref={containerRef}
                     style={{

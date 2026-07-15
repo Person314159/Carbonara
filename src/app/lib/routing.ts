@@ -1,6 +1,13 @@
 import networkData from "@/app/lib/networkData";
 import MapData from "./RMP.json";
-import { LegProp, Neighbour, RouteExclusions, TimedConnection, TimedNeighbour } from "@/app/lib/interfaces";
+import {
+    LegProp,
+    MultiStopRouteResult,
+    Neighbour,
+    RouteExclusions,
+    TimedConnection,
+    TimedNeighbour,
+} from "@/app/lib/interfaces";
 import { PriorityQueue } from "@datastructures-js/priority-queue";
 import { tupleCmp } from "@/app/lib/util";
 
@@ -48,7 +55,6 @@ MapData.graph.nodes.forEach((node) => {
 });
 
 const graph = new Map<string, Neighbour[]>();
-const built_stations: Set<string> = new Set();
 const dijkstraCache = new Map<
     string,
     {
@@ -63,17 +69,10 @@ networkData.stations.forEach((station) => {
     networkData.connections.forEach(({ from, to, lineID, time }) => {
         if (from === station.name) neighbours.push({ lineID, destination: to, time });
         if (to === station.name) neighbours.push({ lineID, destination: from, time });
-
-        if (time !== null) {
-            built_stations.add(from);
-            built_stations.add(to);
-        }
     });
 
     graph.set(station.name, neighbours);
 });
-
-// console.log(Array.from(built_stations).sort((a, b) => a.localeCompare(b)));
 
 export const options = networkData.stations.map((station) => station.name);
 
@@ -147,7 +146,6 @@ function dijkstra(start: string, metric: string, exclusions?: RouteExclusions) {
     return result;
 }
 
-// Convert a path of stations to a route with train lines
 function convertPathToRoute(path: TimedConnection[]) {
     const r: LegProp[] = [];
 
@@ -397,21 +395,23 @@ export function findRoute(start: string, end: string, metric: string, exclusions
     return convertPathToRoute(path);
 }
 
-// Returns one LegProp[] per station-to-station hop, so the UI can render each
-// hop of a multi-stop route as its own group.
+// Routes each consecutive station pair in turn. On success, returns one LegProp[] per
+// station-to-station hop so the UI can render each hop of a multi-stop route as its own
+// group. On failure, identifies the specific hop (station pair) that couldn't be routed,
+// rather than collapsing the whole itinerary's failure to a single opaque result.
 export function findMultiStopRoute(
     stations: string[],
     metric: string,
     exclusions?: RouteExclusions
-): LegProp[][] | null {
+): MultiStopRouteResult {
     const hops: LegProp[][] = [];
 
     for (let i = 0; i < stations.length - 1; i++) {
         const leg = findRoute(stations[i], stations[i + 1], metric, exclusions);
 
-        if (leg.length === 0) return null;
+        if (leg.length === 0) return { ok: false, failedHop: [stations[i], stations[i + 1]] };
         hops.push(leg);
     }
 
-    return hops;
+    return { ok: true, hops };
 }

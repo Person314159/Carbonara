@@ -1,15 +1,37 @@
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import { describe, expect, it } from "vitest";
+import networkData from "@/app/lib/networkData";
+import rmpDataRaw from "./RMP.json";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const networkDataPath = path.join(path.resolve(__dirname, ".."), "src/app/lib/networkData.json");
-const rmpPath = path.join(path.resolve(__dirname, ".."), "src/app/lib/RMP.json");
+// Cross-checks networkData.json (the routing graph) against RMP.json (the visual map) — see
+// "Two Parallel Data Systems" in CLAUDE.md. The whole pipeline runs once at module load and
+// each `it` below just asserts on a slice of the precomputed report, so failures point at the
+// specific check that broke.
 
-// --- Helpers ---
+// RMP.json is a graphology SerializedGraph with per-node-type attribute shapes (station, virtual,
+// facilities, ...); rather than modelling every shape, attributes are duck-typed through `unknown`.
 
-function normalizeHex(value) {
+type AttrValue = string | number | boolean | null | undefined | AttrValue[] | { [key: string]: AttrValue };
+type Attributes = Record<string, AttrValue>;
+
+interface RMPNode {
+    key?: string;
+    attributes?: Attributes;
+}
+
+interface RMPEdge {
+    key?: string;
+    source?: string;
+    target?: string;
+    attributes?: Attributes;
+}
+
+interface RMPFile {
+    graph?: { nodes?: RMPNode[]; edges?: RMPEdge[] };
+}
+
+const rmpData = rmpDataRaw as unknown as RMPFile;
+
+function normalizeHex(value: unknown): string | null {
     if (typeof value !== "string") return null;
 
     const hex = value.trim().toLowerCase();
@@ -19,9 +41,7 @@ function normalizeHex(value) {
 
 const ignoredDisplayColours = new Set(["#fff"]);
 
-function extractLineColourFromArray(array) {
-    if (!Array.isArray(array)) return null;
-
+function extractLineColourFromArray(array: AttrValue[]): string | null {
     if (array.length >= 3) {
         const candidate = normalizeHex(array[2]);
 
@@ -43,7 +63,7 @@ function extractLineColourFromArray(array) {
     return null;
 }
 
-function extractLineColour(value) {
+function extractLineColour(value: AttrValue): string | null {
     if (typeof value === "string") {
         const hex = normalizeHex(value);
 
@@ -69,37 +89,40 @@ function extractLineColour(value) {
     return null;
 }
 
-function loadJSON(filePath) {
-    try {
-        return JSON.parse(fs.readFileSync(filePath, "utf8"));
-    } catch (error) {
-        console.error(`Failed to parse ${filePath}:`, error.message);
-        process.exit(2);
-    }
-}
-
-function isStationType(type) {
+function isStationType(type: unknown): type is "tokyo-metro-basic" | "tokyo-metro-int" {
     return type === "tokyo-metro-basic" || type === "tokyo-metro-int";
 }
 
-// --- Load data ---
+function getNames(value: AttrValue): AttrValue[] | null {
+    if (value && typeof value === "object" && !Array.isArray(value) && Array.isArray(value.names)) {
+        return value.names;
+    }
 
-const networkData = loadJSON(networkDataPath);
-const rmpData = loadJSON(rmpPath);
+    return null;
+}
 
-// --- Index: networkData ---
+class Reporter {
+    errors: string[] = [];
+    warnings: string[] = [];
+    error(msg: string) {
+        this.errors.push(msg);
+    }
+    warn(msg: string) {
+        this.warnings.push(msg);
+    }
+}
 
-const networkColourToLines = new Map(); // colour -> [lineID, ...]
-const networkLineIds = new Set();
-const networkStationNames = new Set();
-const lineColourMap = new Map(); // lineID -> normalised hex colour
+const networkColourToLines = new Map<string, string[]>();
+const networkLineIds = new Set<string>();
+const networkStationNames = new Set<string>();
+const lineColourMap = new Map<string, string>();
+const colourReport = new Reporter();
 
 for (const line of networkData.lines ?? []) {
     const colour = normalizeHex(line.colour);
 
     if (!colour) {
-        console.error(`Invalid colour for network line ${line.id}: ${line.colour}`);
-        process.exitCode = 1;
+        colourReport.error(`Invalid colour for network line ${line.id}: ${line.colour}`);
         continue;
     }
 
@@ -112,63 +135,57 @@ for (const station of networkData.stations ?? []) {
     if (typeof station.name === "string") networkStationNames.add(station.name);
 }
 
-// station name -> Set<lineID> (from networkData connections)
-const stationToLines = new Map();
+const stationToLines = new Map<string, Set<string>>();
 
 for (const { from, to, lineID } of networkData.connections ?? []) {
     if (!stationToLines.has(from)) stationToLines.set(from, new Set());
     if (!stationToLines.has(to)) stationToLines.set(to, new Set());
-    stationToLines.get(from).add(lineID);
-    stationToLines.get(to).add(lineID);
+    stationToLines.get(from)!.add(lineID);
+    stationToLines.get(to)!.add(lineID);
 }
 
-// --- Index: RMP ---
-
-// station name -> list of RMP node keys
-const stationNameToNodeKeys = new Map();
+const stationNameToNodeKeys = new Map<string, string[]>();
 
 for (const node of rmpData.graph?.nodes ?? []) {
-    for (const value of Object.values(node.attributes ?? {})) {
-        if (value && typeof value === "object" && !Array.isArray(value) && Array.isArray(value.names)) {
-            for (const name of value.names) {
-                if (typeof name === "string" && name) {
-                    const existing = stationNameToNodeKeys.get(name) ?? [];
+    if (typeof node.key !== "string") continue;
 
-                    if (!existing.includes(node.key)) existing.push(node.key);
-                    stationNameToNodeKeys.set(name, existing);
-                }
+    for (const value of Object.values(node.attributes ?? {})) {
+        const names = getNames(value ?? null);
+
+        if (!names) continue;
+
+        for (const name of names) {
+            if (typeof name === "string" && name) {
+                const existing = stationNameToNodeKeys.get(name) ?? [];
+
+                if (!existing.includes(node.key)) existing.push(node.key);
+                stationNameToNodeKeys.set(name, existing);
             }
         }
     }
 }
 
-// RMP node key -> Set<station name> (reverse of above)
-const nodeKeyToStationNames = new Map();
+const nodeKeyToStationNames = new Map<string, Set<string>>();
 
 for (const [name, keys] of stationNameToNodeKeys) {
     for (const key of keys) {
         if (!nodeKeyToStationNames.has(key)) nodeKeyToStationNames.set(key, new Set());
-        nodeKeyToStationNames.get(key).add(name);
+        nodeKeyToStationNames.get(key)!.add(name);
     }
 }
 
-// --- Graph state ---
-
-const nodeKeySet = new Set();
-const nodeTypes = new Map(); // node key -> type string
-const foundNetworkColours = new Set();
-const nodesWithEdges = new Set();
-const edgeKeySet = new Set();
+const nodeKeySet = new Set<string>();
+const nodeTypes = new Map<string, string | null>();
+const foundNetworkColours = new Set<string>();
+const nodesWithEdges = new Set<string>();
+const edgeKeySet = new Set<string>();
 // All colour edges (tram + dotted); used for topology checks.
-const colourGraphs = new Map(); // colour -> Map(node -> Set(neighbours))
-// Built (non-dotted) edges only; used for timing/style checks.
-const tramColourGraphs = new Map(); // colour -> Map(node -> Set(neighbours))
-const errors = [];
-const warnings = [];
-const reportError = (msg) => errors.push(msg);
-const reportWarning = (msg) => warnings.push(msg);
+const colourGraphs = new Map<string, Map<string, Set<string>>>();
+// Built (non-dotted) edges only; used for timing/style checks — kept separate from colourGraphs
+// because a dotted (unbuilt) segment must not count as serving a station for timing purposes.
+const tramColourGraphs = new Map<string, Map<string, Set<string>>>();
 
-function getColourGraph(colour) {
+function getColourGraph(colour: string): Map<string, Set<string>> {
     let graph = colourGraphs.get(colour);
 
     if (!graph) {
@@ -179,13 +196,13 @@ function getColourGraph(colour) {
     return graph;
 }
 
-function registerColourConnection(colour, source, target, style) {
+function registerColourConnection(colour: string, source: string, target: string, style: string) {
     const graph = getColourGraph(colour);
 
     if (!graph.has(source)) graph.set(source, new Set());
     if (!graph.has(target)) graph.set(target, new Set());
-    graph.get(source).add(target);
-    graph.get(target).add(source);
+    graph.get(source)!.add(target);
+    graph.get(target)!.add(source);
 
     if (style !== "bjsubway-dotted") {
         let tramGraph = tramColourGraphs.get(colour);
@@ -197,25 +214,25 @@ function registerColourConnection(colour, source, target, style) {
 
         if (!tramGraph.has(source)) tramGraph.set(source, new Set());
         if (!tramGraph.has(target)) tramGraph.set(target, new Set());
-        tramGraph.get(source).add(target);
-        tramGraph.get(target).add(source);
+        tramGraph.get(source)!.add(target);
+        tramGraph.get(target)!.add(source);
     }
 }
 
-function getGraphComponents(graph) {
-    const visited = new Set();
-    const components = [];
+function getGraphComponents<T>(graph: Map<T, Set<T>>): T[][] {
+    const visited = new Set<T>();
+    const components: T[][] = [];
 
     for (const start of graph.keys()) {
         if (visited.has(start)) continue;
 
         const stack = [start];
-        const component = [];
+        const component: T[] = [];
 
         visited.add(start);
 
         while (stack.length) {
-            const current = stack.pop();
+            const current = stack.pop()!;
 
             component.push(current);
 
@@ -233,107 +250,115 @@ function getGraphComponents(graph) {
     return components;
 }
 
-function isStationNodeKey(key) {
+function isStationNodeKey(key: string): boolean {
     return isStationType(nodeTypes.get(key));
 }
 
-// --- RMP scanning ---
-// These run over every node/edge once to populate the graph state above.
-
-function scanNode(node) {
+function scanNode(node: RMPNode, report: Reporter) {
     if (!node || typeof node !== "object") {
-        return reportError(`Invalid node object: ${JSON.stringify(node)}`);
+        return report.error(`Invalid node object: ${JSON.stringify(node)}`);
     }
 
     const { key, attributes } = node;
 
     if (!key || typeof key !== "string") {
-        reportError(`Node missing key: ${JSON.stringify(node)}`);
-    } else if (!nodeKeySet.add(key)) {
-        reportError(`Duplicate node key: ${key}`);
+        report.error(`Node missing key: ${JSON.stringify(node)}`);
+    } else if (nodeKeySet.has(key)) {
+        report.error(`Duplicate node key: ${key}`);
+    } else {
+        nodeKeySet.add(key);
     }
 
     if (!attributes || typeof attributes !== "object") {
-        return reportError(`Node ${key} missing attributes`);
+        return report.error(`Node ${key} missing attributes`);
     }
 
     const { type, x, y } = attributes;
 
-    nodeTypes.set(key, typeof type === "string" ? type : null);
+    if (key) nodeTypes.set(key, typeof type === "string" ? type : null);
 
     if (typeof x !== "number" || typeof y !== "number") {
-        reportError(`Node ${key} has invalid coordinates x=${x}, y=${y}`);
+        report.error(`Node ${key} has invalid coordinates x=${x}, y=${y}`);
     }
 
     if (typeof type !== "string") {
-        reportError(`Node ${key} has invalid type: ${type}`);
+        report.error(`Node ${key} has invalid type: ${type}`);
         return;
     }
 
     if (type === "tokyo-metro-basic") {
-        const lineColour = extractLineColour(attributes[type]?.color);
+        const typeAttrs = attributes[type];
+        const color =
+            typeAttrs && typeof typeAttrs === "object" && !Array.isArray(typeAttrs) ? typeAttrs.color : undefined;
+        const lineColour = extractLineColour(color ?? null);
 
         if (!lineColour) {
-            reportWarning(`Node ${key} has no line colour`);
+            report.warn(`Node ${key} has no line colour`);
         } else if (networkColourToLines.has(lineColour)) {
             foundNetworkColours.add(lineColour);
         } else {
-            reportError(`Node ${key} uses unknown colour ${lineColour}`);
+            report.error(`Node ${key} uses unknown colour ${lineColour}`);
         }
     }
 
     if (type === "tokyo-metro-int") {
-        const transfers = attributes[type]?.transfer;
+        const typeAttrs = attributes[type];
+        const transfers =
+            typeAttrs && typeof typeAttrs === "object" && !Array.isArray(typeAttrs) ? typeAttrs.transfer : undefined;
 
         if (!Array.isArray(transfers) || transfers.length === 0) {
-            reportWarning(`Node ${key} has no transfers`);
+            report.warn(`Node ${key} has no transfers`);
         } else {
             for (const row of transfers) {
                 const lineColour = extractLineColour(row);
 
                 if (!lineColour) {
-                    reportWarning(`Node ${key} transfer missing colour`);
+                    report.warn(`Node ${key} transfer missing colour`);
                 } else if (networkColourToLines.has(lineColour)) {
                     foundNetworkColours.add(lineColour);
                 } else {
-                    reportError(`Node ${key} transfer uses unknown colour ${lineColour}`);
+                    report.error(`Node ${key} transfer uses unknown colour ${lineColour}`);
                 }
             }
         }
     }
 
     for (const value of Object.values(attributes)) {
-        if (value && Array.isArray(value.names)) {
-            for (const name of value.names) {
-                if (typeof name !== "string" || !name) {
-                    reportError(`Node ${key} invalid station name`);
-                }
+        const names = getNames(value ?? null);
+
+        if (!names) continue;
+
+        for (const name of names) {
+            if (typeof name !== "string" || !name) {
+                report.error(`Node ${key} invalid station name`);
             }
         }
     }
 }
 
-function scanEdge(edge) {
+function scanEdge(edge: RMPEdge, report: Reporter) {
     if (!edge || typeof edge !== "object") {
-        return reportError(`Invalid edge object: ${JSON.stringify(edge)}`);
+        return report.error(`Invalid edge object: ${JSON.stringify(edge)}`);
     }
 
     const { key, source, target, attributes } = edge;
 
     if (!key || typeof key !== "string") {
-        reportError(`Edge missing key or invalid key: ${JSON.stringify(edge)}`);
-    } else if (!edgeKeySet.add(key)) {
-        reportError(`Duplicate edge key: ${key}`);
+        report.error(`Edge missing key or invalid key: ${JSON.stringify(edge)}`);
+    } else if (edgeKeySet.has(key)) {
+        report.error(`Duplicate edge key: ${key}`);
+    } else {
+        edgeKeySet.add(key);
     }
 
     const sourceIsString = typeof source === "string";
     const targetIsString = typeof target === "string";
 
     if (!sourceIsString || !targetIsString) {
-        reportError(`Edge ${key} has invalid source/target: source=${source}, target=${target}`);
+        report.error(`Edge ${key} has invalid source/target: source=${source}, target=${target}`);
     } else {
         if (source === target) {
-            reportError(`Self-loop edge detected: ${key} (${source} -> ${target})`);
+            report.error(`Self-loop edge detected: ${key} (${source} -> ${target})`);
         }
 
         if (!nodeKeySet.has(source) || !nodeKeySet.has(target)) {
@@ -341,7 +366,7 @@ function scanEdge(edge) {
 
             if (!nodeKeySet.has(source)) missing.push(`source=${source}`);
             if (!nodeKeySet.has(target)) missing.push(`target=${target}`);
-            reportError(`Edge ${key} references unknown node(s): ${missing.join(", ")}`);
+            report.error(`Edge ${key} references unknown node(s): ${missing.join(", ")}`);
         } else {
             nodesWithEdges.add(source);
             nodesWithEdges.add(target);
@@ -349,27 +374,27 @@ function scanEdge(edge) {
     }
 
     if (!attributes || typeof attributes !== "object") {
-        return reportError(`Edge ${key} missing attributes object`);
+        return report.error(`Edge ${key} missing attributes object`);
     }
 
     const { type, style } = attributes;
 
-    if (typeof type !== "string") reportError(`Edge ${key} missing type`);
+    if (typeof type !== "string") report.error(`Edge ${key} missing type`);
     if (typeof style !== "string") {
-        reportError(`Edge ${key} missing style`);
+        report.error(`Edge ${key} missing style`);
     }
 
-    const styleAttrs = attributes?.[style];
+    const styleAttrs = typeof style === "string" ? attributes[style] : undefined;
 
     if (!styleAttrs || typeof styleAttrs !== "object") {
-        reportError(`Edge ${key} style property ${style} missing or invalid`);
+        report.error(`Edge ${key} style property ${String(style)} missing or invalid`);
         return;
     }
 
     const lineColour = extractLineColour(styleAttrs);
 
     if (!lineColour) {
-        reportWarning(`Edge ${key} has no extractable line colour`);
+        report.warn(`Edge ${key} has no extractable line colour`);
         return;
     }
 
@@ -377,16 +402,22 @@ function scanEdge(edge) {
         foundNetworkColours.add(lineColour);
 
         if (sourceIsString && targetIsString && nodeKeySet.has(source) && nodeKeySet.has(target) && source !== target) {
-            registerColourConnection(lineColour, source, target, style);
+            registerColourConnection(lineColour, source, target, style as string);
         }
     } else {
-        reportError(`Edge ${key} uses unknown line colour ${lineColour}`);
+        report.error(`Edge ${key} uses unknown line colour ${lineColour}`);
     }
 }
 
-// --- RMP structural checks ---
+const nodeReport = new Reporter();
 
-function checkUnusedNodes() {
+for (const node of rmpData.graph?.nodes ?? []) scanNode(node, nodeReport);
+
+const edgeReport = new Reporter();
+
+for (const edge of rmpData.graph?.edges ?? []) scanEdge(edge, edgeReport);
+
+function checkUnusedNodes(report: Reporter) {
     const unused = [];
 
     for (const node of nodeKeySet) {
@@ -394,16 +425,16 @@ function checkUnusedNodes() {
         if (!nodesWithEdges.has(node)) unused.push(node);
     }
 
-    if (unused.length) reportWarning(`Unused nodes (no edges): ${unused.join(", ")}`);
+    if (unused.length) report.warn(`Unused nodes (no edges): ${unused.join(", ")}`);
 }
 
-function checkVirtualNodeDegreePerColour() {
+function checkVirtualNodeDegreePerColour(report: Reporter) {
     for (const [colour, graph] of colourGraphs.entries()) {
         for (const [node, neighbours] of graph.entries()) {
             if (isStationNodeKey(node)) continue;
 
             if (neighbours.size < 2) {
-                reportError(
+                report.error(
                     `Dangling virtual node on colour ${colour}: ${node} has only ${neighbours.size} neighbour(s)`
                 );
             }
@@ -411,62 +442,64 @@ function checkVirtualNodeDegreePerColour() {
     }
 }
 
-// --- Cross-file consistency ---
+const unusedNodesReport = new Reporter();
 
-function checkLineConnectivity() {
+checkUnusedNodes(unusedNodesReport);
+
+const virtualNodeDegreeReport = new Reporter();
+
+checkVirtualNodeDegreePerColour(virtualNodeDegreeReport);
+
+function checkLineConnectivity(report: Reporter) {
     for (const line of networkData.lines ?? []) {
         const lineConns = (networkData.connections ?? []).filter((c) => c.lineID === line.id);
 
         if (lineConns.length === 0) {
-            reportWarning(`Line ${line.id} (${line.name}) has no connections`);
+            report.warn(`Line ${line.id} (${line.name}) has no connections`);
             continue;
         }
 
-        // Collect all station names referenced by this line's connections
-        const lineStationNames = new Set();
+        const lineStationNames = new Set<string>();
 
         for (const { from, to } of lineConns) {
             lineStationNames.add(from);
             lineStationNames.add(to);
         }
 
-        // Verify every station exists in the stations array
         for (const name of lineStationNames) {
             if (!networkStationNames.has(name))
-                reportError(`Line ${line.id} (${line.name}) references station "${name}" not in stations array`);
+                report.error(`Line ${line.id} (${line.name}) references station "${name}" not in stations array`);
         }
 
-        // Build the networkData station graph and verify it is a single component
-        const ndGraph = new Map();
+        const ndGraph = new Map<string, Set<string>>();
 
         for (const name of lineStationNames) ndGraph.set(name, new Set());
 
         for (const { from, to } of lineConns) {
-            ndGraph.get(from).add(to);
-            ndGraph.get(to).add(from);
+            ndGraph.get(from)!.add(to);
+            ndGraph.get(to)!.add(from);
         }
 
         const ndComponents = getGraphComponents(ndGraph);
 
         if (ndComponents.length > 1) {
-            reportError(
+            report.error(
                 `Line ${line.id} (${line.name}) networkData is disconnected into ${ndComponents.length} components: ` +
                     ndComponents.map((c) => `[${c.join(", ")}]`).join(" | ")
             );
         }
 
-        // Find all RMP node keys whose station name belongs to this line
-        const lineNodeKeys = new Set();
+        const lineNodeKeys = new Set<string>();
 
         for (const name of lineStationNames)
             for (const key of stationNameToNodeKeys.get(name) ?? []) lineNodeKeys.add(key);
 
         if (lineNodeKeys.size === 0) {
-            reportWarning(`Line ${line.id} (${line.name}) has no RMP station nodes`);
+            report.warn(`Line ${line.id} (${line.name}) has no RMP station nodes`);
             continue;
         }
 
-        const keyToName = new Map();
+        const keyToName = new Map<string, string>();
 
         for (const name of lineStationNames)
             for (const key of stationNameToNodeKeys.get(name) ?? [])
@@ -479,13 +512,13 @@ function checkLineConnectivity() {
         const colourGraph = colourGraphs.get(lineColour);
 
         if (!colourGraph) {
-            reportWarning(`Line ${line.id} (${line.name}) has no RMP edges with colour ${lineColour}`);
+            report.warn(`Line ${line.id} (${line.name}) has no RMP edges with colour ${lineColour}`);
             continue;
         }
 
         // Build a compressed RMP graph (virtual nodes collapsed) keyed by station name.
         // Multiple RMP keys for the same name are automatically merged.
-        const rmpCompressed = new Map();
+        const rmpCompressed = new Map<string, Set<string>>();
 
         for (const name of lineStationNames) rmpCompressed.set(name, new Set());
 
@@ -497,7 +530,7 @@ function checkLineConnectivity() {
             const queue = [startKey];
 
             while (queue.length) {
-                const current = queue.shift();
+                const current = queue.shift()!;
 
                 for (const neighbour of colourGraph.get(current) ?? []) {
                     if (visited.has(neighbour)) continue;
@@ -508,8 +541,8 @@ function checkLineConnectivity() {
                         const neighbourName = keyToName.get(neighbour);
 
                         if (neighbourName !== startName) {
-                            rmpCompressed.get(startName).add(neighbourName);
-                            rmpCompressed.get(neighbourName).add(startName);
+                            rmpCompressed.get(startName!)!.add(neighbourName!);
+                            rmpCompressed.get(neighbourName!)!.add(startName!);
                         } else {
                             // Alias of the start station: treat as transparent
                             queue.push(neighbour);
@@ -523,14 +556,14 @@ function checkLineConnectivity() {
         }
 
         const rmpComponents = getGraphComponents(rmpCompressed);
-        const fmtStation = (name) => {
+        const fmtStation = (name: string) => {
             const keys = stationNameToNodeKeys.get(name) ?? [];
 
             return keys.length ? `"${name}" (${keys.join("/")})` : `"${name}"`;
         };
 
         if (rmpComponents.length > 1) {
-            reportError(
+            report.error(
                 `Line ${line.id} (${line.name}) RMP stations form ${rmpComponents.length} disconnected components (colour ${lineColour}): ` +
                     rmpComponents.map((c) => `[${c.map(fmtStation).join(", ")}]`).join(" | ")
             );
@@ -542,7 +575,7 @@ function checkLineConnectivity() {
                 if (nameA >= nameB) continue;
 
                 if (!rmpCompressed.get(nameA)?.has(nameB))
-                    reportError(
+                    report.error(
                         `Line ${line.id} (${line.name}): RMP missing edge between ${fmtStation(nameA)} and ${fmtStation(nameB)} (colour ${lineColour})`
                     );
             }
@@ -554,13 +587,17 @@ function checkLineConnectivity() {
                 if (nameA >= nameB) continue;
 
                 if (!ndGraph.get(nameA)?.has(nameB))
-                    reportError(
+                    report.error(
                         `Line ${line.id} (${line.name}): RMP has extra edge between ${fmtStation(nameA)} and ${fmtStation(nameB)} not in networkData (colour ${lineColour})`
                     );
             }
         }
     }
 }
+
+const lineConnectivityReport = new Reporter();
+
+checkLineConnectivity(lineConnectivityReport);
 
 // The following two functions together enforce the HSR timing invariant:
 //   a connection A↔B has a time  ⟺  the entire A→B path in RMP is tram (no dotted segments).
@@ -576,7 +613,7 @@ function checkLineConnectivity() {
 // dotted segment look correct to the edge-driven check, so the timed connection slips through.
 //   - Catches: timed connection whose stations aren't mutually reachable via tram-only BFS.
 
-function checkConnectionEdgeStyles() {
+function checkConnectionEdgeStyles(report: Reporter) {
     for (const line of networkData.lines ?? []) {
         const lineColour = lineColourMap.get(line.id);
 
@@ -586,14 +623,14 @@ function checkConnectionEdgeStyles() {
 
         if (lineConns.length === 0) continue;
 
-        const lineStationNames = new Set();
+        const lineStationNames = new Set<string>();
 
         for (const { from, to } of lineConns) {
             lineStationNames.add(from);
             lineStationNames.add(to);
         }
 
-        const connectionMap = new Map();
+        const connectionMap = new Map<string, (typeof lineConns)[number]>();
 
         for (const conn of lineConns) {
             connectionMap.set([conn.from, conn.to].sort().join("|||"), conn);
@@ -607,8 +644,8 @@ function checkConnectionEdgeStyles() {
         // BFS from startNode (not traversing through excludedNode), collecting all line-station
         // names reachable via built segments. Stations from other lines are traversed through
         // transparently (treated like virtual nodes for this line's purposes).
-        const findStationsInComponent = (startNode, excludedNode) => {
-            const stations = new Set();
+        const findStationsInComponent = (startNode: string, excludedNode: string) => {
+            const stations = new Set<string>();
             const startNames = nodeKeyToStationNames.get(startNode);
 
             if (startNames) {
@@ -621,7 +658,7 @@ function checkConnectionEdgeStyles() {
             const queue = [startNode];
 
             while (queue.length) {
-                const curr = queue.shift();
+                const curr = queue.shift()!;
 
                 for (const neighbour of tramColourGraph?.get(curr) ?? []) {
                     if (visited.has(neighbour)) continue;
@@ -645,7 +682,7 @@ function checkConnectionEdgeStyles() {
         // BFS returning only the first line-station name encountered via built segments.
         // Used for non-bridge edges (cycles/loops) where the component approach would flood
         // to all stations via the bypass path.
-        const findNearestStation = (startNode, excludedNode) => {
+        const findNearestStation = (startNode: string, excludedNode: string) => {
             const startNames = nodeKeyToStationNames.get(startNode);
 
             if (startNames) {
@@ -658,7 +695,7 @@ function checkConnectionEdgeStyles() {
             const queue = [startNode];
 
             while (queue.length) {
-                const curr = queue.shift();
+                const curr = queue.shift()!;
 
                 for (const neighbour of tramColourGraph?.get(curr) ?? []) {
                     if (visited.has(neighbour)) continue;
@@ -684,13 +721,14 @@ function checkConnectionEdgeStyles() {
         for (const edge of rmpData.graph?.edges ?? []) {
             const { source, target, attributes, key: edgeKey } = edge;
 
-            if (!attributes?.style) continue;
+            if (!attributes?.style || typeof attributes.style !== "string") continue;
 
             const styleAttrs = attributes[attributes.style];
 
             if (!styleAttrs) continue;
 
             if (extractLineColour(styleAttrs) !== lineColour) continue;
+            if (typeof source !== "string" || typeof target !== "string") continue;
 
             const sourceSideStations = findStationsInComponent(source, target);
             const targetSideStations = findStationsInComponent(target, source);
@@ -766,7 +804,7 @@ function checkConnectionEdgeStyles() {
                       ? "at least one connection has time"
                       : "no connections have time";
 
-                reportError(
+                report.error(
                     `Edge ${edgeKey} (line ${line.id}, serves ${allConns.join(", ")}): ` +
                         `style "${attributes.style}" expected "${expectedStyle}" (${isHSR ? "HSR" : "non-HSR"}, ${timeDesc})`
                 );
@@ -775,7 +813,7 @@ function checkConnectionEdgeStyles() {
     }
 }
 
-function checkHSRConnectionTimesMatchPaths() {
+function checkHSRConnectionTimesMatchPaths(report: Reporter) {
     for (const line of networkData.lines ?? []) {
         if (line.type !== "HSR") continue;
 
@@ -799,7 +837,7 @@ function checkHSRConnectionTimesMatchPaths() {
             let reachable = false;
 
             while (queue.length && !reachable) {
-                const curr = queue.shift();
+                const curr = queue.shift()!;
 
                 if (toKeySet.has(curr)) {
                     reachable = true;
@@ -815,7 +853,7 @@ function checkHSRConnectionTimesMatchPaths() {
             }
 
             if (!reachable) {
-                reportError(
+                report.error(
                     `Line ${line.id} (${line.name}): connection "${conn.from}"↔"${conn.to}" has time=${conn.time} but path contains a dotted (unbuilt) segment`
                 );
             }
@@ -823,7 +861,15 @@ function checkHSRConnectionTimesMatchPaths() {
     }
 }
 
-function checkStationLineCodes() {
+const edgeStylesReport = new Reporter();
+
+checkConnectionEdgeStyles(edgeStylesReport);
+
+const hsrTimingReport = new Reporter();
+
+checkHSRConnectionTimesMatchPaths(hsrTimingReport);
+
+function checkStationLineCodes(report: Reporter) {
     for (const node of rmpData.graph?.nodes ?? []) {
         const { key, attributes } = node;
 
@@ -835,13 +881,13 @@ function checkStationLineCodes() {
 
         const typeAttrs = attributes[type];
 
-        if (!typeAttrs) continue;
+        if (!typeAttrs || typeof typeAttrs !== "object" || Array.isArray(typeAttrs)) continue;
 
         const names = typeAttrs.names;
 
         if (!Array.isArray(names) || names.length === 0) continue;
 
-        const rmpLineIds = new Set();
+        const rmpLineIds = new Set<string>();
 
         if (type === "tokyo-metro-basic") {
             const { lineCode, stationCode } = typeAttrs;
@@ -849,12 +895,12 @@ function checkStationLineCodes() {
             if (typeof lineCode === "string" && typeof stationCode === "string") {
                 rmpLineIds.add(lineCode + stationCode);
             } else {
-                reportWarning(`Node ${key} (${names[0]}) missing lineCode or stationCode`);
+                report.warn(`Node ${key} (${String(names[0])}) missing lineCode or stationCode`);
             }
         } else {
             // transfer is an array of rows; each row is an array of items;
             // each item is an array where index 4 = lineCode, index 5 = stationCode
-            for (const row of typeAttrs.transfer ?? []) {
+            for (const row of Array.isArray(typeAttrs.transfer) ? typeAttrs.transfer : []) {
                 if (!Array.isArray(row)) continue;
 
                 for (const item of row) {
@@ -879,71 +925,95 @@ function checkStationLineCodes() {
 
             for (const lineId of expectedLines) {
                 if (!rmpLineIds.has(lineId))
-                    reportError(`Node ${key} station "${name}" is missing line ${lineId} from networkData`);
+                    report.error(`Node ${key} station "${name}" is missing line ${lineId} from networkData`);
             }
 
             for (const lineId of rmpLineIds) {
                 if (!networkLineIds.has(lineId)) continue; // unknown line — already reported elsewhere
 
                 if (!expectedLines.has(lineId))
-                    reportError(`Node ${key} station "${name}" has extra line ${lineId} not in networkData`);
+                    report.error(`Node ${key} station "${name}" has extra line ${lineId} not in networkData`);
             }
         }
     }
 }
 
-// --- networkData checks ---
+const stationLineCodesReport = new Reporter();
 
-function checkNetworkStations() {
+checkStationLineCodes(stationLineCodesReport);
+
+function checkNetworkStations(report: Reporter) {
     const missing = [...networkStationNames].filter((name) => !stationNameToNodeKeys.has(name));
 
-    if (missing.length) reportError(`Missing stations: ${missing.join(", ")}`);
+    if (missing.length) report.error(`Missing stations: ${missing.join(", ")}`);
 }
 
-function checkUnusedNetworkColours() {
+function checkUnusedNetworkColours(report: Reporter) {
     const unused = [];
 
     for (const [colour, lines] of networkColourToLines.entries()) {
         if (!foundNetworkColours.has(colour)) unused.push(`${colour} => ${lines.join(", ")}`);
     }
 
-    if (unused.length) reportWarning(`Unused line colours: ${unused.join(" | ")}`);
+    if (unused.length) report.warn(`Unused line colours: ${unused.join(" | ")}`);
 }
 
-// --- Main ---
+const networkStationsReport = new Reporter();
 
-function main() {
-    // Phase 1: scan RMP to populate graph state
-    for (const node of rmpData.graph?.nodes ?? []) scanNode(node);
-    for (const edge of rmpData.graph?.edges ?? []) scanEdge(edge);
+checkNetworkStations(networkStationsReport);
 
-    // Phase 2: RMP structural checks
-    checkUnusedNodes();
-    checkVirtualNodeDegreePerColour();
+const unusedColoursReport = new Reporter();
 
-    // Phase 3: cross-file consistency
-    checkLineConnectivity();
-    checkConnectionEdgeStyles();
-    checkHSRConnectionTimesMatchPaths();
-    checkStationLineCodes();
+checkUnusedNetworkColours(unusedColoursReport);
 
-    // Phase 4: networkData checks
-    checkNetworkStations();
-    checkUnusedNetworkColours();
-
-    if (errors.length) {
-        console.error("\nVALIDATION FAILED:\n");
-        errors.forEach((e) => console.error(`ERROR: ${e}`));
-    }
-
-    if (warnings.length) {
-        console.warn("\nWARNINGS:\n");
-        warnings.forEach((w) => console.warn(`WARN: ${w}`));
-    }
-
-    console.log(`\nSummary: ${errors.length} error(s), ${warnings.length} warning(s)`);
-
-    if (errors.length) process.exitCode = 1;
+// Every check above only ever pushes to `errors` (test-failing) or `warnings` (logged, non-fatal).
+function expectNoErrors(report: Reporter) {
+    if (report.warnings.length) console.warn(report.warnings.join("\n"));
+    expect(report.errors).toEqual([]);
 }
 
-main();
+describe("networkData.json / RMP.json consistency", () => {
+    it("network line colours are valid hex", () => {
+        expectNoErrors(colourReport);
+    });
+
+    it("RMP nodes are well-formed", () => {
+        expectNoErrors(nodeReport);
+    });
+
+    it("RMP edges are well-formed", () => {
+        expectNoErrors(edgeReport);
+    });
+
+    it("virtual nodes have at least two neighbours on their colour", () => {
+        expectNoErrors(virtualNodeDegreeReport);
+    });
+
+    it("every line's stations form a single connected component, isomorphic between networkData and RMP", () => {
+        expectNoErrors(lineConnectivityReport);
+    });
+
+    it("RMP edge styles (tram/dotted) match connection timing", () => {
+        expectNoErrors(edgeStylesReport);
+    });
+
+    it("timed HSR connections have a fully-built (non-dotted) RMP path", () => {
+        expectNoErrors(hsrTimingReport);
+    });
+
+    it("RMP station line codes match networkData connections", () => {
+        expectNoErrors(stationLineCodesReport);
+    });
+
+    it("every networkData station has a corresponding RMP node", () => {
+        expectNoErrors(networkStationsReport);
+    });
+
+    it("reports unused RMP nodes and network line colours as warnings only", () => {
+        // Non-fatal by design — just make sure the warnings surface in the test output.
+        if (unusedNodesReport.warnings.length) console.warn(unusedNodesReport.warnings.join("\n"));
+        if (unusedColoursReport.warnings.length) console.warn(unusedColoursReport.warnings.join("\n"));
+        expect(unusedNodesReport.errors).toEqual([]);
+        expect(unusedColoursReport.errors).toEqual([]);
+    });
+});

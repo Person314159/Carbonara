@@ -1539,9 +1539,6 @@
             "name": "Gothenburg"
         },
         {
-            "name": "Gotland"
-        },
-        {
             "name": "Gran Canaria"
         },
         {
@@ -2602,6 +2599,9 @@
         },
         {
             "name": "Virgin Islands"
+        },
+        {
+            "name": "Visby"
         },
         {
             "name": "Vladivostok"
@@ -4335,8 +4335,9 @@
         },
         {
             "from": "Öland",
-            "to": "Gotland",
-            "lineID": "E53"
+            "to": "Visby",
+            "lineID": "E53",
+            "time": 40
         },
         {
             "from": "Central Mediterranean",

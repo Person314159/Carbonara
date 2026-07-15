@@ -3,31 +3,24 @@
 @import "tailwindcss/utilities.css" layer(utilities);
 
 :root {
-    /* Colour System */
-    /* Primary Colours */
     --colour-primary: #588157;
     --colour-primary-light: #60a558;
     --colour-primary-dark: #3d5a3d;
 
-    /* Neutral Colours */
     --colour-background: #ffffff;
     --colour-background-dark: #444444;
     --colour-background-alt-dark: #555555;
 
-    /* Text Colours */
     --colour-text: #2f2f2f;
     --colour-text-dark: #ffffff;
     --colour-text-muted-dark: #eeeeee;
 
-    /* UI Colours */
     --colour-border: #666666;
     --colour-button: #2f2f2f;
     --colour-button-text: #888888;
 
-    /* Visual Feedback System */
     --colour-error: #f44336;
 
-    /* Typography System */
     --font-size-sm: 0.875rem;
     --font-size-base: 1rem;
     --font-size-lg: 1.125rem;
@@ -35,12 +28,9 @@
     --line-height-normal: 1.5;
     --line-height-relaxed: 1.75;
 
-    /* Animation System */
-    /* Transition Speeds */
     --transition-fast: 150ms;
     --transition-normal: 250ms;
 
-    /* Transition Curves */
     --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
     --ease-out: cubic-bezier(0, 0, 0.2, 1);
     --ease-in: cubic-bezier(0.4, 0, 1, 1);
@@ -56,7 +46,6 @@
     src: url(./fonts/Mplus2-Medium.otf) format("opentype");
 }
 
-/* Select Input Styling */
 .mantine-InputBase-input,
 .mantine-MultiSelect-input {
     @apply w-full appearance-none rounded-lg border-2 border-solid border-(--colour-border) bg-(--colour-background-alt-dark) p-3 text-(length:--font-size-base)/(--line-height-normal) text-(--colour-text-dark) transition-all duration-(--transition-fast) ease-out hover:transform-[translateY(-1px)] hover:border-(--colour-primary) hover:bg-(--colour-background-dark) hover:text-(--colour-text-dark) focus:transform-[translateY(-1px)] focus:border-(--colour-primary) focus:bg-(--colour-background-dark) focus:shadow-md focus:outline-none;
@@ -132,7 +121,6 @@
     @apply mt-3 mb-1 text-(length:--font-size-sm)/(--line-height-normal) font-bold tracking-wide text-(--colour-text-muted-dark) uppercase;
 }
 
-/* Fade In Animation */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -148,12 +136,10 @@
     animation: fadeIn var(--transition-normal) var(--ease-out);
 }
 
-/* Find Route Button */
 .find-route-btn {
     @apply h-9 w-full cursor-pointer rounded-lg border-none bg-(--colour-primary) px-2 font-bold text-white transition-all duration-(--transition-fast) ease-out hover:transform-[translateY(-1px)] hover:bg-(--colour-primary-dark) hover:shadow-md active:transform-[translateY(0px)] active:shadow-none sm:w-auto;
 }
 
-/* Status Messages */
 .status-message {
     @apply mb-4 rounded-sm p-3;
     animation: fadeIn var(--transition-normal) var(--ease-out);
@@ -165,7 +151,6 @@
     border-left: 4px solid var(--colour-error);
 }
 
-/* Disabled state for the route search buttons while a search is in progress */
 .find-route-btn:disabled {
     cursor: not-allowed;
     opacity: 0.6;
@@ -173,7 +158,6 @@
     animation-play-state: paused;
 }
 
-/* Copy Shareable Link Button */
 .copy-link-btn {
     @apply mt-2.5 cursor-pointer rounded-lg px-3 py-1.5 text-(length:--font-size-sm)/(--line-height-normal);
 }

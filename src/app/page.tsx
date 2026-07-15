@@ -80,11 +80,21 @@ export default function Home() {
                     };
                     const result = findMultiStopRoute(searchStations, searchMetric, routeExclusions);
 
-                    if (!result || result.length === 0) throw new Error("No route found between selected stations");
+                    if (!result.ok) {
+                        const [from, to] = result.failedHop;
+                        const hasActiveExclusions =
+                            (routeExclusions.excludedLines?.size ?? 0) > 0 ||
+                            (routeExclusions.excludedStations?.size ?? 0) > 0;
+                        const hint = hasActiveExclusions
+                            ? " Current line/station exclusions may be preventing a route."
+                            : "";
 
-                    setRoute(result);
+                        throw new Error(`No route found between ${from} and ${to}.${hint}`);
+                    }
 
-                    const highlights = getRouteHighlights(result.flat());
+                    setRoute(result.hops);
+
+                    const highlights = getRouteHighlights(result.hops.flat());
 
                     setHighlightedEdges(highlights.edgeIds);
                     setHighlightedStations(highlights.stationKeys);

@@ -7,7 +7,7 @@
         "build": "next build",
         "start": "next start",
         "lint": "eslint .",
-        "test": "node scripts/validate-rmp-data.mjs"
+        "test": "vitest run"
     },
     "dependencies": {
         "@datastructures-js/priority-queue": "^6.3.5",
@@ -32,6 +32,7 @@
         "@types/react": "19.2.14",
         "@typescript-eslint/eslint-plugin": "^8.59.2",
         "@typescript-eslint/parser": "^8.59.2",
+        "@vitest/coverage-v8": "^4.1.10",
         "eslint": "^9.39.3",
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-prettier": "^5.5.5",
@@ -44,6 +45,7 @@
         "prettier-plugin-tailwindcss": "^0.8.0",
         "tailwindcss": "^4.3.0",
         "typescript": "^6.0.3",
-        "typescript-eslint": "^8.59.2"
+        "typescript-eslint": "^8.59.2",
+        "vitest": "^4.1.10"
     }
 }

@@ -46,3 +46,5 @@ export interface RouteExclusions {
     excludedLines?: Set<string>;
     excludedStations?: Set<string>;
 }
+
+export type MultiStopRouteResult = { ok: true; hops: LegProp[][] } | { ok: false; failedHop: [string, string] };
