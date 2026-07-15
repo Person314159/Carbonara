@@ -54,6 +54,10 @@ export const StationSelect = React.memo(function StationSelect({
         setStations(next);
     };
 
+    const swapStations = () => {
+        setStations(stations.slice().reverse());
+    };
+
     return (
         <div className="mb-5">
             <div className="flex flex-wrap gap-2 sm:items-end">
@@ -110,10 +114,20 @@ export const StationSelect = React.memo(function StationSelect({
             </div>
 
             <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
-                <NavigationModeToggle
-                    checked={metric === "transfers"}
-                    onChange={(checked) => setMetric(checked ? "transfers" : "time")}
-                ></NavigationModeToggle>
+                <div className="flex items-center gap-2">
+                    <NavigationModeToggle
+                        checked={metric === "transfers"}
+                        onChange={(checked) => setMetric(checked ? "transfers" : "time")}
+                    ></NavigationModeToggle>
+                    <button
+                        type="button"
+                        className="btn h-9 cursor-pointer rounded-lg px-3 text-(length:--font-size-sm)"
+                        aria-label="Swap start and end stations"
+                        onClick={swapStations}
+                    >
+                        ⇄ Swap
+                    </button>
+                </div>
                 <button
                     className="find-route-btn"
                     aria-label="Find route between selected stations"
