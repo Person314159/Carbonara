@@ -763,6 +763,12 @@
             "type": "LSR"
         },
         {
+            "id": "N46",
+            "name": "Metro-North Express Line",
+            "colour": "#009c2e",
+            "type": "LSR"
+        },
+        {
             "id": "N47",
             "name": "SPAMTRAK Big Shot",
             "colour": "#ff69b4",
@@ -1192,9 +1198,6 @@
         },
         {
             "name": "Buenos Aires"
-        },
-        {
-            "name": "Buffalo"
         },
         {
             "name": "Burlington"
@@ -1818,6 +1821,9 @@
             "name": "Lomé"
         },
         {
+            "name": "London"
+        },
+        {
             "name": "Luanda"
         },
         {
@@ -1966,6 +1972,9 @@
         },
         {
             "name": "Newcastle"
+        },
+        {
+            "name": "Niagara Falls"
         },
         {
             "name": "Nieuw Nickerie"
@@ -2314,6 +2323,9 @@
         },
         {
             "name": "Sardinia"
+        },
+        {
+            "name": "Sarnia"
         },
         {
             "name": "Saruhashi"
@@ -4412,7 +4424,8 @@
         {
             "from": "Bourem",
             "to": "Bissau",
-            "lineID": "F03"
+            "lineID": "F03",
+            "time": 290
         },
         {
             "from": "Sanaa",
@@ -4739,11 +4752,11 @@
         },
         {
             "from": "Rochester",
-            "to": "Buffalo",
+            "to": "Niagara Falls",
             "lineID": "N11"
         },
         {
-            "from": "Buffalo",
+            "from": "Niagara Falls",
             "to": "Erie",
             "lineID": "N11"
         },
@@ -4818,17 +4831,20 @@
         {
             "from": "Wilmington",
             "to": "Savannah",
-            "lineID": "N15"
+            "lineID": "N15",
+            "time": 70
         },
         {
             "from": "Savannah",
             "to": "Jacksonville",
-            "lineID": "N15"
+            "lineID": "N15",
+            "time": 30
         },
         {
             "from": "Jacksonville",
             "to": "Orlando",
-            "lineID": "N15"
+            "lineID": "N15",
+            "time": 25
         },
         {
             "from": "Orlando",
@@ -5351,6 +5367,41 @@
             "to": "Sparwood",
             "lineID": "N45",
             "time": 15
+        },
+        {
+            "from": "Jamaica Center",
+            "to": "Albany",
+            "lineID": "N46"
+        },
+        {
+            "from": "Albany",
+            "to": "Rochester",
+            "lineID": "N46"
+        },
+        {
+            "from": "Rochester",
+            "to": "Niagara Falls",
+            "lineID": "N46"
+        },
+        {
+            "from": "Niagara Falls",
+            "to": "Toronto Union",
+            "lineID": "N46"
+        },
+        {
+            "from": "Toronto Union",
+            "to": "London",
+            "lineID": "N46"
+        },
+        {
+            "from": "London",
+            "to": "Sarnia",
+            "lineID": "N46"
+        },
+        {
+            "from": "Sarnia",
+            "to": "Detroit",
+            "lineID": "N46"
         },
         {
             "from": "Pocatello",
