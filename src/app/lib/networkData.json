@@ -4743,7 +4743,8 @@
         {
             "from": "Albany",
             "to": "Syracuse",
-            "lineID": "N11"
+            "lineID": "N11",
+            "time": 40
         },
         {
             "from": "Syracuse",
@@ -5396,11 +5397,6 @@
         {
             "from": "London",
             "to": "Sarnia",
-            "lineID": "N46"
-        },
-        {
-            "from": "Sarnia",
-            "to": "Detroit",
             "lineID": "N46"
         },
         {
