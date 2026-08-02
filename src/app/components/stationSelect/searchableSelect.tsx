@@ -1,5 +1,5 @@
 ﻿import { Combobox, InputBase, useCombobox } from "@mantine/core";
-import { options } from "@/app/lib/routing";
+import { options } from "@/app/lib/routing/graph";
 import { normalizeForSearch } from "@/app/lib/util";
 import React, { useState } from "react";
 

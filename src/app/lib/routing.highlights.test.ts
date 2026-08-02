@@ -110,7 +110,8 @@ vi.mock("./RMP.json", () => ({
     default: { graph: { nodes: fixture.nodes, edges: fixture.edges } },
 }));
 
-const { findRoute, getRouteHighlights, getStationKeysForName } = await import("./routing");
+const { findRoute } = await import("./routing/graph");
+const { getRouteHighlights, getStationKeysForName } = await import("./routing/mapHighlights");
 
 describe("getStationKeysForName", () => {
     it("returns every RMP node key for a station with alias nodes", () => {

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { findRoute, getRouteHighlights, getStationKeysForName } from "./routing";
+import { findRoute } from "./routing/graph";
+import { getRouteHighlights, getStationKeysForName } from "./routing/mapHighlights";
 
 // Rasht <-> Ureki is a real, single-line (A01) connection in networkData.json — used here to
 // exercise getRouteHighlights/getStationKeysForName against the real RMP map data, which a
