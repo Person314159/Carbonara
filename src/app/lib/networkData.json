@@ -823,6 +823,18 @@
             "type": "LSR"
         },
         {
+            "id": "N56",
+            "name": "Texoma Line",
+            "colour": "#d8b589",
+            "type": "LSR"
+        },
+        {
+            "id": "N57",
+            "name": "Gulf Coast Railway",
+            "colour": "#70a1d6",
+            "type": "LSR"
+        },
+        {
             "id": "O02",
             "name": "Victorian Line",
             "colour": "#b80b4b",
@@ -1104,6 +1116,9 @@
             "name": "Auckland Island"
         },
         {
+            "name": "Austin"
+        },
+        {
             "name": "Awamango"
         },
         {
@@ -1224,6 +1239,9 @@
             "name": "Campbell River"
         },
         {
+            "name": "Cancún"
+        },
+        {
             "name": "Cape Canaveral"
         },
         {
@@ -1342,6 +1360,9 @@
         },
         {
             "name": "Dalian"
+        },
+        {
+            "name": "Dallas-Fort Worth"
         },
         {
             "name": "Damietta"
@@ -1608,6 +1629,9 @@
             "name": "Harrisburg"
         },
         {
+            "name": "Havana"
+        },
+        {
             "name": "Helsinki"
         },
         {
@@ -1641,7 +1665,10 @@
             "name": "Hope"
         },
         {
-            "name": "Houston"
+            "name": "Houston (BC)"
+        },
+        {
+            "name": "Houston (TX)"
         },
         {
             "name": "Hudson's Hope"
@@ -1896,6 +1923,9 @@
             "name": "Mequinenza"
         },
         {
+            "name": "Mérida"
+        },
+        {
             "name": "Merlischachen"
         },
         {
@@ -1968,6 +1998,9 @@
             "name": "New Haven"
         },
         {
+            "name": "New Orleans"
+        },
+        {
             "name": "New Shoreham"
         },
         {
@@ -2020,6 +2053,9 @@
         },
         {
             "name": "Ōkaihau"
+        },
+        {
+            "name": "Oklahoma City"
         },
         {
             "name": "Öland"
@@ -2280,6 +2316,9 @@
             "name": "Samara"
         },
         {
+            "name": "San Antonio"
+        },
+        {
             "name": "San Clemente del Tuyú"
         },
         {
@@ -2460,6 +2499,9 @@
             "name": "Tamanrasset"
         },
         {
+            "name": "Tampa"
+        },
+        {
             "name": "Tangier"
         },
         {
@@ -2544,6 +2586,9 @@
             "name": "Tulameen"
         },
         {
+            "name": "Tulsa"
+        },
+        {
             "name": "Tumbler Ridge"
         },
         {
@@ -2608,6 +2653,9 @@
         },
         {
             "name": "Vienna"
+        },
+        {
+            "name": "Villahermosa"
         },
         {
             "name": "Virgin Islands"
@@ -4749,7 +4797,8 @@
         {
             "from": "Syracuse",
             "to": "Rochester",
-            "lineID": "N11"
+            "lineID": "N11",
+            "time": 15
         },
         {
             "from": "Rochester",
@@ -4850,6 +4899,17 @@
         {
             "from": "Orlando",
             "to": "Miami",
+            "lineID": "N15",
+            "time": 65
+        },
+        {
+            "from": "Orlando",
+            "to": "Tampa",
+            "lineID": "N15"
+        },
+        {
+            "from": "Miami",
+            "to": "Tampa",
             "lineID": "N15"
         },
         {
@@ -5089,12 +5149,12 @@
         },
         {
             "from": "Burns Lake",
-            "to": "Houston",
+            "to": "Houston (BC)",
             "lineID": "N33",
             "time": 30
         },
         {
-            "from": "Houston",
+            "from": "Houston (BC)",
             "to": "Smithers",
             "lineID": "N33",
             "time": 15
@@ -5578,6 +5638,82 @@
             "to": "Merritt",
             "lineID": "N55",
             "time": 15
+        },
+        {
+            "from": "Topeka",
+            "to": "Tulsa",
+            "lineID": "N56",
+            "time": 40
+        },
+        {
+            "from": "Tulsa",
+            "to": "Oklahoma City",
+            "lineID": "N56"
+        },
+        {
+            "from": "Oklahoma City",
+            "to": "Dallas-Fort Worth",
+            "lineID": "N56"
+        },
+        {
+            "from": "Dallas-Fort Worth",
+            "to": "Waco",
+            "lineID": "N56"
+        },
+        {
+            "from": "Waco",
+            "to": "Austin",
+            "lineID": "N56"
+        },
+        {
+            "from": "Austin",
+            "to": "San Antonio",
+            "lineID": "N56"
+        },
+        {
+            "from": "Austin",
+            "to": "Houston (TX)",
+            "lineID": "N57"
+        },
+        {
+            "from": "Houston (TX)",
+            "to": "New Orleans",
+            "lineID": "N57"
+        },
+        {
+            "from": "New Orleans",
+            "to": "Tallahassee",
+            "lineID": "N57"
+        },
+        {
+            "from": "Tallahassee",
+            "to": "Tampa",
+            "lineID": "N57"
+        },
+        {
+            "from": "Tampa",
+            "to": "Havana",
+            "lineID": "N57"
+        },
+        {
+            "from": "Havana",
+            "to": "Cancún",
+            "lineID": "N57"
+        },
+        {
+            "from": "Cancún",
+            "to": "Mérida",
+            "lineID": "N57"
+        },
+        {
+            "from": "Mérida",
+            "to": "Villahermosa",
+            "lineID": "N57"
+        },
+        {
+            "from": "Villahermosa",
+            "to": "Puebla",
+            "lineID": "N57"
         },
         {
             "from": "Melbourne",
