@@ -1296,6 +1296,9 @@
             "name": "Chetwynd"
         },
         {
+            "name": "Chicago"
+        },
+        {
             "name": "Chiclayo"
         },
         {
@@ -1575,6 +1578,9 @@
             "name": "Grand Forks"
         },
         {
+            "name": "Grand Rapids"
+        },
+        {
             "name": "Grande Prairie"
         },
         {
@@ -1729,6 +1735,9 @@
         },
         {
             "name": "Joe Biden Welcome Center"
+        },
+        {
+            "name": "Jupiter"
         },
         {
             "name": "Kagoshima"
@@ -2364,9 +2373,6 @@
             "name": "Sardinia"
         },
         {
-            "name": "Sarnia"
-        },
-        {
             "name": "Saruhashi"
         },
         {
@@ -2446,6 +2452,9 @@
         },
         {
             "name": "St. Kitts"
+        },
+        {
+            "name": "St. Louis"
         },
         {
             "name": "St. Lucia"
@@ -2695,9 +2704,6 @@
         },
         {
             "name": "West Mediterranean"
-        },
-        {
-            "name": "West Palm Beach"
         },
         {
             "name": "Whanganui"
@@ -4803,7 +4809,8 @@
         {
             "from": "Rochester",
             "to": "Niagara Falls",
-            "lineID": "N11"
+            "lineID": "N11",
+            "time": 20
         },
         {
             "from": "Niagara Falls",
@@ -4818,6 +4825,16 @@
         {
             "from": "Cleveland",
             "to": "Detroit",
+            "lineID": "N11"
+        },
+        {
+            "from": "Detroit",
+            "to": "Grand Rapids",
+            "lineID": "N11"
+        },
+        {
+            "from": "Grand Rapids",
+            "to": "Chicago",
             "lineID": "N11"
         },
         {
@@ -4905,12 +4922,14 @@
         {
             "from": "Orlando",
             "to": "Tampa",
-            "lineID": "N15"
+            "lineID": "N15",
+            "time": 25
         },
         {
             "from": "Miami",
             "to": "Tampa",
-            "lineID": "N15"
+            "lineID": "N15",
+            "time": 65
         },
         {
             "from": "Montclair",
@@ -4920,9 +4939,15 @@
         },
         {
             "from": "Bloomington",
+            "to": "St. Louis",
+            "lineID": "N16",
+            "time": 60
+        },
+        {
+            "from": "St. Louis",
             "to": "Topeka",
             "lineID": "N16",
-            "time": 130
+            "time": 70
         },
         {
             "from": "Topeka",
@@ -5451,7 +5476,12 @@
         },
         {
             "from": "London",
-            "to": "Sarnia",
+            "to": "Detroit",
+            "lineID": "N46"
+        },
+        {
+            "from": "Detroit",
+            "to": "Chicago",
             "lineID": "N46"
         },
         {
@@ -5513,20 +5543,23 @@
         {
             "from": "Jacksonville",
             "to": "Daytona",
-            "lineID": "N48"
+            "lineID": "N48",
+            "time": 25
         },
         {
             "from": "Daytona",
             "to": "Cape Canaveral",
-            "lineID": "N48"
+            "lineID": "N48",
+            "time": 15
         },
         {
             "from": "Cape Canaveral",
-            "to": "West Palm Beach",
-            "lineID": "N48"
+            "to": "Jupiter",
+            "lineID": "N48",
+            "time": 30
         },
         {
-            "from": "West Palm Beach",
+            "from": "Jupiter",
             "to": "Miami",
             "lineID": "N48"
         },
