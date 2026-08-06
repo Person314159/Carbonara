@@ -835,6 +835,18 @@
             "type": "LSR"
         },
         {
+            "id": "N58",
+            "name": "The Canadian",
+            "colour": "#fcd20e",
+            "type": "LSR"
+        },
+        {
+            "id": "N59",
+            "name": "Lewis and Clark Railway",
+            "colour": "#bd6207",
+            "type": "LSR"
+        },
+        {
             "id": "O02",
             "name": "Victorian Line",
             "colour": "#b80b4b",
@@ -1164,10 +1176,16 @@
             "name": "Bergen"
         },
         {
+            "name": "Bering Sea"
+        },
+        {
             "name": "Berlin"
         },
         {
             "name": "Birmingham"
+        },
+        {
+            "name": "Bismarck"
         },
         {
             "name": "Bissau"
@@ -1207,6 +1225,9 @@
         },
         {
             "name": "Brno"
+        },
+        {
+            "name": "Brownsville"
         },
         {
             "name": "Budapest"
@@ -1476,6 +1497,9 @@
             "name": "Edinburgh"
         },
         {
+            "name": "Edmonton"
+        },
+        {
             "name": "El Paso"
         },
         {
@@ -1585,6 +1609,9 @@
         },
         {
             "name": "Graz"
+        },
+        {
+            "name": "Great Falls"
         },
         {
             "name": "Grenada"
@@ -1756,6 +1783,9 @@
         },
         {
             "name": "Kanazawa"
+        },
+        {
+            "name": "Kansas City"
         },
         {
             "name": "Karlskrona"
@@ -2073,6 +2103,9 @@
             "name": "Old Perlican"
         },
         {
+            "name": "Omaha"
+        },
+        {
             "name": "Omsk"
         },
         {
@@ -2143,6 +2176,9 @@
         },
         {
             "name": "Phuket"
+        },
+        {
+            "name": "Pierre"
         },
         {
             "name": "Płock"
@@ -2307,6 +2343,9 @@
             "name": "Saint-Laurent-du-Maroni"
         },
         {
+            "name": "Saint-Louis"
+        },
+        {
             "name": "Saku"
         },
         {
@@ -2418,6 +2457,9 @@
             "name": "Sinj"
         },
         {
+            "name": "Sioux City"
+        },
+        {
             "name": "Siping"
         },
         {
@@ -2446,9 +2488,6 @@
         },
         {
             "name": "Spirit River"
-        },
-        {
-            "name": "St Louis"
         },
         {
             "name": "St. Kitts"
@@ -2509,6 +2548,9 @@
         },
         {
             "name": "Tampa"
+        },
+        {
+            "name": "Tampico"
         },
         {
             "name": "Tangier"
@@ -2716,9 +2758,6 @@
         },
         {
             "name": "Wilmington"
-        },
-        {
-            "name": "World Border"
         },
         {
             "name": "World Origin"
@@ -4406,6 +4445,11 @@
             "time": 40
         },
         {
+            "from": "Visby",
+            "to": "Stockholm",
+            "lineID": "E53"
+        },
+        {
             "from": "Central Mediterranean",
             "to": "Lampedusa",
             "lineID": "F01",
@@ -4615,12 +4659,12 @@
         },
         {
             "from": "Ndiom Gaye",
-            "to": "St Louis",
+            "to": "Saint-Louis",
             "lineID": "F13",
             "time": 25
         },
         {
-            "from": "St Louis",
+            "from": "Saint-Louis",
             "to": "Nouakchott",
             "lineID": "F13",
             "time": 30
@@ -5746,8 +5790,68 @@
         },
         {
             "from": "Villahermosa",
-            "to": "Puebla",
+            "to": "Tehuacán",
             "lineID": "N57"
+        },
+        {
+            "from": "Tehuacán",
+            "to": "Tampico",
+            "lineID": "N57"
+        },
+        {
+            "from": "Tampico",
+            "to": "Brownsville",
+            "lineID": "N57"
+        },
+        {
+            "from": "Brownsville",
+            "to": "Austin",
+            "lineID": "N57"
+        },
+        {
+            "from": "Vancouver",
+            "to": "Edmonton",
+            "lineID": "N58"
+        },
+        {
+            "from": "Edmonton",
+            "to": "Toronto Union",
+            "lineID": "N58"
+        },
+        {
+            "from": "St. Louis",
+            "to": "Kansas City",
+            "lineID": "N59"
+        },
+        {
+            "from": "Kansas City",
+            "to": "Omaha",
+            "lineID": "N59"
+        },
+        {
+            "from": "Omaha",
+            "to": "Sioux City",
+            "lineID": "N59"
+        },
+        {
+            "from": "Sioux City",
+            "to": "Pierre",
+            "lineID": "N59"
+        },
+        {
+            "from": "Pierre",
+            "to": "Bismarck",
+            "lineID": "N59"
+        },
+        {
+            "from": "Bismarck",
+            "to": "Great Falls",
+            "lineID": "N59"
+        },
+        {
+            "from": "Great Falls",
+            "to": "Sparwood",
+            "lineID": "N59"
         },
         {
             "from": "Melbourne",
@@ -6185,12 +6289,12 @@
         },
         {
             "from": "Poronaysk",
-            "to": "World Border",
+            "to": "Bering Sea",
             "lineID": "T01",
             "time": 475
         },
         {
-            "from": "World Border",
+            "from": "Bering Sea",
             "to": "Vancouver",
             "lineID": "T01",
             "time": 615
@@ -7629,12 +7733,14 @@
         {
             "from": "Denver",
             "to": "San Jose",
-            "lineID": "HPU"
+            "lineID": "HPU",
+            "time": 200
         },
         {
             "from": "Denver",
             "to": "Vancouver",
-            "lineID": "HPU"
+            "lineID": "HPU",
+            "time": 315
         },
         {
             "from": "San Jose",
