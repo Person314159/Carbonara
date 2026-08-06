@@ -10,6 +10,9 @@ const MAX_SCALE = 4;
 const HS = 73728 / 20000;
 // A tap within this many screen pixels of a station's coordinate counts as clicking it.
 const STATION_TAP_RADIUS_PX = 14;
+// Below this underlay opacity the backdrop is still dark enough that black station names
+// are unreadable, so they flip to white — see .rmp-dark-backdrop in globals.css.
+const DARK_BACKDROP_UNDERLAY_OPACITY = 0.3;
 
 export type NetworkMapProps = {
     width: number;
@@ -65,7 +68,9 @@ const NetworkMap = React.memo(function NetworkMap({
     const rectRef = useRef<DOMRect | null>(null);
     const isPinchingRef = useRef(false);
     const underlayRef = useRef<HTMLImageElement>(null);
-    const [underlayOpacity, setUnderlayOpacity] = useState(0.5);
+    // Off by default: the underlay image is only mounted (and therefore only fetched)
+    // once the user drags the opacity slider above 0.
+    const [underlayOpacity, setUnderlayOpacity] = useState(0);
 
     const focusKey = stationCoordinate?.length === 2 ? `${stationCoordinate[0]},${stationCoordinate[1]}` : null;
 
@@ -274,28 +279,31 @@ const NetworkMap = React.memo(function NetworkMap({
     return (
         <div className="relative">
             <div style={{ position: "relative", width, height: height, overflow: "hidden", borderRadius: 14 }}>
-                <img
-                    ref={underlayRef}
-                    src={underlaySrc.src}
-                    width={underlaySrc.width}
-                    height={underlaySrc.height}
-                    alt=""
-                    style={{
-                        position: "absolute",
-                        left: 0,
-                        top: 0,
-                        transformOrigin: "0 0",
-                        willChange: "transform",
-                        opacity: underlayOpacity,
-                        pointerEvents: "none",
-                        display: "block",
-                    }}
-                />
+                {underlayOpacity > 0 && (
+                    <img
+                        ref={underlayRef}
+                        src={underlaySrc.src}
+                        width={underlaySrc.width}
+                        height={underlaySrc.height}
+                        alt=""
+                        style={{
+                            position: "absolute",
+                            left: 0,
+                            top: 0,
+                            transformOrigin: "0 0",
+                            willChange: "transform",
+                            opacity: underlayOpacity,
+                            pointerEvents: "none",
+                            display: "block",
+                        }}
+                    />
+                )}
                 {/* HTML div wrapper so CSS transform creates a proper GPU compositing layer.
                     The SVG uses viewBox "-10000 -5000 20000 10000" so its coordinate origin
                     aligns with the div's top-left, matching the applyDOM offset formula. */}
                 <div
                     ref={gRef}
+                    className={underlayOpacity < DARK_BACKDROP_UNDERLAY_OPACITY ? "rmp-dark-backdrop" : undefined}
                     style={{
                         position: "absolute",
                         left: 0,

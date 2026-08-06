@@ -80,6 +80,15 @@
     stroke-linejoin: round;
 }
 
+/* With the underlay hidden or very faint, station names sit on the dark page background,
+   so the black fill is unreadable. Match the fill to the white outline stroke instead,
+   and drop the stroke - white on white only makes the glyphs look bold. A CSS rule
+   outranks the fill="black" presentation attribute the station components set. */
+.rmp-dark-backdrop .rmp-name-outline text {
+    fill: #ffffff;
+    stroke: none;
+}
+
 .btn {
     @apply m-0 border-none bg-(--colour-button) text-center text-(--colour-button-text) transition-all duration-(--transition-fast) ease-out hover:transform-[translateY(-1px)] hover:shadow-md active:transform-[translateY(0px)];
 }

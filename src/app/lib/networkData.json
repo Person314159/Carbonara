@@ -5457,7 +5457,8 @@
         {
             "from": "Jamaica Center",
             "to": "Albany",
-            "lineID": "N46"
+            "lineID": "N46",
+            "time": 35
         },
         {
             "from": "Albany",
