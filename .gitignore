@@ -56,3 +56,6 @@ next-env.d.ts
 
 # OpenSpec
 openspec/
+
+# local-only data cross-check (machine-specific paths)
+/src/app/lib/localSourcesValidation.test.ts

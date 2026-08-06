@@ -1,11 +1,13 @@
 import { describe, expect, it } from "vitest";
 import networkData from "@/app/lib/networkData";
+import { Reporter, expectNoErrors } from "./validationReporter";
 import rmpDataRaw from "./RMP.json";
 
 // Cross-checks networkData.json (the routing graph) against RMP.json (the visual map) — see
 // "Two Parallel Data Systems" in CLAUDE.md. The whole pipeline runs once at module load and
 // each `it` below just asserts on a slice of the precomputed report, so failures point at the
-// specific check that broke.
+// specific check that broke. networkData's own internal invariants (duplicates, orphans, file
+// ordering) live in networkDataValidation.test.ts.
 
 // RMP.json is a graphology SerializedGraph with per-node-type attribute shapes (station, virtual,
 // facilities, ...); rather than modelling every shape, attributes are duck-typed through `unknown`.
@@ -99,17 +101,6 @@ function getNames(value: AttrValue): AttrValue[] | null {
     }
 
     return null;
-}
-
-class Reporter {
-    errors: string[] = [];
-    warnings: string[] = [];
-    error(msg: string) {
-        this.errors.push(msg);
-    }
-    warn(msg: string) {
-        this.warnings.push(msg);
-    }
 }
 
 const networkColourToLines = new Map<string, string[]>();
@@ -454,10 +445,8 @@ function checkLineConnectivity(report: Reporter) {
     for (const line of networkData.lines ?? []) {
         const lineConns = (networkData.connections ?? []).filter((c) => c.lineID === line.id);
 
-        if (lineConns.length === 0) {
-            report.warn(`Line ${line.id} (${line.name}) has no connections`);
-            continue;
-        }
+        // Lines with no connections at all are reported by networkDataValidation.test.ts.
+        if (lineConns.length === 0) continue;
 
         const lineStationNames = new Set<string>();
 
@@ -598,6 +587,98 @@ function checkLineConnectivity(report: Reporter) {
 const lineConnectivityReport = new Reporter();
 
 checkLineConnectivity(lineConnectivityReport);
+
+// checkLineConnectivity is keyed on colour, because an RMP edge carries a colour and no line id. That
+// is sound only while two lines sharing a colour never touch: the moment their graphs join, the BFS
+// can walk out of one line and into the other, so a segment missing from the map gets bridged by its
+// neighbour's track and the isomorphism passes on a map that is wrong.
+//
+// Sharing a colour is fine and common (20 colours cover 66 of the lines) — what has to hold is that
+// same-coloured lines land in different connected components of that colour's graph. Components
+// rather than nodes, because "no node carries two same-coloured lines" isn't expressible: both edges
+// at a shared node are just purple, so there is nothing to attribute them to. Joined components are
+// the observable form of the same condition, and they also catch a join sitting several virtual hops
+// away from either line's nearest station.
+function checkSameColourLinesStayApart(report: Reporter) {
+    const lineNames = new Map((networkData.lines ?? []).map((line) => [line.id, line.name]));
+    const stationsByLine = new Map<string, Set<string>>();
+
+    for (const { from, to, lineID } of networkData.connections ?? []) {
+        if (!stationsByLine.has(lineID)) stationsByLine.set(lineID, new Set());
+        stationsByLine.get(lineID)!.add(from);
+        stationsByLine.get(lineID)!.add(to);
+    }
+
+    const summarise = (names: string[], limit = 3) =>
+        names
+            .slice(0, limit)
+            .map((name) => `"${name}"`)
+            .join(", ") + (names.length > limit ? `, ... (+${names.length - limit} more)` : "");
+
+    for (const [colour, lineIds] of networkColourToLines) {
+        if (lineIds.length < 2) continue;
+
+        const colourGraph = colourGraphs.get(colour);
+
+        if (!colourGraph) continue;
+
+        const componentOfNode = new Map<string, number>();
+
+        getGraphComponents(colourGraph).forEach((component, index) => {
+            for (const node of component) componentOfNode.set(node, index);
+        });
+
+        // For each line, which of this colour's components its stations sit in.
+        const componentsByLine = new Map<string, Map<number, string[]>>();
+
+        for (const lineId of lineIds) {
+            const perComponent = new Map<number, string[]>();
+
+            for (const name of stationsByLine.get(lineId) ?? []) {
+                for (const key of stationNameToNodeKeys.get(name) ?? []) {
+                    const component = componentOfNode.get(key);
+
+                    if (component === undefined) continue;
+
+                    const names = perComponent.get(component) ?? [];
+
+                    if (!names.includes(name)) names.push(name);
+                    perComponent.set(component, names);
+                }
+            }
+
+            componentsByLine.set(lineId, perComponent);
+        }
+
+        for (let i = 0; i < lineIds.length; i++) {
+            for (let j = i + 1; j < lineIds.length; j++) {
+                const first = lineIds[i];
+                const second = lineIds[j];
+
+                for (const [component, firstStations] of componentsByLine.get(first)!) {
+                    const secondStations = componentsByLine.get(second)!.get(component);
+
+                    if (!secondStations) continue;
+
+                    const shared = firstStations.filter((name) => secondStations.includes(name));
+                    const where = shared.length
+                        ? `they both serve ${summarise(shared)}`
+                        : `${first} reaches ${summarise(firstStations)} and ${second} reaches ${summarise(secondStations)}`;
+
+                    report.error(
+                        `Lines ${first} (${lineNames.get(first)}) and ${second} (${lineNames.get(second)}) share colour ` +
+                            `${colour} and their track meets in the RMP graph, so the topology check cannot tell them ` +
+                            `apart — ${where}. Recolour one of them, or split the shared node.`
+                    );
+                }
+            }
+        }
+    }
+}
+
+const sameColourReport = new Reporter();
+
+checkSameColourLinesStayApart(sameColourReport);
 
 // The following two functions together enforce the HSR timing invariant:
 //   a connection A↔B has a time  ⟺  the entire A→B path in RMP is tram (no dotted segments).
@@ -946,6 +1027,16 @@ function checkNetworkStations(report: Reporter) {
     const missing = [...networkStationNames].filter((name) => !stationNameToNodeKeys.has(name));
 
     if (missing.length) report.error(`Missing stations: ${missing.join(", ")}`);
+
+    // The reverse direction: an RMP node naming a station networkData has never heard of. Usually a
+    // rename applied to only one of the two files ("St Louis" vs "Saint-Louis"), which would
+    // otherwise just silently drop the station off the map highlights.
+    const unknown = [...stationNameToNodeKeys].filter(([name]) => !networkStationNames.has(name));
+
+    if (unknown.length)
+        report.error(
+            `RMP station names not in networkData: ${unknown.map(([name, keys]) => `"${name}" (${keys.join("/")})`).join(", ")}`
+        );
 }
 
 function checkUnusedNetworkColours(report: Reporter) {
@@ -965,12 +1056,6 @@ checkNetworkStations(networkStationsReport);
 const unusedColoursReport = new Reporter();
 
 checkUnusedNetworkColours(unusedColoursReport);
-
-// Every check above only ever pushes to `errors` (test-failing) or `warnings` (logged, non-fatal).
-function expectNoErrors(report: Reporter) {
-    if (report.warnings.length) console.warn(report.warnings.join("\n"));
-    expect(report.errors).toEqual([]);
-}
 
 describe("networkData.json / RMP.json consistency", () => {
     it("network line colours are valid hex", () => {
@@ -993,6 +1078,10 @@ describe("networkData.json / RMP.json consistency", () => {
         expectNoErrors(lineConnectivityReport);
     });
 
+    it("lines sharing a colour never touch in the RMP graph", () => {
+        expectNoErrors(sameColourReport);
+    });
+
     it("RMP edge styles (tram/dotted) match connection timing", () => {
         expectNoErrors(edgeStylesReport);
     });
@@ -1005,7 +1094,7 @@ describe("networkData.json / RMP.json consistency", () => {
         expectNoErrors(stationLineCodesReport);
     });
 
-    it("every networkData station has a corresponding RMP node", () => {
+    it("networkData stations and RMP station names correspond one-to-one", () => {
         expectNoErrors(networkStationsReport);
     });
 
