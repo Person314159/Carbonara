@@ -1,4 +1,4 @@
-import React, { Suspense, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { Suspense, useCallback, useEffect, useImperativeHandle, useLayoutEffect, useRef, useState } from "react";
 import { useGesture } from "@use-gesture/react";
 import networkData from "@/app/lib/networkData";
 
@@ -7,6 +7,8 @@ const SvgWrapper = React.lazy(() => import("../../vendor/rmp/components/svg-wrap
 const MIN_SCALE = 1 / 32;
 const MAX_SCALE = 4;
 const HS = 73728 / 20000;
+// Zoom level the map settles on when focusStation centres a station.
+const FOCUS_SCALE = 2;
 // A tap within this many screen pixels of a station's coordinate counts as clicking it.
 const STATION_TAP_RADIUS_PX = 14;
 
@@ -44,13 +46,19 @@ const tileRowsAt = (z: number) => Math.ceil(CONTENT_H / tileSpanAt(z));
 const tileUrl = (z: number, row: number, col: number) =>
     `${GIBS_ENDPOINT}/${GIBS_LAYER}/default/default/${GIBS_MATRIX_SET}/${z}/${row}/${col}.jpeg`;
 
+// Centring the map on a station is a user action, not state the map can derive, so the
+// parent drives it through this handle rather than by passing a coordinate down as a prop.
+export type NetworkMapHandle = {
+    focusStation: (coordinate: number[]) => void;
+};
+
 export type NetworkMapProps = {
     width: number;
     height: number;
-    stationCoordinate?: number[] | null;
     highlightEdgeIds?: string[];
     highlightStationKeys?: string[];
     onStationClick?: (stationName: string) => void;
+    ref?: React.Ref<NetworkMapHandle>;
 };
 
 interface ZoomToButtonProps {
@@ -148,17 +156,16 @@ const BASE_TILE_WINDOW: TileWindow = {
 const NetworkMap = React.memo(function NetworkMap({
     width,
     height,
-    stationCoordinate,
     highlightEdgeIds = [],
     highlightStationKeys = [],
     onStationClick,
+    ref,
 }: NetworkMapProps) {
     // Gesture capture overlay — a plain div so @use-gesture binds to an HTML element
     const containerRef = useRef<HTMLDivElement>(null);
     // Content wrapper — an HTML div so CSS transform gets a proper GPU compositing layer
     const gRef = useRef<HTMLDivElement>(null);
     const coordsRef = useRef<HTMLDivElement>(null);
-    const lastFocusKey = useRef<string | null>(null);
     const transformRef = useRef<Transform>({ x: width / 2, y: height / 2, scale: 0.06 });
     const rectRef = useRef<DOMRect | null>(null);
     const isPinchingRef = useRef(false);
@@ -168,8 +175,6 @@ const NetworkMap = React.memo(function NetworkMap({
     const [underlayOpacity, setUnderlayOpacity] = useState(0);
     const [tileWindow, setTileWindow] = useState<TileWindow | null>(null);
     const underlayEnabled = underlayOpacity > 0;
-
-    const focusKey = stationCoordinate?.length === 2 ? `${stationCoordinate[0]},${stationCoordinate[1]}` : null;
 
     const clampScale = (s: number) => Math.min(Math.max(s, MIN_SCALE), MAX_SCALE);
 
@@ -221,6 +226,22 @@ const NetworkMap = React.memo(function NetworkMap({
         [applyDOM]
     );
 
+    useImperativeHandle(
+        ref,
+        () => ({
+            focusStation: (coordinate: number[]) => {
+                if (coordinate.length !== 2) return;
+
+                setInstant({
+                    x: width / 2 - coordinate[0] * FOCUS_SCALE,
+                    y: height / 2 - coordinate[1] * FOCUS_SCALE,
+                    scale: FOCUS_SCALE,
+                });
+            },
+        }),
+        [width, height, setInstant]
+    );
+
     const zoomAt = (cx: number, cy: number, multiplier: number) => {
         const { x: tx, y: ty, scale: ts } = transformRef.current;
         const newScale = clampScale(ts * multiplier);
@@ -228,17 +249,6 @@ const NetworkMap = React.memo(function NetworkMap({
 
         setInstant({ x: cx - (cx - tx) * factor, y: cy - (cy - ty) * factor, scale: newScale });
     };
-
-    useEffect(() => {
-        if (!focusKey || focusKey === lastFocusKey.current) return;
-        lastFocusKey.current = focusKey;
-
-        setInstant({
-            x: width / 2 - stationCoordinate![0] * 2,
-            y: height / 2 - stationCoordinate![1] * 2,
-            scale: 2,
-        });
-    }, [focusKey, stationCoordinate, width, height, setInstant]);
 
     useEffect(() => {
         const el = containerRef.current;

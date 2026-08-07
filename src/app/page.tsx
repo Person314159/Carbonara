@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import networkData from "@/app/lib/networkData";
 import { LegProp, RouteExclusions } from "@/app/lib/interfaces";
-import NetworkMap from "@/app/components/map/networkMap";
+import NetworkMap, { NetworkMapHandle } from "@/app/components/map/networkMap";
 import RoutingResult from "@/app/components/routeResult/routingResult";
 import { findMultiStopRoute } from "@/app/lib/routing/graph";
 import { getRouteHighlights, getStationKeysForName } from "@/app/lib/routing/mapHighlights";
@@ -29,6 +29,7 @@ export default function Home() {
     const [isSearching, setIsSearching] = useState(false);
     const [shareUrl, setShareUrl] = useState<string | null>(null);
     const mapContainerRef = useRef<HTMLDivElement>(null);
+    const mapRef = useRef<NetworkMapHandle>(null);
     const [mapSize, setMapSize] = useState({ width: 1280 - 2 * 16, height: 800 });
 
     useEffect(() => {
@@ -44,13 +45,16 @@ export default function Home() {
         return () => observer.disconnect();
     }, []);
 
-    const stationCoordinate = useMemo(
-        () =>
-            searchStation
-                ? networkData.stations.find((station) => station.name === searchStation)?.coordinate
-                : undefined,
-        [searchStation]
-    );
+    // Focusing the map is a user action — picking a station in the search box, or clicking one
+    // in the results — so it calls into the map directly instead of routing a coordinate back
+    // down as a prop for the map to react to.
+    const handleStationFocus = useCallback((name: string) => {
+        setSearchStation(name);
+
+        const coordinate = networkData.stations.find((station) => station.name === name)?.coordinate;
+
+        if (coordinate) mapRef.current?.focusStation(coordinate);
+    }, []);
     const searchedStationKeys = useMemo(
         () => (searchStation ? getStationKeysForName(searchStation) : []),
         [searchStation]
@@ -223,7 +227,7 @@ export default function Home() {
                             />
 
                             <div role="region" aria-label="Route Results" aria-live="polite">
-                                <RoutingResult route={route} shareUrl={shareUrl} onStationFocus={setSearchStation} />
+                                <RoutingResult route={route} shareUrl={shareUrl} onStationFocus={handleStationFocus} />
                             </div>
                         </div>
 
@@ -231,7 +235,7 @@ export default function Home() {
 
                         <div role="region" aria-label="Station search for map focus" className="mb-5">
                             <p className="mb-2">Search and focus a station on the map:</p>
-                            <SearchableSelect value={searchStation} setValue={setSearchStation} />
+                            <SearchableSelect value={searchStation} setValue={handleStationFocus} />
                         </div>
 
                         <div className="line-border" role="separator" />
@@ -241,9 +245,9 @@ export default function Home() {
                         <div role="region" aria-label="Network Map">
                             <div ref={mapContainerRef} style={{ width: "100%", height: "min(800px, 80vh)" }}>
                                 <NetworkMap
+                                    ref={mapRef}
                                     width={mapSize.width}
                                     height={mapSize.height}
-                                    stationCoordinate={stationCoordinate}
                                     highlightEdgeIds={highlightedEdges}
                                     highlightStationKeys={allHighlightStationKeys}
                                     onStationClick={handleStationClick}
