@@ -1,7 +1,6 @@
 import React, { Suspense, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useGesture } from "@use-gesture/react";
 import networkData from "@/app/lib/networkData";
-import underlaySrc from "../../../../public/NE2_HR_LC_SR_W_DR.webp";
 
 const SvgWrapper = React.lazy(() => import("../../vendor/rmp/components/svg-wrapper"));
 
@@ -10,9 +9,40 @@ const MAX_SCALE = 4;
 const HS = 73728 / 20000;
 // A tap within this many screen pixels of a station's coordinate counts as clicking it.
 const STATION_TAP_RADIUS_PX = 14;
-// Below this underlay opacity the backdrop is still dark enough that black station names
-// are unreadable, so they flip to white — see .rmp-dark-backdrop in globals.css.
-const DARK_BACKDROP_UNDERLAY_OPACITY = 0.3;
+
+// The content box every layer shares, in SVG units. Its origin sits at SVG (-10000, -5000).
+const CONTENT_W = 20000;
+const CONTENT_H = 10000;
+
+// The underlay is NASA GIBS imagery served as WMTS tiles in EPSG:4326 — the only widely
+// available projection that matches the map, since the world is equirectangular and every
+// Web Mercator source distorts latitude by ln(tan(π/4 + φ/2)). No API key, CORS is open.
+const GIBS_ENDPOINT = "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best";
+const GIBS_LAYER = "BlueMarble_ShadedRelief_Bathymetry";
+const GIBS_MATRIX_SET = "500m";
+// The "500m" matrix set stops here, at a 81920 x 40960 world raster.
+const GIBS_MAX_Z = 7;
+const GIBS_TILE_PX = 512;
+// Level 0 spreads one 512px tile across 16000 content units; every level halves that.
+const TILE_SPAN_Z0 = 16000;
+// Coarse layer kept mounted under the detail tiles so a zoom change never flashes blank
+// while the new level loads. 3x2 tiles, ~160 KB, and it is also exactly the level the
+// resolution formula picks at the default global zoom, so it usually costs nothing extra.
+const BASE_Z = 1;
+// Extra ring of tiles fetched outside the viewport so a drag doesn't reveal blank space.
+const TILE_MARGIN = 1;
+// Tiles are grown fractionally so neighbours overlap, hiding sub-pixel seams once scaled.
+const TILE_BLEED = 1.004;
+
+// Tile grid at a level: 512px tiles over a 640·2^z x 320·2^z world raster, so the last
+// row and column overhang the map edge wherever that doesn't divide evenly (z=1 is 3x2,
+// not 4x2). The overhang is clipped by the layer's overflow:hidden.
+const tileSpanAt = (z: number) => TILE_SPAN_Z0 / 2 ** z;
+const tileColsAt = (z: number) => Math.ceil(CONTENT_W / tileSpanAt(z));
+const tileRowsAt = (z: number) => Math.ceil(CONTENT_H / tileSpanAt(z));
+
+const tileUrl = (z: number, row: number, col: number) =>
+    `${GIBS_ENDPOINT}/${GIBS_LAYER}/default/default/${GIBS_MATRIX_SET}/${z}/${row}/${col}.jpeg`;
 
 export type NetworkMapProps = {
     width: number;
@@ -50,6 +80,71 @@ const ZOOM_TARGETS: [string, number, number, number][] = [
     ["Oceania", -8100, -1600, 0.3],
 ];
 
+// The inclusive range of tiles worth having mounted for a given transform.
+type TileWindow = { z: number; col0: number; col1: number; row0: number; row1: number };
+
+function computeTileWindow(t: Transform, viewW: number, viewH: number): TileWindow {
+    const dpr = typeof window === "undefined" ? 1 : Math.min(window.devicePixelRatio || 1, 2);
+    // Coarsest level whose 512px tiles are still at least as dense as the screen, so the
+    // underlay is never upsampled until the matrix set itself runs out at GIBS_MAX_Z.
+    const wanted = Math.ceil(Math.log2((TILE_SPAN_Z0 * t.scale * dpr) / GIBS_TILE_PX));
+    const z = Math.min(GIBS_MAX_Z, Math.max(BASE_Z, wanted));
+    const span = tileSpanAt(z);
+    // Screen -> content, the inverse of the offsets applyDOM puts on every layer.
+    const contentTx = t.x - (CONTENT_W / 2) * t.scale;
+    const contentTy = t.y - (CONTENT_H / 2) * t.scale;
+    const maxCol = tileColsAt(z) - 1;
+    const maxRow = tileRowsAt(z) - 1;
+    const clamp = (v: number, hi: number) => Math.min(hi, Math.max(0, v));
+
+    return {
+        z,
+        col0: clamp(Math.floor((0 - contentTx) / t.scale / span) - TILE_MARGIN, maxCol),
+        col1: clamp(Math.floor((viewW - contentTx) / t.scale / span) + TILE_MARGIN, maxCol),
+        row0: clamp(Math.floor((0 - contentTy) / t.scale / span) - TILE_MARGIN, maxRow),
+        row1: clamp(Math.floor((viewH - contentTy) / t.scale / span) + TILE_MARGIN, maxRow),
+    };
+}
+
+const sameTileWindow = (a: TileWindow | null, b: TileWindow) =>
+    a !== null && a.z === b.z && a.col0 === b.col0 && a.col1 === b.col1 && a.row0 === b.row0 && a.row1 === b.row1;
+
+function renderTiles({ z, col0, col1, row0, row1 }: TileWindow): React.ReactElement[] {
+    const span = tileSpanAt(z);
+    const tiles: React.ReactElement[] = [];
+
+    for (let row = row0; row <= row1; row++) {
+        for (let col = col0; col <= col1; col++) {
+            tiles.push(
+                <img
+                    key={`${z}/${row}/${col}`}
+                    src={tileUrl(z, row, col)}
+                    alt=""
+                    draggable={false}
+                    style={{
+                        position: "absolute",
+                        left: col * span,
+                        top: row * span,
+                        width: span * TILE_BLEED,
+                        height: span * TILE_BLEED,
+                        display: "block",
+                    }}
+                />
+            );
+        }
+    }
+
+    return tiles;
+}
+
+const BASE_TILE_WINDOW: TileWindow = {
+    z: BASE_Z,
+    col0: 0,
+    col1: tileColsAt(BASE_Z) - 1,
+    row0: 0,
+    row1: tileRowsAt(BASE_Z) - 1,
+};
+
 const NetworkMap = React.memo(function NetworkMap({
     width,
     height,
@@ -67,39 +162,56 @@ const NetworkMap = React.memo(function NetworkMap({
     const transformRef = useRef<Transform>({ x: width / 2, y: height / 2, scale: 0.06 });
     const rectRef = useRef<DOMRect | null>(null);
     const isPinchingRef = useRef(false);
-    const underlayRef = useRef<HTMLImageElement>(null);
-    // Off by default: the underlay image is only mounted (and therefore only fetched)
-    // once the user drags the opacity slider above 0.
+    const underlayRef = useRef<HTMLDivElement>(null);
+    // Off by default: no underlay tile is mounted (and therefore none is fetched) until
+    // the user drags the opacity slider above 0.
     const [underlayOpacity, setUnderlayOpacity] = useState(0);
+    const [tileWindow, setTileWindow] = useState<TileWindow | null>(null);
+    const underlayEnabled = underlayOpacity > 0;
 
     const focusKey = stationCoordinate?.length === 2 ? `${stationCoordinate[0]},${stationCoordinate[1]}` : null;
 
     const clampScale = (s: number) => Math.min(Math.max(s, MIN_SCALE), MAX_SCALE);
 
-    const applyDOM = useCallback((t: Transform) => {
-        // Both the SVG layer and the underlay image have their content origin at SVG coord (-10000, -5000),
-        // so both transforms share the same tx/ty offset formula.
-        const contentTx = t.x - 10000 * t.scale;
-        const contentTy = t.y - 5000 * t.scale;
+    const applyDOM = useCallback(
+        (t: Transform) => {
+            // The SVG layer and the underlay layer both have their content origin at SVG coord
+            // (-10000, -5000) and are both CONTENT_W x CONTENT_H, so they share one transform.
+            const contentTx = t.x - (CONTENT_W / 2) * t.scale;
+            const contentTy = t.y - (CONTENT_H / 2) * t.scale;
+            const transform = `matrix(${t.scale},0,0,${t.scale},${contentTx},${contentTy})`;
 
-        if (gRef.current) {
-            gRef.current.style.transform = `matrix(${t.scale},0,0,${t.scale},${contentTx},${contentTy})`;
-        }
+            if (gRef.current) {
+                gRef.current.style.transform = transform;
+            }
 
-        if (underlayRef.current) {
-            const iw = underlaySrc.width;
-            const ih = underlaySrc.height;
-            const sx = t.scale * (20000 / iw);
-            const sy = t.scale * (10000 / ih);
+            if (underlayRef.current) {
+                underlayRef.current.style.transform = transform;
+            }
 
-            underlayRef.current.style.transform = `matrix(${sx},0,0,${sy},${contentTx},${contentTy})`;
-        }
-    }, []);
+            // Culling: re-render only when the transform crosses into a different tile range,
+            // not on every gesture frame. Settles after one pass because the recomputed window
+            // then matches state and the setter bails out. The useLayoutEffect below calls this
+            // on every render, so switching the underlay on also seeds the window here — before
+            // paint, and with no effect needed to derive it.
+            if (underlayEnabled) {
+                const next = computeTileWindow(t, width, height);
 
-    // Runs after every render — React can never "win" the DOM transform value.
+                setTileWindow((prev) => (sameTileWindow(prev, next) ? prev : next));
+            }
+        },
+        [width, height, underlayEnabled]
+    );
+
+    // Every transform the user drives goes through setInstant, which writes the DOM
+    // synchronously, and React never clobbers it in between — `transform` is absent from both
+    // divs' style props, so a re-render leaves it alone. That leaves two jobs for this effect:
+    // seeding a div that has just mounted without a transform (the map on first render, the
+    // underlay when it is switched on), and recomputing the tile window after a resize.
+    // applyDOM's own deps are exactly those triggers, so they are the right deps here too.
     useLayoutEffect(() => {
         applyDOM(transformRef.current);
-    });
+    }, [applyDOM]);
 
     const setInstant = useCallback(
         (t: Transform) => {
@@ -279,31 +391,33 @@ const NetworkMap = React.memo(function NetworkMap({
     return (
         <div className="relative">
             <div style={{ position: "relative", width, height: height, overflow: "hidden", borderRadius: 14 }}>
-                {underlayOpacity > 0 && (
-                    <img
+                {underlayEnabled && (
+                    <div
                         ref={underlayRef}
-                        src={underlaySrc.src}
-                        width={underlaySrc.width}
-                        height={underlaySrc.height}
-                        alt=""
                         style={{
                             position: "absolute",
                             left: 0,
                             top: 0,
+                            width: CONTENT_W,
+                            height: CONTENT_H,
                             transformOrigin: "0 0",
                             willChange: "transform",
                             opacity: underlayOpacity,
                             pointerEvents: "none",
-                            display: "block",
+                            // The tile grid's last row and column overhang the map edge wherever
+                            // 512px doesn't divide the level evenly, so clip to the content box.
+                            overflow: "hidden",
                         }}
-                    />
+                    >
+                        {renderTiles(BASE_TILE_WINDOW)}
+                        {tileWindow && tileWindow.z > BASE_Z && renderTiles(tileWindow)}
+                    </div>
                 )}
                 {/* HTML div wrapper so CSS transform creates a proper GPU compositing layer.
                     The SVG uses viewBox "-10000 -5000 20000 10000" so its coordinate origin
                     aligns with the div's top-left, matching the applyDOM offset formula. */}
                 <div
                     ref={gRef}
-                    className={underlayOpacity < DARK_BACKDROP_UNDERLAY_OPACITY ? "rmp-dark-backdrop" : undefined}
                     style={{
                         position: "absolute",
                         left: 0,
@@ -354,6 +468,11 @@ const NetworkMap = React.memo(function NetworkMap({
                 className="btn absolute right-3.75 bottom-3.75 px-2 py-1 font-mono text-xs"
                 style={{ display: "none" }}
             />
+            {underlayEnabled && (
+                <div className="btn absolute bottom-3.75 left-3.75 px-2 py-1 text-[10px] opacity-70">
+                    Underlay imagery: NASA EOSDIS GIBS
+                </div>
+            )}
             <div className="absolute top-3.75 right-3.75 flex flex-col items-end">
                 <div className="btn mb-1 flex items-center gap-1.5 px-2 py-1">
                     <span className="text-xs">Underlay</span>

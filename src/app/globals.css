@@ -73,18 +73,15 @@
     filter: drop-shadow(0 0 2px rgba(255, 255, 0, 1)) drop-shadow(0 0 4px rgba(255, 255, 0, 0.7));
 }
 
-.rmp-name-outline text {
-    paint-order: stroke;
-    stroke: #ffffff;
-    /* Do not forget to define stroke-width when using this class! */
-    stroke-linejoin: round;
-}
+/* Station names always sit on a dark backdrop - the page background when the underlay is
+   off, or the GIBS satellite imagery when it is on - so the black fill the station
+   components set is unreadable. A CSS rule outranks their fill="black" presentation
+   attribute, so paint the glyphs white instead. No stroke: the halo this class used to
+   draw was white too, and white on white only makes the glyphs look bold.
 
-/* With the underlay hidden or very faint, station names sit on the dark page background,
-   so the black fill is unreadable. Match the fill to the white outline stroke instead,
-   and drop the stroke - white on white only makes the glyphs look bold. A CSS rule
-   outranks the fill="black" presentation attribute the station components set. */
-.rmp-dark-backdrop .rmp-name-outline text {
+   The exception is Antarctica, where white-on-ice is very low contrast at high underlay
+   opacity. Giving the text a dark stroke here instead of none would fix that. */
+.rmp-name-outline text {
     fill: #ffffff;
     stroke: none;
 }
