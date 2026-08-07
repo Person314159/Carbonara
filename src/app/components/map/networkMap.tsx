@@ -308,7 +308,7 @@ const NetworkMap = React.memo(function NetworkMap({
 
     useGesture(
         {
-            onDrag: ({ active, last, tap, delta: [dx, dy], xy: [px, py], cancel }) => {
+            onDrag: ({ active, tap, delta: [dx, dy], xy: [px, py], cancel }) => {
                 if (isPinchingRef.current) {
                     cancel();
                     return;
@@ -318,7 +318,10 @@ const NetworkMap = React.memo(function NetworkMap({
                     containerRef.current.style.cursor = active ? "grabbing" : "grab";
                 }
 
-                if (last && tap) {
+                // A press-and-release that never crosses the drag threshold is reported as a
+                // single emission with tap: true, active: false and no `last` flag — gating
+                // this on `last` as well would mean a click that doesn't move never registers.
+                if (tap) {
                     handleStationTap(px, py);
                     return;
                 }

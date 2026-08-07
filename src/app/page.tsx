@@ -59,9 +59,16 @@ export default function Home() {
         () => (searchStation ? getStationKeysForName(searchStation) : []),
         [searchStation]
     );
+    // Marks the stops the route will be built from as soon as they're picked, rather than only
+    // once a search has run — so a map click visibly lands somewhere.
+    const selectedStationKeys = useMemo(
+        () => stations.filter(Boolean).flatMap((name) => getStationKeysForName(name)),
+        [stations]
+    );
+    // Duplicates across the three sources are fine: they collapse into a Set before rendering.
     const allHighlightStationKeys = useMemo(
-        () => [...highlightedStations, ...searchedStationKeys],
-        [highlightedStations, searchedStationKeys]
+        () => [...highlightedStations, ...searchedStationKeys, ...selectedStationKeys],
+        [highlightedStations, searchedStationKeys, selectedStationKeys]
     );
     const runSearch = useCallback(
         (searchStations: string[], searchMetric: string, exclusions: SearchExclusions, updateUrl = true) => {
@@ -134,11 +141,24 @@ export default function Home() {
         runSearch(stations, metric, { excludedLines, excludedStations });
     }, [isSearching, runSearch, stations, metric, excludedLines, excludedStations]);
 
-    // Fill the next empty station slot (start, then vias, then end) with a clicked map station;
-    // once every slot is filled, append it as the new destination, which pushes the previous
-    // destination into a via.
+    // Clicking the map toggles a stop. A new station fills the next empty slot (start, then
+    // vias, then end) or, once every slot is taken, is appended as the new destination, which
+    // pushes the previous destination into a via. Clicking a station that is already a stop
+    // takes it back out, so a stop can never be listed twice — which also keeps the map from
+    // building the repeated-station route that runSearch rejects, and matches the dropdowns
+    // already hiding stations that are taken.
     const handleStationClick = useCallback((name: string) => {
         setStations((prev) => {
+            const selectedIdx = prev.indexOf(name);
+
+            if (selectedIdx !== -1) {
+                // Start and end are permanent slots, so at the minimum length of two the stop
+                // is cleared in place; any longer and the whole slot goes, as removeStop does.
+                if (prev.length <= 2) return prev.map((s, i) => (i === selectedIdx ? "" : s));
+
+                return prev.filter((_, i) => i !== selectedIdx);
+            }
+
             const emptyIdx = prev.findIndex((s) => s === "");
 
             if (emptyIdx !== -1) {
