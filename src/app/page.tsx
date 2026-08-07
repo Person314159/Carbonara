@@ -141,6 +141,19 @@ export default function Home() {
         runSearch(stations, metric, { excludedLines, excludedStations });
     }, [isSearching, runSearch, stations, metric, excludedLines, excludedStations]);
 
+    // Resets the journey itself — stops, result, map highlights and the shared URL — while
+    // leaving the metric and the exclusions alone, since those are settings the user chose
+    // rather than part of the route.
+    const handleRouteClear = useCallback(() => {
+        setStations(["", ""]);
+        setRoute(undefined);
+        setHighlightedEdges([]);
+        setHighlightedStations([]);
+        setError(undefined);
+        setShareUrl(null);
+        window.history.replaceState(null, "", window.location.pathname);
+    }, []);
+
     // Clicking the map toggles a stop. A new station fills the next empty slot (start, then
     // vias, then end) or, once every slot is taken, is appended as the new destination, which
     // pushes the previous destination into a via. Clicking a station that is already a stop
@@ -243,6 +256,7 @@ export default function Home() {
                                 excludedStations={excludedStations}
                                 setExcludedStations={setExcludedStations}
                                 onRouteFind={handleRouteFind}
+                                onRouteClear={handleRouteClear}
                                 error={error}
                                 isSearching={isSearching}
                             />

@@ -28,6 +28,24 @@ test("finds a route between two real stations and updates the share URL", async 
     await expect(page).toHaveURL(/stations=Rasht%7CUreki/);
 });
 
+test("clears the route, the stops and the share URL", async ({ page }) => {
+    await page.goto("/Carbonara");
+
+    const stationInputs = page.getByPlaceholder("Search station");
+
+    await selectStation(page, stationInputs.nth(0), "Rasht");
+    await selectStation(page, stationInputs.nth(1), "Ureki");
+    await page.getByRole("button", { name: "Find route between selected stations" }).click();
+    await expect(page.getByText("Total journey time:")).toBeVisible();
+
+    await page.getByRole("button", { name: "Clear the route" }).click();
+
+    await expect(page.getByText("Total journey time:")).toBeHidden();
+    await expect(stationInputs.nth(0)).toHaveValue("");
+    await expect(stationInputs.nth(1)).toHaveValue("");
+    await expect(page).toHaveURL(/\/Carbonara$/);
+});
+
 test("shows an error when a station is left unselected", async ({ page }) => {
     await page.goto("/Carbonara");
 

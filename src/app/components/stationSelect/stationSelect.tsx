@@ -13,6 +13,7 @@ interface StationSelectProps {
     excludedStations: string[];
     setExcludedStations: (value: string[]) => void;
     onRouteFind: () => void;
+    onRouteClear: () => void;
     error?: string;
     isSearching?: boolean;
 }
@@ -27,6 +28,7 @@ export const StationSelect = React.memo(function StationSelect({
     excludedStations,
     setExcludedStations,
     onRouteFind,
+    onRouteClear,
     error,
     isSearching = false,
 }: StationSelectProps) {
@@ -125,6 +127,14 @@ export const StationSelect = React.memo(function StationSelect({
                         onClick={swapStations}
                     >
                         ⇄ Swap
+                    </button>
+                    <button
+                        type="button"
+                        className="btn h-9 cursor-pointer rounded-lg px-3 text-(length:--font-size-sm)"
+                        aria-label="Clear the route"
+                        onClick={onRouteClear}
+                    >
+                        ✕ Clear
                     </button>
                 </div>
                 <button
