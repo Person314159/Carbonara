@@ -134,8 +134,9 @@ export default function Home() {
         runSearch(stations, metric, { excludedLines, excludedStations });
     }, [isSearching, runSearch, stations, metric, excludedLines, excludedStations]);
 
-    // Fill the next empty station slot (start, then waypoints, then end) with a clicked map
-    // station; once every slot is filled, append a new waypoint just before the end.
+    // Fill the next empty station slot (start, then vias, then end) with a clicked map station;
+    // once every slot is filled, append it as the new destination, which pushes the previous
+    // destination into a via.
     const handleStationClick = useCallback((name: string) => {
         setStations((prev) => {
             const emptyIdx = prev.findIndex((s) => s === "");
@@ -147,7 +148,7 @@ export default function Home() {
                 return next;
             }
 
-            return [...prev.slice(0, -1), name, prev[prev.length - 1]];
+            return [...prev, name];
         });
     }, []);
 

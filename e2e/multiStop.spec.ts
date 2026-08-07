@@ -38,3 +38,21 @@ test("adds a waypoint, routes a 3-station trip, removes it, then swaps start/end
     await expect(stationInputs.nth(0)).toHaveValue("Zugdidi");
     await expect(stationInputs.nth(1)).toHaveValue("Rasht");
 });
+
+test("adding a stop extends the journey past the current destination", async ({ page }) => {
+    await page.goto("/Carbonara");
+
+    const stationInputs = page.getByPlaceholder("Search station");
+
+    await selectStation(page, stationInputs.nth(0), "Rasht");
+    await selectStation(page, stationInputs.nth(1), "Ureki");
+
+    await page.getByRole("button", { name: "Add a stop" }).click();
+
+    // The new slot is the destination and Ureki shifts into a via, rather than an empty via
+    // being spliced in ahead of Ureki.
+    await expect(page.getByText("Via Station 1:")).toBeVisible();
+    await expect(stationInputs.nth(0)).toHaveValue("Rasht");
+    await expect(stationInputs.nth(1)).toHaveValue("Ureki");
+    await expect(stationInputs.nth(2)).toHaveValue("");
+});

@@ -40,11 +40,10 @@ export const StationSelect = React.memo(function StationSelect({
         setStations(next);
     };
 
+    // Extends the journey rather than splicing a gap into it: the new slot becomes the
+    // destination and the old destination shifts into a via, matching what a map click does.
     const addStop = () => {
-        const next = [...stations];
-
-        next.splice(lastIndex, 0, "");
-        setStations(next);
+        setStations([...stations, ""]);
     };
 
     const removeStop = (index: number) => {
@@ -93,6 +92,14 @@ export const StationSelect = React.memo(function StationSelect({
                         </div>
                     );
                 })}
+                <div className="flex-1">
+                    <p>End Station:</p>
+                    <SearchableSelect
+                        value={stations[lastIndex]}
+                        setValue={(v) => updateStation(lastIndex, v)}
+                        excluded={usedStations}
+                    />
+                </div>
                 <div className="flex-none">
                     <button
                         type="button"
@@ -102,14 +109,6 @@ export const StationSelect = React.memo(function StationSelect({
                     >
                         + Add stop
                     </button>
-                </div>
-                <div className="flex-1">
-                    <p>End Station:</p>
-                    <SearchableSelect
-                        value={stations[lastIndex]}
-                        setValue={(v) => updateStation(lastIndex, v)}
-                        excluded={usedStations}
-                    />
                 </div>
             </div>
 
