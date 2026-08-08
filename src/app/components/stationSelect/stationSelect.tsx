@@ -61,8 +61,11 @@ export const StationSelect = React.memo(function StationSelect({
 
     return (
         <div className="mb-5">
+            {/* Each field takes a whole row on a phone and shares one from sm up. `basis-full`
+                rather than `flex-1` alone: flex-1 lets two fields halve a narrow row, which
+                squeezes them below the width their own placeholder needs. */}
             <div className="flex flex-wrap gap-2 sm:items-end">
-                <div className="flex-1">
+                <div className="min-w-0 basis-full sm:flex-1 sm:basis-0">
                     <p>Start Station:</p>
                     <SearchableSelect
                         value={stations[0]}
@@ -74,7 +77,7 @@ export const StationSelect = React.memo(function StationSelect({
                     const index = i + 1;
 
                     return (
-                        <div className="flex-1" key={index}>
+                        <div className="min-w-0 basis-full sm:flex-1 sm:basis-0" key={index}>
                             <p className="flex items-center justify-between gap-2">
                                 <span>Via Station {index}:</span>
                                 <button
@@ -94,7 +97,7 @@ export const StationSelect = React.memo(function StationSelect({
                         </div>
                     );
                 })}
-                <div className="flex-1">
+                <div className="min-w-0 basis-full sm:flex-1 sm:basis-0">
                     <p>End Station:</p>
                     <SearchableSelect
                         value={stations[lastIndex]}
@@ -102,10 +105,10 @@ export const StationSelect = React.memo(function StationSelect({
                         excluded={usedStations}
                     />
                 </div>
-                <div className="flex-none">
+                <div className="basis-full sm:flex-none sm:basis-auto">
                     <button
                         type="button"
-                        className="btn h-9 cursor-pointer rounded-lg px-3 text-(length:--font-size-sm)"
+                        className="btn h-9 w-full cursor-pointer rounded-lg px-3 text-(length:--font-size-sm) sm:w-auto"
                         aria-label="Add a stop"
                         onClick={addStop}
                     >
@@ -115,27 +118,31 @@ export const StationSelect = React.memo(function StationSelect({
             </div>
 
             <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
-                <div className="flex items-center gap-2">
+                {/* One flex child on desktop so justify-between keeps it left of Find Route;
+                    on a phone it takes the full row and its own contents wrap inside it. */}
+                <div className="flex basis-full flex-wrap items-center gap-2 sm:basis-auto sm:flex-nowrap">
                     <NavigationModeToggle
                         checked={metric === "transfers"}
                         onChange={(checked) => setMetric(checked ? "transfers" : "time")}
                     ></NavigationModeToggle>
-                    <button
-                        type="button"
-                        className="btn h-9 cursor-pointer rounded-lg px-3 text-(length:--font-size-sm)"
-                        aria-label="Swap start and end stations"
-                        onClick={swapStations}
-                    >
-                        ⇄ Swap
-                    </button>
-                    <button
-                        type="button"
-                        className="btn h-9 cursor-pointer rounded-lg px-3 text-(length:--font-size-sm)"
-                        aria-label="Clear the route"
-                        onClick={onRouteClear}
-                    >
-                        ✕ Clear
-                    </button>
+                    <div className="flex basis-full gap-2 sm:basis-auto">
+                        <button
+                            type="button"
+                            className="btn h-9 flex-1 cursor-pointer rounded-lg px-3 text-(length:--font-size-sm) sm:flex-none"
+                            aria-label="Swap start and end stations"
+                            onClick={swapStations}
+                        >
+                            ⇄ Swap
+                        </button>
+                        <button
+                            type="button"
+                            className="btn h-9 flex-1 cursor-pointer rounded-lg px-3 text-(length:--font-size-sm) sm:flex-none"
+                            aria-label="Clear the route"
+                            onClick={onRouteClear}
+                        >
+                            ✕ Clear
+                        </button>
+                    </div>
                 </div>
                 <button
                     className="find-route-btn"

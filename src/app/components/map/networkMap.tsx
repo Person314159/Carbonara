@@ -68,7 +68,7 @@ interface ZoomToButtonProps {
 
 function ZoomToButton({ onClick, name }: ZoomToButtonProps) {
     return (
-        <button type="button" className="btn p-1 text-xs/3" onClick={onClick}>
+        <button type="button" className="btn rounded px-2 py-2 text-xs/3 sm:rounded-none sm:p-1" onClick={onClick}>
             {name}
         </button>
     );
@@ -174,6 +174,8 @@ const NetworkMap = React.memo(function NetworkMap({
     // the user drags the opacity slider above 0.
     const [underlayOpacity, setUnderlayOpacity] = useState(0);
     const [tileWindow, setTileWindow] = useState<TileWindow | null>(null);
+    // Only consulted below the sm breakpoint, where the control cluster is collapsible.
+    const [controlsOpen, setControlsOpen] = useState(false);
     const underlayEnabled = underlayOpacity > 0;
 
     const clampScale = (s: number) => Math.min(Math.max(s, MIN_SCALE), MAX_SCALE);
@@ -486,32 +488,65 @@ const NetworkMap = React.memo(function NetworkMap({
                     Underlay imagery: NASA EOSDIS GIBS
                 </div>
             )}
-            <div className="absolute top-3.75 right-3.75 flex flex-col items-end">
-                <div className="btn mb-1 flex items-center gap-1.5 px-2 py-1">
-                    <span className="text-xs">Underlay</span>
-                    <input
-                        type="range"
-                        min={0}
-                        max={1}
-                        step={0.05}
-                        value={underlayOpacity}
-                        onChange={(e) => setUnderlayOpacity(parseFloat(e.target.value))}
-                        className="w-20"
-                    />
+            <div className="absolute top-3.75 right-3.75 flex flex-col items-end gap-1">
+                {/* The full cluster is nine zoom targets plus the slider — a column tall and wide
+                    enough to cover most of a phone-sized map, so there it collapses behind a
+                    toggle. From sm up it is always open and this button never renders. */}
+                <button
+                    type="button"
+                    className="btn h-9 w-9 rounded text-lg sm:hidden"
+                    aria-label={controlsOpen ? "Hide map controls" : "Show map controls"}
+                    aria-expanded={controlsOpen}
+                    onClick={() => setControlsOpen((open) => !open)}
+                >
+                    {controlsOpen ? "✕" : "☰"}
+                </button>
+                <div
+                    className={`${controlsOpen ? "flex" : "hidden"} flex-col items-end rounded-lg bg-(--colour-button)/90 p-1 sm:flex sm:bg-transparent sm:p-0`}
+                >
+                    <div className="btn mb-1 flex items-center gap-1.5 px-2 py-1">
+                        <span className="text-xs">Underlay</span>
+                        <input
+                            type="range"
+                            min={0}
+                            max={1}
+                            step={0.05}
+                            value={underlayOpacity}
+                            onChange={(e) => setUnderlayOpacity(parseFloat(e.target.value))}
+                            className="w-20"
+                        />
+                    </div>
+                    {/* `sm:contents` dissolves this wrapper from sm up, so the two buttons stay
+                        direct children of the column there and the desktop layout is untouched. */}
+                    <div className="mb-2 flex gap-1 sm:contents">
+                        <button
+                            type="button"
+                            className="btn h-9 w-9 rounded text-[22px] sm:h-auto sm:w-6.5 sm:rounded-none"
+                            onClick={() => zoomStep(1.2)}
+                        >
+                            +
+                        </button>
+                        <button
+                            type="button"
+                            className="btn h-9 w-9 rounded text-[22px] sm:mb-4! sm:h-auto sm:w-6.5 sm:rounded-none"
+                            onClick={() => zoomStep(0.8)}
+                        >
+                            -
+                        </button>
+                    </div>
+                    {/* Two columns on a phone: nine stacked targets are taller than the map itself. */}
+                    <div className="grid grid-cols-2 gap-1 sm:flex sm:flex-col sm:items-end sm:gap-0">
+                        {ZOOM_TARGETS.map(([name, dx, dy, scale]) => (
+                            <ZoomToButton
+                                key={name}
+                                name={name}
+                                onClick={() =>
+                                    setInstant({ x: dx * scale + width / 2, y: dy * scale + height / 2, scale })
+                                }
+                            />
+                        ))}
+                    </div>
                 </div>
-                <button type="button" className="btn w-6.5 text-[22px]" onClick={() => zoomStep(1.2)}>
-                    +
-                </button>
-                <button type="button" className="btn mb-4! w-6.5 text-[22px]" onClick={() => zoomStep(0.8)}>
-                    -
-                </button>
-                {ZOOM_TARGETS.map(([name, dx, dy, scale]) => (
-                    <ZoomToButton
-                        key={name}
-                        name={name}
-                        onClick={() => setInstant({ x: dx * scale + width / 2, y: dy * scale + height / 2, scale })}
-                    />
-                ))}
             </div>
         </div>
     );

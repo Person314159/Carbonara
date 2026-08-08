@@ -214,29 +214,33 @@ export default function Home() {
 
     return (
         <>
-            <main className="fade-in mx-auto mt-0 mb-0 w-full max-w-7xl rounded-lg px-4 shadow-lg" role="main">
-                <div className="grid grid-cols-2 gap-4">
-                    <div className="col-span-full">
+            <main className="fade-in mx-auto mt-0 mb-0 w-full max-w-7xl rounded-lg px-1 shadow-lg sm:px-4" role="main">
+                <div>
+                    <div>
                         <h1
-                            className="text-center font-(family-name:--font-primary) text-[2rem]/(--line-height-tight) font-bold tracking-wider"
+                            className="text-center font-(family-name:--font-primary) text-[1.5rem]/(--line-height-tight) font-bold tracking-wider sm:text-[2rem]/(--line-height-tight)"
                             style={{ color: "var(--colour-primary)" }}
                         >
                             CARBONARA
                         </h1>
                         <h2
-                            className="mb-5 text-center font-(family-name:--font-primary) text-[1.5rem]/(--line-height-tight) font-bold tracking-wide"
+                            className="mb-2 text-center font-(family-name:--font-primary) text-[1.125rem]/(--line-height-tight) font-bold tracking-wide sm:mb-5 sm:text-[1.5rem]/(--line-height-tight)"
                             style={{ color: "var(--colour-primary-light)" }}
                         >
                             A P.E.S.T.O. Train Router
                         </h2>
-                        <p className="mb-5 text-center text-base/(--line-height-relaxed)">
+                        <p className="mb-2 text-center text-(length:--font-size-sm)/(--line-height-normal) sm:mb-5 sm:text-base/(--line-height-relaxed)">
                             Comprehensive And Rapid Browser for Organized Navigation And Route Assistance
                         </p>
 
                         <div className="line-border" role="separator" />
 
+                        {/* The standing instruction is desktop-only: on a phone it costs a third of the
+                            viewport to say what the two labelled inputs directly below it already say. */}
                         <div className="text-center text-base/(--line-height-relaxed) transition-all">
-                            <p>Select your starting point and destination to find the best route.</p>
+                            <p className="hidden sm:block">
+                                Select your starting point and destination to find the best route.
+                            </p>
                             <p className="mt-2 text-(length:--font-size-sm)/(--line-height-normal)">
                                 <b>
                                     Note: Total journey time does not take into account transfer times, and assumes the
@@ -268,7 +272,7 @@ export default function Home() {
 
                         <div className="line-border" role="separator" />
 
-                        <div role="region" aria-label="Station search for map focus" className="mb-5">
+                        <div role="region" aria-label="Station search for map focus" className="mb-3 sm:mb-5">
                             <p className="mb-2">Search and focus a station on the map:</p>
                             <SearchableSelect value={searchStation} setValue={handleStationFocus} />
                         </div>
@@ -276,9 +280,11 @@ export default function Home() {
                         <div className="line-border" role="separator" />
                     </div>
 
-                    <div className="col-span-full transition-all">
+                    <div className="transition-all">
                         <div role="region" aria-label="Network Map">
-                            <div ref={mapContainerRef} style={{ width: "100%", height: "min(800px, 80vh)" }}>
+                            {/* Shorter on a phone than the 80vh it takes on desktop: the map swallows
+                                touch events to pan, so a taller one leaves too little page to scroll by. */}
+                            <div ref={mapContainerRef} className="h-[60vh] w-full sm:h-[min(800px,80vh)]">
                                 <NetworkMap
                                     ref={mapRef}
                                     width={mapSize.width}

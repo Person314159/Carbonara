@@ -4,7 +4,9 @@ import { Group, Switch, Text } from "@mantine/core";
 
 function NavigationModeToggle({ checked, onChange }: { checked: boolean; onChange: (checked: boolean) => void }) {
     return (
-        <Group align="center">
+        // nowrap: the two labels breaking onto separate lines around the switch reads as two
+        // settings rather than the ends of one, and it only ever happens on a narrow screen.
+        <Group align="center" gap="xs" wrap="nowrap">
             <Text size="sm">Min. time</Text>
             <Switch
                 checked={checked}
