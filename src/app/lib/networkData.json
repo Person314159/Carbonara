@@ -367,6 +367,12 @@
             "type": "LSR"
         },
         {
+            "id": "E42",
+            "name": "Baltic Sea Line",
+            "colour": "#192ab3",
+            "type": "LSR"
+        },
+        {
             "id": "E43",
             "name": "E43",
             "colour": "#5e53a1",
@@ -430,6 +436,12 @@
             "id": "E53",
             "name": "Gotland Line",
             "colour": "#c8228a",
+            "type": "LSR"
+        },
+        {
+            "id": "E54",
+            "name": "Scandinavian Line",
+            "colour": "#4a86e8",
             "type": "LSR"
         },
         {
@@ -596,7 +608,7 @@
         },
         {
             "id": "N11",
-            "name": "Metro-North Railroad",
+            "name": "Metro-North Local",
             "colour": "#1cc4c9",
             "type": "LSR"
         },
@@ -764,7 +776,7 @@
         },
         {
             "id": "N46",
-            "name": "Metro-North Express Line",
+            "name": "Metro-North Express",
             "colour": "#009c2e",
             "type": "LSR"
         },
@@ -1037,6 +1049,12 @@
             "name": "South Atlantic Link",
             "colour": "#fcd20e",
             "type": "LSR"
+        },
+        {
+            "id": "T17",
+            "name": "Canadian Pacific Link",
+            "colour": "#f9801d",
+            "type": "LSR"
         }
     ],
     "stations": [
@@ -1264,6 +1282,9 @@
         },
         {
             "name": "Cape Canaveral"
+        },
+        {
+            "name": "Cape Knox"
         },
         {
             "name": "Cape Norvegia"
@@ -1947,6 +1968,9 @@
             "name": "Matsumoto"
         },
         {
+            "name": "Maui"
+        },
+        {
             "name": "Mazatlán"
         },
         {
@@ -2059,6 +2083,9 @@
         },
         {
             "name": "North Mediterranean"
+        },
+        {
+            "name": "North Pacific"
         },
         {
             "name": "Notsé"
@@ -2629,6 +2656,9 @@
         },
         {
             "name": "Trinidad"
+        },
+        {
+            "name": "Trondheim"
         },
         {
             "name": "Tucson"
@@ -4245,6 +4275,12 @@
             "time": 85
         },
         {
+            "from": "Visby",
+            "to": "Gdańsk",
+            "lineID": "E42",
+            "time": 50
+        },
+        {
             "from": "Çorlu",
             "to": "Istanbul",
             "lineID": "E43",
@@ -4448,6 +4484,11 @@
             "from": "Visby",
             "to": "Stockholm",
             "lineID": "E53"
+        },
+        {
+            "from": "Oslo",
+            "to": "Trondheim",
+            "lineID": "E54"
         },
         {
             "from": "Central Mediterranean",
@@ -6297,7 +6338,7 @@
             "from": "Bering Sea",
             "to": "Vancouver",
             "lineID": "T01",
-            "time": 615
+            "time": 730
         },
         {
             "from": "Basra",
@@ -6980,6 +7021,28 @@
             "to": "Bissau",
             "lineID": "T16",
             "time": 485
+        },
+        {
+            "from": "Haida Gwaii",
+            "to": "Cape Knox",
+            "lineID": "T17",
+            "time": 25
+        },
+        {
+            "from": "Cape Knox",
+            "to": "Maui",
+            "lineID": "T17",
+            "time": 725
+        },
+        {
+            "from": "Maui",
+            "to": "North Pacific",
+            "lineID": "T17"
+        },
+        {
+            "from": "North Pacific",
+            "to": "Taipei",
+            "lineID": "T17"
         },
         {
             "from": "Amsterdam Central",
