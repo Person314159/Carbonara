@@ -14,8 +14,15 @@ export class Reporter {
     }
 }
 
-/** Warnings are logged and tolerated; errors fail the test. */
+/**
+ * Warnings are logged and tolerated; errors fail the test.
+ *
+ * Both lists lead with a count, so the total survives vitest truncating a long diff.
+ */
 export function expectNoErrors(report: Reporter) {
-    if (report.warnings.length) console.warn(report.warnings.join("\n"));
-    expect(report.errors).toEqual([]);
+    if (report.warnings.length) console.warn([`${report.warnings.length} warning(s):`, ...report.warnings].join("\n"));
+
+    const errors = report.errors.length ? [`${report.errors.length} error(s):`, ...report.errors] : [];
+
+    expect(errors).toEqual([]);
 }

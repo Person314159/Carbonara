@@ -5548,7 +5548,8 @@
         {
             "from": "Albany",
             "to": "Niagara Falls",
-            "lineID": "N46"
+            "lineID": "N46",
+            "time": 70
         },
         {
             "from": "Niagara Falls",
@@ -6374,7 +6375,7 @@
             "from": "Danube Delta",
             "to": "Odesa",
             "lineID": "T02",
-            "time": 35
+            "time": 30
         },
         {
             "from": "Reykjavík",
@@ -6547,8 +6548,14 @@
         },
         {
             "from": "Walvis Bay",
-            "to": "Asunción",
+            "to": "Rio de Janeiro",
             "lineID": "T04"
+        },
+        {
+            "from": "Rio de Janeiro",
+            "to": "Asunción",
+            "lineID": "T04",
+            "time": 220
         },
         {
             "from": "Rasht",

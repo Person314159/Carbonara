@@ -51,7 +51,7 @@ const defaultPerpendicularPathAttributes: PerpendicularPathAttributes = {
     startFrom: "from",
     offsetFrom: 0,
     offsetTo: 0,
-    roundCornerFactor: 5,
+    roundCornerFactor: 2.5,
 };
 const perpendicularPath: LinePath<PerpendicularPathAttributes> = {
     generatePath: generatePerpendicularPath,
