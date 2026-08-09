@@ -19,14 +19,6 @@ export interface Connection {
 
 export type TimedConnection = Connection & { time: number };
 
-export interface Neighbour {
-    lineID: string;
-    destination: string;
-    time?: number;
-}
-
-export type TimedNeighbour = Neighbour & { time: number };
-
 export interface NetworkData {
     lines: Line[];
     stations: Station[];

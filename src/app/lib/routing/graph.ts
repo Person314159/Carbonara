@@ -4,42 +4,132 @@ import {
     LegProp,
     Line,
     MultiStopRouteResult,
-    Neighbour,
     RouteExclusions,
     Station,
     TimedConnection,
-    TimedNeighbour,
 } from "@/app/lib/interfaces";
 import { PriorityQueue } from "@datastructures-js/priority-queue";
-import { tupleCmp } from "@/app/lib/util";
+import { compareCost } from "@/app/lib/util";
 
-interface Node {
-    destination: string;
-    lineID: string;
+// `time` is UNTIMED for a segment that is planned but not yet surveyed, which routing skips.
+interface GraphEdge {
+    line: number;
+    to: number;
+    time: number;
 }
 
-export type RoutingGraph = Map<string, Neighbour[]>;
+interface QueueEntry {
+    node: number;
+    primary: number;
+    secondary: number;
+}
+
+const UNTIMED = 0;
+
+// Routing runs over the product of stations and lines: a node is "at this station, having
+// arrived on this line", which is what lets a transfer be counted as part of the distance.
+//
+// Stations, lines and product nodes are all integer indices, so the search reads and writes
+// typed arrays instead of building and hashing a `${station}-${lineID}` key per relaxation.
+export interface RoutingGraph {
+    stationNames: string[];
+    stationIndex: Map<string, number>;
+    lineIDs: string[];
+    lineIndex: Map<string, number>;
+    // Undirected: every connection is in both endpoints' lists.
+    edges: GraphEdge[][];
+    lineCount: number;
+    nodeCount: number;
+    nodeStation: Int32Array;
+    nodeLine: Int32Array;
+    nodeIndex: Map<number, number>;
+}
 
 export type LinesById = Map<string, Line>;
 
-export type DijkstraResult = {
-    distances: Map<string, [number, number]>;
-    previous: Map<string, TimedNeighbour | null>;
-};
+// Parallel arrays rather than tuples so a comparison in the hot loop doesn't allocate.
+// `previousTime` is carried because reconstructPath can't recover it from the cost alone.
+export interface DijkstraResult {
+    primary: Float64Array;
+    secondary: Float64Array;
+    previousNode: Int32Array;
+    previousTime: Int32Array;
+}
 
-export type DijkstraCache = Map<string, DijkstraResult>;
+function nodeFor(graph: RoutingGraph, station: number, line: number): number {
+    return graph.nodeIndex.get(station * graph.lineCount + line)!;
+}
+
+function toIndexSet(index: Map<string, number>, names: Set<string> | undefined): Set<number> | undefined {
+    if (!names?.size) return undefined;
+
+    const indices = new Set<number>();
+
+    for (const name of names) {
+        const i = index.get(name);
+
+        if (i !== undefined) indices.add(i);
+    }
+
+    return indices.size ? indices : undefined;
+}
 
 export function buildRoutingGraph(stations: Station[], connections: Connection[]): RoutingGraph {
-    const graph: RoutingGraph = new Map();
+    const stationNames = stations.map((station) => station.name);
+    const stationIndex = new Map(stationNames.map((name, i) => [name, i]));
+    const lineIDs: string[] = [];
+    const lineIndex = new Map<string, number>();
+    const edges: GraphEdge[][] = stationNames.map(() => []);
 
-    stations.forEach((station) => graph.set(station.name, []));
+    for (const { from, to, lineID, time } of connections) {
+        const fromStation = stationIndex.get(from);
+        const toStation = stationIndex.get(to);
 
-    connections.forEach(({ from, to, lineID, time }) => {
-        graph.get(from)?.push({ lineID, destination: to, time });
-        graph.get(to)?.push({ lineID, destination: from, time });
-    });
+        if (fromStation === undefined || toStation === undefined) continue;
 
-    return graph;
+        let line = lineIndex.get(lineID);
+
+        if (line === undefined) {
+            line = lineIDs.length;
+            lineIDs.push(lineID);
+            lineIndex.set(lineID, line);
+        }
+
+        edges[fromStation].push({ line, to: toStation, time: time ?? UNTIMED });
+        edges[toStation].push({ line, to: fromStation, time: time ?? UNTIMED });
+    }
+
+    // Nodes are numbered after every line has an index, so `lineCount` is final and the
+    // composite key is stable.
+    const lineCount = lineIDs.length;
+    const nodeIndex = new Map<number, number>();
+    const nodeStation: number[] = [];
+    const nodeLine: number[] = [];
+
+    for (let station = 0; station < edges.length; station++) {
+        for (const edge of edges[station]) {
+            const key = station * lineCount + edge.line;
+
+            if (nodeIndex.has(key)) continue;
+
+            nodeIndex.set(key, nodeStation.length);
+            nodeStation.push(station);
+            nodeLine.push(edge.line);
+        }
+    }
+
+    return {
+        stationNames,
+        stationIndex,
+        lineIDs,
+        lineIndex,
+        edges,
+        lineCount,
+        nodeCount: nodeStation.length,
+        nodeStation: Int32Array.from(nodeStation),
+        nodeLine: Int32Array.from(nodeLine),
+        nodeIndex,
+    };
 }
 
 export function buildLinesById(lines: Line[]): LinesById {
@@ -49,83 +139,79 @@ export function buildLinesById(lines: Line[]): LinesById {
 networkData.stations.sort((a, b) => a.name.localeCompare(b.name));
 
 const graph = buildRoutingGraph(networkData.stations, networkData.connections);
-const dijkstraCache: DijkstraCache = new Map();
 const linesById = buildLinesById(networkData.lines);
 
 export const options = networkData.stations.map((station) => station.name);
 
 export function dijkstra(
     graph: RoutingGraph,
-    cache: DijkstraCache,
     start: string,
     metric: string,
     exclusions?: RouteExclusions
 ): DijkstraResult {
-    const excludedLines = exclusions?.excludedLines;
-    const excludedStations = exclusions?.excludedStations;
-    const hasExclusions = !!(excludedLines?.size || excludedStations?.size);
-    const cacheKey = `${start}:${metric}`;
+    const { edges, nodeStation, nodeLine, nodeCount } = graph;
+    const byTime = metric === "time";
+    const primary = new Float64Array(nodeCount).fill(Infinity);
+    const secondary = new Float64Array(nodeCount).fill(Infinity);
+    const previousNode = new Int32Array(nodeCount).fill(-1);
+    const previousTime = new Int32Array(nodeCount);
+    const visited = new Uint8Array(nodeCount);
+    const result = { primary, secondary, previousNode, previousTime };
+    const excludedLines = toIndexSet(graph.lineIndex, exclusions?.excludedLines);
+    const excludedStations = toIndexSet(graph.stationIndex, exclusions?.excludedStations);
+    const startStation = graph.stationIndex.get(start);
 
-    if (!hasExclusions) {
-        const cached = cache.get(cacheKey);
+    if (startStation === undefined) return result;
 
-        if (cached) return cached;
+    // The comparator only reads the entry's own snapshot of the cost. Comparing against a
+    // mutable distance table instead would let an improvement reorder entries already in the
+    // heap, which never re-sifts them — silently breaking the heap invariant.
+    const queue = new PriorityQueue<QueueEntry>((a, b) => compareCost(a.primary, a.secondary, b.primary, b.secondary));
+
+    for (const edge of edges[startStation]) {
+        const node = nodeFor(graph, startStation, edge.line);
+
+        if (primary[node] === 0) continue;
+
+        primary[node] = 0;
+        secondary[node] = 0;
+        queue.push({ node, primary: 0, secondary: 0 });
     }
 
-    const distances = new Map<string, [number, number]>();
-    const previous = new Map<string, TimedNeighbour | null>();
-    const pq = new PriorityQueue((a: Node, b: Node) =>
-        tupleCmp(distances.get(`${a.destination}-${a.lineID}`)!, distances.get(`${b.destination}-${b.lineID}`)!)
-    );
-    const visited = new Set<string>();
+    while (!queue.isEmpty()) {
+        const entry = queue.pop()!;
+        const node = entry.node;
 
-    graph.forEach((neighbours) => {
-        neighbours.forEach(({ lineID, destination }) => {
-            const node: Node = { destination, lineID };
+        if (visited[node]) continue;
+        // A stale entry: this node was pushed again at a lower cost after this one.
+        if (compareCost(entry.primary, entry.secondary, primary[node], secondary[node]) > 0) continue;
 
-            distances.set(`${destination}-${lineID}`, [
-                destination === start ? 0 : Infinity,
-                destination === start ? 0 : Infinity,
-            ]);
-            previous.set(`${destination}-${lineID}`, null);
+        visited[node] = 1;
 
-            if (destination === start) pq.push(node);
-        });
-    });
+        const station = nodeStation[node];
+        const line = nodeLine[node];
 
-    while (!pq.isEmpty()) {
-        const { destination: minStation, lineID: minLine } = pq.pop()!;
+        for (const edge of edges[station]) {
+            if (edge.time === UNTIMED) continue;
+            if (excludedLines?.has(edge.line) || excludedStations?.has(edge.to)) continue;
 
-        if (distances.get(`${minStation}-${minLine}`)![0] === Infinity) break;
+            const target = nodeFor(graph, edge.to, edge.line);
 
-        visited.add(`${minStation}-${minLine}`);
+            if (visited[target]) continue;
 
-        graph.get(minStation)!.forEach(({ lineID, destination, time }) => {
-            if (excludedLines?.has(lineID) || excludedStations?.has(destination)) return;
+            const transfer = edge.line === line ? 0 : 1;
+            const altPrimary = primary[node] + (byTime ? edge.time : transfer);
+            const altSecondary = secondary[node] + (byTime ? transfer : edge.time);
 
-            if (time && !visited.has(`${destination}-${lineID}`)) {
-                const [curr_a, curr_b] = distances.get(`${minStation}-${minLine}`)!;
-                const [alt_a, alt_b] = [
-                    curr_a + (metric === "time" ? time : lineID !== minLine ? 1 : 0),
-                    curr_b + (metric === "time" ? (lineID !== minLine ? 1 : 0) : time),
-                ];
-
-                if (tupleCmp([alt_a, alt_b], distances.get(`${destination}-${lineID}`)!) < 0) {
-                    distances.set(`${destination}-${lineID}`, [alt_a, alt_b]);
-                    previous.set(`${destination}-${lineID}`, {
-                        destination: minStation,
-                        lineID: minLine,
-                        time,
-                    });
-                    pq.push({ destination, lineID });
-                }
+            if (compareCost(altPrimary, altSecondary, primary[target], secondary[target]) < 0) {
+                primary[target] = altPrimary;
+                secondary[target] = altSecondary;
+                previousNode[target] = node;
+                previousTime[target] = edge.time;
+                queue.push({ node: target, primary: altPrimary, secondary: altSecondary });
             }
-        });
+        }
     }
-
-    const result = { distances, previous };
-
-    if (!hasExclusions) cache.set(cacheKey, result);
 
     return result;
 }
@@ -136,7 +222,7 @@ export function convertPathToRoute(linesById: LinesById, path: TimedConnection[]
     for (const { from, to, lineID, time } of path) {
         const line = linesById.get(lineID)!;
 
-        if (line.type === "LSR" && r.length > 0 && r[r.length - 1].line.name === line.name) {
+        if (line.type === "LSR" && r.length > 0 && r[r.length - 1].line.id === line.id) {
             const lastSegment = r[r.length - 1];
 
             lastSegment.to = to;
@@ -167,64 +253,51 @@ export function convertPathToRoute(linesById: LinesById, path: TimedConnection[]
     return r;
 }
 
-// Walks a completed Dijkstra run's `previous` links from `end` back to `start`, picking
-// whichever line reached `end` with the best (distance, tiebreaker) tuple.
+// The walk terminates at a node with no predecessor because only start nodes keep one: they
+// are seeded at cost 0, and with non-negative weights nothing can relax them below that.
 export function reconstructPath(
     graph: RoutingGraph,
-    { distances, previous }: DijkstraResult,
-    start: string,
+    { primary, secondary, previousNode, previousTime }: DijkstraResult,
     end: string
 ): TimedConnection[] | null {
-    let minNode = null;
-    let minTime: [number, number] = [Infinity, Infinity];
+    const endStation = graph.stationIndex.get(end);
 
-    for (const neighbour of graph.get(end)!) {
-        if (tupleCmp(distances.get(`${end}-${neighbour.lineID}`)!, minTime) < 0) {
-            minTime = distances.get(`${end}-${neighbour.lineID}`)!;
-            minNode = { destination: end, lineID: neighbour.lineID };
+    if (endStation === undefined) return null;
+
+    let best = -1;
+
+    for (const edge of graph.edges[endStation]) {
+        const node = nodeFor(graph, endStation, edge.line);
+
+        if (best === -1 || compareCost(primary[node], secondary[node], primary[best], secondary[best]) < 0) {
+            best = node;
         }
     }
 
-    if (minTime[0] === Infinity) return null;
+    if (best === -1 || primary[best] === Infinity) return null;
 
-    const path: TimedConnection[] = [
-        {
-            from: "",
-            to: minNode!.destination,
-            lineID: minNode!.lineID,
-            time: -1,
-        },
-    ];
-    let currentNode = minNode!;
+    const path: TimedConnection[] = [];
+    let current = best;
 
-    while (currentNode.destination !== start) {
-        const {
-            destination: prevStation,
-            lineID: prevLineID,
-            time: prevTime,
-        } = previous.get(`${currentNode.destination}-${currentNode.lineID}`)!;
-
-        path[path.length - 1].from = prevStation;
-        path[path.length - 1].time = prevTime;
+    while (previousNode[current] !== -1) {
+        const previous = previousNode[current];
 
         path.push({
-            from: "",
-            to: prevStation,
-            lineID: prevLineID,
-            time: -1,
+            from: graph.stationNames[graph.nodeStation[previous]],
+            to: graph.stationNames[graph.nodeStation[current]],
+            lineID: graph.lineIDs[graph.nodeLine[current]],
+            time: previousTime[current],
         });
-        currentNode = { destination: prevStation, lineID: prevLineID };
+        current = previous;
     }
 
-    path.pop();
     path.reverse();
 
     return path;
 }
 
 export function findRoute(start: string, end: string, metric: string, exclusions?: RouteExclusions): LegProp[] {
-    const result = dijkstra(graph, dijkstraCache, start, metric, exclusions);
-    const path = reconstructPath(graph, result, start, end);
+    const path = reconstructPath(graph, dijkstra(graph, start, metric, exclusions), end);
 
     if (!path) return [];
 

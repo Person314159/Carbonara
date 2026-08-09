@@ -1,12 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-    buildLinesById,
-    buildRoutingGraph,
-    convertPathToRoute,
-    dijkstra,
-    DijkstraCache,
-    reconstructPath,
-} from "./routing/graph";
+import { buildLinesById, buildRoutingGraph, convertPathToRoute, dijkstra, reconstructPath } from "./routing/graph";
 import { LegProp, MultiStopRouteResult, RouteExclusions } from "@/app/lib/interfaces";
 
 // A small hand-built network, isolated per scenario (disconnected components) so that
@@ -37,6 +30,10 @@ const lines = [
     { id: "L18", name: "Line 18", colour: "#4f4f4f", type: "LSR" },
     { id: "L19", name: "Line 19", colour: "#5f5f5f", type: "LSR" },
     { id: "L20", name: "Line 20", colour: "#6f6f6f", type: "LSR" },
+    // networkData validation keeps line names unique, so these two only ever coexist here —
+    // they pin leg merging to the line id so a future duplicate name can't silently merge.
+    { id: "L21", name: "Shared Name", colour: "#7f7f7f", type: "LSR" },
+    { id: "L22", name: "Shared Name", colour: "#8f8f8f", type: "LSR" },
 ];
 
 const stations = [
@@ -73,6 +70,9 @@ const stations = [
     "HopB",
     "HopC",
     "HopIsolated",
+    "SameNameStart",
+    "SameNameMid",
+    "SameNameEnd",
 ].map((name) => ({ name }));
 
 const connections = [
@@ -124,17 +124,19 @@ const connections = [
     // Multi-stop chaining (HopIsolated is left with no connections, unreachable)
     { from: "HopA", to: "HopB", lineID: "L19", time: 5 },
     { from: "HopB", to: "HopC", lineID: "L20", time: 5 },
+
+    // Two distinct lines that happen to share a name
+    { from: "SameNameStart", to: "SameNameMid", lineID: "L21", time: 10 },
+    { from: "SameNameMid", to: "SameNameEnd", lineID: "L22", time: 10 },
 ];
 
 const graph = buildRoutingGraph(stations, connections);
 const linesById = buildLinesById(lines);
-const dijkstraCache: DijkstraCache = new Map();
 
 // Mirrors production findRoute/findMultiStopRoute's composition of the exported primitives,
 // against this file's hand-built graph instead of the module-level networkData singleton.
 function findRoute(start: string, end: string, metric: string, exclusions?: RouteExclusions): LegProp[] {
-    const result = dijkstra(graph, dijkstraCache, start, metric, exclusions);
-    const path = reconstructPath(graph, result, start, end);
+    const path = reconstructPath(graph, dijkstra(graph, start, metric, exclusions), end);
 
     return path ? convertPathToRoute(linesById, path) : [];
 }
@@ -205,6 +207,13 @@ describe("findRoute — LSR/HSR leg grouping", () => {
             stops: ["MergeStart", "MergeMid", "MergeEnd"],
         });
         expect(route[0].segments).toHaveLength(2);
+    });
+
+    it("keeps two same-named LSR lines as separate legs", () => {
+        const route = findRoute("SameNameStart", "SameNameEnd", "time");
+
+        expect(route).toHaveLength(2);
+        expect(route.map((leg) => leg.line.id)).toEqual(["L21", "L22"]);
     });
 
     it("keeps consecutive HSR connections as separate legs", () => {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { formatTime, getContrastTextColor, normalizeForSearch, tupleCmp } from "./util";
+import { compareCost, formatTime, getContrastTextColor, normalizeForSearch } from "./util";
 
 describe("formatTime", () => {
     it("returns an empty string for zero", () => {
@@ -27,19 +27,24 @@ describe("formatTime", () => {
     });
 });
 
-describe("tupleCmp", () => {
-    it("compares by the first element when they differ", () => {
-        expect(tupleCmp([1, 100], [2, 0])).toBeLessThan(0);
-        expect(tupleCmp([2, 0], [1, 100])).toBeGreaterThan(0);
+describe("compareCost", () => {
+    it("compares by the primary cost when they differ", () => {
+        expect(compareCost(1, 100, 2, 0)).toBeLessThan(0);
+        expect(compareCost(2, 0, 1, 100)).toBeGreaterThan(0);
     });
 
-    it("falls back to the second element when the first is equal", () => {
-        expect(tupleCmp([5, 1], [5, 2])).toBeLessThan(0);
-        expect(tupleCmp([5, 2], [5, 1])).toBeGreaterThan(0);
+    it("falls back to the secondary cost when the primary is equal", () => {
+        expect(compareCost(5, 1, 5, 2)).toBeLessThan(0);
+        expect(compareCost(5, 2, 5, 1)).toBeGreaterThan(0);
     });
 
-    it("returns zero for equal tuples", () => {
-        expect(tupleCmp([3, 4], [3, 4])).toBe(0);
+    it("returns zero for equal costs", () => {
+        expect(compareCost(3, 4, 3, 4)).toBe(0);
+    });
+
+    it("treats two unreachable costs as equal rather than returning NaN", () => {
+        expect(compareCost(Infinity, Infinity, Infinity, Infinity)).toBe(0);
+        expect(compareCost(5, 1, Infinity, Infinity)).toBeLessThan(0);
     });
 });
 
