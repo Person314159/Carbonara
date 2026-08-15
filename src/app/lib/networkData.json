@@ -859,6 +859,12 @@
             "type": "LSR"
         },
         {
+            "id": "N60",
+            "name": "Niagara Falls Shuttle",
+            "colour": "#fa4728",
+            "type": "LSR"
+        },
+        {
             "id": "O02",
             "name": "Victorian Line",
             "colour": "#b80b4b",
@@ -2097,6 +2103,9 @@
             "name": "Nuremberg"
         },
         {
+            "name": "Nzérékoré"
+        },
+        {
             "name": "Oates Land"
         },
         {
@@ -2797,6 +2806,9 @@
         },
         {
             "name": "Yamadera"
+        },
+        {
+            "name": "Yamoussoukro"
         },
         {
             "name": "Yantai"
@@ -4789,6 +4801,24 @@
             "time": 20
         },
         {
+            "from": "Sherbro Island",
+            "to": "Nzérékoré",
+            "lineID": "F15",
+            "time": 60
+        },
+        {
+            "from": "Nzérékoré",
+            "to": "Yamoussoukro",
+            "lineID": "F15",
+            "time": 65
+        },
+        {
+            "from": "Yamoussoukro",
+            "to": "Kumasi",
+            "lineID": "F15",
+            "time": 55
+        },
+        {
             "from": "San Francisco",
             "to": "San Jose",
             "lineID": "N01",
@@ -5553,11 +5583,6 @@
         },
         {
             "from": "Niagara Falls",
-            "to": "Toronto Union",
-            "lineID": "N46"
-        },
-        {
-            "from": "Toronto Union",
             "to": "London",
             "lineID": "N46"
         },
@@ -5894,6 +5919,11 @@
             "from": "Great Falls",
             "to": "Sparwood",
             "lineID": "N59"
+        },
+        {
+            "from": "Niagara Falls",
+            "to": "Toronto Union",
+            "lineID": "N60"
         },
         {
             "from": "Melbourne",
