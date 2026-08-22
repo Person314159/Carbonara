@@ -1344,7 +1344,7 @@
             "name": "Chetwynd"
         },
         {
-            "name": "Chicago"
+            "name": "Chicago Union"
         },
         {
             "name": "Chiclayo"
@@ -1626,6 +1626,9 @@
             "name": "Grand Canyon"
         },
         {
+            "name": "Grand Central"
+        },
+        {
             "name": "Grand Forks"
         },
         {
@@ -1768,9 +1771,6 @@
         },
         {
             "name": "Jacksonville"
-        },
-        {
-            "name": "Jamaica Center"
         },
         {
             "name": "Jane Peak"
@@ -4898,7 +4898,7 @@
             "lineID": "N10"
         },
         {
-            "from": "Jamaica Center",
+            "from": "Grand Central",
             "to": "Poughkeepsie",
             "lineID": "N11",
             "time": 20
@@ -4949,7 +4949,7 @@
         },
         {
             "from": "Grand Rapids",
-            "to": "Chicago",
+            "to": "Chicago Union",
             "lineID": "N11"
         },
         {
@@ -5140,7 +5140,7 @@
         },
         {
             "from": "Montclair",
-            "to": "Jamaica Center",
+            "to": "Grand Central",
             "lineID": "N20",
             "time": 5
         },
@@ -5570,7 +5570,7 @@
             "time": 15
         },
         {
-            "from": "Jamaica Center",
+            "from": "Grand Central",
             "to": "Albany",
             "lineID": "N46",
             "time": 35
@@ -5593,7 +5593,7 @@
         },
         {
             "from": "Detroit",
-            "to": "Chicago",
+            "to": "Chicago Union",
             "lineID": "N46"
         },
         {
@@ -5673,7 +5673,8 @@
         {
             "from": "Jupiter",
             "to": "Miami",
-            "lineID": "N48"
+            "lineID": "N48",
+            "time": 15
         },
         {
             "from": "T.R.A.S.D.",
@@ -5923,7 +5924,8 @@
         {
             "from": "Niagara Falls",
             "to": "Toronto Union",
-            "lineID": "N60"
+            "lineID": "N60",
+            "time": 20
         },
         {
             "from": "Melbourne",
