@@ -3198,7 +3198,8 @@
         {
             "from": "Shijiazhuang",
             "to": "Jinan",
-            "lineID": "A12"
+            "lineID": "A12",
+            "time": 70
         },
         {
             "from": "Jinan",
