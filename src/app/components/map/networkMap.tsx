@@ -12,6 +12,26 @@ const FOCUS_SCALE = 2;
 // A tap within this many screen pixels of a station's coordinate counts as clicking it.
 const STATION_TAP_RADIUS_PX = 14;
 
+// Zoom animation. Every indirect zoom — wheel, buttons, double-click, focusStation — moves a
+// target transform, and the displayed transform chases it. Zooms that pin a point under the
+// cursor use an exponential follower closing 1 - e^(-dt/tau) of the gap each frame, which
+// covers both wheel devices without sniffing either: a notched wheel jumps its target once
+// per detent and gets a visible ramp, while a trackpad moves its target every frame and stays
+// glued to the input one frame back. It also lets a notch landing mid-flight simply move the
+// target, so a burst compounds instead of restarting.
+const WHEEL_TAU_MS = 70;
+// Button and double-click steps are small enough that the follower's tail is invisible.
+const STEP_TAU_MS = 120;
+// Jumps between regions are not: decay needs ~9 tau to close a 7x zoom, so the last few
+// percent of one would creep for a second after the motion looked finished. Those get a
+// fixed-duration ease-out instead, which arrives exactly and on schedule.
+const FLIGHT_MS = 450;
+
+const easeOutCubic = (p: number) => 1 - (1 - p) ** 3;
+
+const prefersReducedMotion = () =>
+    typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 // The content box every layer shares, in SVG units. Its origin sits at SVG (-10000, -5000).
 const CONTENT_W = 20000;
 const CONTENT_H = 10000;
@@ -75,6 +95,13 @@ function ZoomToButton({ onClick, name }: ZoomToButtonProps) {
 }
 
 type Transform = { x: number; y: number; scale: number };
+
+// A screen point plus the world point pinned under it. Deriving translation from this every
+// frame holds that world point exactly under the cursor for the whole flight, where lerping
+// translation towards the target would only line the two up at the endpoints.
+type Anchor = { sx: number; sy: number; wx: number; wy: number };
+
+type Flight = { kind: "follow"; tau: number } | { kind: "tween"; dur: number; from: Transform; start: number };
 
 const ZOOM_TARGETS: [string, number, number, number][] = [
     ["Global", 0, 0, 0.06],
@@ -166,7 +193,14 @@ const NetworkMap = React.memo(function NetworkMap({
     // Content wrapper — an HTML div so CSS transform gets a proper GPU compositing layer
     const gRef = useRef<HTMLDivElement>(null);
     const coordsRef = useRef<HTMLDivElement>(null);
+    // What is actually on screen. targetRef is what indirect input aims at; the two are equal
+    // whenever nothing is in flight.
     const transformRef = useRef<Transform>({ x: width / 2, y: height / 2, scale: 0.06 });
+    const targetRef = useRef<Transform>({ x: width / 2, y: height / 2, scale: 0.06 });
+    const rafRef = useRef<number | null>(null);
+    const lastFrameRef = useRef(0);
+    const flightRef = useRef<Flight>({ kind: "follow", tau: STEP_TAU_MS });
+    const anchorRef = useRef<Anchor | null>(null);
     const rectRef = useRef<DOMRect | null>(null);
     const isPinchingRef = useRef(false);
     const underlayRef = useRef<HTMLDivElement>(null);
@@ -195,37 +229,163 @@ const NetworkMap = React.memo(function NetworkMap({
             if (underlayRef.current) {
                 underlayRef.current.style.transform = transform;
             }
+        },
+        []
+    );
 
-            // Culling: re-render only when the transform crosses into a different tile range,
-            // not on every gesture frame. Settles after one pass because the recomputed window
-            // then matches state and the setter bails out. The useLayoutEffect below calls this
-            // on every render, so switching the underlay on also seeds the window here — before
-            // paint, and with no effect needed to derive it.
-            if (underlayEnabled) {
-                const next = computeTileWindow(t, width, height);
+    // Culling: re-render only when the transform crosses into a different tile range, not on
+    // every gesture frame. Settles after one pass because the recomputed window then matches
+    // state and the setter bails out. Callers pass the *target* transform rather than the
+    // displayed one: a flight across several GIBS levels would otherwise mount and drop a
+    // whole level's worth of tiles on the way through, fetching imagery nobody sees. The
+    // useLayoutEffect below calls this on every render, so switching the underlay on also
+    // seeds the window here — before paint, and with no effect needed to derive it.
+    const syncTileWindow = useCallback(
+        (t: Transform) => {
+            if (!underlayEnabled) return;
 
-                setTileWindow((prev) => (sameTileWindow(prev, next) ? prev : next));
-            }
+            const next = computeTileWindow(t, width, height);
+
+            setTileWindow((prev) => (sameTileWindow(prev, next) ? prev : next));
         },
         [width, height, underlayEnabled]
     );
 
-    // Every transform the user drives goes through setInstant, which writes the DOM
-    // synchronously, and React never clobbers it in between — `transform` is absent from both
-    // divs' style props, so a re-render leaves it alone. That leaves two jobs for this effect:
-    // seeding a div that has just mounted without a transform (the map on first render, the
-    // underlay when it is switched on), and recomputing the tile window after a resize.
-    // applyDOM's own deps are exactly those triggers, so they are the right deps here too.
+    // Every transform is written to the DOM synchronously, and React never clobbers it in
+    // between — `transform` is absent from both divs' style props, so a re-render leaves it
+    // alone. That leaves two jobs for this effect: seeding a div that has just mounted without
+    // a transform (the map on first render, the underlay when it is switched on), and
+    // recomputing the tile window after a resize.
     useLayoutEffect(() => {
         applyDOM(transformRef.current);
-    }, [applyDOM]);
+        syncTileWindow(targetRef.current);
+    }, [applyDOM, syncTileWindow]);
 
+    const stopAnim = useCallback(() => {
+        if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+
+        rafRef.current = null;
+        anchorRef.current = null;
+    }, []);
+
+    useEffect(() => stopAnim, [stopAnim]);
+
+    // Direct manipulation — drag and pinch — lands here: it writes both transforms and kills
+    // any flight in progress, since content that lags the fingers reads as broken. Grabbing
+    // the map mid-zoom therefore truncates the rest of that zoom, which is the right trade.
+    // Indirect input goes through setTarget instead.
     const setInstant = useCallback(
         (t: Transform) => {
+            stopAnim();
             transformRef.current = t;
+            targetRef.current = t;
             applyDOM(t);
+            syncTileWindow(t);
         },
-        [applyDOM]
+        [applyDOM, syncTileWindow, stopAnim]
+    );
+
+    const startAnim = useCallback(() => {
+        // Already chasing: the loop reads targetRef, anchorRef and flightRef every frame, so it
+        // picks the new ones up on its own. Restarting would drop the motion already under way.
+        if (rafRef.current !== null) return;
+
+        lastFrameRef.current = performance.now();
+
+        const step = (now: number) => {
+            // A backgrounded tab resumes with a huge dt; clamping stops that from teleporting
+            // the map on the first frame back.
+            const dt = Math.min(now - lastFrameRef.current, 100);
+            const cur = transformRef.current;
+            const tgt = targetRef.current;
+            const anchor = anchorRef.current;
+            const flight = flightRef.current;
+            // How far to close the remaining gap this frame, and whether that alone ends the
+            // flight — true only for a tween, which has a scheduled arrival.
+            const [k, done] =
+                flight.kind === "tween"
+                    ? [easeOutCubic(Math.min(1, (now - flight.start) / flight.dur)), now - flight.start >= flight.dur]
+                    : [1 - Math.exp(-dt / flight.tau), false];
+            // Interpolation runs from the flight's fixed origin for a tween and from the last
+            // frame for the follower, which is what makes one arrive on schedule and the other
+            // absorb a moving target.
+            const src = flight.kind === "tween" ? flight.from : cur;
+            // Scale moves geometrically. Lerping it linearly between two values an octave apart
+            // spends most of the flight at the zoomed-out end and reads as a lurch.
+            const scale = Math.exp(Math.log(src.scale) + (Math.log(tgt.scale) - Math.log(src.scale)) * k);
+            let x: number;
+            let y: number;
+
+            lastFrameRef.current = now;
+
+            if (anchor) {
+                x = anchor.sx - anchor.wx * scale;
+                y = anchor.sy - anchor.wy * scale;
+            } else {
+                // Nothing to pin, so ease the world point under the viewport centre instead.
+                const cx = width / 2;
+                const cy = height / 2;
+                const fromX = (cx - src.x) / src.scale;
+                const fromY = (cy - src.y) / src.scale;
+                const wx = fromX + ((cx - tgt.x) / tgt.scale - fromX) * k;
+                const wy = fromY + ((cy - tgt.y) / tgt.scale - fromY) * k;
+
+                x = cx - wx * scale;
+                y = cy - wy * scale;
+            }
+
+            // A follower approaches its target without ever arriving, so it needs a threshold to
+            // stop at: the point where no pixel would move again. For scale that means an error
+            // smaller than half a pixel at the furthest corner, not some absolute epsilon.
+            const settled =
+                done ||
+                (Math.abs(1 - scale / tgt.scale) * Math.hypot(width, height) < 0.5 &&
+                    Math.abs(tgt.x - x) < 0.5 &&
+                    Math.abs(tgt.y - y) < 0.5);
+            const next = settled ? tgt : { x, y, scale };
+
+            transformRef.current = next;
+            applyDOM(next);
+
+            if (settled) {
+                rafRef.current = null;
+                anchorRef.current = null;
+                return;
+            }
+
+            rafRef.current = requestAnimationFrame(step);
+        };
+
+        rafRef.current = requestAnimationFrame(step);
+    }, [applyDOM, width, height]);
+
+    const setTarget = useCallback(
+        (t: Transform, anchor: Anchor | null, flight: Flight) => {
+            if (prefersReducedMotion()) {
+                setInstant(t);
+                return;
+            }
+
+            targetRef.current = t;
+            anchorRef.current = anchor;
+            flightRef.current = flight;
+            syncTileWindow(t);
+            startAnim();
+        },
+        [setInstant, syncTileWindow, startAnim]
+    );
+
+    // A tween has to start from wherever the map is right now, which includes the middle of
+    // some other flight, so `from` is captured at the call rather than held in a ref.
+    const flyTo = useCallback(
+        (t: Transform) =>
+            setTarget(t, null, {
+                kind: "tween",
+                dur: FLIGHT_MS,
+                from: transformRef.current,
+                start: performance.now(),
+            }),
+        [setTarget]
     );
 
     useImperativeHandle(
@@ -234,22 +394,32 @@ const NetworkMap = React.memo(function NetworkMap({
             focusStation: (coordinate: number[]) => {
                 if (coordinate.length !== 2) return;
 
-                setInstant({
+                flyTo({
                     x: width / 2 - coordinate[0] * FOCUS_SCALE,
                     y: height / 2 - coordinate[1] * FOCUS_SCALE,
                     scale: FOCUS_SCALE,
                 });
             },
         }),
-        [width, height, setInstant]
+        [width, height, flyTo]
     );
 
-    const zoomAt = (cx: number, cy: number, multiplier: number) => {
+    // The anchor's world point comes from the displayed transform rather than the target: that
+    // is what the user is pointing at, and it makes a notch arriving mid-flight continuous,
+    // because the point already under the cursor is the one that stays there. Scale, by
+    // contrast, compounds on the target, so a fast burst of notches stacks into one longer
+    // zoom instead of each detent restarting the previous one.
+    const zoomAt = (cx: number, cy: number, multiplier: number, tau: number) => {
         const { x: tx, y: ty, scale: ts } = transformRef.current;
-        const newScale = clampScale(ts * multiplier);
-        const factor = newScale / ts;
+        const newScale = clampScale(targetRef.current.scale * multiplier);
+        const wx = (cx - tx) / ts;
+        const wy = (cy - ty) / ts;
 
-        setInstant({ x: cx - (cx - tx) * factor, y: cy - (cy - ty) * factor, scale: newScale });
+        setTarget(
+            { x: cx - wx * newScale, y: cy - wy * newScale, scale: newScale },
+            { sx: cx, sy: cy, wx, wy },
+            { kind: "follow", tau }
+        );
     };
 
     useEffect(() => {
@@ -337,6 +507,9 @@ const NetworkMap = React.memo(function NetworkMap({
 
                 if (first) {
                     isPinchingRef.current = true;
+                    // memo is captured here but setInstant only runs from the next emission on,
+                    // so without this a flight would keep moving the map under the fingers.
+                    stopAnim();
 
                     const rect = containerRef.current?.getBoundingClientRect() ?? { left: 0, top: 0 };
 
@@ -374,7 +547,7 @@ const NetworkMap = React.memo(function NetworkMap({
                 const cursorX = event.clientX - (rect?.left ?? 0);
                 const cursorY = event.clientY - (rect?.top ?? 0);
 
-                zoomAt(cursorX, cursorY, Math.exp(-dy * 0.003));
+                zoomAt(cursorX, cursorY, Math.exp(-dy * 0.003), WHEEL_TAU_MS);
             },
         },
         {
@@ -385,7 +558,7 @@ const NetworkMap = React.memo(function NetworkMap({
         }
     );
 
-    const zoomStep = (multiplier: number) => zoomAt(width / 2, height / 2, multiplier);
+    const zoomStep = (multiplier: number) => zoomAt(width / 2, height / 2, multiplier, STEP_TAU_MS);
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
         const rect = rectRef.current ?? e.currentTarget.getBoundingClientRect();
@@ -474,7 +647,7 @@ const NetworkMap = React.memo(function NetworkMap({
                         const cursorX = e.clientX - (rect?.left ?? 0);
                         const cursorY = e.clientY - (rect?.top ?? 0);
 
-                        zoomAt(cursorX, cursorY, 2);
+                        zoomAt(cursorX, cursorY, 2, STEP_TAU_MS);
                     }}
                 />
             </div>
@@ -541,7 +714,7 @@ const NetworkMap = React.memo(function NetworkMap({
                                 key={name}
                                 name={name}
                                 onClick={() =>
-                                    setInstant({ x: dx * scale + width / 2, y: dy * scale + height / 2, scale })
+                                    flyTo({ x: dx * scale + width / 2, y: dy * scale + height / 2, scale })
                                 }
                             />
                         ))}

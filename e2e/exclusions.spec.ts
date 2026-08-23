@@ -13,6 +13,13 @@ async function excludeLine(page: import("@playwright/test").Page, label: string)
     await page.getByRole("button", { name: "Options" }).click();
     await page.getByPlaceholder("Avoid specific lines").fill(label);
     await page.getByRole("option", { name: label, exact: true }).click();
+    // The dropdown stays open for the next pick, and this input sits low enough in a 720px
+    // viewport that the list has no room below it and opens upwards instead — straight over
+    // the Find Route button above, which then swallows the click meant for it. Dismiss it the
+    // way a user would, by clicking off the list; the label below is clear of it, since the
+    // list only ever grows away from that edge.
+    await page.getByText("Exclude stations", { exact: true }).click();
+    await expect(page.getByRole("option")).toHaveCount(0);
 }
 
 // Rasht <-> Ureki has two direct lines in networkData.json: T04 (160s, faster) and

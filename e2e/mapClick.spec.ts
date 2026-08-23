@@ -8,6 +8,36 @@ test.use({ viewport: { width: 1400, height: 1600 } });
 const mapFocusSearch = (page: Page): Locator =>
     page.getByRole("region", { name: "Station search for map focus" }).getByPlaceholder("Search station");
 
+const mapTransform = (page: Page): Promise<string> =>
+    page
+        .locator('svg[viewBox="-10000 -5000 20000 10000"]')
+        .locator("xpath=..")
+        .evaluate((el) => (el as HTMLElement).style.transform);
+
+/**
+ * Wait for a zoom to finish moving.
+ *
+ * Indirect zooms — focusStation among them — ease the map to their target over a few hundred
+ * milliseconds instead of jumping, so the only reliable signal is the transform going quiet:
+ * two reads in a row that agree. Waiting on the expected scale would not do, because focusing
+ * a second station is a pan at a scale that is already 2, so the scale reads correct from the
+ * first frame while the map is still travelling.
+ */
+async function waitForMapSettled(page: Page) {
+    let previous: string | null = null;
+
+    await expect
+        .poll(async () => {
+            const current = await mapTransform(page);
+            const unchanged = current === previous;
+
+            previous = current;
+
+            return unchanged;
+        })
+        .toBe(true);
+}
+
 /** Start, vias… and end — every station input except the trailing map-focus search box. */
 async function stops(page: Page): Promise<string[]> {
     const values = await page
@@ -22,7 +52,8 @@ async function stops(page: Page): Promise<string[]> {
  *
  * focusStation puts the station exactly at the centre of the map viewport, which makes that
  * centre a reliable click target for the station itself — the alternative would be
- * reimplementing the coordinate projection here just to find it on screen.
+ * reimplementing the coordinate projection here just to find it on screen. It only puts it
+ * there once the zoom has finished travelling, though, so the click has to wait for that.
  */
 async function clickStationOnMap(page: Page, name: string) {
     const search = mapFocusSearch(page);
@@ -33,6 +64,7 @@ async function clickStationOnMap(page: Page, name: string) {
     // The map stays where it was put.
     await search.fill("");
     await search.blur();
+    await waitForMapSettled(page);
 
     const centre = await page.evaluate(() => {
         const svg = document.querySelector('svg[viewBox="-10000 -5000 20000 10000"]')!;
@@ -114,20 +146,19 @@ test("a station can never be added twice", async ({ page }) => {
 test("the map focus search centres the map on the chosen station", async ({ page }) => {
     await page.goto("/Carbonara");
 
-    const mapTransform = () =>
-        page
-            .locator('svg[viewBox="-10000 -5000 20000 10000"]')
-            .locator("xpath=..")
-            .evaluate((el) => (el as HTMLElement).style.transform);
-
-    const before = await mapTransform();
+    const before = await mapTransform(page);
     const search = mapFocusSearch(page);
 
     await search.fill("Rasht");
     await page.getByRole("option", { name: "Rasht", exact: true }).click();
 
-    await expect.poll(mapTransform).not.toBe(before);
-    // focusStation zooms to a fixed scale of 2 as well as panning.
-    expect(await mapTransform()).toMatch(/^matrix\(2, 0, 0, 2, /);
+    await waitForMapSettled(page);
+
+    const after = await mapTransform(page);
+
+    expect(after).not.toBe(before);
+    // focusStation zooms to a fixed scale of 2 as well as panning. Asserting this only after
+    // the map has settled is the point: mid-flight it is at some intermediate scale.
+    expect(after).toMatch(/^matrix\(2, 0, 0, 2, /);
     await expect(highlights(page)).toHaveCount(1);
 });
