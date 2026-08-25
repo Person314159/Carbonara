@@ -57,5 +57,6 @@ next-env.d.ts
 # OpenSpec
 openspec/
 
-# local-only data cross-check (machine-specific paths)
-/src/app/lib/localSourcesValidation.test.ts
+# local one-off scripts, scratch files and machine-specific tests
+# (Vitest still picks up *.test.ts here; Playwright specs are *.pw.ts)
+/tmp/

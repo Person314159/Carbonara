@@ -8,7 +8,7 @@ import pluginNext from "@next/eslint-plugin-next";
 import stylistic from "@stylistic/eslint-plugin";
 
 export default defineConfig([
-    { ignores: [".next/**", "out/**", "next-env.d.ts", "tsconfig.tsbuildinfo", "src/app/vendor/**"] },
+    { ignores: [".next/**", "out/**", "tmp/**", "next-env.d.ts", "tsconfig.tsbuildinfo", "src/app/vendor/**"] },
     {
         plugins: {
             "@next/next": pluginNext,
