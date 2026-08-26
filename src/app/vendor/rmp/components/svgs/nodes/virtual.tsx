@@ -2,10 +2,10 @@ import React from "react";
 import { Node, NodeComponentProps } from "@/app/vendor/rmp/constants/nodes";
 
 const Virtual = (props: NodeComponentProps<VirtualAttributes>) => {
-    const { id, x, y } = props;
+    const { id } = props;
 
     return (
-        <g id={id} transform={`translate(${x}, ${y})rotate(45)`}>
+        <g transform="rotate(45)">
             <line x1="-5" y1="0" x2="5" y2="0" stroke="black" />
             <line x1="0" y1="-5" x2="0" y2="5" stroke="black" />
             <circle id={`virtual_circle_${id}`} r={5} stroke="black" fill="white" fillOpacity="0" />

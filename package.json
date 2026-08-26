@@ -15,6 +15,7 @@
         "@datastructures-js/priority-queue": "^6.4.0",
         "@mantine/core": "^9.5.1",
         "@railmapgen/rmg-palette-resources": "^3.0.4",
+        "@railmapgen/svg-assets": "^8.1.0",
         "@types/react-dom": "19.2.4",
         "@use-gesture/react": "^10.3.1",
         "bezier-js": "^6.1.4",

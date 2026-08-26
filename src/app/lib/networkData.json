@@ -4457,7 +4457,8 @@
         {
             "from": "Innsbruck",
             "to": "Munich",
-            "lineID": "E51"
+            "lineID": "E51",
+            "time": 15
         },
         {
             "from": "Copenhagen",

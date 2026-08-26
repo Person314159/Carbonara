@@ -64,7 +64,7 @@ export enum FacilitiesType {
 }
 
 const Facilities = (props: NodeComponentProps<FacilitiesAttributes>) => {
-    const { id, x, y, attrs } = props;
+    const { attrs } = props;
     const { type = defaultFacilitiesAttributes.type } = attrs ?? defaultFacilitiesAttributes;
     const imgEl = React.useRef<SVGImageElement | null>(null);
     const [bBox, setBBox] = React.useState({ width: 25, height: 25 } as DOMRect);
@@ -72,7 +72,7 @@ const Facilities = (props: NodeComponentProps<FacilitiesAttributes>) => {
     React.useEffect(() => setBBox(imgEl.current!.getBBox()), [type, setBBox, imgEl]);
 
     return (
-        <g id={id} transform={`translate(${x - bBox.width / 2}, ${y - bBox.height / 2})`}>
+        <g transform={`translate(${-bBox.width / 2}, ${-bBox.height / 2})`}>
             <image
                 ref={imgEl}
                 href={`/Carbonara/images/facilities/${type}.svg`}

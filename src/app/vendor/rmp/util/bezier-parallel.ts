@@ -1,18 +1,21 @@
 import { Bezier } from "bezier-js";
 import {
+    ClosedAreaPath,
     CubicTo,
-    cubicTo,
     LineTo,
-    lineTo,
-    makePoint,
-    moveTo,
+    MultiSegmentOpenPathCommands,
     OpenPath,
     OpenPathCommands,
     OpenPathDrawCommand,
     PathPoint,
-} from "../constants/path";
-import { getLineIntersection, makeOffsetSegment } from "./geometry";
-import { dropInitialMoveTo, getEndPoint, getStartPoint, makeOpenPathFromCommands } from "./path";
+    cubicTo,
+    lineTo,
+    makeClosedAreaPathFromOpenCommands,
+    makePoint,
+    moveTo,
+} from "@/app/vendor/rmp/constants/path";
+import { getLineIntersection, makeOffsetSegment } from "@/app/vendor/rmp/util/geometry";
+import { dropInitialMoveTo, getEndPoint, getStartPoint, makeOpenPathFromCommands } from "@/app/vendor/rmp/util/path";
 
 type OffsetDrawCommand = {
     originalStart: PathPoint;
@@ -186,4 +189,36 @@ const makeOffsetPath = (path: OpenPath, d: number): OpenPath => {
 export const makeOpenPathParallel = (path: OpenPath, d1: number, d2?: number): [OpenPath, OpenPath] => {
     const secondOffset = d2 ?? -d1;
     return [makeOffsetPath(path, d1), makeOffsetPath(path, secondOffset)];
+};
+
+/**
+ * Make two parallel paths and the closed outline between them.
+ */
+export const makeOpenPathOutline = (
+    path: OpenPath,
+    d1: number,
+    d2?: number
+): { outline: ClosedAreaPath; pA: OpenPath; pB: OpenPath } => {
+    const [pA, pB] = makeOpenPathParallel(path, d1, d2);
+    const reversedPathB = reverseOpenPath(pB);
+    const drawCommands = [...dropInitialMoveTo(pA)];
+
+    const reversedStart = getStartPoint(reversedPathB);
+    if (!arePointsEqual(getEndPoint(pA), reversedStart)) {
+        drawCommands.push(lineTo(reversedStart));
+    }
+    drawCommands.push(...dropInitialMoveTo(reversedPathB));
+
+    const outlineCommands = [
+        moveTo(getStartPoint(pA)),
+        drawCommands[0]!,
+        drawCommands[1]!,
+        ...drawCommands.slice(2),
+    ] satisfies MultiSegmentOpenPathCommands;
+
+    return {
+        outline: makeClosedAreaPathFromOpenCommands(outlineCommands),
+        pA,
+        pB,
+    };
 };

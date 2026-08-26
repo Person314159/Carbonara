@@ -1,0 +1,223 @@
+import React from "react";
+import { LINE_WIDTH } from "@/app/vendor/rmp/constants/lines";
+import { Node, NodeComponentProps } from "@/app/vendor/rmp/constants/nodes";
+import { getLangStyle, TextLanguage } from "@/app/vendor/rmp/util/fonts";
+import {
+    createDefaultLondonTubeLineBadgeItem,
+    getLondonTubeLineBadgeDisplayLines,
+    getLondonTubeLineBadgeHeight,
+    getLondonTubeLineBadgeSubtitle,
+    LondonTubeLineBadgeAttributes,
+    LondonTubeLineBadgeItem,
+    normalizeLondonTubeLineBadgeItem,
+} from "@/app/vendor/rmp/components/svgs/nodes/london-tube-line-badge/london-tube-line-badge-utils";
+
+const FILLED_BADGE_SCALE = 1.6;
+const FILLED_WALKING_BADGE_SCALE = 1.75;
+const TITLE_FONT_SIZE_RATIO = 0.72;
+const SUBTITLE_FONT_SIZE_RATIO = 0.42;
+const HORIZONTAL_PADDING_RATIO = 0.7;
+const MIN_WIDTH_RATIO = 7;
+const DOUBLE_LINE_CENTER_OFFSET_RATIO = 0.35;
+const WALKING_SINGLE_TITLE_CENTER_Y_RATIO = -0.18;
+const WALKING_MULTI_TITLE_START_Y_RATIO = -0.62;
+const WALKING_TITLE_LINE_STEP_RATIO = 0.62;
+const WALKING_SUBTITLE_GAP_RATIO = 0.64;
+
+const defaultLondonTubeLineBadgeAttributes: LondonTubeLineBadgeAttributes = {
+    items: [createDefaultLondonTubeLineBadgeItem()],
+};
+
+const areWidthsEqual = (prev: number[], next: number[]) =>
+    prev.length === next.length && prev.every((width, index) => Math.abs(width - next[index]) < 0.01);
+
+const getItemScale = (item: LondonTubeLineBadgeItem) =>
+    item.kind === "filled-walking" ? FILLED_WALKING_BADGE_SCALE : FILLED_BADGE_SCALE;
+
+const getItemLineWidth = (item: LondonTubeLineBadgeItem) => LINE_WIDTH * getItemScale(item);
+
+const getWalkingTitleYs = (lineCount: number, itemLineWidth: number) => {
+    if (lineCount <= 1) {
+        return [WALKING_SINGLE_TITLE_CENTER_Y_RATIO * itemLineWidth];
+    }
+
+    return Array.from(
+        { length: lineCount },
+        (_, index) => (WALKING_MULTI_TITLE_START_Y_RATIO + index * WALKING_TITLE_LINE_STEP_RATIO) * itemLineWidth
+    );
+};
+
+const LondonTubeLineBadge = (props: NodeComponentProps<LondonTubeLineBadgeAttributes>) => {
+    const { id, attrs } = props;
+    const items = React.useMemo(
+        () => (attrs?.items ?? defaultLondonTubeLineBadgeAttributes.items).map(normalizeLondonTubeLineBadgeItem),
+        [attrs]
+    );
+
+    const textRefs = React.useRef<(SVGGElement | null)[]>([]);
+    const [contentWidths, setContentWidths] = React.useState<number[]>([]);
+
+    const measure = React.useCallback(() => {
+        const next = items.map((_, index) => {
+            const textRef = textRefs.current[index];
+            if (!textRef) return 0;
+
+            try {
+                return Number(textRef.getBBox().width.toFixed(2));
+            } catch {
+                return 0;
+            }
+        });
+
+        setContentWidths((prev) => (areWidthsEqual(prev, next) ? prev : next));
+    }, [items]);
+
+    React.useLayoutEffect(() => {
+        measure();
+        const rafId = requestAnimationFrame(measure);
+
+        const fontSet = document.fonts;
+        const handleLoadingDone = () => measure();
+        void fontSet.ready.then(measure);
+        fontSet.addEventListener("loadingdone", handleLoadingDone);
+
+        return () => {
+            cancelAnimationFrame(rafId);
+            fontSet.removeEventListener("loadingdone", handleLoadingDone);
+        };
+    }, [measure]);
+
+    const itemLineWidths = items.map(getItemLineWidth);
+    const stackWidth =
+        items.length === 0
+            ? 0
+            : Math.max(
+                  ...items.map((item, index) =>
+                      Math.max(
+                          MIN_WIDTH_RATIO * itemLineWidths[index],
+                          (contentWidths[index] ?? 0) + 2 * HORIZONTAL_PADDING_RATIO * itemLineWidths[index]
+                      )
+                  )
+              );
+    const itemHeights = items.map((item, index) => getLondonTubeLineBadgeHeight(item, itemLineWidths[index]));
+    const totalHeight = itemHeights.reduce((sum, height) => sum + height, 0);
+
+    const itemCenters = React.useMemo(() => {
+        let offsetY = -totalHeight / 2;
+        return itemHeights.map((height) => {
+            const centerY = offsetY + height / 2;
+            offsetY += height;
+            return centerY;
+        });
+    }, [itemHeights, totalHeight]);
+
+    if (items.length === 0 || totalHeight === 0) {
+        return null;
+    }
+
+    return (
+        <g>
+            {items.map((item, index) => {
+                const lines = getLondonTubeLineBadgeDisplayLines(item);
+                const subtitle = item.kind === "filled-walking" ? getLondonTubeLineBadgeSubtitle(item) : "";
+                const itemLineWidth = itemLineWidths[index];
+                const titleFontSize = TITLE_FONT_SIZE_RATIO * itemLineWidth;
+                const subtitleFontSize = SUBTITLE_FONT_SIZE_RATIO * itemLineWidth;
+                const walkingTitleYs =
+                    item.kind === "filled-walking" ? getWalkingTitleYs(lines.length, itemLineWidth) : [];
+                const walkingSubtitleY = walkingTitleYs.length
+                    ? walkingTitleYs[walkingTitleYs.length - 1] + WALKING_SUBTITLE_GAP_RATIO * itemLineWidth
+                    : 0;
+
+                return (
+                    <g key={`${item.kind}-${index}`} transform={`translate(0, ${itemCenters[index]})`}>
+                        <rect
+                            x={-stackWidth / 2}
+                            y={-itemHeights[index] / 2}
+                            width={stackWidth}
+                            height={itemHeights[index]}
+                            fill={item.color[2]}
+                        />
+
+                        <g
+                            ref={(el) => {
+                                textRefs.current[index] = el;
+                            }}
+                            fill={item.color[3]}
+                            textAnchor="middle"
+                        >
+                            {item.kind === "filled-walking" ? (
+                                <>
+                                    {lines.map((line, lineIndex) => (
+                                        <text
+                                            key={`${line}-${lineIndex}`}
+                                            {...getLangStyle(TextLanguage.tube)}
+                                            y={walkingTitleYs[lineIndex]}
+                                            fontSize={titleFontSize}
+                                            dominantBaseline="central"
+                                        >
+                                            {line}
+                                        </text>
+                                    ))}
+                                    <text
+                                        {...getLangStyle(TextLanguage.tube)}
+                                        y={walkingSubtitleY}
+                                        fontSize={subtitleFontSize}
+                                        dominantBaseline="central"
+                                    >
+                                        {subtitle}
+                                    </text>
+                                </>
+                            ) : lines.length > 1 ? (
+                                <>
+                                    <text
+                                        {...getLangStyle(TextLanguage.tube)}
+                                        y={-DOUBLE_LINE_CENTER_OFFSET_RATIO * itemLineWidth}
+                                        fontSize={titleFontSize}
+                                        dominantBaseline="central"
+                                    >
+                                        {lines[0]}
+                                    </text>
+                                    <text
+                                        {...getLangStyle(TextLanguage.tube)}
+                                        y={DOUBLE_LINE_CENTER_OFFSET_RATIO * itemLineWidth}
+                                        fontSize={titleFontSize}
+                                        dominantBaseline="central"
+                                    >
+                                        {lines[1]}
+                                    </text>
+                                </>
+                            ) : (
+                                <text
+                                    {...getLangStyle(TextLanguage.tube)}
+                                    y={0}
+                                    fontSize={titleFontSize}
+                                    dominantBaseline="central"
+                                >
+                                    {lines[0] ?? ""}
+                                </text>
+                            )}
+                        </g>
+                    </g>
+                );
+            })}
+
+            <rect
+                id={`misc_node_connectable_${id}`}
+                x={-stackWidth / 2}
+                y={-totalHeight / 2}
+                width={stackWidth}
+                height={totalHeight}
+                fill="transparent"
+            />
+        </g>
+    );
+};
+
+const londonTubeLineBadge: Node<LondonTubeLineBadgeAttributes> = {
+    component: LondonTubeLineBadge,
+    defaultAttrs: defaultLondonTubeLineBadgeAttributes,
+};
+
+export type { LondonTubeLineBadgeAttributes } from "./london-tube-line-badge-utils";
+export default londonTubeLineBadge;

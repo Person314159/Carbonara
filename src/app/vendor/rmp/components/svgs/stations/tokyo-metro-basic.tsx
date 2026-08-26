@@ -78,7 +78,7 @@ export const TokyoMetroBasicSvg = (props: TokyoMetroBasicSvgProps) => {
 };
 
 const TokyoMetroBasicStation = (props: StationComponentProps) => {
-    const { id, x, y, attrs } = props;
+    const { attrs } = props;
     const {
         names = defaultStationAttributes.names,
         nameOffsetX = defaultTokyoMetroBasicStationAttributes.nameOffsetX,
@@ -106,7 +106,7 @@ const TokyoMetroBasicStation = (props: StationComponentProps) => {
     const textAnchor = nameOffsetX === "left" ? "end" : nameOffsetX === "right" ? "start" : "middle";
 
     return (
-        <g id={id} transform={`translate(${x}, ${y})`}>
+        <g>
             <TokyoMetroBasicSvg lineCode={lineCode} stationCode={stationCode} color={color} />
             <g textAnchor={textAnchor} className="rmp-name-outline" strokeWidth="1">
                 {!textVertical ? (

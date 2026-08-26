@@ -60,7 +60,25 @@ export type NodeId = StnId | MiscNodeId;
 export type Id = NodeId | LineId;
 
 export enum CityCode {
+    Other = "other",
     Beijing = "beijing",
+    Berlin = "berlin",
+    Chongqing = "chongqing",
+    Chengdu = "chengdu",
+    Foshan = "foshan",
+    Guangzhou = "guangzhou",
+    Hongkong = "hongkong",
+    Kunming = "kunming",
+    London = "london",
+    Osaka = "osaka",
+    Qingdao = "qingdao",
     Shanghai = "shanghai",
+    Shenzhen = "shenzhen",
+    Singapore = "singapore",
+    Suzhou = "suzhou",
+    Taipei = "taipei",
     Tokyo = "tokyo",
+    Wuhan = "wuhan",
+    Changsha = "changsha",
+    Hangzhou = "hangzhou",
 }

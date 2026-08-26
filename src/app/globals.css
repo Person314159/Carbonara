@@ -46,6 +46,26 @@
     src: url(./fonts/Mplus2-Medium.otf) format("opentype");
 }
 
+@font-face {
+    font-family: "Railway";
+    src: url(./fonts/Railway-PlyE.otf) format("opentype");
+}
+
+@font-face {
+    font-family: "LTAIdentity";
+    src: url(./fonts/LTAIdentity-Medium.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url(./fonts/Roboto-Bold.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Taipei Sans TC Beta";
+    src: url(./fonts/TaipeiSansTCBeta-Regular.ttf) format("truetype");
+}
+
 .mantine-InputBase-input,
 .mantine-MultiSelect-input {
     @apply w-full appearance-none rounded-lg border-2 border-solid border-(--colour-border) bg-(--colour-background-alt-dark) p-3 text-(length:--font-size-base)/(--line-height-normal) text-(--colour-text-dark) transition-all duration-(--transition-fast) ease-out hover:transform-[translateY(-1px)] hover:border-(--colour-primary) hover:bg-(--colour-background-dark) hover:text-(--colour-text-dark) focus:transform-[translateY(-1px)] focus:border-(--colour-primary) focus:bg-(--colour-background-dark) focus:shadow-md focus:outline-none;
@@ -81,7 +101,8 @@
 
    The exception is Antarctica, where white-on-ice is very low contrast at high underlay
    opacity. Giving the text a dark stroke here instead of none would fix that. */
-.rmp-name-outline text {
+.rmp-name-outline text,
+text.rmp-name-outline {
     fill: #ffffff;
     stroke: none;
 }

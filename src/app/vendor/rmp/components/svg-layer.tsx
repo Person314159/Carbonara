@@ -94,7 +94,11 @@ const SvgLayer = React.memo(
 
                 if (PreStationComponent) {
                     layers[element.station!.zIndex].pre.push(
-                        <g key={`${element.id}.pre`} className={glowClass}>
+                        <g
+                            key={`${element.id}.pre`}
+                            transform={`translate(${attr.x}, ${attr.y})`}
+                            className={glowClass}
+                        >
                             <PreStationComponent id={element.id as StnId} x={attr.x} y={attr.y} attrs={attr} />
                         </g>
                     );
@@ -103,7 +107,12 @@ const SvgLayer = React.memo(
                 const StationComponent = allStations[type]?.component ?? UnknownNode;
 
                 layers[element.station!.zIndex].main.push(
-                    <g key={element.id} className={glowClass}>
+                    <g
+                        key={element.id}
+                        id={element.id}
+                        transform={`translate(${attr.x}, ${attr.y})`}
+                        className={glowClass}
+                    >
                         <StationComponent id={element.id as StnId} x={attr.x} y={attr.y} attrs={attr} />
                     </g>
                 );
@@ -112,7 +121,11 @@ const SvgLayer = React.memo(
 
                 if (PostStationComponent) {
                     layers[element.station!.zIndex].post.push(
-                        <g key={`${element.id}.post`} className={glowClass}>
+                        <g
+                            key={`${element.id}.post`}
+                            transform={`translate(${attr.x}, ${attr.y})`}
+                            className={glowClass}
+                        >
                             <PostStationComponent id={element.id as StnId} x={attr.x} y={attr.y} attrs={attr} />
                         </g>
                     );
@@ -127,7 +140,11 @@ const SvgLayer = React.memo(
 
                 if (PreMiscNodeComponent) {
                     layers[element.miscNode!.zIndex].pre.push(
-                        <g key={`${element.id}.pre`} className={glowClass}>
+                        <g
+                            key={`${element.id}.pre`}
+                            transform={`translate(${attr.x}, ${attr.y})`}
+                            className={glowClass}
+                        >
                             <PreMiscNodeComponent
                                 id={element.id as MiscNodeId}
                                 x={attr.x}
@@ -142,7 +159,12 @@ const SvgLayer = React.memo(
                 const MiscNodeComponent = miscNodes[type]?.component ?? UnknownNode;
 
                 layers[element.miscNode!.zIndex].main.push(
-                    <g key={element.id} className={glowClass}>
+                    <g
+                        key={element.id}
+                        id={element.id}
+                        transform={`translate(${attr.x}, ${attr.y})`}
+                        className={glowClass}
+                    >
                         <MiscNodeComponent
                             id={element.id as MiscNodeId}
                             x={attr.x}
@@ -157,7 +179,11 @@ const SvgLayer = React.memo(
 
                 if (PostMiscNodeComponent) {
                     layers[element.miscNode!.zIndex].post.push(
-                        <g key={`${element.id}.post`} className={glowClass}>
+                        <g
+                            key={`${element.id}.post`}
+                            transform={`translate(${attr.x}, ${attr.y})`}
+                            className={glowClass}
+                        >
                             <PostMiscNodeComponent
                                 id={element.id as MiscNodeId}
                                 x={attr.x}

@@ -31,13 +31,10 @@ export interface ClosePath {
 
 /** Drawable commands allowed after the initial `M` in an open path. */
 export type OpenPathDrawCommand = LineTo | CubicTo;
-
 /** Minimal SVG command subset used by RailMapPainter path utilities. */
 export type PathCommand = MoveTo | OpenPathDrawCommand | ClosePath;
-
 /** Any open SVG path command stream supported by the structured model: `M` followed by one or more `L`/`C` draws. */
 export type OpenPathCommands = readonly [MoveTo, OpenPathDrawCommand, ...OpenPathDrawCommand[]];
-
 /** Multi-segment open SVG path command stream: `M` followed by at least two `L`/`C` draws. */
 export type MultiSegmentOpenPathCommands = readonly [
     MoveTo,
@@ -45,10 +42,8 @@ export type MultiSegmentOpenPathCommands = readonly [
     OpenPathDrawCommand,
     ...OpenPathDrawCommand[],
 ];
-
 /** Closed subpath command stream: `M`, one or more draws, then `Z`. */
 export type ClosedSubpathCommands = readonly [MoveTo, OpenPathDrawCommand, ...OpenPathDrawCommand[], ClosePath];
-
 /** Compound closed path command stream with one or more `M ... Z` subpaths serialized in sequence. */
 export type CompoundClosedAreaCommands = readonly [MoveTo, OpenPathDrawCommand, ...PathCommand[]];
 
@@ -118,6 +113,7 @@ export const closePath = (): ClosePath => ({ cmd: "Z" });
 
 /** Keep number stringification in one place so every serialized path uses the same formatting. */
 const formatNumber = (value: number) => `${value}`;
+
 /** Convert a structured command back into the corresponding SVG `d` fragment. */
 const serializeCommand = (command: PathCommand): string => {
     switch (command.cmd) {
@@ -133,6 +129,7 @@ const serializeCommand = (command: PathCommand): string => {
             return "Z";
     }
 };
+
 /** Build a path object once so `kind`, `commands`, and serialized `d` never drift apart. */
 const makeBasePath = <TKind extends Path["kind"], TCommands extends readonly PathCommand[]>(
     kind: TKind,
@@ -170,3 +167,22 @@ export const makeClosedAreaPath = (commands: readonly [...MultiSegmentOpenPathCo
 /** Close an existing open outline by appending `Z` without rebuilding its drawable commands. */
 export const makeClosedAreaPathFromOpenCommands = (commands: MultiSegmentOpenPathCommands): ClosedAreaPath =>
     makeClosedAreaPath([...commands, closePath()] as const);
+
+/** Serialize a list of closed subpaths into one SVG `d` while keeping subpath boundaries explicit. */
+export const makeCompoundClosedAreaPath = (
+    subpaths: readonly [ClosedSubpathCommands, ...ClosedSubpathCommands[]]
+): CompoundClosedAreaPath => {
+    const commands = subpaths.flat() as unknown as CompoundClosedAreaCommands;
+    return {
+        kind: "compound-closed-area",
+        subpaths,
+        commands,
+        d: commands.map(serializeCommand).join(" "),
+    };
+};
+
+export const makeEmptyOpenPath = (): EmptyOpenPath => ({
+    kind: "empty-open",
+    commands: [] as const,
+    d: "",
+});

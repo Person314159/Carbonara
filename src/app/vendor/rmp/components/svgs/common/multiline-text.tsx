@@ -1,3 +1,4 @@
+import { NameOffsetY } from "@/app/vendor/rmp/constants/stations";
 import React from "react";
 
 interface MultilineTextProps extends React.SVGProps<SVGTextElement> {
@@ -46,3 +47,39 @@ export const MultilineText = React.forwardRef((props: MultilineTextProps, ref: R
 // Display component name in debugging.
 // Required by eslint react/display-name.
 MultilineText.displayName = "MultilineText";
+
+/**
+ * This is the default const of name height in different languages.
+ */
+export const LINE_HEIGHT = {
+    zh: 16,
+    en: 10,
+};
+
+/**
+ * This is the default const of name dy calculation.
+ * It is suitable for names that has 2 elements with 16px/10px font size.
+ */
+export const NAME_DY: {
+    [key in NameOffsetY]: {
+        namesPos: number; // index of the names we need to calculate dy
+        lineHeight: number;
+        polarity: -1 | 0 | 1; // in which direction
+    };
+} = {
+    top: {
+        namesPos: 1,
+        lineHeight: LINE_HEIGHT.en,
+        polarity: -1,
+    },
+    middle: {
+        namesPos: 0,
+        lineHeight: 0,
+        polarity: 0,
+    },
+    bottom: {
+        namesPos: 0,
+        lineHeight: LINE_HEIGHT.zh,
+        polarity: 1,
+    },
+};

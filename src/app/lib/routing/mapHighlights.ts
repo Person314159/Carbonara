@@ -3,19 +3,7 @@ import MapData from "@/app/lib/RMP.json";
 import { LegProp } from "@/app/lib/interfaces";
 
 type RMPNodeAttributeValue =
-    | string
-    | number
-    | boolean
-    | string[]
-    | null
-    | undefined
-    | { [key: string]: RMPNodeAttributeValue };
-
-type RMPGraphNodeAttributes = {
-    type?: string;
-    x?: number;
-    y?: number;
-} & Record<string, RMPNodeAttributeValue>;
+    string | number | boolean | string[] | null | undefined | { [key: string]: RMPNodeAttributeValue };
 
 type RMPStyleAttr = { color?: string[] | string } & Record<string, string | string[] | undefined>;
 
@@ -28,16 +16,29 @@ type RMPGraphEdge = {
 
 const stationsByName = new Map(networkData.stations.map((station) => [station.name, station]));
 
+/**
+ * The station name a node carries, or undefined if it is not a station.
+ *
+ * A node is a station when its type-keyed attributes hold a `names` array; the map also carries
+ * virtual and facility nodes, and virtual ones drawn purely as decoration, none of which have one.
+ * `names[1]` is the list of lines calling there, not another name, so only the first is read.
+ */
+function stationNameOf(node: { attributes: Record<string, unknown> }): string | undefined {
+    const typeAttrs = node.attributes[node.attributes.type as string] as { names?: string[] } | undefined;
+    const name = typeAttrs?.names?.[0];
+
+    return typeof name === "string" && name ? name : undefined;
+}
+
 MapData.graph.nodes.forEach((node) => {
-    const nodeType = node.attributes.type as keyof typeof node.attributes;
+    const name = stationNameOf(node);
 
-    if (nodeType !== "virtual" && nodeType !== "facilities") {
-        // @ts-expect-error TS can't narrow node.attributes[nodeType] to a station-typed value after excluding "virtual"/"facilities"
-        const station = stationsByName.get(node.attributes[nodeType]!.names[0]);
+    if (name === undefined) return;
 
-        if (station === undefined) console.log("Station not defined in network data:", JSON.stringify(node));
-        else station.coordinate = [node.attributes.x, node.attributes.y];
-    }
+    const station = stationsByName.get(name);
+
+    if (station === undefined) console.log("Station not defined in network data:", JSON.stringify(node));
+    else station.coordinate = [node.attributes.x, node.attributes.y];
 });
 
 const stationNameToNodeKeys = new Map<string, string[]>();
@@ -46,20 +47,14 @@ const edges = (MapData.graph.edges as RMPGraphEdge[]) ?? [];
 const stationNodes = MapData.graph.nodes ?? [];
 
 for (const node of stationNodes) {
-    const attributes = node.attributes as RMPGraphNodeAttributes;
+    const name = stationNameOf(node);
 
-    for (const value of Object.values(attributes)) {
-        const namedValue = value as { names?: string[] };
+    if (name === undefined) continue;
 
-        if (typeof value === "object" && value !== null && Array.isArray(namedValue.names)) {
-            for (const name of namedValue.names as string[]) {
-                const keys = stationNameToNodeKeys.get(name) ?? [];
+    const keys = stationNameToNodeKeys.get(name) ?? [];
 
-                if (!keys.includes(node.key)) keys.push(node.key);
-                stationNameToNodeKeys.set(name, keys);
-            }
-        }
-    }
+    if (!keys.includes(node.key)) keys.push(node.key);
+    stationNameToNodeKeys.set(name, keys);
 }
 
 for (const stationNameToNodeKey of stationNameToNodeKeys) {

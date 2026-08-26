@@ -91,8 +91,8 @@ function extractLineColour(value: AttrValue): string | null {
     return null;
 }
 
-function isStationType(type: unknown): type is "tokyo-metro-basic" | "tokyo-metro-int" {
-    return type === "tokyo-metro-basic" || type === "tokyo-metro-int";
+function isStationType(type: unknown): type is "suzhourt-basic" {
+    return type === "suzhourt-basic";
 }
 
 function getNames(value: AttrValue): AttrValue[] | null {
@@ -103,10 +103,28 @@ function getNames(value: AttrValue): AttrValue[] | null {
     return null;
 }
 
+// `names` holds two different things: [0] is the station name, [1] is the list of lines calling
+// there ("T01 N32 N40 N58 HPU"). Only the first is a name, so anything matching nodes to
+// networkData stations has to read that one and leave the label alone.
+function getStationName(value: AttrValue): string | null {
+    const names = getNames(value);
+    const name = names?.[0];
+
+    return typeof name === "string" && name ? name : null;
+}
+
+function getLineLabel(value: AttrValue): string | null {
+    const names = getNames(value);
+    const label = names?.[1];
+
+    return typeof label === "string" ? label : null;
+}
+
 const networkColourToLines = new Map<string, string[]>();
 const networkLineIds = new Set<string>();
 const networkStationNames = new Set<string>();
 const lineColourMap = new Map<string, string>();
+const lineTypeMap = new Map<string, string>();
 const colourReport = new Reporter();
 
 for (const line of networkData.lines ?? []) {
@@ -119,6 +137,7 @@ for (const line of networkData.lines ?? []) {
 
     networkLineIds.add(line.id);
     lineColourMap.set(line.id, colour);
+    lineTypeMap.set(line.id, line.type);
     networkColourToLines.set(colour, [...(networkColourToLines.get(colour) ?? []), line.id]);
 }
 
@@ -141,18 +160,14 @@ for (const node of rmpData.graph?.nodes ?? []) {
     if (typeof node.key !== "string") continue;
 
     for (const value of Object.values(node.attributes ?? {})) {
-        const names = getNames(value ?? null);
+        const name = getStationName(value ?? null);
 
-        if (!names) continue;
+        if (!name) continue;
 
-        for (const name of names) {
-            if (typeof name === "string" && name) {
-                const existing = stationNameToNodeKeys.get(name) ?? [];
+        const existing = stationNameToNodeKeys.get(name) ?? [];
 
-                if (!existing.includes(node.key)) existing.push(node.key);
-                stationNameToNodeKeys.set(name, existing);
-            }
-        }
+        if (!existing.includes(node.key)) existing.push(node.key);
+        stationNameToNodeKeys.set(name, existing);
     }
 }
 
@@ -277,52 +292,18 @@ function scanNode(node: RMPNode, report: Reporter) {
         return;
     }
 
-    if (type === "tokyo-metro-basic") {
+    // Station colour and labels are checked against networkData in checkStationColours and
+    // checkStationLineCodes; here only the shape of the attributes is.
+    if (isStationType(type)) {
         const typeAttrs = attributes[type];
-        const color =
-            typeAttrs && typeof typeAttrs === "object" && !Array.isArray(typeAttrs) ? typeAttrs.color : undefined;
-        const lineColour = extractLineColour(color ?? null);
+        const names = getNames(typeAttrs ?? null);
 
-        if (!lineColour) {
-            report.warn(`Node ${key} has no line colour`);
-        } else if (networkColourToLines.has(lineColour)) {
-            foundNetworkColours.add(lineColour);
+        if (!names) {
+            report.error(`Station node ${key} has no names array`);
         } else {
-            report.error(`Node ${key} uses unknown colour ${lineColour}`);
-        }
-    }
-
-    if (type === "tokyo-metro-int") {
-        const typeAttrs = attributes[type];
-        const transfers =
-            typeAttrs && typeof typeAttrs === "object" && !Array.isArray(typeAttrs) ? typeAttrs.transfer : undefined;
-
-        if (!Array.isArray(transfers) || transfers.length === 0) {
-            report.warn(`Node ${key} has no transfers`);
-        } else {
-            for (const row of transfers) {
-                const lineColour = extractLineColour(row);
-
-                if (!lineColour) {
-                    report.warn(`Node ${key} transfer missing colour`);
-                } else if (networkColourToLines.has(lineColour)) {
-                    foundNetworkColours.add(lineColour);
-                } else {
-                    report.error(`Node ${key} transfer uses unknown colour ${lineColour}`);
-                }
-            }
-        }
-    }
-
-    for (const value of Object.values(attributes)) {
-        const names = getNames(value ?? null);
-
-        if (!names) continue;
-
-        for (const name of names) {
-            if (typeof name !== "string" || !name) {
-                report.error(`Node ${key} invalid station name`);
-            }
+            if (!getStationName(typeAttrs ?? null)) report.error(`Node ${key} has an invalid station name`);
+            if (getLineLabel(typeAttrs ?? null) === null)
+                report.error(`Node ${key} has an invalid line label (names[1])`);
         }
     }
 }
@@ -374,6 +355,11 @@ function scanEdge(edge: RMPEdge, report: Reporter) {
     if (typeof style !== "string") {
         report.error(`Edge ${key} missing style`);
     }
+
+    // `shmetro-virtual-int` runs are drawn to look like an interchange between two stations and
+    // carry no colour. They say nothing about the network, so they stay out of the colour graphs
+    // the topology checks are built on.
+    if (style === "shmetro-virtual-int") return;
 
     const styleAttrs = typeof style === "string" ? attributes[style] : undefined;
 
@@ -950,74 +936,119 @@ const hsrTimingReport = new Reporter();
 
 checkHSRConnectionTimesMatchPaths(hsrTimingReport);
 
+// The lines calling at a station are written into its label, `names[1]`, as a space-separated list
+// of line ids: Vancouver reads "T01 N32 N40 N58 HPU". The order is a convention rather than a
+// rendering detail — T lines, then the rest of the LSR network, then HSR, lexicographic within each
+// group — so it is asserted here, which is the only place it is written down.
+function orderLineIds(lineIds: Iterable<string>): string[] {
+    const group = (id: string) => (id.startsWith("T") ? 0 : lineTypeMap.get(id) === "HSR" ? 2 : 1);
+
+    return [...lineIds].sort((a, b) => group(a) - group(b) || a.localeCompare(b));
+}
+
 function checkStationLineCodes(report: Reporter) {
     for (const node of rmpData.graph?.nodes ?? []) {
         const { key, attributes } = node;
 
-        if (!attributes) continue;
+        if (!attributes || !isStationType(attributes.type)) continue;
 
-        const type = attributes.type;
+        const typeAttrs = attributes[attributes.type];
+        const name = getStationName(typeAttrs ?? null);
+        const label = getLineLabel(typeAttrs ?? null);
 
-        if (type !== "tokyo-metro-basic" && type !== "tokyo-metro-int") continue;
+        if (!name || label === null) continue; // malformed — already reported by scanNode
 
-        const typeAttrs = attributes[type];
+        const expectedLines = stationToLines.get(name);
 
-        if (!typeAttrs || typeof typeAttrs !== "object" || Array.isArray(typeAttrs)) continue;
+        if (!expectedLines) continue; // unknown station — already caught by checkNetworkStations
 
-        const names = typeAttrs.names;
+        const labelled = label.split(/\s+/).filter(Boolean);
+        const labelledSet = new Set(labelled);
 
-        if (!Array.isArray(names) || names.length === 0) continue;
-
-        const rmpLineIds = new Set<string>();
-
-        if (type === "tokyo-metro-basic") {
-            const { lineCode, stationCode } = typeAttrs;
-
-            if (typeof lineCode === "string" && typeof stationCode === "string") {
-                rmpLineIds.add(lineCode + stationCode);
-            } else {
-                report.warn(`Node ${key} (${String(names[0])}) missing lineCode or stationCode`);
-            }
-        } else {
-            // transfer is an array of rows; each row is an array of items;
-            // each item is an array where index 4 = lineCode, index 5 = stationCode
-            for (const row of Array.isArray(typeAttrs.transfer) ? typeAttrs.transfer : []) {
-                if (!Array.isArray(row)) continue;
-
-                for (const item of row) {
-                    if (!Array.isArray(item)) continue;
-
-                    const lineCode = item[4];
-                    const stationCode = item[5];
-
-                    if (typeof lineCode === "string" && typeof stationCode === "string") {
-                        rmpLineIds.add(lineCode + stationCode);
-                    }
-                }
-            }
+        for (const lineId of expectedLines) {
+            if (!labelledSet.has(lineId))
+                report.error(`Node ${key} station "${name}" is missing line ${lineId} from networkData`);
         }
 
-        for (const name of names) {
-            if (typeof name !== "string" || !name) continue;
-
-            const expectedLines = stationToLines.get(name);
-
-            if (!expectedLines) continue; // unknown station — already caught by checkNetworkStations
-
-            for (const lineId of expectedLines) {
-                if (!rmpLineIds.has(lineId))
-                    report.error(`Node ${key} station "${name}" is missing line ${lineId} from networkData`);
+        for (const lineId of labelledSet) {
+            if (!networkLineIds.has(lineId)) {
+                report.error(`Node ${key} station "${name}" is labelled with unknown line ${lineId}`);
+                continue;
             }
 
-            for (const lineId of rmpLineIds) {
-                if (!networkLineIds.has(lineId)) continue; // unknown line — already reported elsewhere
+            if (!expectedLines.has(lineId))
+                report.error(`Node ${key} station "${name}" has extra line ${lineId} not in networkData`);
+        }
 
-                if (!expectedLines.has(lineId))
-                    report.error(`Node ${key} station "${name}" has extra line ${lineId} not in networkData`);
-            }
+        if (labelled.length !== labelledSet.size)
+            report.error(`Node ${key} station "${name}" repeats a line in its label: "${label}"`);
+
+        const expectedLabel = orderLineIds(expectedLines).join(" ");
+
+        if (labelledSet.size === expectedLines.size && label !== expectedLabel)
+            report.error(
+                `Node ${key} station "${name}" lists the right lines in the wrong order: ` +
+                    `"${label}" should read "${expectedLabel}" (T lines, then LSR, then HSR, lexicographic within each)`
+            );
+    }
+}
+
+// A station is drawn in the colour of the line it sits on, and black once more than one line calls
+// there. That is the whole convention, and it is worth asserting because nothing about the map
+// enforces it: a station recoloured by hand, or left behind when a line changed colour, still
+// renders — it just quietly tells the reader the wrong thing.
+const INTERCHANGE_COLOUR = "#000000";
+
+function checkStationColours(report: Reporter) {
+    for (const node of rmpData.graph?.nodes ?? []) {
+        const { key, attributes } = node;
+
+        if (!attributes || !isStationType(attributes.type)) continue;
+
+        const typeAttrs = attributes[attributes.type];
+        const name = getStationName(typeAttrs ?? null);
+
+        if (!name) continue; // malformed — already reported by scanNode
+
+        const lines = stationToLines.get(name);
+
+        if (!lines || lines.size === 0) continue; // unknown station — already caught by checkNetworkStations
+
+        const colour = extractLineColour(typeAttrs ?? null);
+
+        if (!colour) {
+            report.error(`Node ${key} station "${name}" has no colour`);
+            continue;
+        }
+
+        if (lines.size > 1) {
+            if (colour !== INTERCHANGE_COLOUR)
+                report.error(
+                    `Node ${key} station "${name}" is an interchange (${orderLineIds(lines).join(", ")}) ` +
+                        `so it should be ${INTERCHANGE_COLOUR}, not ${colour}`
+                );
+            continue;
+        }
+
+        const [only] = lines;
+        const lineColour = lineColourMap.get(only);
+
+        if (!lineColour) continue; // invalid line colour — already reported by colourReport
+
+        if (colour === lineColour) {
+            foundNetworkColours.add(colour);
+        } else {
+            report.error(
+                `Node ${key} station "${name}" is served only by ${only}, whose colour is ${lineColour}, ` +
+                    `but the station is drawn ${colour}`
+            );
         }
     }
 }
+
+const stationColoursReport = new Reporter();
+
+checkStationColours(stationColoursReport);
 
 const stationLineCodesReport = new Reporter();
 
@@ -1088,6 +1119,10 @@ describe("networkData.json / RMP.json consistency", () => {
 
     it("timed HSR connections have a fully-built (non-dotted) RMP path", () => {
         expectNoErrors(hsrTimingReport);
+    });
+
+    it("station colours follow their line, and interchanges are black", () => {
+        expectNoErrors(stationColoursReport);
     });
 
     it("RMP station line codes match networkData connections", () => {
