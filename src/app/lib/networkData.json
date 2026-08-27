@@ -4837,7 +4837,8 @@
         {
             "from": "San Jose",
             "to": "Del Norte",
-            "lineID": "N03"
+            "lineID": "N03",
+            "time": 35
         },
         {
             "from": "San Jose",
