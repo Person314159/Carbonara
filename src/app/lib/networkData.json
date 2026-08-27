@@ -249,7 +249,7 @@
         {
             "id": "E18",
             "name": "Breizh Line",
-            "colour": "#662c91",
+            "colour": "#f78f4b",
             "type": "LSR"
         },
         {
@@ -578,7 +578,7 @@
         },
         {
             "id": "N03",
-            "name": "N03",
+            "name": "Ender Line",
             "colour": "#fca3d6",
             "type": "LSR"
         },
@@ -3172,12 +3172,14 @@
         {
             "from": "Shanghai",
             "to": "Nanjing",
-            "lineID": "A10"
+            "lineID": "A10",
+            "time": 50
         },
         {
             "from": "Nanjing",
             "to": "Zibo",
-            "lineID": "A10"
+            "lineID": "A10",
+            "time": 55
         },
         {
             "from": "Zibo",
@@ -4833,7 +4835,7 @@
             "time": 25
         },
         {
-            "from": "Tracy Industrial Area",
+            "from": "San Jose",
             "to": "Del Norte",
             "lineID": "N03"
         },
